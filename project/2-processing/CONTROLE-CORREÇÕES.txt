@@ -1,0 +1,13 @@
+flutuadores iniciais
+pos(m) flut(kg)
+[5, 9][500, 300]
+
+primeira tentativa
+pos(m) flut(kg)
+[5, 9][381+100+104, 101+100]
+[5, 9][586, 201]
+
+segunda tentativa
+pos(m) flut(kg)
+[5, 9][381+104, 155+104]
+[5, 9][485, 259]

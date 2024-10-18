@@ -1,0 +1,10 @@
+{
+    "dict_linha":{"ID da Linha":"WSI 152.2547-RD-4042-X","Revisao":"2","Peso vazio no ar [kg/m]":"106.58","Peso cheio no ar [kg/m]":"126.39","Peso vazio na agua [kg/m]":"54.46","Peso cheio na agua [kg/m]":"74.27","LDA [m]":"2301","Diametro de contato [mm]":"254.4","Diametro nominal [\"]":"6","MBR storage [m]":"1.67","MBR installation [m]":"2.51","Bending Stiffness [kN.m²]":"20.47","Torsional Stiffness [kN.m²]":"1072","Axial Stiffness [kN]":"252293","Rel. Elong. (%) for 100kN":"0.039636"},
+    "dict_vertebra":{"ID da Vertebra":"CB-BR1522543-00-01","Revisao":"1","Material da vertebra":"Aço","Comprimento [mm]":"4210","Peso vazio no ar [kg]":"1178","Peso vazio na agua [kg]":"1024.9","OD [mm]":"305","ID [mm]":"280","Diametro de contato [mm]":"544","MBR travamento [m]":"2.86","MF Admissivel [kN.m]":"57","Cortante Adm. [kN]":"43"},
+    "dict_conector":{"ID do Conector":"CB-EF1522543-00-04","Revisao":"2","Peso vazio no ar [kg]":"2600","Peso vazio na agua [kg]":"2262","Comprimento [mm]":"1791","OD [mm]":"254","ID [mm]":"152.4","Diametro de contato [mm]":"480"},
+    "dict_flange":{"ID do Adaptador":"","Revisao":"","Peso vazio no ar [kg]":"","Peso vazio na agua [kg]":"","Comprimento [mm]":"","OD [mm]":"","ID [mm]":"","Diametro de contato [mm]":""},
+    "dict_mcv":{"Equipamento submarino":"FD-3A00.00-1514-276-PEK-001","Revisao":"D","Fornecedor":"TechnipFMC","ID do Projeto":"P70000048060","Tipo de Equipamento":"Manifold","Peso submerso [kgf]":"5043","Ângulo de inclinaçao [°]":"60","A [mm]":"3810","B [mm]":"502","C [mm]":"907","D [mm]":"681","E [mm]":"864","F [mm]":"2037","G [mm]":"839"},
+    "list_histerese":[[0,0.0072,0.0159,0.0262,0.038,0.0514,0.0664,0.0829,0.101,0.1207,0.1419,0.1646,0.189,0.2148,0.2423,0.2713,0.3018,0.3339,0.3676,0.4029,0.4396,0.478,0.5179,0.5594,0.6024,0.5881,0.5706],[0,411,755,1161,1628,2156,2746,3397,4110,4884,5720,6617,7576,8596,9677,10820,12025,13291,14618,16007,17457,18968,20542,22176,23872,23050,22362]],
+    "list_batimetria":[[0,5,10,15],[3810,3810,3810,3810]],
+    "list_flutuadores":[[],[]],
+    "vessel":"cda"}

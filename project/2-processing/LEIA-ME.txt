@@ -1,0 +1,21 @@
+extract
+
+	Responsável por extrair os dados dos arquivos json (inputs dos usuários)
+	Responsável por extrair os dados dos arquivos json (flutuadores disponíveis)
+
+methods
+
+	Responsável por tratar os dados recebidos
+	Responsável por gerar novas variáveis
+
+orca
+
+	Responsável pela modelagem no OrcaFlex
+
+simulation
+
+	Responsável pela automação da análise
+
+pasta json
+
+	Contém os arquivos json com os inputs dos usuários

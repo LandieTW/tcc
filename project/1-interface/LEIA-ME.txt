@@ -1,0 +1,11 @@
+Imagem da dragagem e index da tabela como letras para o usuário se guiar no preenchimento da batimetria.
+
+Redução para 40 pts da curva de rigidez.
+Adicionar majoração/redução (%) de rigidez.
+
+Histórico de tentativas da ferramenta.
+
+(((PERMITIR AO USUÁRIO ESCOLHER O HEAVE UP INICIAL)))
+(((CONVERSAR COM OS SUPERIORES SOBRE AS CONDIÇÕES DA ET)))
+
+Na etapa de revisão, permitir ao usuário (revisor) revisar os dados na tab review e enviar para o outro usuário os seus comentários.

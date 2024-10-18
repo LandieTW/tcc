@@ -1,0 +1,949 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import numpy as np
+import OrcFxAPI as orca
+import matplotlib.pyplot as plt
+import matplotlib.patches as patches
+from matplotlib.path import Path
+
+##################################INICIO INPUT#################################
+
+# Caminho do ficheiro da analise estatica
+filename_static = r'Estatico.sim'
+
+# Nome do arquivo a ser gerado
+pngname = r'estatico.png'
+
+#Apenas movimentar cotas se necessario
+
+# Ligar os eixos para ter melhor sensibilidade de quanto deseja movimentar
+# Desligar os eixos apos posicionamento das cotas
+turn_axes_on = False
+
+# Aumentar a janela de visualização grafica [m]
+x_min_lim = 0.0
+x_max_lim = 0.0
+z_min_lim = 0.0
+z_max_lim = 0.0
+
+# Cota de distancia da linha ao solo [m]
+mov_z_1 = 0.0 # Movimentar em Z [texto]
+mov_x_1 = 0.0 # Movimentar em X [cota]
+
+# Cota de distancia da flange do MCV ao solo [m]
+mov_z_2 = -0.5 # Movimentar em Z [texto]
+mov_x_2 = 0.0 # Movimentar em X [cota]
+
+# Cota do comprimento de linha da flange ao ponto minimo da linha [m]
+mov_x_3 = -2.5 # Movimentar em X [texto]
+mov_z_3 = 0.5 # Movimentar em Z [texto]
+
+# Cota do comprimento do ponto minimo da linha ao outro lado da flange [m]
+mov_x_4 = 1.5 # Movimentar em X [texto]
+mov_z_4 = 0.0 # Movimentar em Z [texto]
+
+# Cota horizontal da flange ao outro lado do duto [m]   
+mov_x_5 = 0.0 # Movimentar em X [texto]
+mov_z_5 = 0.0 # Movimentar em Z [cota]
+
+# Cota horizontal da flange ao outro lado do duto e acima [m]
+mov_x_6 = 0.0 # Movimentar em X [texto]
+mov_z_6 = 0.0 # Movimentar em Z [cota]
+
+# Cota horizontal da flange 'a distancia minima ao solo marinho [m]
+mov_x_7 = 0.0 # Movimentar em X [texto]
+mov_z_7 = 0.0 # Movimentar em Z [cota]
+
+# Cota da catenaria do ponto no duto que esta do outro lado da flange ate a acima da flange do mcv [m]
+mov_x_8 = 0.5 # Movimentar em X [texto]
+mov_z_8 = 0.0 # Movimentar em Z [texto]
+
+# Cota vertical do ponto no duto que esta do outro lado da flange ate a acima da flange do mcv
+mov_x_9 = 0.5 # Movimentar em X [cota]
+mov_z_9 = 0.0 # Movimentar em Z [texto]
+
+# Texto da descrição de flutuadores em relação ao da esquerda [m]
+mov_x_10 = 0.0 # Movimentar em X
+mov_z_10 = 0.0 # Movimentar em Z
+
+# Cota de distancia do flange à dragagem
+mov_x_11 = 0.0 # Movimentar em X [texto]
+mov_z_11 = 0.0 # Movimentar em Z [cota]
+
+# Cota de comprimento da dragagem
+mov_x_12 = 0.0 # Movimentar em X [texto]
+mov_z_12 = 0.0 # Movimentar em Z [cota]
+
+# Cota de profundidade da dragagem
+mov_x_13 = 4.0 # Movimentar em X [cota]
+mov_z_13 = 0.0 # Movimentar em Z [texto]
+
+# Tamanho da fonte
+font_size = 24
+
+# Se houver dragagem, dred= True, se não, dred=False 
+dred = False
+
+if dred:
+    # Para melhorar o desenho da dragagem
+    mov_z_5 = 1.25
+    mov_z_6 = 1.0
+    mov_z_7 = 10.1
+
+###################################FIM INPUT###################################
+
+profile_dist0 = 0
+profile_dist1 = 5
+profile_dist2 = 10
+profile_dist3 = 15
+
+profile_depth0 = 0
+profile_depth1 = 0
+profile_depth2 = 0
+profile_depth3 = 0
+
+profile_dist = [profile_dist0, profile_dist1, profile_dist2, profile_dist3]
+profile_depth = [profile_depth0, profile_depth1, profile_depth2, profile_depth3]
+
+def extremas(array):
+    ###########################################################################
+    ### GET MINIMUM AND MAXIMUM VALUE POSITION IN LIST AND VALUE OF MINIMUM
+    ###########################################################################
+    max_values_index = []
+    min_values_index = []
+    min_value = max(array)
+    for i in range(0,len(array)-2):
+        if array[i] < array[i+1] and array[i+1] > array[i+2]:
+            if array[i+1] > 0.0:
+                max_values_index.append(i+1)
+        if array[i] > array[i+1] and array[i+1] < array[i+2]:
+            if array[i+1] > 0.0:
+                if array[i+1]<min_value:
+                    min_value=array[i+1]
+                    min_values_index=i+1
+    if min_values_index==[]:
+        if array[0]<array[len(array)-1]:
+            min_values_index=0
+        else:
+            min_values_index=len(array)-1
+        
+    return max_values_index, min_values_index
+
+model = orca.Model()
+model.LoadSimulation(filename_static)
+
+# ----Recognize MCVs ---------------------------------------------------------#
+vcm1=model['MCV']
+
+#----Recognize Line and Attachemnt lines--------------------------------------#
+line1=model['Line']
+att_lines=list(['Stiffener1'])
+
+#----Recognize Crane Wire-----------------------------------------------------#
+Crane = model["Guindaste"]
+
+#----Recognize Environment----------------------------------------------------#
+environment = model["Environment"]
+
+#----Diametros de contato da linha--------------------------------------------#
+linetypes=[]
+diameter=[]
+lt_N_nodes=[1]
+for i in range(0,line1.NumberOfSections):
+    linetypes.append(line1.LineType[i])
+    linetype=model[linetypes[i]]
+    lt_N_nodes.append(line1.CumulativeNumberOfSegments[i])
+    if linetype.ContactDiameter>100:
+        diameter.append(linetype.OD)
+    else:
+        diameter.append(linetype.ContactDiameter)
+
+#----Diametros de contato dos attachment lines--------------------------------#
+att_diameter=[]
+for j in range(0,len(att_lines)):
+    att_line=model[att_lines[j]]
+    att_linetype=model[att_line.LineType[0]]
+    if att_linetype.ContactDiameter>100:
+        att_diameter.append(att_linetype.OD)
+    else:
+        att_diameter.append(att_linetype.ContactDiameter)
+
+#----MCV position-------------------------------------------------------------#
+vcm1_base_point_x = vcm1.StaticResult('X')
+vcm1_base_point_z=vcm1.StaticResult('Z')
+
+#----Crane wire end postion---------------------------------------------------#
+#Bottom
+crane_vcm1_bottom_conection_x=Crane.StaticResult('X',orca.oeWinch(2))
+crane_vcm1_bottom_conection_z=Crane.StaticResult('Z',orca.oeWinch(2))
+#Top
+crane_vcm1_top_conection_x=Crane.StaticResult('X',orca.oeWinch(1))
+crane_vcm1_top_conection_z=Crane.StaticResult('Z',orca.oeWinch(1))
+
+#----Water Depth--------------------------------------------------------------#
+water_depth_f=-1.0*environment.WaterDepth
+wd_1=water_depth_f
+
+#----Seabed Profile-----------------------------------------------------------#
+seabed_x=[]
+seabed_z=[]
+if environment.SeabedType=='Profile':
+    for i in range(0,environment.SeabedProfileNumberOfPoints):
+        seabed_x.append(
+            environment.SeabedOriginX 
+            + environment.SeabedProfileDistanceFromSeabedOrigin[i]
+        )
+        seabed_z.append(environment.SeabedProfileZ[i])
+
+    seabed_z.append(environment.SeabedProfileZ[seabed_x.index(max(seabed_x))])
+    seabed_x.append(max(seabed_x)+100)
+
+    seabed_z.insert(0, environment.SeabedProfileZ[seabed_x.index(min(seabed_x))])
+    seabed_x.insert(0, min(seabed_x) - 100)
+min_wd=min(wd_1,min(seabed_z))
+
+#----Line Nodes position and angle--------------------------------------------#
+line_z=line1.RangeGraph('Z')
+line_x=line1.RangeGraph('X')
+line_declin=line1.RangeGraph('Declination')
+
+#----Attachments Nodes position and angle-------------------------------------#
+att_line_z=[]
+att_line_x=[]
+att_line_declin=[]
+for j in range(0,len(att_lines)):
+    att_line=model[att_lines[j]]
+    att_line_z.append(att_line.RangeGraph('Z'))
+    att_line_x.append(att_line.RangeGraph('X'))
+    att_line_declin.append(att_line.RangeGraph('Declination'))
+
+#----MCV Flange position and X-position at seabed to take dimensions in CAD---#
+flange_seabed_x=line1.StaticResult('X',orca.oeEndB)
+flange_seabed_z= water_depth_f
+flange_vcm1_x=flange_seabed_x
+flange_vcm1_z=line1.StaticResult('Z',orca.oeEndB)
+#----Calculation of point of the line at same height as the MCV flange--------#
+for i in range(len(line_x.Mean)-1, -1, -1):
+    if line_z.Mean[i]>line_z.Mean[-1]:
+        other_point_x=line_x.Mean[i]
+        other_point_z=line_z.Mean[i]
+        other_point_i=i
+        break
+#----Calculation of Buoys position and weight---------------------------------#
+N_att=line1.NumberOfAttachments
+if N_att>0:
+    buoys_type=[]
+    buoys_z=[]
+    x_buoy=[]
+    z_buoy=[]
+    buoy_txt=[]
+    dead_weight=[]
+    peso_total = 0
+    dead_weight_pos = []
+    #diferencia boias de outro tipo de attachments como por exemplo vertebras
+    for i in range(0,N_att):
+        att_name=line1.AttachmentName[i]
+        if att_name==None:
+            buoys_type.append(str(line1.AttachmentType[i]))
+            buoys_z.append(line1.Attachmentz[i])
+            if "PESO_" in buoys_type[i].upper():
+                peso = buoys_type[i].replace("Peso_","")
+                peso = peso.replace(",", ".")
+                peso_total += float(peso)
+                dead_weight_pos.append(buoys_z[i])
+                dead_weight.append(line1.Attachmentz[i])
+        else:
+            buoys_type.append(0)
+            buoys_z.append(0)
+    n=[]
+    #verifica quantas boias estao na mesma posicao/no
+    for i in range(0,N_att):
+        att_name=line1.AttachmentName[i]
+        if att_name==None:
+            n.append(1)
+            for j in range(0,N_att):
+                att_name=line1.AttachmentName[j]
+                if att_name==None:
+                    if i!=j:
+                        if buoys_z[i]==buoys_z[j]:
+                            n[i]=n[i]+1
+        else:
+            n.append(0)
+    Emp=[]
+    #calcula o empuxo de cada boia
+    for i in range(0,N_att):
+        att_name=line1.AttachmentName[i]
+        if att_name==None:
+            buoy_obj=model[buoys_type[i]]
+            Emp.append((buoy_obj.Mass-1.025*buoy_obj.Volume)*1000)
+        else:
+            Emp.append(0)
+    #soma empuxo de boias que estao na mesma posicao/no
+    for i in range(0,N_att):
+        att_name=line1.AttachmentName[i]
+        if att_name==None:
+            for j in range(0,N_att):
+                att_name=line1.AttachmentName[j]
+                if att_name==None:
+                    if i!=j:
+                        if buoys_z[i]==buoys_z[j]:
+                            Emp[i]=Emp[i]+Emp[j]
+                            n[j]=0
+                            buoys_z[j]=0
+                            Emp[j]=0
+    # refaz as listas de posicao/no, empuxo e quantidade de boias de modo a
+    # colocar apenas uma boia onde estao varias no modelo
+    n_new=[]
+    buoys_z_new=[]
+    Emp_new=[]
+    for i in range(0,len(n)):
+        if n[i]!=0:
+            n_new.append(n[i])
+            buoys_z_new.append(buoys_z[i])
+            Emp_new.append(Emp[i])
+    n=n_new
+    buoys_z=buoys_z_new
+    Emp=Emp_new
+    #cria um texto para aplicar no bloco do autocad
+    for i in range(0,len(n)):
+        if Emp[i]<0.0:
+            buoy_txt.append(str(int(round(-Emp[i],0))) + 'kg ')
+        elif Emp[i]>0.0:
+            buoy_txt.append('Peso '+ str(int(round(Emp[i],0))) + 'kg ')
+        else:
+            buoy_txt.append('0')
+    buoy_node=[]
+    #guarda o no' em que a boia se encontra instalada na linha
+    for i in range(0,len(n)):
+        for j in range(len(line_x.X)-1,-1,-1):
+            if line_x.X[j]<line_x.X[-1]-buoys_z[i]:
+                buoy_node.append(j+1)
+                break
+    #guarda a posicao no espaco de cada boia que se encontra instalada na linha
+    line_len=line1.StaticResult('Arc Length',orca.oeEndB)
+    for i in range(0,len(buoys_z)):
+        x_buoy.append(line1.StaticResult('X', orca.oeArcLength(line_len-buoys_z[i])))
+        z_buoy.append(line1.StaticResult('Z', orca.oeArcLength(line_len-buoys_z[i])))
+
+#----SAG POSITION-------------------------------------------------------------#
+sag_pos = np.argmin(line_z.Mean)
+sag_x = line_x.Mean[sag_pos]
+
+for j in range(0,len(att_lines)):
+    flag_1=0
+    flag_2=0
+    for k in range(0,len(att_line_x[j].Mean)):
+        if att_line_x[j].Mean[k]>sag_x:
+            flag_1=1
+        elif att_line_x[j].Mean[k]<sag_x:
+            flag_2=1
+    if flag_1==1 and flag_2==1:
+        att_sag=j
+
+for i in range(0,line1.NumberOfSections):
+    if i>0:
+        if sag_pos>=line1.CumulativeNumberOfSegments[i-1] and sag_pos<line1.CumulativeNumberOfSegments[i]:
+            linetype=model[linetypes[i]]
+            if linetype.ContactDiameter>100:
+                sag_diameter=linetype.OD
+                line_dia=linetype.OD
+            else:
+                sag_diameter=linetype.ContactDiameter
+                line_dia=linetype.ContactDiameter
+    elif i==0:
+        if sag_pos>0 and sag_pos<line1.CumulativeNumberOfSegments[i]:
+            linetype=model[linetypes[i]]
+            if linetype.ContactDiameter>100:
+                sag_diameter=linetype.OD
+                line_dia=linetype.OD
+            else:
+                sag_diameter=linetype.ContactDiameter
+                line_dia=linetype.ContactDiameter
+
+if flag_1==1 and flag_2==1:
+    sag_diameter=att_diameter[att_sag]
+
+vertical_seabed_clearance_z = line1.RangeGraph('Vertical Seabed Clearance').Mean
+
+sag_seabed=line_z.Mean[sag_pos]-vertical_seabed_clearance_z[sag_pos]-line_dia/2
+sag_z = line_z.Mean[sag_pos]-sag_diameter/2
+#----posicao espacial do ponto no duto que esta acima da flange do mcv--------#
+z_eq_value=line_z.Mean[other_point_i]+(-float(sag_z)+float(flange_vcm1_z))-sag_diameter/2
+
+for j in range(len(line_x.Mean)-1, -1, -1):
+    if line_z.Mean[j]>z_eq_value:
+        other_point_x_j=line_x.Mean[j]
+        other_point_z_j=line_z.Mean[j]
+        other_point_j=j
+        break
+
+#----check which object has seabed clearance (attachment or line)------------#
+all_vertical_seabed_clearance_z = [vertical_seabed_clearance_z]
+att_vertical_seabed_clearance_z=[]
+for j in range(0,len(att_lines)):
+    att_line=model[att_lines[j]]
+    att_vertical_seabed_clearance = att_line.RangeGraph('Vertical Seabed Clearance')
+    att_vertical_seabed_clearance_z.append(att_vertical_seabed_clearance.Mean)
+    all_vertical_seabed_clearance_z.append(att_vertical_seabed_clearance.Mean)
+min_all=[]
+for j in range(0,len(all_vertical_seabed_clearance_z)):
+    min_all.append(min(all_vertical_seabed_clearance_z[j]))
+line_w_seabd_clear = min_all.index(min(min_all))
+
+#----Minimum Height above seabed calculation----------------------------------#
+maxi, mini1 = extremas(all_vertical_seabed_clearance_z[line_w_seabd_clear])
+if line_w_seabd_clear!=0:
+    for i in range(0,len(line_x.Mean)):
+        if att_line_x[line_w_seabd_clear-1].Mean[mini1]==line_x.Mean[i]:
+            mini=i
+            break
+else:
+    mini=mini1
+if line_w_seabd_clear==0:
+    for i in range(0,line1.NumberOfSections):
+        if i>0:
+            if (mini>=line1.CumulativeNumberOfSegments[i-1] 
+                and mini<line1.CumulativeNumberOfSegments[i]):
+                linetype=model[linetypes[i]]
+                if linetype.ContactDiameter>100:
+                    min_diameter=linetype.OD
+                else:
+                    min_diameter=linetype.ContactDiameter
+        elif i==0:
+            if mini>0 and mini<line1.CumulativeNumberOfSegments[i]:
+                linetype=model[linetypes[i]]
+                if linetype.ContactDiameter>100:
+                    min_diameter=linetype.OD
+                else:
+                    min_diameter=linetype.ContactDiameter
+else:     
+    min_diameter=att_diameter[line_w_seabd_clear-1]
+
+x_min_height_above_seabed = round(line_x.Mean[mini], 4)
+z_min_height_above_seabed = round(line_z.Mean[mini] - min_diameter/2,4)
+min_height_above_seabed = round(
+    line_z.Mean[mini] 
+    - min_diameter/2 
+    - float(all_vertical_seabed_clearance_z[line_w_seabd_clear][mini1]), 4)
+
+#----Dredging------------------------------------------------------------------
+sbed_dist = environment.SeabedProfileDistanceFromSeabedOrigin
+sbed_depth = environment.SeabedProfileDepth
+
+dred_dist = []
+dred_z = []
+
+# Pega a cota anterior e posterior aos pontos de dragagem
+for i in range(len(sbed_dist)):
+    if sbed_dist[i] not in profile_dist and sbed_depth[i] not in profile_depth:
+        if 1 > 0:
+            dred_dist.append(sbed_dist[i-1])
+            dred_z.append(sbed_depth[i-1] * -1)
+        try:
+            dred_dist.append(sbed_dist[i+1])
+            dred_z.append(sbed_depth[i+1] * -1)
+        except(IndexError):
+            dred_dist.append(sbed_dist[i])
+            dred_z.append(sbed_depth[i] * -1)
+
+###############################################################################
+
+fig = plt.figure(
+    figsize=(abs((vcm1_base_point_x-0.5-1+x_min_lim)-(max(line_x.Mean)+1+x_max_lim)),
+             abs((line_z.Mean[-1]+8+z_max_lim)-(min(seabed_z)-2.0+z_min_lim)))
+)
+ax = fig.add_subplot(111)
+
+#----insere o bloco mcv na sua coordenada espacial----------------------------#
+verts = [
+    (vcm1_base_point_x,vcm1_base_point_z),
+    (vcm1_base_point_x-0.5,vcm1_base_point_z),
+    (vcm1_base_point_x-0.25,vcm1_base_point_z+1.2),
+    (vcm1_base_point_x+0.25,vcm1_base_point_z+1.2),
+    (vcm1_base_point_x+0.5,vcm1_base_point_z),
+    (0.0,0.0)
+]
+verts = np.array(verts, float)
+codes = [Path.MOVETO] + [Path.LINETO]*(len(verts)-2) + [Path.CLOSEPOLY]
+path1 = Path(verts,codes)
+r1 = patches.PathPatch(path1, linestyle='solid', facecolor='r')
+
+ax.add_patch(r1)
+
+#----desenha a linha do guincho que vai do mcv ao navio-----------------------#
+ax.plot(
+    [crane_vcm1_bottom_conection_x, crane_vcm1_top_conection_x],
+    [crane_vcm1_bottom_conection_z, crane_vcm1_top_conection_z],
+    'k-', 
+    linewidth=3.0
+)
+
+#----desenha a linha do solo marinho------------------------------------------#
+ax.plot(seabed_x,seabed_z, linewidth=3.0, color="brown")
+
+#----desenha a linha externa do duto------------------------------------------#
+line_draw=[] 
+for j in range(0,len(linetypes)):
+    for i in range(lt_N_nodes[j],lt_N_nodes[j+1]+1):
+        line_draw.append((line_x.Mean[i]+(diameter[j]/2)*np.cos(line_declin.Mean[i]*np.pi/180),
+        line_z.Mean[i]+(diameter[j]/2)*np.sin(line_declin.Mean[i]*np.pi/180)))
+
+#----desenha a linha externa do duto------------------------------------------#
+for j in range(len(linetypes)-1,-1,-1):
+    for i in range(lt_N_nodes[j+1],lt_N_nodes[j]-1,-1):
+        line_draw.append((line_x.Mean[i]-(diameter[j]/2)*np.cos(line_declin.Mean[i]*np.pi/180),
+        line_z.Mean[i]-(diameter[j]/2)*np.sin(line_declin.Mean[i]*np.pi/180)))
+
+verts3 = np.array(line_draw, float)
+codes3 = [Path.MOVETO] + [Path.LINETO]*(len(verts3)-1)
+path3 = Path(verts3,codes3)
+r3 = patches.PathPatch(path3, linestyle='solid',facecolor='y') 
+ax.add_patch(r3)
+
+#----desenha a linha externa das vertebras------------------------------------#
+vert_draw=[]
+for j in range(0,len(att_lines)):
+    att_line=model[att_lines[j]]
+    for i in range(0, att_line.CumulativeNumberOfSegments[-1]+1):
+        vert_draw.append((att_line_x[j].Mean[i]+(att_diameter[j]/2)*np.cos(att_line_declin[j].Mean[i]*np.pi/180),
+        att_line_z[j].Mean[i]+(att_diameter[j]/2)*np.sin(att_line_declin[j].Mean[i]*np.pi/180)))
+
+for j in range(len(att_lines)-1,-1,-1):
+    att_line=model[att_lines[j]]
+
+    for i in range(att_line.CumulativeNumberOfSegments[-1], -1,-1):
+        vert_draw.append((att_line_x[j].Mean[i]-(att_diameter[j]/2)*np.cos(att_line_declin[j].Mean[i]*np.pi/180),
+        att_line_z[j].Mean[i]-(att_diameter[j]/2)*np.sin(att_line_declin[j].Mean[i]*np.pi/180)))
+
+verts2 = np.array(vert_draw, float)
+codes2 = [Path.MOVETO] + [Path.LINETO]*(len(verts2)-1)
+path2 = Path(verts2,codes2)
+r2 = patches.PathPatch(path2, linestyle='solid',facecolor='grey') 
+ax.add_patch(r2)
+
+#----desenha a cota de distancia da linha ao solo-----------------------------#
+ax.annotate(
+    "",
+    xy=(x_min_height_above_seabed+mov_x_1,sag_seabed), 
+    xycoords='data',
+    xytext=(x_min_height_above_seabed+mov_x_1,z_min_height_above_seabed), 
+    textcoords='data',
+    arrowprops=dict(arrowstyle="<->", connectionstyle="arc3", lw=2), 
+)
+
+ax.plot([x_min_height_above_seabed,x_min_height_above_seabed+mov_x_1],[sag_seabed,sag_seabed],'k-')
+ax.plot([x_min_height_above_seabed,x_min_height_above_seabed+mov_x_1],[z_min_height_above_seabed,z_min_height_above_seabed],'k-')
+            
+ax.annotate(
+    str(round(z_min_height_above_seabed-sag_seabed,2)).replace('.', ',')+'m', 
+    xy=(x_min_height_above_seabed+mov_x_1,sag_seabed+(z_min_height_above_seabed-sag_seabed)/2+mov_z_1), 
+    xycoords='data',
+    xytext=(5, 0), 
+    textcoords='offset points',
+    verticalalignment ='center', 
+    fontsize=font_size,
+)
+
+#----desenha a cota de distancia da flange do MCV ao solo---------------------#
+ax.annotate(
+    "",
+    xy=(flange_vcm1_x+mov_x_2, flange_vcm1_z), 
+    xycoords='data',
+    xytext=(flange_vcm1_x+mov_x_2,flange_seabed_z), 
+    textcoords='data',
+    arrowprops=dict(arrowstyle="<->", connectionstyle="arc3", lw=2), 
+)
+
+ax.plot([flange_vcm1_x,flange_vcm1_x+mov_x_2],[flange_vcm1_z,flange_vcm1_z],'k-')
+ax.plot([flange_vcm1_x,flange_vcm1_x+mov_x_2],[flange_seabed_z,flange_seabed_z],'k-')
+
+ax.annotate(
+    str(round(flange_vcm1_z-flange_seabed_z,2)).replace('.', ',')+'m', 
+    xy=(flange_vcm1_x+mov_x_2,flange_seabed_z+(flange_vcm1_z-flange_seabed_z)/2+mov_z_2), 
+    xycoords='data',
+    xytext=(5, 0), 
+    textcoords='offset points',
+    verticalalignment ='center', 
+    fontsize=font_size,
+)
+
+#----desenho das boias e pesos------------------------------------------------#
+ponto_anterior=[[],[]]
+N_Buoys=line1.NumberOfAttachments
+if N_Buoys>0:
+    flag_peso=0
+    for j in range(0,len(z_buoy)):
+    #check se 'e uma boia
+        if Emp[j]<0.0:
+#----desenho das boias--------------------------------------------------------#
+            ax.annotate(
+                buoy_txt[j].replace('.', ',')+'de\n'+'empuxo'+'\n'+'a '+str(round(buoys_z[j],2)).replace('.', ',')+'m'+'\n'+'do flange',
+                xy=(x_buoy[j],z_buoy[j]+1.5), 
+                xycoords='data',
+                xytext=(x_buoy[j]+(mov_x_10*j),z_buoy[j]+3+(mov_z_10*j)), 
+                textcoords='data',
+                arrowprops=dict(arrowstyle="-", connectionstyle="arc3", lw=2), 
+                fontsize=font_size,
+            )
+            ax.plot([x_buoy[j],x_buoy[j]],[z_buoy[j],z_buoy[j]+1],'k-')
+            r4 = patches.Rectangle((x_buoy[j]-0.25,z_buoy[j]+1),width=0.5, height=0.5, linestyle='solid',facecolor='y') 
+            ax.add_patch(r4)
+        #check se 'e um peso
+        elif Emp[j]>0.0:
+#----desenho do peso morto----------------------------------------------------#
+            if flag_peso==0:
+                flag_peso=1
+            #da o valor val2 para um comprimento de linha que pendura o anel
+            for itera in range(0,len(att_lines)):
+                if (abs(line_x.Mean[buoy_node[j]]) > abs(att_line_x[itera].Mean[-1]) 
+                    and abs(line_x.Mean[buoy_node[j]]) < abs(att_line_x[itera].Mean[0])):
+                    val2=att_diameter[itera]/2+0.25
+                else:
+                    for itera1 in range(0,len(linetypes)):
+                        if line_x.X[buoy_node[j]]>=line_x.X[lt_N_nodes[itera1]] and line_x.X[buoy_node[j]]<line_x.X[lt_N_nodes[itera1+1]]:
+                            val2=diameter[itera1]/2+0.25
+                    
+            ax.plot([line_x.Mean[buoy_node[j]],line_x.Mean[buoy_node[j]]],[line_z.Mean[buoy_node[j]],line_z.Mean[buoy_node[j]]-val2],'k-')
+            r6 = patches.Circle((line_x.Mean[buoy_node[j]],line_z.Mean[buoy_node[j]]-val2-0.125),radius=0.125, linestyle='solid',facecolor='k')
+            ax.add_patch(r6)
+
+    peso_txt = str(round(peso_total,2))+'kg'
+    if flag_peso == 1 and dead_weight:
+        ax.annotate(
+            peso_txt.replace('.', ',')+' de\n'+'peso dentro de água'+'\n'+'de '+str(round(dead_weight_pos[0],2)).replace('.', ',')+u' até ' +str(round(dead_weight_pos[-1]+0.2,2)).replace('.', ',')+'m'+'\n'+'do flange',
+            xy=(x_buoy[int(len(x_buoy)/2)]+0.5,z_buoy[int(len(z_buoy)/2)]+0.5), 
+            xycoords='data',
+            xytext=(x_buoy[int(len(x_buoy)/2)]+3+(mov_x_10*j),z_buoy[int(len(z_buoy)/2)]+3+(mov_z_10*j)), 
+            textcoords='data',
+            arrowprops=dict(arrowstyle="-", connectionstyle="arc3", lw=2), 
+            fontsize=font_size,
+            horizontalalignment='center',
+        )
+
+#----cota do comprimento de linha da flange ao ponto minimo da linha----------#
+#insere as cotas das boias
+#esta cota e uma linha porque faz a catenaria do duto
+#layer das cotas
+cota1_x=[]
+cota1_z=[]
+for i in range(mini,len(line_x.Mean)):
+    cota1_x.append(line_x.Mean[i]-1*np.cos(line_declin.Mean[i]*np.pi/180))
+    cota1_z.append(line_z.Mean[i]-1*np.sin(line_declin.Mean[i]*np.pi/180))
+
+ax.plot(cota1_x,cota1_z,'k-')
+
+ax.annotate(
+    "",
+    xy=(cota1_x[-1],cota1_z[-1]), 
+    xycoords='data',
+    xytext=(cota1_x[-2],cota1_z[-2]), 
+    textcoords='data', 
+    arrowprops=dict(arrowstyle="->", connectionstyle="arc3", lw=2), 
+)
+
+ax.annotate(
+    "",
+    xy=(cota1_x[0],cota1_z[0]), 
+    xycoords='data',
+    xytext=(cota1_x[1],cota1_z[1]), 
+    textcoords='data',
+    arrowprops=dict(arrowstyle="->", connectionstyle="arc3", lw=2), 
+)
+
+annot1_x_pos=line_x.Mean[int((len(line_x.Mean)-mini)/2+mini)]-1*np.cos(line_declin.Mean[int((len(line_x.Mean)-mini)/2+mini)]*np.pi/180)
+annot1_z_pos=line_z.Mean[int((len(line_x.Mean)-mini)/2+mini)]-1*np.sin(line_declin.Mean[int((len(line_x.Mean)-mini)/2+mini)]*np.pi/180)
+
+ax.annotate(
+    str(round(line_x.X[-1]-line_x.X[mini],2)).replace('.', ',')+'m', 
+    xy=(annot1_x_pos+mov_x_3,annot1_z_pos+mov_z_3), 
+    xycoords='data',
+    xytext=(5, 0), 
+    textcoords='offset points',
+    horizontalalignment='center',
+    verticalalignment ='center', 
+    fontsize=font_size,
+) 
+
+#----cota do comprimento do ponto minimo da linha ao outro lado da flange-----#
+#insere as cotas das boias
+#esta cota e uma linha porque faz a catenaria do duto
+#layer das cotas
+
+cota2_x=[]
+cota2_z=[]
+for i in range(other_point_i,mini+1):
+    cota2_x.append(line_x.Mean[i]-1*np.cos(line_declin.Mean[i]*np.pi/180))
+    cota2_z.append(line_z.Mean[i]-1*np.sin(line_declin.Mean[i]*np.pi/180))
+
+ax.plot(cota2_x,cota2_z,'k-')
+
+ax.annotate(
+    "",
+    xy=(cota2_x[-1],cota2_z[-1]), 
+    xycoords='data', 
+    xytext=(cota2_x[-2],cota2_z[-2]), 
+    textcoords='data',
+    arrowprops=dict(arrowstyle="->", connectionstyle="arc3", lw=2), 
+)
+
+ax.annotate(
+    "",
+    xy=(cota2_x[0],cota2_z[0]), 
+    xycoords='data',
+    xytext=(cota2_x[1],cota2_z[1]), textcoords='data',
+    arrowprops=dict(arrowstyle="->", connectionstyle="arc3", lw=2), 
+)
+
+annot2_x_pos=line_x.Mean[int((mini-other_point_i)/2+other_point_i)]-1*np.cos(line_declin.Mean[int((mini-other_point_i)/2+other_point_i)]*np.pi/180)
+annot2_z_pos=line_z.Mean[int((mini-other_point_i)/2+other_point_i)]-1*np.sin(line_declin.Mean[int((mini-other_point_i)/2+other_point_i)]*np.pi/180)
+
+ax.annotate(
+    str(round(line_x.X[mini]-line_x.X[other_point_i],2)).replace('.', ',')+'m\n', 
+    xy=(annot2_x_pos+mov_x_4,annot2_z_pos+mov_z_4), 
+    xycoords='data',
+    xytext=(5, 0), 
+    textcoords='offset points',
+    horizontalalignment='center',
+    verticalalignment ='center', 
+    fontsize=font_size,
+)
+
+#----cota horizontal da flange ao outro lado do duto--------------------------#
+
+ax.annotate(
+    "",
+    xy=(line_x.Mean[-1],line_z.Mean[-1]+4.5+mov_z_5), 
+    xycoords='data',
+    xytext=(other_point_x,line_z.Mean[-1]+4.5+mov_z_5),
+    textcoords='data',
+    arrowprops=dict(arrowstyle="<->", connectionstyle="arc3", lw=2), 
+)
+
+ax.plot([line_x.Mean[-1],line_x.Mean[-1]],[line_z.Mean[-1],line_z.Mean[-1]+4.5+mov_z_5],'k-')
+ax.plot([other_point_x,other_point_x],[other_point_z,line_z.Mean[-1]+4.5+mov_z_5],'k-')
+
+ax.annotate(
+    str(round(abs(line_x.Mean[-1]-other_point_x),2)).replace('.', ',')+'m\n', 
+    xy=(line_x.Mean[-1]+(other_point_x-line_x.Mean[-1])/2+mov_x_5,line_z.Mean[-1]+4.5+mov_z_5), 
+    xycoords='data',
+    xytext=(5, 0), 
+    textcoords='offset points',
+    horizontalalignment='center',
+    verticalalignment ='center', 
+    fontsize=font_size,
+)
+
+#----cota horizontal da flange ao outro lado do duto e acima------------------#
+ax.annotate(
+    "",
+    xy=(line_x.Mean[-1],line_z.Mean[-1]+6+mov_z_6), 
+    xycoords='data',
+    xytext=(other_point_x_j,line_z.Mean[-1]+6+mov_z_6), 
+    textcoords='data',
+    arrowprops=dict(arrowstyle="<->", connectionstyle="arc3", lw=2),
+)
+
+ax.plot([line_x.Mean[-1],line_x.Mean[-1]],[line_z.Mean[-1],line_z.Mean[-1]+6+mov_z_6],'k-')
+ax.plot([other_point_x_j,other_point_x_j],[other_point_z_j,line_z.Mean[-1]+6+mov_z_6],'k-')
+
+ax.annotate(
+    str(round(abs(line_x.Mean[-1]-other_point_x_j),2)).replace('.', ',')+'m\n', 
+    xy=(line_x.Mean[-1]+(other_point_x_j-line_x.Mean[-1])/2+mov_x_6,line_z.Mean[-1]+6+mov_z_6), 
+    xycoords='data',
+    xytext=(5, 0), 
+    textcoords='offset points',
+    horizontalalignment='center',
+    verticalalignment ='center', 
+    fontsize=font_size,
+)
+
+ax.annotate(
+    "",
+    xy=(line_x.Mean[-1],min_wd-1.0+mov_z_7),
+    xycoords='data',
+    xytext=(x_min_height_above_seabed,min_wd-1.0+mov_z_7),
+    textcoords='data',
+    arrowprops=dict(arrowstyle="<->", connectionstyle="arc3", lw=2),
+)
+
+ax.plot([line_x.Mean[-1],line_x.Mean[-1]],[line_z.Mean[-1],min_wd-1.0+mov_z_7],'k-')
+ax.plot([x_min_height_above_seabed,x_min_height_above_seabed],[sag_z,min_wd-1.0+mov_z_7],'k-')
+
+ax.annotate(
+    str(round(abs(line_x.Mean[-1]-x_min_height_above_seabed),2)).replace('.', ',')+'m\n', 
+    xy=(line_x.Mean[-1]+(x_min_height_above_seabed-line_x.Mean[-1])/2+mov_x_7,min_wd-1.0+mov_z_7),
+    xycoords='data',
+    xytext=(5, 0), 
+    textcoords='offset points',
+    horizontalalignment='center',
+    verticalalignment ='center', 
+    fontsize=font_size,
+) 
+
+#----cota da catenaria do ponto no duto que esta do outro lado da flange ate a acima da flange do mcv--#
+#insere as cotas das boias
+#esta cota e uma linha porque faz a catenaria do duto
+#layer das cotas
+
+cota3_x=[]
+cota3_z=[]
+
+for i in range(other_point_j,other_point_i+1):
+    cota3_x.append(line_x.Mean[i]-1*np.cos(line_declin.Mean[i]*np.pi/180))
+    cota3_z.append(line_z.Mean[i]-1*np.sin(line_declin.Mean[i]*np.pi/180))
+
+ax.plot(cota3_x,cota3_z,'k-')
+
+ax.annotate(
+    "",
+    xy=(cota3_x[-1],cota3_z[-1]), 
+    xycoords='data',
+    xytext=(cota3_x[-2],cota3_z[-2]), 
+    textcoords='data',
+    arrowprops=dict(arrowstyle="->", connectionstyle="arc3", lw=2),
+)
+
+ax.annotate(
+    "",
+    xy=(cota3_x[0],cota3_z[0]), 
+    xycoords='data',
+    xytext=(cota3_x[1],cota3_z[1]), 
+    textcoords='data',
+    arrowprops=dict(arrowstyle="->", connectionstyle="arc3", lw=2),
+)
+
+annot1_x_pos=round(line_x.Mean[int((other_point_i-other_point_j)/2+other_point_j)]-1*np.cos(line_declin.Mean[int((other_point_i-other_point_j)/2+other_point_j)]*np.pi/180))
+annot1_z_pos=round(line_z.Mean[int((other_point_i-other_point_j)/2+other_point_j)]-1*np.sin(line_declin.Mean[int((other_point_i-other_point_j)/2+other_point_j)]*np.pi/180))
+
+ax.annotate(
+    str(round(line_x.X[other_point_i]-line_x.X[other_point_j],2)).replace('.', ',')+'m',
+    xy=(annot1_x_pos + mov_x_8,annot1_z_pos + mov_z_8),
+    xycoords='data',
+    xytext=(5, 0), 
+    textcoords='offset points',
+    horizontalalignment='center',
+    verticalalignment ='center',
+    fontsize=font_size,
+)
+
+#----cota vertical do ponto no duto que esta do outro lado da flange ate a acima da flange do mcv-------------------------------------------------------------------#
+ax.annotate(
+    "",
+    xy=(cota3_x[0]+0.5+mov_x_9,line_z.Mean[other_point_j]), 
+    xycoords='data',
+    xytext=(cota3_x[0]+0.5+mov_x_9,line_z.Mean[other_point_i]), 
+    textcoords='data',
+    arrowprops=dict(arrowstyle="<->", connectionstyle="arc3", lw=2), 
+)
+
+ax.annotate(
+    str(round(line_z.Mean[other_point_j]-line_z.Mean[other_point_i],2)).replace('.', ',')+'m',
+    xy=(cota3_x[0]+0.5+mov_x_9,line_z.Mean[other_point_i]+(line_z.Mean[other_point_j]-line_z.Mean[other_point_i])/2+mov_z_9),
+    xycoords='data',
+    xytext=(5, 0),
+    textcoords='offset points',
+    verticalalignment ='center',
+    fontsize=font_size,
+)
+
+ax.plot([line_x.Mean[other_point_j],cota3_x[0]+0.5+mov_x_9],[line_z.Mean[other_point_j],line_z.Mean[other_point_j]],'k-')
+ax.plot([line_x.Mean[other_point_i],cota3_x[0]+0.5+mov_x_9],[line_z.Mean[other_point_i],line_z.Mean[other_point_i]],'k-')
+
+#----desenha a cota da dragagem-----------------------------------------------#
+if dred:
+    o_x = environment.SeabedOriginX
+
+    #----Dragagem - Cota Horizontal ------------------------------------------#
+    ax.annotate(
+        "",
+        xy=(o_x+min(dred_dist),min(dred_z)-1+mov_z_12), 
+        xycoords='data',
+        xytext=(o_x+max(dred_dist),min(dred_z)-1+mov_z_12), 
+        textcoords='data',
+        arrowprops=dict(arrowstyle="<->", connectionstyle="arc3", lw=2), 
+    )
+
+    ax.plot([o_x+min(dred_dist),o_x+min(dred_dist)],[max(dred_z),min(dred_z)-1.0+mov_z_12],'k-')
+    ax.plot([o_x+max(dred_dist),o_x+max(dred_dist)],[max(dred_z),min(dred_z)-1.0+mov_z_12],'k-')
+
+    ax.annotate(
+        str(format(round(abs(min(dred_dist)-max(dred_dist)),1), '.2f')).replace('.', ',')+'m', 
+        xy=(o_x+np.mean(dred_dist)-2.25+mov_x_12,min(dred_z)-1.25+mov_z_12), 
+        xycoords='data',
+        xytext=(5, 0), 
+        textcoords='offset points',
+        verticalalignment ='center', 
+        fontsize=font_size,
+    ) 
+
+    #----Dragagem - Cota Vertical---------------------------------------------#
+    ax.annotate(
+        "",
+        xy=(o_x+max(dred_dist)+1+mov_x_13,min(dred_z)), 
+        xycoords='data',
+        xytext=(o_x+max(dred_dist)+1+mov_x_13,min(dred_z)-1), 
+        textcoords='data',
+        arrowprops=dict(arrowstyle="->", connectionstyle="arc3", lw=2), 
+    )
+
+    ax.annotate(
+        "",
+        xy=(o_x+max(dred_dist)+1+mov_x_13,seabed_z[-1]), 
+        xycoords='data',
+        xytext=(o_x+max(dred_dist)+1+mov_x_13,seabed_z[-1]+1), 
+        textcoords='data',
+        arrowprops=dict(arrowstyle="->", connectionstyle="arc3", lw=2), 
+    )
+
+    ax.plot([o_x+max(dred_dist),o_x+max(dred_dist)+1+mov_x_13],[min(dred_z),min(dred_z)],'k-')
+
+    ax.annotate(
+        str(format(round(abs(seabed_z[-1]-min(dred_z)),1), '.2f')).replace('.', ',')+'m', 
+        xy=(o_x+max(dred_dist)+1+mov_x_13,min(dred_z)-1+mov_z_13), 
+        xycoords='data',
+        xytext=(5, 0), 
+        textcoords='offset points',
+        verticalalignment ='center', 
+        fontsize=font_size,
+    ) 
+
+    #----Distância do flange--------------------------------------------------#
+    ax.annotate(
+        "",
+        xy=(flange_vcm1_x,min(dred_z)-1+mov_z_11),
+        xycoords='data',
+        xytext=(o_x+min(dred_dist),min(dred_z)-1+mov_z_11),
+        textcoords='data',
+        verticalalignment ='center', 
+        arrowprops=dict(arrowstyle="<->", connectionstyle="arc3", lw=2),
+    )
+
+    ax.plot([flange_vcm1_x,flange_vcm1_x],[seabed_z[0],min(dred_z)-1+mov_z_11],'k-')
+    ax.plot([o_x+min(dred_dist),o_x+min(dred_dist)],[min(dred_z),min(dred_z)-1+mov_z_11],'k-')
+
+    ax.annotate(
+        str(format(round(abs(o_x+min(dred_dist)-flange_vcm1_x), 1), '.2f')).replace('.', ',') + 'm',
+        xy=(o_x + min(dred_dist)/2 - 0.75 + mov_x_6, min(dred_z) -2.25 + mov_z_6), 
+        xycoords='data',
+        xytext=(0, 0), 
+        textcoords='offset points',
+        verticalalignment ='center', 
+        fontsize=font_size,
+    ) 
+
+###############################################################################
+plt.xlim(round(vcm1_base_point_x-0.5-1,0)+x_min_lim,round(max(line_x.Mean)+1,0)+x_max_lim)
+plt.ylim(round(min(seabed_z)-2.0,0)+z_min_lim,round(line_z.Mean[-1]+8,0)+z_max_lim)
+
+cur_axes = plt.gca()
+cur_axes.axes.get_xaxis().set_visible(turn_axes_on)
+cur_axes.axes.get_yaxis().set_visible(turn_axes_on)
+
+ax.spines['top'].set_visible(False)
+ax.spines['right'].set_visible(False)
+ax.spines['left'].set_visible(False)
+ax.spines['bottom'].set_visible(False)
+
+fig.savefig('./' + pngname ,bbox_inches='tight')
+#THE END

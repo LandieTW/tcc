@@ -1,0 +1,395 @@
+﻿// 1Selecione o tipo de linha:
+//Tipo de linha
+
+// Case  1
+LoadData "ModeloRTCVD1a.dat"
+Select Line
+Select Linha
+OD = 0,254445826
+Select Line
+Select Linha
+ID = 0,156868363
+Select Line
+Select Linha
+MassPerUnitLength = 0,10658
+Select Line
+Select Linha
+ContactDiameter = 0,2544
+Select Line
+Select Linha
+NormalDragLiftDiameter = 0,2544
+Select Line
+Select Linha
+AxialDragLiftDiameter = 0,2544
+Select Line
+Length[1] = 1985,00
+Select Line
+Length[6] = 4,21000
+Select Line
+Select Vértebra
+OD = 0,351546363
+Select Line
+Select Vértebra
+ID = 0,2800
+Select Line
+Select Vértebra
+MassPerUnitLength = 0,279809976
+Select Line
+Length[7] = 1,7910
+Select Line
+Select Conector
+OD = 0,507594935
+Select Line
+Select Conector
+ID = 0,1524
+Select Line
+Select Conector
+MassPerUnitLength = 1,451702959
+Select Line
+Select Linha
+EA = 252293
+Select Line
+Select Vértebra
+EA = 10,00
+Select Line
+Select Conector
+EIx = 36812,39
+Select Line
+Select Conector
+EA = 6712860,683
+Select Line
+Select Linha
+xMinRadius = 2,5050
+Select Line
+Select Vértebra
+xMinRadius = 2,8600
+Select Line
+Select Conector
+xMinRadius = 2,8600
+Select Line
+Select Vértebra
+NormalDragLiftDiameter = 0,5440
+Select Line
+Select Conector
+NormalDragLiftDiameter = 0,4800
+Select Line
+Select Vértebra
+AxialDragLiftDiameter = 0,5440
+Select Line
+Select Conector
+AxialDragLiftDiameter = 0,4800
+Select Line
+Select Vértebra
+ContactDiameter = 0,5440
+Select Line
+Select Conector
+ContactDiameter = 0,4800
+Select Line
+Select Vértebra
+GJ = 10,0000
+Select Line
+Select Conector
+GJ = 28317,22168
+Select Line
+Select Linha
+GJ = 1072
+Select Line
+NumberOfSections = 7
+Select Line
+NumberOfSections = 7
+Select Line
+NumberOfSections = 7
+Select Line
+NumberOfSections = 7
+Select Line
+NumberOfSections = 7
+Select Line
+NumberOfSections = 7
+Select Line
+NumberOfSections = 7
+Select Line
+NumberOfSections = 7
+Select Line
+NumberOfSections = 7
+Select Line
+NumberOfSections = 7
+Select Line
+NumberOfSections = 7
+Select Line
+Attachmentz[1] = 0
+Select Line
+Attachmentz[1] = 1,7910
+Select MCV
+Mass = 5,0430
+Select MCV
+Height = 2,5390
+Select MCV
+InitialZ = -2299,23
+Select MCV
+CentreOfMassX= -0,02500
+Select MCV
+CentreOfMassZ= 1,35600
+Select MCV
+CentreOfVolumeX= -0,02500
+Select MCV
+CentreOfVolumeZ= 1,35600
+Select Line
+EndBX = 0,83900
+Select Line
+EndBZ = 2,03700
+Select Line
+EndBDeclination = 60,00000
+Select Vert
+Length = 4,21000
+Select Guindaste
+ConnectionX[2] = -0,06800
+Select Guindaste
+ConnectionZ[2] = 2,53900
+Select Guindaste
+StageValue[1] = 2296,69
+Select Linha
+Name = WSI_152.2547-RD-4042-X
+Select Vértebra
+Name = CB-BR1522543-00-01
+Select Conector
+Name = CB-EF1522543-00-04
+Select MCV
+Name = P7000048060_/_'DU700154300_Rev._C
+Select Environment
+SeabedType= Profile
+Select Stiffness1
+NumberOfRows= 27
+Select Stiffness1
+IndependentValue[2]= 0,007200
+Select Stiffness1
+IndependentValue[3]= 0,015900
+Select Stiffness1
+IndependentValue[4]= 0,026200
+Select Stiffness1
+IndependentValue[5]= 0,038000
+Select Stiffness1
+IndependentValue[6]= 0,051400
+Select Stiffness1
+IndependentValue[7]= 0,066400
+Select Stiffness1
+IndependentValue[8]= 0,082900
+Select Stiffness1
+IndependentValue[9]= 0,101000
+Select Stiffness1
+IndependentValue[10]= 0,120700
+Select Stiffness1
+IndependentValue[11]= 0,141900
+Select Stiffness1
+IndependentValue[12]= 0,164600
+Select Stiffness1
+IndependentValue[13]= 0,189000
+Select Stiffness1
+IndependentValue[14]= 0,214800
+Select Stiffness1
+IndependentValue[15]= 0,242300
+Select Stiffness1
+IndependentValue[16]= 0,271300
+Select Stiffness1
+IndependentValue[17]= 0,301800
+Select Stiffness1
+IndependentValue[18]= 0,333900
+Select Stiffness1
+IndependentValue[19]= 0,367600
+Select Stiffness1
+IndependentValue[20]= 0,402900
+Select Stiffness1
+IndependentValue[21]= 0,439600
+Select Stiffness1
+IndependentValue[22]= 0,478000
+Select Stiffness1
+IndependentValue[23]= 0,517900
+Select Stiffness1
+IndependentValue[24]= 0,559400
+Select Stiffness1
+IndependentValue[25]= 0,602400
+Select Stiffness1
+IndependentValue[26]= 0,588100
+Select Stiffness1
+IndependentValue[27]= 0,570600
+Select Stiffness1
+DependentValue[2]= 0,411000
+Select Stiffness1
+DependentValue[3]= 0,755000
+Select Stiffness1
+DependentValue[4]= 1,161000
+Select Stiffness1
+DependentValue[5]= 1,628000
+Select Stiffness1
+DependentValue[6]= 2,156000
+Select Stiffness1
+DependentValue[7]= 2,746000
+Select Stiffness1
+DependentValue[8]= 3,397000
+Select Stiffness1
+DependentValue[9]= 4,110000
+Select Stiffness1
+DependentValue[10]= 4,884000
+Select Stiffness1
+DependentValue[11]= 5,720000
+Select Stiffness1
+DependentValue[12]= 6,617000
+Select Stiffness1
+DependentValue[13]= 7,576000
+Select Stiffness1
+DependentValue[14]= 8,596000
+Select Stiffness1
+DependentValue[15]= 9,677000
+Select Stiffness1
+DependentValue[16]= 10,820000
+Select Stiffness1
+DependentValue[17]= 12,025000
+Select Stiffness1
+DependentValue[18]= 13,291000
+Select Stiffness1
+DependentValue[19]= 14,618000
+Select Stiffness1
+DependentValue[20]= 16,007000
+Select Stiffness1
+DependentValue[21]= 17,457000
+Select Stiffness1
+DependentValue[22]= 18,968000
+Select Stiffness1
+DependentValue[23]= 20,542000
+Select Stiffness1
+DependentValue[24]= 22,176000
+Select Stiffness1
+DependentValue[25]= 23,872000
+Select Stiffness1
+DependentValue[26]= 23,050000
+Select Stiffness1
+DependentValue[27]= 22,362000
+Select Stiffness1
+IndependentValue[2]= 0,007200
+Select Stiffness1
+IndependentValue[3]= 0,015900
+Select Stiffness1
+IndependentValue[4]= 0,026200
+Select Stiffness1
+IndependentValue[5]= 0,038000
+Select Stiffness1
+IndependentValue[6]= 0,051400
+Select Stiffness1
+IndependentValue[7]= 0,066400
+Select Stiffness1
+IndependentValue[8]= 0,082900
+Select Stiffness1
+IndependentValue[9]= 0,101000
+Select Stiffness1
+IndependentValue[10]= 0,120700
+Select Stiffness1
+IndependentValue[11]= 0,141900
+Select Stiffness1
+IndependentValue[12]= 0,164600
+Select Stiffness1
+IndependentValue[13]= 0,189000
+Select Stiffness1
+IndependentValue[14]= 0,214800
+Select Stiffness1
+IndependentValue[15]= 0,242300
+Select Stiffness1
+IndependentValue[16]= 0,271300
+Select Stiffness1
+IndependentValue[17]= 0,301800
+Select Stiffness1
+IndependentValue[18]= 0,333900
+Select Stiffness1
+IndependentValue[19]= 0,367600
+Select Stiffness1
+IndependentValue[20]= 0,402900
+Select Stiffness1
+IndependentValue[21]= 0,439600
+Select Stiffness1
+IndependentValue[22]= 0,478000
+Select Stiffness1
+IndependentValue[23]= 0,517900
+Select Stiffness1
+IndependentValue[24]= 0,559400
+Select Stiffness1
+IndependentValue[25]= 0,602400
+Select Stiffness1
+IndependentValue[26]= 0,588100
+Select Stiffness1
+IndependentValue[27]= 0,570600
+Select Stiffness1
+DependentValue[2]= 0,411000
+Select Stiffness1
+DependentValue[3]= 0,755000
+Select Stiffness1
+DependentValue[4]= 1,161000
+Select Stiffness1
+DependentValue[5]= 1,628000
+Select Stiffness1
+DependentValue[6]= 2,156000
+Select Stiffness1
+DependentValue[7]= 2,746000
+Select Stiffness1
+DependentValue[8]= 3,397000
+Select Stiffness1
+DependentValue[9]= 4,110000
+Select Stiffness1
+DependentValue[10]= 4,884000
+Select Stiffness1
+DependentValue[11]= 5,720000
+Select Stiffness1
+DependentValue[12]= 6,617000
+Select Stiffness1
+DependentValue[13]= 7,576000
+Select Stiffness1
+DependentValue[14]= 8,596000
+Select Stiffness1
+DependentValue[15]= 9,677000
+Select Stiffness1
+DependentValue[16]= 10,820000
+Select Stiffness1
+DependentValue[17]= 12,025000
+Select Stiffness1
+DependentValue[18]= 13,291000
+Select Stiffness1
+DependentValue[19]= 14,618000
+Select Stiffness1
+DependentValue[20]= 16,007000
+Select Stiffness1
+DependentValue[21]= 17,457000
+Select Stiffness1
+DependentValue[22]= 18,968000
+Select Stiffness1
+DependentValue[23]= 20,542000
+Select Stiffness1
+DependentValue[24]= 22,176000
+Select Stiffness1
+DependentValue[25]= 23,872000
+Select Stiffness1
+DependentValue[26]= 23,050000
+Select Stiffness1
+DependentValue[27]= 22,362000
+Select Environment
+SeabedProfileDepth[1]= 2301,00000
+Select Environment
+SeabedProfileNumberOfPoints = 4
+Select Environment
+SeabedProfileDistanceFromSeabedOrigin[2]= 5,00
+Select Environment
+SeabedProfileDepth[2]= 2301,00
+Select Environment
+SeabedProfileDistanceFromSeabedOrigin[3]= 10,00
+Select Environment
+SeabedProfileDepth[3]= 2301,00
+Select Environment
+SeabedProfileDistanceFromSeabedOrigin[4]= 15,00
+Select Environment
+SeabedProfileDepth[4]= 2301,00
+Select Stiffness2
+IndependentValue[2]= 0,34965035
+Select Stiffness2
+IndependentValue[3]= 1,34965035
+Select Stiffness2
+DependentValue[2]= 0,0100
+Select Stiffness2
+DependentValue[3]= 25474,78032
+SaveData Estatico.dat
+

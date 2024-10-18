@@ -1,0 +1,32 @@
+Sub BotaoRigidezGeral()
+
+ LinhaInicial = 94
+ NumeroDeLinhas = Range("H7").Value
+ NumeroDaLinha = Range("H7").Value + LinhaInicial
+ j = 2
+ k = 2
+ Cells(LinhaInicial - 1, 5).NumberFormat = "0"
+ 
+  
+ Dim i As Integer
+ 
+For i = LinhaInicial To NumeroDaLinha - 2
+    Cells(i, 1).EntireRow.Insert
+    Cells(i, 3).Value = "Select Stiffness1"
+    Cells(i, 4).Value = "IndependentValue[" & j & "]="
+    Cells(i, 5).Value = "='Bending Stiffness'!A" & j + 4
+    Cells(i, 5).NumberFormat = "0.000000"
+    j = j + 1
+Next
+ 
+For i = NumeroDaLinha - 1 To NumeroDaLinha + NumeroDeLinhas - 3
+    Cells(i, 1).EntireRow.Insert
+    Cells(i, 3).Value = "Select Stiffness1"
+    Cells(i, 4).Value = "DependentValue[" & k & "]="
+    Cells(i, 5).Value = "='Bending Stiffness'!C" & k + 4
+    k = k + 1
+Next
+
+End Sub
+
+
