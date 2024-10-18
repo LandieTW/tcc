@@ -1,3 +1,219 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:893d043ebe0e314c4fd61438a701d6808eae1fe4052712574878bdd5d8223696
-size 5125
+[
+    {
+        "ident_line": "NOV-101-9101",
+        "version_line": "C",
+        "wt_air_line": 45.97,
+        "sw_filled_air_line": 55.3,
+        "air_filled_sw_line": 23.9,
+        "sw_filled_sw_line": 33.2,
+        "water_depth": 735.0,
+        "contact_diameter_line": 165.64,
+        "nominal_diameter_line": 4.0,
+        "mbr_storage_line [m]": 1.15,
+        "mbr_installation_line": 2.43,
+        "bending_stiffness_line": 16.42,
+        "torsional_stiffness_line": 396.49,
+        "axial_stiffness_line": 331736.2,
+        "rel_elong_line": 0.0
+    },
+    [
+        [
+            0.0,
+            0.02167646,
+            0.04335292,
+            0.06502939,
+            0.08670585,
+            0.1083823,
+            0.1300588,
+            0.1517352,
+            0.1734117,
+            0.1950882,
+            0.2167646,
+            0.2384411,
+            0.2601175,
+            0.281794,
+            0.3034705,
+            0.3251469,
+            0.3468234,
+            0.3684999,
+            0.3901763,
+            0.4118528,
+            0.4335292,
+            0.4552057,
+            0.4768822,
+            0.4985586,
+            0.5202351,
+            0.5419116,
+            0.563588,
+            0.5852645,
+            0.6069409,
+            0.6286174,
+            0.6502939,
+            0.6719703,
+            0.6936468,
+            0.7153233,
+            0.7369997,
+            0.7586762,
+            0.7803526,
+            0.8020291,
+            0.8237056,
+            0.845382
+        ],
+        [
+            0.0,
+            533.9259,
+            1067.852,
+            1601.778,
+            2135.703,
+            2669.629,
+            3203.555,
+            3737.481,
+            4271.407,
+            4805.333,
+            5339.259,
+            5873.184,
+            6407.11,
+            6941.036,
+            7474.962,
+            8008.888,
+            8542.814,
+            9076.74,
+            9610.665,
+            10144.59,
+            10678.52,
+            11212.44,
+            11746.37,
+            12280.29,
+            12814.22,
+            13348.15,
+            13882.07,
+            14416.0,
+            14949.92,
+            15483.85,
+            16017.78,
+            16551.7,
+            17085.63,
+            17619.55,
+            18153.48,
+            18687.41,
+            19221.33,
+            19755.26,
+            20289.18,
+            20823.11
+        ]
+    ],
+    {
+        "ident_bend_restrictor": "15762-DWG-BR-102",
+        "version_bend_restrictor": "4",
+        "type_bend_restrictor": "Polymer",
+        "length_bend_restrictor": 4191.8,
+        "wt_air_bend_restrictor": 485.4,
+        "wt_sw_bend_restrictor": 72.0,
+        "od_bend_restrictor": 302.0,
+        "id_bend_restrictor": 192.0,
+        "contact_diameter_bend_restrictor": 490.0,
+        "locking_mbr_bend_restrictor": 2.69,
+        "bend_moment_bend_restrictor": 30.0,
+        "shear_stress_bend_restrictor": 30.0,
+        "rz_ident_bend_restrictor": "ZR_15762-DWG-BR-102",
+        "rz_version_bend_restrictor": "4",
+        "rz_length_bend_restrictor": 480.0,
+        "rz_wt_air_bend_restrictor": 96.65,
+        "rz_wt_sw_bend_restrictor": 84.0,
+        "rz_od_bend_restrictor": 302.0,
+        "rz_id_bend_restrictor": 272.0,
+        "rz_contact_diameter_bend_restrictor": 396.0
+    },
+    {
+        "ident_end_fitting": "15762-DWG-EF-102",
+        "version_end_fitting": "A",
+        "wt_air_end_fitting": 920.0,
+        "wt_sw_end_fitting": 800.0,
+        "length_end_fitting": 1193.0,
+        "od_end_fitting": 450.0,
+        "id_end_fitting": 133.0,
+        "contact_diameter_end_fitting": 450.0
+    },
+    {
+        "ident_flange": "DE-F-05-J-0158",
+        "version_flange": "A",
+        "wt_air_flange": 107.0,
+        "wt_sw_flange": 93.09,
+        "length_flange": 482.0,
+        "od_flange": 131.0,
+        "id_flange": 101.6,
+        "contact_diameter_flange": 395.0
+    },
+    {
+        "subsea_equipment": "FD-3534.00-1516-619-PEK-047",
+        "version_vcm": "B",
+        "supplier_vcm": "OneSubsea",
+        "drawing_vcm": "2184362-14",
+        "subsea_equipment_type": "SK-130685-17",
+        "wt_sw_vcm": 3590.0,
+        "declination": 60.0,
+        "a_vcm": 4598.0,
+        "b_vcm": 862.0,
+        "c_vcm": 1510.0,
+        "d_vcm": 211.0,
+        "e_vcm": 1556.0,
+        "f_vcm": 1122.0,
+        "g_vcm": 1814.0,
+        "h_vcm": 0.0
+    },
+    [
+        [
+            0.0,
+            4.0,
+            8.0,
+            12.0
+        ],
+        [
+            4598.0,
+            4678.0,
+            4588.0,
+            4598.0
+        ]
+    ],
+    "RT 3024",
+    "SKR",
+    [
+        [
+            5,
+            3,
+            2,
+            5
+        ],
+        [
+            1000,
+            500,
+            250,
+            100
+        ]
+    ],
+    [
+        [
+            3.0
+        ],
+        [
+            NaN
+        ]
+    ],
+    {
+        "3ia": [
+            5.66,
+            -4.1,
+            31.43
+        ],
+        "3ib": [
+            5.7,
+            -8.16,
+            8.96
+        ],
+        "3ii": [
+            6.59,
+            -11.66,
+            -44.93
+        ]
+    }
+]

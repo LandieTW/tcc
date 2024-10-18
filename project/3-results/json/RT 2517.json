@@ -1,3 +1,191 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:7233ac0e904f459501140640010b313370448074bac1c9f17b9167b4f284dea6
-size 4143
+[
+    {
+        "ident_line": "WSI 152.2547-RD-4042-X",
+        "version_line": "2",
+        "wt_air_line": 106.58,
+        "sw_filled_air_line": 126.39,
+        "air_filled_sw_line": 54.46,
+        "sw_filled_sw_line": 74.27,
+        "water_depth": 2300.0,
+        "contact_diameter_line": 254.4,
+        "nominal_diameter_line": 6.0,
+        "mbr_storage_line [m]": 1.67,
+        "mbr_installation_line": 2.505,
+        "bending_stiffness_line": 20.466,
+        "torsional_stiffness_line": 1072.0,
+        "axial_stiffness_line": 252293.0,
+        "rel_elong_line": 0.0
+    },
+    [
+        [
+            0.0,
+            0.0072,
+            0.0159,
+            0.0262,
+            0.038,
+            0.0514,
+            0.0664,
+            0.0829,
+            0.101,
+            0.1207,
+            0.1419,
+            0.1646,
+            0.189,
+            0.2148,
+            0.2423,
+            0.2713,
+            0.3018,
+            0.3339,
+            0.3676,
+            0.4029,
+            0.4396,
+            0.478,
+            0.5179,
+            0.5594,
+            0.6024
+        ],
+        [
+            0.0,
+            411.0,
+            755.0,
+            1161.0,
+            1628.0,
+            2156.0,
+            2746.0,
+            3397.0,
+            4110.0,
+            4884.0,
+            5720.0,
+            6617.0,
+            7576.0,
+            8596.0,
+            9677.0,
+            10820.0,
+            12025.0,
+            13291.0,
+            14618.0,
+            16007.0,
+            17457.0,
+            18968.0,
+            20542.0,
+            22176.0,
+            23872.0
+        ]
+    ],
+    {
+        "ident_bend_restrictor": "CB-BR1522543-00-01",
+        "version_bend_restrictor": "1",
+        "type_bend_restrictor": "Steel",
+        "length_bend_restrictor": 4210.0,
+        "wt_air_bend_restrictor": 1178.0,
+        "wt_sw_bend_restrictor": 1024.9,
+        "od_bend_restrictor": 305.0,
+        "id_bend_restrictor": 208.0,
+        "contact_diameter_bend_restrictor": 544.0,
+        "locking_mbr_bend_restrictor": 2.86,
+        "bend_moment_bend_restrictor": 57.0,
+        "shear_stress_bend_restrictor": 43.0
+    },
+    {
+        "ident_end_fitting": "CB-EF1522543-00-04",
+        "version_end_fitting": "2",
+        "wt_air_end_fitting": 2600.0,
+        "wt_sw_end_fitting": 2262.0,
+        "length_end_fitting": 1791.0,
+        "od_end_fitting": 254.0,
+        "id_end_fitting": 152.4,
+        "contact_diameter_end_fitting": 480.0
+    },
+    {
+        "ident_flange": "",
+        "version_flange": "",
+        "wt_air_flange": 0.0,
+        "wt_sw_flange": 0.0,
+        "length_flange": 0.0,
+        "od_flange": 0.0,
+        "id_flange": 0.0,
+        "contact_diameter_flange": 0.0
+    },
+    {
+        "subsea_equipment": "FD-3A00.00-1514-276-PEK-001",
+        "version_vcm": "D",
+        "supplier_vcm": "P7000048060",
+        "drawing_vcm": "DU700154300 Rev. C",
+        "subsea_equipment_type": "'Manifold",
+        "wt_sw_vcm": 5043.0,
+        "declination": 60.0,
+        "a_vcm": 3810.0,
+        "b_vcm": 502.0,
+        "c_vcm": 907.0,
+        "d_vcm": 681.0,
+        "e_vcm": 864.0,
+        "f_vcm": 2037.0,
+        "g_vcm": 839.0,
+        "h_vcm": 0.0
+    },
+    [
+        [
+            0.0,
+            5.0,
+            10.0,
+            15.0
+        ],
+        [
+            3810.0,
+            3810.0,
+            3810.0,
+            3810.0
+        ]
+    ],
+    "RT 2517",
+    "CDA",
+    [
+        [
+            3,
+            1,
+            1,
+            3,
+            3,
+            4,
+            6,
+            1
+        ],
+        [
+            1252,
+            973,
+            828,
+            573,
+            283,
+            205,
+            118,
+            100
+        ]
+    ],
+    [
+        [
+            3.0,
+            6.0
+        ],
+        [
+            1800.0,
+            1000.0
+        ]
+    ],
+    {
+        "3ia": [
+            3.37,
+            -8.02,
+            30.67
+        ],
+        "3ib": [
+            8.89,
+            -11.76,
+            8.13
+        ],
+        "3ii": [
+            6.99,
+            -10.97,
+            11.84
+        ]
+    }
+]
