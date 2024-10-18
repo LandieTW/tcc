@@ -6,6 +6,10 @@ Revisar as fórmulas de rigidezes.
 Há um erro na modelagem.
 Onde deveria estar colocando o end-fitting, está sendo colocado ZR-vertebra.
 Na RT 2517
+
+Há um erro na modelagem.
+Na consideração de Adaptador de flange ou ZR-vertebra.
+Na RT 3004 e na RT 3024
 """
 
 import OrcFxAPI
