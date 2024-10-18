@@ -1,0 +1,157 @@
+Received: from DB9P191MB1881.EURP191.PROD.OUTLOOK.COM (2603:10a6:10:244::15)
+ by AS8P191MB2200.EURP191.PROD.OUTLOOK.COM with HTTPS; Tue, 12 Dec 2023
+ 12:16:03 +0000
+Received: from DB9P191MB1977.EURP191.PROD.OUTLOOK.COM (2603:10a6:10:25d::12)
+ by DB9P191MB1881.EURP191.PROD.OUTLOOK.COM (2603:10a6:10:244::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7068.33; Tue, 12 Dec
+ 2023 12:16:02 +0000
+Received: from DB9P191MB1977.EURP191.PROD.OUTLOOK.COM
+ ([fe80::77a9:9372:7bed:8302]) by DB9P191MB1977.EURP191.PROD.OUTLOOK.COM
+ ([fe80::77a9:9372:7bed:8302%4]) with mapi id 15.20.7068.033; Tue, 12 Dec 2023
+ 12:16:02 +0000
+From: Nathalia Silva <nathalia.silva@technipfmc.com>
+To: Daniel Wanderley <daniel.wanderley@technipfmc.com>, Eduardo Carvalho
+	<eduardo.carvalho@technipfmc.com>
+Subject:
+	=?iso-8859-1?Q?Fwd:_RT-2517_Rev.0_-_PE-12/23/54-CDA_-_8-SRR-7-RJS_-_Emiss?=
+ =?iso-8859-1?Q?=E3o/Revis=E3o_de_RT_para_IAS?=
+Thread-Topic:
+	=?iso-8859-1?Q?RT-2517_Rev.0_-_PE-12/23/54-CDA_-_8-SRR-7-RJS_-_Emiss=E3o/?=
+ =?iso-8859-1?Q?Revis=E3o_de_RT_para_IAS?=
+Thread-Index: AQHaLHZ8V0OKjp+htUOoQLJfNnhpELClkNi+
+Date: Tue, 12 Dec 2023 12:16:02 +0000
+Message-ID:
+	<DB9P191MB1977A938DB2437B336CEFA38E98EA@DB9P191MB1977.EURP191.PROD.OUTLOOK.COM>
+References:
+	<AS8P191MB1957A12C38EC9B6BACF543C79C8FA@AS8P191MB1957.EURP191.PROD.OUTLOOK.COM>
+In-Reply-To:
+	<AS8P191MB1957A12C38EC9B6BACF543C79C8FA@AS8P191MB1957.EURP191.PROD.OUTLOOK.COM>
+Accept-Language: en-US
+Content-Language: pt-BR
+X-MS-Exchange-Organization-AuthAs: Internal
+X-MS-Exchange-Organization-AuthMechanism: 04
+X-MS-Exchange-Organization-AuthSource: DB9P191MB1977.EURP191.PROD.OUTLOOK.COM
+X-MS-Has-Attach:
+X-MS-Exchange-Organization-Network-Message-Id:
+	ff4ae05c-7418-416c-840d-08dbfb0c1b7a
+X-MS-Exchange-Organization-SCL: 1
+X-Message-Flag: Flag for follow up
+X-MS-TNEF-Correlator:
+X-MS-Exchange-Organization-RecordReviewCfmType: 0
+msip_labels:
+	MSIP_Label_8caabacf-b917-4a45-9a5f-ed3a53d2eeb7_Enabled=True;MSIP_Label_8caabacf-b917-4a45-9a5f-ed3a53d2eeb7_SiteId=0804c951-93a0-405d-80e4-fa87c7551d6a;MSIP_Label_8caabacf-b917-4a45-9a5f-ed3a53d2eeb7_SetDate=2023-12-12T12:15:24.6916023Z;MSIP_Label_8caabacf-b917-4a45-9a5f-ed3a53d2eeb7_ContentBits=0;MSIP_Label_8caabacf-b917-4a45-9a5f-ed3a53d2eeb7_Method=Standard
+x-ms-publictraffictype: Email
+x-ms-exchange-crosstenant-id: 0804c951-93a0-405d-80e4-fa87c7551d6a
+X-Microsoft-Antispam-Mailbox-Delivery:
+	ucf:0;jmr:0;auth:0;dest:I;ENG:(910001)(944506478)(944626604)(920097)(425001)(930097)(140003)(1420103);
+X-Microsoft-Antispam-Message-Info:
+	paFDNZC8D8Dn9ZsPUHFFhuAirm+GRt0yi3a73/4KaWasZcBnnUNmwcS80x2yfEBE8HokbHJ2vUv7pIwOl8FUO/mRMcYOqf/eh0D3eSEulpWzPCnf2j9CV763AV0lEvo7x8uIpjMxkFFL94bOGQwqfUw23enPB/QKeVveJsoKF72BcTl0JHkCI6RgyOkucY2jqslk7M9ohmGUr0BapcC53yDOAuthuhoprvsqMvQUskNLCHveKGuW4DvD0PgT4jk7y7YBP9j0fbhNkC2LOVOntwHLt5/PzOHfKqLpWSq2mrim98gyocer1F7k47EU9bft/Pgj3xZWN1/txyuU5RPq53Y6wNxQpLWqfvkOAAkTzhkDR+hH77hY3qe8gaqiQouOgD7pk59lYqANd/d2nmbP6n870DKzQEiQHkIVIV65tg7umVCRLubSpBEmvvZ4OW9dQuSaqSmAOQaBPiprbBFyEAU77eXCYlGQTW0vcDSNHkHYrJCbGTjwluf8mwLG8YbhPuOtSjjYYIkXxyUXWGUeg99nq5cdZTac6VQzu3bRkQ0oZocwwyKRaxiDhvYeU5JX9uebnvPAyJ6xQ7RLN2aeXz1ztAo5qToHTZYzOD8z8EyQSUPVFGnNFbHB/YOt5dv95o9zOQ2wbO0ueSqpFUzYjZJ5WD0+/8zuITyZe2RPgdGrycmU0LQcnsocLg22H70ON7X6842KNU3fmHH4YPfnD9i5ka48Sa+if8z+sVbJzirAJKN+9kFHkjFT62AkiEpb
+Content-Type: multipart/alternative;
+	boundary="_000_DB9P191MB1977A938DB2437B336CEFA38E98EADB9P191MB1977EURP_"
+MIME-Version: 1.0
+
+--_000_DB9P191MB1977A938DB2437B336CEFA38E98EADB9P191MB1977EURP_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Bom dia Daniel
+
+
+Segue rt para ser iniciada. Atualizar o status no app.
+
+
+________________________________
+From: SHA-IAS <SHA-IAS@technipfmc.com>
+Sent: Monday, December 11, 2023 6:10:36 PM
+To: SHA-IAS <SHA-IAS@technipfmc.com>; Nathalia Silva <nathalia.silva@techni=
+pfmc.com>; Ana-Caroline Mesquita <ana-caroline.mesquita@technipfmc.com>
+Cc: SPI Mailbox <SPI-Mailbox@technipfmc.com>; Luiza Albuquerque <luiza.albu=
+querque@technipfmc.com>
+Subject: RT-2517 Rev.0 - PE-12/23/54-CDA - 8-SRR-7-RJS - Emiss=E3o/Revis=E3=
+o de RT para IAS
+
+
+[E-mail Autom=E1tico]
+
+Foi inserido/revisado as informa=E7=F5es de refer=EAncia referentes a RT-25=
+17 Rev. 0.
+
+Link para formul=E1rio da RT: https://digicorner.sharepoint.com/sites/BVPCl=
+oud/Shared%20Documents/CDA/PE-12-23-54-CDA/2517/1-Refer%C3%AAncias%20T%C3%A=
+9cnicas/RT-2517-CVD.xlsm?d=3Dwf1eb3c2e74f247e1bc582c09a2f35284
+
+Coment=E1rios adicionais: [Desconsiderar se n=E3o aplic=E1vel] Caso a posi=
+=E7=E3o do flutuador coincida com o primeiro anel da vertebra (logo abaixo =
+do anel adaptador/fundo do conector), =E9 necess=E1rio que estudo considere=
+ um distanciamento maior em rela=E7=E3o ao flange, evitando o contato entre=
+ a cinta tensionada (devido o flutuador) e aresta (do anel adaptador ou do =
+conector).
+
+Este =E9 um e-mail autom=E1tico, caso tenha d=FAvidas entre em contato com =
+a equipe de Suporte a Projetos de Instala=E7=E3o:
+SPI9004@digicorner.onmicrosoft.com
+
+--_000_DB9P191MB1977A938DB2437B336CEFA38E98EADB9P191MB1977EURP_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+</head>
+<body>
+<div dir=3D"auto">Bom dia Daniel</div>
+<div dir=3D"auto"><br>
+</div>
+<div dir=3D"auto"><br>
+</div>
+<div dir=3D"auto">Segue rt para ser iniciada. Atualizar o status no app.</d=
+iv>
+<div id=3D"ms-outlook-mobile-signature" dir=3D"auto">
+<div><br>
+</div>
+<br>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> SHA-IAS &lt;SHA-IAS@t=
+echnipfmc.com&gt;<br>
+<b>Sent:</b> Monday, December 11, 2023 6:10:36 PM<br>
+<b>To:</b> SHA-IAS &lt;SHA-IAS@technipfmc.com&gt;; Nathalia Silva &lt;natha=
+lia.silva@technipfmc.com&gt;; Ana-Caroline Mesquita &lt;ana-caroline.mesqui=
+ta@technipfmc.com&gt;<br>
+<b>Cc:</b> SPI Mailbox &lt;SPI-Mailbox@technipfmc.com&gt;; Luiza Albuquerqu=
+e &lt;luiza.albuquerque@technipfmc.com&gt;<br>
+<b>Subject:</b> RT-2517 Rev.0 - PE-12/23/54-CDA - 8-SRR-7-RJS - Emiss=E3o/R=
+evis=E3o de RT para IAS</font>
+<div>&nbsp;</div>
+</div>
+<div>
+<p>[E-mail Autom=E1tico]<br>
+<br>
+Foi inserido/revisado as informa=E7=F5es de refer=EAncia referentes a RT-25=
+17 Rev. 0.<br>
+<br>
+<strong>Link para formul=E1rio da RT: </strong>https://digicorner.sharepoin=
+t.com/sites/BVPCloud/Shared%20Documents/CDA/PE-12-23-54-CDA/2517/1-Refer%C3=
+%AAncias%20T%C3%A9cnicas/RT-2517-CVD.xlsm?d=3Dwf1eb3c2e74f247e1bc582c09a2f3=
+5284<br>
+<strong><br>
+Coment=E1rios adicionais:</strong> [Desconsiderar se n=E3o aplic=E1vel] Cas=
+o a posi=E7=E3o do flutuador coincida com o primeiro anel da vertebra (logo=
+ abaixo do anel adaptador/fundo do conector), =E9 necess=E1rio que estudo c=
+onsidere um distanciamento maior em rela=E7=E3o ao
+ flange, evitando o contato entre a cinta tensionada (devido o flutuador) e=
+ aresta (do anel adaptador ou do conector).<br>
+<br>
+Este =E9 um e-mail autom=E1tico, caso tenha d=FAvidas entre em contato com =
+a equipe de Suporte a Projetos de Instala=E7=E3o:<br>
+SPI9004@digicorner.onmicrosoft.com<br>
+</p>
+</div>
+</body>
+</html>
+
+--_000_DB9P191MB1977A938DB2437B336CEFA38E98EADB9P191MB1977EURP_--
