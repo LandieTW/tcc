@@ -5,6 +5,7 @@ for the installation stages, in conformity with the technical specification
 ET-3000.00-1500-951-PMU-001 Rev. F
 """
 
+
 import streamlit as st
 import pandas as pd
 import plotly.express as px
@@ -15,6 +16,7 @@ from st_aggrid import GridOptionsBuilder
 from PIL import Image
 from collections import Counter
 
+
 st.set_page_config(
     page_title="Automatic DVC",
     layout="wide"
@@ -22,6 +24,8 @@ st.set_page_config(
 st.title(
     "Installation Analysis Subsea"
 )
+
+
 tooltip_css = """
 <style>
     .tooltip {
@@ -54,11 +58,13 @@ tooltip_css = """
     }
 </style>
 """
+
+
 st.markdown(tooltip_css, unsafe_allow_html=True)
-image1_path = Image.open('2-interface/image/Screenshot_1.jpg')
-image2_path = Image.open('2-interface/image/Screenshot_2.jpg')
-image3_path = Image.open('2-interface/image/Screenshot_3.jpg')
-image4_path = Image.open('2-interface/image/Screenshot_4.jpg')
+image1_path = Image.open('1-interface/image/Screenshot_1.jpg')
+image2_path = Image.open('1-interface/image/Screenshot_2.jpg')
+image3_path = Image.open('1-interface/image/Screenshot_3.jpg')
+image4_path = Image.open('1-interface/image/Screenshot_4.jpg')
 
 
 def show_table(dict_data: pd.DataFrame, config: dict) -> AgGrid:
@@ -125,7 +131,7 @@ def buoys_set(name_vessel: str) -> pd.DataFrame:
     :return: set of vessel's buoys
     """
     set_of_buoys = "buoy_" + name_vessel.lower() + ".json"
-    path = "2-interface/buoy/" + set_of_buoys
+    path = "1-interface/buoy/" + set_of_buoys
     with open(path, 'r', encoding='utf-8') as file:
         json_buoys = json.load(file)
         counter = list(Counter(json_buoys).items())
@@ -195,6 +201,8 @@ tab0, tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs([
     "Analysis",
     "Review"
 ])
+
+
 with tab0:
     st.header("ADOPTED DATA")
     st.write(
@@ -205,7 +213,7 @@ with tab0:
         "ET-3000.00-1500-941-PMU-006 Rev. C - Methodology and guidelines for "
         "load analysis in VCM"
     )
-    col1, col2, col3 = st.columns([1, 1, 2])
+    col1, col2, col3 = st.columns([1.25, 1.25, 2])
     with col1:
         st.text(
             "SEABED DATA"
@@ -277,6 +285,8 @@ with tab0:
         )
     with col3:
         st.write("")
+
+
 with tab1:
     st.header("Flexible Pipe")
     st.write("Inform the Flexible Pipe's Data")
@@ -349,6 +359,8 @@ with tab1:
                 )
                 fig.update_traces(mode='lines+markers')
                 st.plotly_chart(fig)
+
+
 with tab2:
     st.header("Bend Restrictor")
     st.write("Inform the Bend Restrictor's Data")
@@ -422,6 +434,8 @@ with tab2:
         with col3:
             image_bend_restrictor = st_image_input(
                 image1_path, "Typical Bend Restrictor, with MBR")
+
+
 with tab3:
     st.header("End-Fitting")
     st.write("Inform the End-Fitting's Data")
@@ -448,6 +462,8 @@ with tab3:
     with col3:
         image_end_fitting = st_image_input(
             image2_path, "Typical End Fitting")
+
+
 with tab4:
     st.header("Flange Adapter")
     st.write("Inform the Flange Adapter's Data")
@@ -470,6 +486,8 @@ with tab4:
         od_flange = st_number_input("49. Outside Diameter [mm]")
         id_flange = st_number_input("50. Internal Diameter [mm]")
         contact_diameter_flange = st_number_input("51. Contact Diameter [mm]")
+
+
 with tab5:
     st.header("VCM")
     st.write("Inform the VCM's Data")
@@ -500,11 +518,13 @@ with tab5:
         h_vcm = st_number_input(
             "66. H [mm] - CoG Position Relative to the y-Axis")
     with col3:
-        image_vcm = st_image_input(image3_path, "Typical End Fitting")
+        image_vcm = st_image_input(image3_path, "Typical VCM")
     with col4:
         st.header("Bathymetric Data")
         grid_response2 = show_table(data2, grid_options2)
-        image_bathymetric = st_image_input(image4_path, "Seabed Image")
+        image_bathymetric = st_image_input(image4_path, "Seabed Bathymetric")
+
+
 with tab6:
     st.header("Analysis Data")
     st.write("Inform the Vessel, the Report's Buoy Configuration "
@@ -514,7 +534,7 @@ with tab6:
         rt_number = st.text_input("RT+Number")
         vessel = st.selectbox(
             "67. Vessel",
-            ["CDA", "SKA", "SKB", "SKN", "SKR", "SKV"]
+            ["CDA", "SKA", "SKB", "SKN", "SKR", "SKO", "SKV"]
         )
         if vessel:
             data4 = buoys_set(vessel)
@@ -539,6 +559,8 @@ with tab6:
         traction_3ii = st_number_input("74. Traction [kN]")
         shear_3ii = st_number_input("75. Shear [kN]")
         bend_moment_3ii = st_number_input("76. Bend Moment [kN.m]")
+
+
 with tab7:
     uploaded_file = st.file_uploader(
         "Choose the file",
