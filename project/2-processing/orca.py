@@ -32,19 +32,23 @@ list_bathymetric = new_combined_data[8]
 height_to_seabed = new_combined_data[9]
 rt_number = new_combined_data[10]
 
-line.OD = dict_line["outside_diameter_line"]
-line.ID = dict_line["interior_diameter_line"]
-line.MassPerUnitLength = dict_line["wt_air_line"] / 1_000
-line.ContactDiameter = dict_line["contact_diameter_line"] / 1_000
-line.NormalDragLiftDiameter = dict_line["contact_diameter_line"] / 1_000
-line.AxialDragLiftDiameter = dict_line["contact_diameter_line"] / 1_000
-line_type.Length[0] = winch_length - length
-line_type.Length[5] = dict_bend_restrictor["length_bend_restrictor"] / 1_000
-bend_restrictor.OD = dict_bend_restrictor["outside_diameter_bend_restrictor"]
-bend_restrictor.ID = dict_bend_restrictor["id_bend_restrictor"] / 1_000
+line.OD = dict_line["outside_diameter_line"]  # certo
+line.ID = dict_line["interior_diameter_line"]  # certo
+line.MassPerUnitLength = dict_line["wt_air_line"] / 1_000  # certo
+line.ContactDiameter = dict_line["contact_diameter_line"] / 1_000  # certo
+line.NormalDragLiftDiameter = dict_line["contact_diameter_line"] / 1_000  # certo
+line.AxialDragLiftDiameter = dict_line["contact_diameter_line"] / 1_000  # certo
+line_type.Length[0] = dict_line["water_depth"] - length  # certo
+
+
+line_type.Length[5] = dict_bend_restrictor["length_bend_restrictor"] / 1_000  # certo
+bend_restrictor.OD = dict_bend_restrictor["outside_diameter_bend_restrictor"]  # certo
+bend_restrictor.ID = dict_bend_restrictor["id_bend_restrictor"] / 1_000  # certo
 bend_restrictor.MassPerUnitLength = dict_bend_restrictor[
-    "linear_weight_in_air_bend_restrictor"]
-line_type.Length[6] = dict_end_fitting["length_end_fitting"] / 1_000
+    "linear_weight_in_air_bend_restrictor"]  # certo
+
+
+line_type.Length[6] = dict_end_fitting["length_end_fitting"] / 1_000  # certo
 end_fitting.OD = dict_end_fitting["outside_diameter_end_fitting"]
 end_fitting.ID = dict_end_fitting["id_end_fitting"] / 1_000
 end_fitting.MassPerUnitLength = (

@@ -141,9 +141,7 @@ dict_line["outside_diameter_line"] = line_d_out(
 dict_line["interior_diameter_line"] = line_d_int(
     dict_line["air_filled_sw_line"], dict_line["sw_filled_sw_line"])
 
-
 list_curvature_bend_moment_line = json_data[1]
-
 
 dict_bend_restrictor = json_data[2]
 if len(dict_bend_restrictor) > 15:  # zona rígida (vertebra polimérica)
@@ -171,7 +169,6 @@ if len(dict_bend_restrictor) > 15:  # zona rígida (vertebra polimérica)
                             dict_bend_restrictor["rz_od_bend_restrictor"],
                             dict_bend_restrictor["rz_id_bend_restrictor"]))
 
-
 dict_bend_restrictor["linear_weight_in_air_bend_restrictor"] = linear_weight(
     dict_bend_restrictor["wt_air_bend_restrictor"],
     dict_bend_restrictor["length_bend_restrictor"])
@@ -190,7 +187,6 @@ dict_bend_restrictor["bending_stiffness_bend_restrictor"] = (
 dict_bend_restrictor["axial_stiffness_bend_restrictor"] = 10.0
 dict_bend_restrictor["torsional_stiffness_bend_restrictor"] = 10.0
 
-
 list_curvature_bend_moment_bend_restrictor = [
     [
         .0,
@@ -207,7 +203,6 @@ list_curvature_bend_moment_bend_restrictor = [
         )
     ]
 ]
-
 
 dict_end_fitting = json_data[3]
 dict_end_fitting["linear_weight_in_air_end_fitting"] = linear_weight(
@@ -230,7 +225,6 @@ dict_end_fitting["torsional_stiffness_end_fitting"] = torsional_stiffness(
     "Steel", dict_end_fitting["od_end_fitting"],
     dict_end_fitting["id_end_fitting"])
 
-
 dict_vcm = json_data[5]
 dict_vcm["cg_az"] = cg_olhal_flange(dict_vcm["f_vcm"], - dict_vcm["d_vcm"])
 dict_vcm["cg_bx"] = cg_olhal_flange(dict_vcm["g_vcm"], - dict_vcm["e_vcm"])
@@ -239,10 +233,8 @@ dict_vcm["olhal_dx"] = cg_olhal_flange(dict_vcm["g_vcm"], - dict_vcm["c_vcm"])
 dict_vcm["flange_ez"] = cg_olhal_flange(.0, dict_vcm["f_vcm"])
 dict_vcm["flange_fx"] = cg_olhal_flange(.0, dict_vcm["g_vcm"])
 
-
 winch_length = dict_line["water_depth"] - ((dict_vcm["b_vcm"] +
                                             dict_vcm["a_vcm"]) / 1_000)
-
 
 list_bathymetric = json_data[6]
 depth = [(dict_line["water_depth"] +
@@ -250,14 +242,12 @@ depth = [(dict_line["water_depth"] +
          for i in range(len(list_bathymetric[0]))]
 list_bathymetric.append(depth)
 
-
 height_to_seabed = (dict_line["water_depth"] -
                     (dict_vcm["a_vcm"] - dict_vcm["f_vcm"]) / 1_000)
 
-
-length = 310 + (dict_bend_restrictor["length_bend_restrictor"] +
-                dict_end_fitting["length_end_fitting"]) / 1_000
-
+length = 160 + 100 + 40 + 10 + \
+         (dict_bend_restrictor["length_bend_restrictor"] +
+          dict_end_fitting["length_end_fitting"]) / 1_000
 
 new_combined_data = (
     dict_line, list_curvature_bend_moment_line, dict_bend_restrictor,
@@ -266,9 +256,7 @@ new_combined_data = (
     json_data[8], json_data[9], json_data[10], json_data[11]
 )
 
-
 dict_flange = json_data[4]
-
 
 if dict_flange["ident_flange"] != "":
     dict_flange["linear_weight_in_air_flange"] = linear_weight(
@@ -284,9 +272,10 @@ if dict_flange["ident_flange"] != "":
         "Steel", dict_flange["od_flange"], dict_flange["id_flange"])
     dict_flange["torsional_stiffness_flange"] = torsional_stiffness(
         "Steel", dict_flange["od_flange"], dict_flange["id_flange"])
-    length = 310 + (dict_bend_restrictor["length_bend_restrictor"] +
-                    dict_end_fitting["length_end_fitting"] +
-                    dict_flange["length_flange"]) / 1_000
+    length = 160 + 100 + 40 + 10 + (
+            dict_bend_restrictor["length_bend_restrictor"] +
+            dict_end_fitting["length_end_fitting"] +
+            dict_flange["length_flange"]) / 1_000
     new_combined_data = (
         dict_line, list_curvature_bend_moment_line, dict_bend_restrictor,
         list_curvature_bend_moment_bend_restrictor, dict_end_fitting,
@@ -294,3 +283,8 @@ if dict_flange["ident_flange"] != "":
         height_to_seabed, json_data[7], json_data[8], json_data[9],
         json_data[10], json_data[11]
     )
+
+objeto = dict_end_fitting
+
+for element in objeto:
+    print(f"{element}: {objeto[element]}")
