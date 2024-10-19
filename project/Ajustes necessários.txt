@@ -1,6 +1,5 @@
 Erros
 
-A modelagem na consideração das rigidezes
 A modelagem na consideração de da Zona Rígida de vértebras poliméricas
 A modelagem na consideração de Adaptadores de flange
 
@@ -9,3 +8,8 @@ Ajustes
 Ajuste na troca de posição de boias - individualizar cada posição
 Ajuste na troca de referência de empuxo - individualizar cada posição
 Ajuste na troca de referência de empuxo - limitar a 2 Tf
+
+Melhoria
+
+Englobar CVD com jumpers
+Englobar CVD com umbilicais

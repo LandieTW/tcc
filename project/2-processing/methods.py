@@ -283,8 +283,3 @@ if dict_flange["ident_flange"] != "":
         height_to_seabed, json_data[7], json_data[8], json_data[9],
         json_data[10], json_data[11]
     )
-
-objeto = dict_end_fitting
-
-for element in objeto:
-    print(f"{element}: {objeto[element]}")
