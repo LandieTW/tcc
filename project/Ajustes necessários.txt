@@ -1,15 +1,16 @@
-Erros
+Correção de erros
 
 A modelagem na consideração de da Zona Rígida de vértebras poliméricas
 A modelagem na consideração de Adaptadores de flange
 
-Ajustes
+Ajustes necessários
 
-Ajuste na troca de posição de boias - individualizar cada posição
-Ajuste na troca de referência de empuxo - individualizar cada posição
+Ajuste na troca de posição de boias - individualizar a manipulação das posições
+Ajuste na troca de referência de empuxo - individualizar a manipulação do empuxo em cada posição
 Ajuste na troca de referência de empuxo - limitar a 2 Tf
 
-Melhoria
+Melhorias
 
+Utilizar paradigma Orientado a Objetos, ao invés de Estrutural
 Englobar CVD com jumpers
 Englobar CVD com umbilicais
