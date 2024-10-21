@@ -11,10 +11,11 @@ model = OrcFxAPI.Model("ModeloRTCVD1a.dat")
 line = model['Linha']
 line_type = model['Line']
 bend_restrictor = model['Vértebra']
+b_restrictor = model['Vert']
+zr_vert = model["ZR_Vertebra"]
 end_fitting = model['Conector']
 flange_adapter = model['Adaptador']
 vcm = model['MCV']
-b_restrictor = model['Vert']
 winch = model['Guindaste']
 environment = model['Environment']
 stiffness_1 = model['Stiffness1']
@@ -44,15 +45,13 @@ line_type.Length[0] = dict_line["water_depth"] - length
 line_type.Length[5] = dict_bend_restrictor["length_bend_restrictor"] / 1_000
 bend_restrictor.OD = dict_bend_restrictor["outside_diameter_bend_restrictor"]
 bend_restrictor.ID = dict_bend_restrictor["id_bend_restrictor"] / 1_000
-bend_restrictor.MassPerUnitLength = dict_bend_restrictor[
-    "linear_weight_in_air_bend_restrictor"]
+bend_restrictor.MassPerUnitLength = dict_bend_restrictor["linear_weight_in_air_bend_restrictor"]
 
 
 line_type.Length[6] = dict_end_fitting["length_end_fitting"] / 1_000
 end_fitting.OD = dict_end_fitting["outside_diameter_end_fitting"]
 end_fitting.ID = dict_end_fitting["id_end_fitting"] / 1_000
-end_fitting.MassPerUnitLength = (
-    dict_end_fitting["linear_weight_in_air_end_fitting"])
+end_fitting.MassPerUnitLength = (dict_end_fitting["linear_weight_in_air_end_fitting"])
 
 
 line.EA = dict_line["axial_stiffness_line"]
@@ -62,29 +61,21 @@ end_fitting.EA = dict_end_fitting["axial_stiffness_end_fitting"]
 
 
 line.xMinRadius = dict_line["mbr_installation_line"]
-bend_restrictor.xMinRadius = (
-    dict_bend_restrictor["locking_mbr_bend_restrictor"])
+bend_restrictor.xMinRadius = (dict_bend_restrictor["locking_mbr_bend_restrictor"])
 end_fitting.xMinRadius = dict_bend_restrictor["locking_mbr_bend_restrictor"]
 
 
-bend_restrictor.NormalDragLiftDiameter = (
-        dict_bend_restrictor["contact_diameter_bend_restrictor"] / 1_000)
-end_fitting.NormalDragLiftDiameter = (
-        dict_end_fitting["contact_diameter_end_fitting"] / 1_000)
-bend_restrictor.AxialDragLiftDiameter = (
-        dict_bend_restrictor["contact_diameter_bend_restrictor"] / 1_000)
-end_fitting.AxialDragLiftDiameter = (
-        dict_end_fitting["contact_diameter_end_fitting"] / 1_000)
+bend_restrictor.NormalDragLiftDiameter = (dict_bend_restrictor["contact_diameter_bend_restrictor"] / 1_000)
+end_fitting.NormalDragLiftDiameter = (dict_end_fitting["contact_diameter_end_fitting"] / 1_000)
+bend_restrictor.AxialDragLiftDiameter = (dict_bend_restrictor["contact_diameter_bend_restrictor"] / 1_000)
+end_fitting.AxialDragLiftDiameter = (dict_end_fitting["contact_diameter_end_fitting"] / 1_000)
 
 
-bend_restrictor.ContactDiameter = (
-        dict_bend_restrictor["contact_diameter_bend_restrictor"] / 1_000)
-end_fitting.ContactDiameter = (
-        dict_end_fitting["contact_diameter_end_fitting"] / 1_000)
+bend_restrictor.ContactDiameter = (dict_bend_restrictor["contact_diameter_bend_restrictor"] / 1_000)
+end_fitting.ContactDiameter = (dict_end_fitting["contact_diameter_end_fitting"] / 1_000)
 
 
-bend_restrictor.GJ = dict_bend_restrictor[
-    "torsional_stiffness_bend_restrictor"]
+bend_restrictor.GJ = dict_bend_restrictor["torsional_stiffness_bend_restrictor"]
 end_fitting.GJ = dict_end_fitting["torsional_stiffness_end_fitting"]
 line.GJ = dict_line["torsional_stiffness_line"]
 
@@ -100,25 +91,20 @@ if len(new_combined_data) > 15:  # adaptador de flange
 
     flange_adapter.OD = dict_flange["outside_diameter_flange"]
     flange_adapter.ID = dict_flange["id_flange"] / 1_000
-    flange_adapter.MassPerUnitLength = dict_flange[
-        "linear_weight_in_air_flange"]
+    flange_adapter.MassPerUnitLength = dict_flange["linear_weight_in_air_flange"]
     flange_adapter.EIx = dict_flange["bending_stiffness_flange"]
     flange_adapter.EA = dict_flange["axial_stiffness_flange"]
-    flange_adapter.xMinRadius = dict_bend_restrictor[
-        "locking_mbr_bend_restrictor"]
-    flange_adapter.NormalDragLiftDiameter = (
-            dict_flange["contact_diameter_flange"] / 1_000)
-    flange_adapter.AxialDragLiftDiameter = (
-            dict_flange["contact_diameter_flange"] / 1_000)
-    flange_adapter.ContactDiameter = (
-            dict_flange["contact_diameter_flange"] / 1_000)
+    flange_adapter.xMinRadius = dict_bend_restrictor["locking_mbr_bend_restrictor"]
+    flange_adapter.NormalDragLiftDiameter = (dict_flange["contact_diameter_flange"] / 1_000)
+    flange_adapter.AxialDragLiftDiameter = (dict_flange["contact_diameter_flange"] / 1_000)
+    flange_adapter.ContactDiameter = (dict_flange["contact_diameter_flange"] / 1_000)
     flange_adapter.GJ = dict_flange["torsional_stiffness_flange"]
     flange_adapter.Name = dict_flange["ident_flange"]
     line_type.Length[7] = dict_flange["length_flange"]
-    line_type.Attachmentz[0] = (dict_end_fitting["length_end_fitting"] +
-                                dict_flange["length_flange"]) / 1_000
+    line_type.Attachmentz[0] = (dict_end_fitting["length_end_fitting"] + dict_flange["length_flange"]) / 1_000
 else:
     line_type.NumberOfSections = 7
+    line_type.LineType[6] = end_fitting.Name
     line_type.Attachmentz[0] = dict_end_fitting["length_end_fitting"] / 1_000
 
 
@@ -151,24 +137,20 @@ vcm.Name = dict_vcm["subsea_equipment"]
 stiffness_1.NumberOfRows = len(list_curvature_bend_moment_line[0])
 for i in range(1, len(list_curvature_bend_moment_line[0])):
     stiffness_1.IndependentValue[i] = list_curvature_bend_moment_line[0][i]
-    stiffness_1.DependentValue[i] = (
-            list_curvature_bend_moment_line[1][i] / 1_000)
+    stiffness_1.DependentValue[i] = (list_curvature_bend_moment_line[1][i] / 1_000)
 
 
 environment.SeabedType = "Profile"
 environment.SeabedProfileDepth[0] = dict_line["water_depth"]
 environment.SeabedProfileNumberOfPoints = len(list_bathymetric[0])
 for i in range(len(list_bathymetric[1])):
-    environment.SeabedProfileDistanceFromSeabedOrigin[i] = (
-        list_bathymetric)[0][i]
+    environment.SeabedProfileDistanceFromSeabedOrigin[i] = list_bathymetric[0][i]
     environment.SeabedProfileDepth[i] = list_bathymetric[2][i]
 
 
 for i in range(1, len(list_curvature_bend_moment_bend_restrictor[0])):
-    stiffness_2.IndependentValue[i] = \
-        list_curvature_bend_moment_bend_restrictor[0][i]
-    stiffness_2.DependentValue[i] = \
-        list_curvature_bend_moment_bend_restrictor[1][i]
+    stiffness_2.IndependentValue[i] = list_curvature_bend_moment_bend_restrictor[0][i]
+    stiffness_2.DependentValue[i] = list_curvature_bend_moment_bend_restrictor[1][i]
 
 
 os.makedirs(rt_number, exist_ok=True)

@@ -11,8 +11,7 @@ from glob import glob
 user_download_path = os.path.join(os.path.expanduser('~'), 'Downloads')
 json_files = glob(os.path.join(user_download_path, "*.json"))
 if not json_files:
-    raise FileNotFoundError(
-        "Nenhum arquivo JSON encontrado na pasta Downloads.")
+    raise FileNotFoundError("Nenhum arquivo JSON encontrado na pasta Downloads.")
 download_path = json_files[0]
 json_name = os.path.basename(download_path)
 
@@ -37,8 +36,7 @@ def json_moving(origin_file_path: str, destiny_file_path: str) -> str:
     else:
         destiny_path = os.path.join(destiny_file_path, json_name)
         if not os.path.exists(destiny_path):
-            raise FileNotFoundError(
-                f"Arquivo {origin_file_path} não encontrado.")
+            raise FileNotFoundError(f"Arquivo {origin_file_path} não encontrado.")
     return destiny_path
 
 

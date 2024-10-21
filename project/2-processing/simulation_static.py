@@ -44,24 +44,21 @@ stiffness_2 = model_aut['Stiffness2']
 general.LineStaticsStep1Policy = "All lines included"
 general.LineStaticsStep2Policy = "None"
 general.StaticsMinDamping = 10
-general.StaticsMaxDamping = 50
+general.StaticsMaxDamping = 30
 
 line_type.NumberOfAttachments = 0
 
 sim_run.run_static_simulation(model_aut, rt_number)
 print("\nRan without Bend_Restrictor!")
-
 sim_run.user_specified(model_aut, rt_number)
 
 sim_run.insert_bend_restrictor(line_type, b_restrictor, flange, endfitting)
 
 sim_run.run_static_simulation(model_aut, rt_number)
 print("\nRan with Bend_Restrictor!")
-
 sim_run.user_specified(model_aut, rt_number)
 
 combination_buoys = sim_run.buoy_combination(buoy_set)
-
 sim_run.loop_input_buoyancy(buoys_configuration, line_type, model_aut, 1,
                             combination_buoys, vessel, rt_number)
 
