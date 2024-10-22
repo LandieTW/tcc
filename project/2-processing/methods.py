@@ -150,8 +150,8 @@ def cg_olhal_flange(cote_1, cote_2):
 class Line:
     def __init__(self, name, revision, empty_air_weight, filled_air_weight, empty_water_weight,
                  filled_water_weight, water_depth, contact_diameter, nominal_diameter, mbr_storage,
-                 mbr_installation, bending_stiffness, torsional_stiffness, axial_stiffness,
-                 relative_elongation, s_curve):
+                 mbr_installation, b_stiffness, t_stiffness, a_stiffness, relative_elongation,
+                 s_curve):
         self.__name = name,
         self.__revision = revision,
         self.__eaw = empty_air_weight,
@@ -163,9 +163,9 @@ class Line:
         self.__nd = nominal_diameter,
         self.__mbr_s = mbr_storage,
         self.__mbr_i = mbr_installation,
-        self.__b_stiffness = bending_stiffness,
-        self.__t_stiffness = torsional_stiffness,
-        self.__a_stiffness = axial_stiffness,
+        self.__b_stiffness = b_stiffness,
+        self.__t_stiffness = t_stiffness,
+        self.__a_stiffness = a_stiffness,
         self.__r_elongation = relative_elongation,
         self.__od = line_d_out(empty_air_weight, empty_water_weight),
         self.__id = line_d_int(empty_water_weight, filled_water_weight),
@@ -175,12 +175,13 @@ class Line:
 
 
 class BendRestrictor:
-    def __init__(self, name, revision, material, length, air_weight, water_weight, outside_diameter,
-                 inner_diameter, contact_diameter, mbr, bend_moment, shear_force, s_curve):
+    def __init__(self, name, revision, material, length_mm, air_weight, water_weight,
+                 outside_diameter, inner_diameter, contact_diameter, mbr, bend_moment, shear_force,
+                 s_curve):
         self.__name = name,
         self.__revision = revision,
         self.__material = material,
-        self.__length = length,
+        self.__length = length_mm,
         self.__aw = air_weight,
         self.__ww = water_weight,
         self.__od = outside_diameter,
@@ -200,13 +201,13 @@ class BendRestrictor:
 
 
 class Accessory:
-    def __init__(self, name, revision, air_weight, water_weight, length, outside_diameter,
+    def __init__(self, name, revision, air_weight, water_weight, length_mm, outside_diameter,
                  inner_diameter, contact_diameter, material="Steel"):
         self.__name = name,
         self.__revision = revision,
         self.__aw = air_weight,
         self.__ww = water_weight,
-        self.__length = length,
+        self.__length = length_mm,
         self.__od = outside_diameter,
         self.__id = inner_diameter,
         self.__cd = contact_diameter,
@@ -219,12 +220,12 @@ class Accessory:
 
 
 class Vcm:
-    def __init__(self, name, revision, supplier, draw, type, weight, declination, coord):
+    def __init__(self, name, revision, supplier, draw, material, weight, declination, coord):
         self.__name = name,
         self.__revision = revision,
         self.__supplier = supplier,
         self.__draw = draw,
-        self.__type = type,
+        self.__type = material,
         self.__weight = weight,
         self.__declination = declination,
         self.__a, self.__b, self.__c, self.__d, self.__e, self.__f, self.__g, self.__h = coord
@@ -320,42 +321,22 @@ bel = (dict_bend_restrictor["length_bend_restrictor"] + dict_end_fitting["length
 length = 160 + 100 + 40 + 10 + bel / 1_000
 
 dict_flange = json_data[4]
-
 if dict_flange["ident_flange"] != "":
-    dict_flange["linear_weight_in_air_flange"] = linear_weight(dict_flange["wt_air_flange"],
-                                                               dict_flange["length_flange"])
-    dict_flange["linear_weight_in_water_flange"] = linear_weight(dict_flange["wt_sw_flange"],
-                                                                 dict_flange["length_flange"])
-    dict_flange["outside_diameter_flange"] = accessories_d_out(dict_flange["wt_air_flange"],
-                                                               dict_flange["wt_sw_flange"],
-                                                               dict_flange["id_flange"],
-                                                               dict_flange["length_flange"])
-    dict_flange["bending_stiffness_flange"] = bending_stiffness("Steel", dict_flange["od_flange"],
-                                                                dict_flange["id_flange"])
-    dict_flange["axial_stiffness_flange"] = axial_stiffness("Steel", dict_flange["od_flange"],
-                                                            dict_flange["id_flange"])
-    dict_flange["torsional_stiffness_flange"] = torsional_stiffness("Steel",
-                                                                    dict_flange["od_flange"],
-                                                                    dict_flange["id_flange"])
+    flange = Accessory(
+        dict_flange["ident_flange"], dict_flange["version_flange"],
+        dict_flange["wt_air_flange"], dict_flange["wt_sw_flange"],
+        dict_flange["length_flange"], dict_flange["od_flange"],
+        dict_flange["id_flange"], dict_flange["contact_diameter_flange"]
+    )
 
     length += dict_flange["length_flange"] / 1_000
 
     new_combined_data = (
-        dict_line, stiffness_curve_line, dict_bend_restrictor,
-        stiffness_curve_bend_restrictor, dict_end_fitting,
-        dict_flange, length, dict_vcm, winch_length, list_bathymetric,
-        height_to_seabed, json_data[7], json_data[8], json_data[9],
-        json_data[10], json_data[11]
+        line, bend_restrictor, end_fitting, flange, length, vcm, winch_length, list_bathymetric,
+        height_to_seabed, json_data[7], json_data[8], json_data[9], json_data[10], json_data[11]
     )
 else:
     new_combined_data = (
-        dict_line, stiffness_curve_line, dict_bend_restrictor,
-        stiffness_curve_bend_restrictor, dict_end_fitting, length,
-        dict_vcm, winch_length, list_bathymetric, height_to_seabed, json_data[7],
-        json_data[8], json_data[9], json_data[10], json_data[11]
+        line, bend_restrictor, end_fitting, length, vcm, winch_length, list_bathymetric,
+        height_to_seabed, json_data[7], json_data[8], json_data[9], json_data[10], json_data[11]
     )
-
-objeto = dict_vcm
-
-for elemento in objeto:
-    print(f"{elemento}: {objeto[elemento]}")
