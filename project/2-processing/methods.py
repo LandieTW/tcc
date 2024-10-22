@@ -237,106 +237,97 @@ class Vcm:
         self.__flange_fx = cg_olhal_flange(.0, coord[6])
 
 
-dict_line = json_data[0]
-stiffness_curve_line = json_data[1]
 line = Line(
-    dict_line["ident_line"], dict_line["version_line"], dict_line["wt_air_line"],
-    dict_line["sw_filled_air_line"], dict_line["air_filled_sw_line"],
-    dict_line["sw_filled_sw_line"], dict_line["water_depth"], dict_line["contact_diameter_line"],
-    dict_line["nominal_diameter_line"], dict_line["mbr_storage_line [m]"],
-    dict_line["mbr_installation_line"], dict_line["bending_stiffness_line"],
-    dict_line["torsional_stiffness_line"], dict_line["axial_stiffness_line"],
-    dict_line["rel_elong_line"], stiffness_curve_line
+    json_data[0]["ident_line"], json_data[0]["version_line"], json_data[0]["wt_air_line"],
+    json_data[0]["sw_filled_air_line"], json_data[0]["air_filled_sw_line"],
+    json_data[0]["sw_filled_sw_line"], json_data[0]["water_depth"],
+    json_data[0]["contact_diameter_line"], json_data[0]["nominal_diameter_line"],
+    json_data[0]["mbr_storage_line [m]"], json_data[0]["mbr_installation_line"],
+    json_data[0]["bending_stiffness_line"], json_data[0]["torsional_stiffness_line"],
+    json_data[0]["axial_stiffness_line"], json_data[0]["rel_elong_line"], json_data[1]
 )
 
-dict_bend_restrictor = json_data[2]
 stiffness_curve_bend_restrictor = [
     [
         .0,
-        round(1 / dict_bend_restrictor["locking_mbr_bend_restrictor"], 4),
-        round(1 + 1 / dict_bend_restrictor["locking_mbr_bend_restrictor"], 4)
+        round(1 / json_data[2]["locking_mbr_bend_restrictor"], 4),
+        round(1 + 1 / json_data[2]["locking_mbr_bend_restrictor"], 4)
     ],
     [
         .0,
         .01,
-        bend_moment_limit(dict_bend_restrictor["type_bend_restrictor"],
-                          dict_bend_restrictor["od_bend_restrictor"],
-                          dict_bend_restrictor["id_bend_restrictor"])
+        bend_moment_limit(json_data[2]["type_bend_restrictor"],
+                          json_data[2]["od_bend_restrictor"],
+                          json_data[2]["id_bend_restrictor"])
     ]
 ]
 bend_restrictor = BendRestrictor(
-    dict_bend_restrictor["ident_bend_restrictor"], dict_bend_restrictor["version_bend_restrictor"],
-    dict_bend_restrictor["type_bend_restrictor"], dict_bend_restrictor["length_bend_restrictor"],
-    dict_bend_restrictor["wt_air_bend_restrictor"], dict_bend_restrictor["wt_sw_bend_restrictor"],
-    dict_bend_restrictor["od_bend_restrictor"], dict_bend_restrictor["id_bend_restrictor"],
-    dict_bend_restrictor["contact_diameter_bend_restrictor"],
-    dict_bend_restrictor["locking_mbr_bend_restrictor"],
-    dict_bend_restrictor["bend_moment_bend_restrictor"],
-    dict_bend_restrictor["shear_stress_bend_restrictor"], stiffness_curve_bend_restrictor
+    json_data[2]["ident_bend_restrictor"], json_data[2]["version_bend_restrictor"],
+    json_data[2]["type_bend_restrictor"], json_data[2]["length_bend_restrictor"],
+    json_data[2]["wt_air_bend_restrictor"], json_data[2]["wt_sw_bend_restrictor"],
+    json_data[2]["od_bend_restrictor"], json_data[2]["id_bend_restrictor"],
+    json_data[2]["contact_diameter_bend_restrictor"], json_data[2]["locking_mbr_bend_restrictor"],
+    json_data[2]["bend_moment_bend_restrictor"], json_data[2]["shear_stress_bend_restrictor"],
+    stiffness_curve_bend_restrictor
 )
 
-if len(dict_bend_restrictor) > 15:  # zona rígida (vertebra polimérica)
-    rigid_zone = Accessory(
-        dict_bend_restrictor["rz_ident_bend_restrictor"],
-        dict_bend_restrictor["rz_version_bend_restrictor"],
-        dict_bend_restrictor["rz_wt_air_bend_restrictor"],
-        dict_bend_restrictor["rz_wt_sw_bend_restrictor"],
-        dict_bend_restrictor["rz_length_bend_restrictor"],
-        dict_bend_restrictor["rz_od_bend_restrictor"],
-        dict_bend_restrictor["rz_id_bend_restrictor"],
-        dict_bend_restrictor["rz_contact_diameter_bend_restrictor"]
-    )
-
-dict_end_fitting = json_data[3]
 end_fitting = Accessory(
-    dict_end_fitting["ident_end_fitting"], dict_end_fitting["version_end_fitting"],
-    dict_end_fitting["wt_air_end_fitting"], dict_end_fitting["wt_sw_end_fitting"],
-    dict_end_fitting["length_end_fitting"], dict_end_fitting["od_end_fitting"],
-    dict_end_fitting["id_end_fitting"], dict_end_fitting["contact_diameter_end_fitting"]
+    json_data[3]["ident_end_fitting"], json_data[3]["version_end_fitting"],
+    json_data[3]["wt_air_end_fitting"], json_data[3]["wt_sw_end_fitting"],
+    json_data[3]["length_end_fitting"], json_data[3]["od_end_fitting"],
+    json_data[3]["id_end_fitting"], json_data[3]["contact_diameter_end_fitting"]
 )
 
-dict_vcm = json_data[5]
 vcm_geometry = [
-    dict_vcm["a_vcm"], dict_vcm["b_vcm"], dict_vcm["c_vcm"], dict_vcm["d_vcm"],
-    dict_vcm["e_vcm"], dict_vcm["f_vcm"], dict_vcm["g_vcm"], dict_vcm["h_vcm"]
+    json_data[5]["a_vcm"], json_data[5]["b_vcm"], json_data[5]["c_vcm"], json_data[5]["d_vcm"],
+    json_data[5]["e_vcm"], json_data[5]["f_vcm"], json_data[5]["g_vcm"], json_data[5]["h_vcm"]
 ]
 vcm = Vcm(
-    dict_vcm["subsea_equipment"], dict_vcm["version_vcm"], dict_vcm["supplier_vcm"],
-    dict_vcm["drawing_vcm"], dict_vcm["subsea_equipment_type"], dict_vcm["wt_sw_vcm"],
-    dict_vcm["declination"], vcm_geometry
+    json_data[5]["subsea_equipment"], json_data[5]["version_vcm"], json_data[5]["supplier_vcm"],
+    json_data[5]["drawing_vcm"], json_data[5]["subsea_equipment_type"], json_data[5]["wt_sw_vcm"],
+    json_data[5]["declination"], vcm_geometry
 )
 
-winch_length = dict_line["water_depth"] - ((dict_vcm["b_vcm"] + dict_vcm["a_vcm"]) / 1_000)
+olhal_height = (json_data[5]["b_vcm"] + json_data[5]["a_vcm"]) / 1_000
+winch_length = json_data[0]["water_depth"] - olhal_height
 
 list_bathymetric = json_data[6]
-depth = [(dict_line["water_depth"] + (list_bathymetric[1][i] - dict_vcm["a_vcm"]) / 1_000)
+depth = [(json_data[0]["water_depth"] + (list_bathymetric[1][i] - json_data[5]["a_vcm"]) / 1_000)
          for i in range(len(list_bathymetric[0]))]
 list_bathymetric.append(depth)
 
-flange_height = (dict_vcm["a_vcm"] - dict_vcm["f_vcm"]) / 1_000
-height_to_seabed = dict_line["water_depth"] - flange_height
+flange_height = (json_data[5]["a_vcm"] - json_data[5]["f_vcm"]) / 1_000
+height_to_seabed = json_data[0]["water_depth"] - flange_height
 
-# (bend restrictor + end fitting) length = bel
-bel = (dict_bend_restrictor["length_bend_restrictor"] + dict_end_fitting["length_end_fitting"])
-length = 160 + 100 + 40 + 10 + bel / 1_000
+# (bend restrictor + end fitting) length = br_ef_l
+br_ef_l = (json_data[2]["length_bend_restrictor"] + json_data[3]["length_end_fitting"])
+length = 160 + 100 + 40 + 10 + br_ef_l / 1_000
 
-dict_flange = json_data[4]
-if dict_flange["ident_flange"] != "":
+comb_data = [
+    line, bend_restrictor, end_fitting, vcm, winch_length, list_bathymetric,
+    height_to_seabed, json_data[7], json_data[8], json_data[9], json_data[10],
+    json_data[11], length
+]
+
+if json_data[4]["ident_flange"] != "":
     flange = Accessory(
-        dict_flange["ident_flange"], dict_flange["version_flange"],
-        dict_flange["wt_air_flange"], dict_flange["wt_sw_flange"],
-        dict_flange["length_flange"], dict_flange["od_flange"],
-        dict_flange["id_flange"], dict_flange["contact_diameter_flange"]
+        json_data[4]["ident_flange"], json_data[4]["version_flange"], json_data[4]["wt_air_flange"],
+        json_data[4]["wt_sw_flange"], json_data[4]["length_flange"], json_data[4]["od_flange"],
+        json_data[4]["id_flange"], json_data[4]["contact_diameter_flange"]
     )
 
-    length += dict_flange["length_flange"] / 1_000
+    comb_data[-1] += json_data[4]["length_flange"] / 1_000
+    comb_data.append(flange)
 
-    new_combined_data = (
-        line, bend_restrictor, end_fitting, flange, length, vcm, winch_length, list_bathymetric,
-        height_to_seabed, json_data[7], json_data[8], json_data[9], json_data[10], json_data[11]
-    )
-else:
-    new_combined_data = (
-        line, bend_restrictor, end_fitting, length, vcm, winch_length, list_bathymetric,
-        height_to_seabed, json_data[7], json_data[8], json_data[9], json_data[10], json_data[11]
-    )
+    if json_data[2]["type_bend_restrictor"] == "Polymer":
+        rigid_zone = Accessory(
+            json_data[2]["rz_ident_bend_restrictor"], json_data[2]["rz_version_bend_restrictor"],
+            json_data[2]["rz_wt_air_bend_restrictor"], json_data[2]["rz_wt_sw_bend_restrictor"],
+            json_data[2]["rz_length_bend_restrictor"], json_data[2]["rz_od_bend_restrictor"],
+            json_data[2]["rz_id_bend_restrictor"],
+            json_data[2]["rz_contact_diameter_bend_restrictor"]
+        )
+
+        comb_data.append(rigid_zone)
+
+new_combined_data = comb_data

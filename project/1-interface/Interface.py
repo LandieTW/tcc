@@ -619,28 +619,23 @@ with tab7:
                     'wt_sw_bend_restrictor': wt_sw_bend_restrictor,
                     'od_bend_restrictor': od_bend_restrictor,
                     'id_bend_restrictor': id_bend_restrictor,
-                    'contact_diameter_bend_restrictor':
-                        contact_diameter_bend_restrictor,
+                    'contact_diameter_bend_restrictor': contact_diameter_bend_restrictor,
                     'locking_mbr_bend_restrictor': locking_mbr_bend_restrictor,
                     'bend_moment_bend_restrictor': bend_moment_bend_restrictor,
-                    'shear_stress_bend_restrictor':
-                        shear_stress_bend_restrictor
+                    'shear_stress_bend_restrictor': shear_stress_bend_restrictor
                 }
-                dict_bend_restrictor_dataframe = st.dataframe(
-                    dict_bend_restrictor)
+                dict_bend_restrictor_dataframe = st.dataframe( dict_bend_restrictor)
                 if type_bend_restrictor == "Polymer":
                     st.write("Rigid Zone's Bend Restrictor's Data")
                     dict_rz_bend_restrictor = {
                         'rz_ident_bend_restrictor': rz_ident_bend_restrictor,
-                        'rz_version_bend_restrictor':
-                            rz_version_bend_restrictor,
+                        'rz_version_bend_restrictor': rz_version_bend_restrictor,
                         'rz_length_bend_restrictor': rz_length_bend_restrictor,
                         'rz_wt_air_bend_restrictor': rz_wt_air_bend_restrictor,
                         'rz_wt_sw_bend_restrictor': rz_wt_sw_bend_restrictor,
                         'rz_od_bend_restrictor': rz_od_bend_restrictor,
                         'rz_id_bend_restrictor': rz_id_bend_restrictor,
-                        'rz_contact_diameter_bend_restrictor':
-                            rz_contact_diameter_bend_restrictor
+                        'rz_contact_diameter_bend_restrictor': rz_contact_diameter_bend_restrictor
                     }
                     dict_rz_dataframe = st.dataframe(dict_rz_bend_restrictor)
                     dict_bend_restrictor.update(dict_rz_bend_restrictor)
