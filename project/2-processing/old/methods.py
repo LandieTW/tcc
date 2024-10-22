@@ -246,18 +246,26 @@ list_curvature_bend_moment_line = json_data[1]
 
 dict_bend_restrictor = json_data[2]
 if len(dict_bend_restrictor) > 15:  # zona rígida (vertebra polimérica)
-    rigid_zone = Accessory(
-        dict_bend_restrictor["rz_ident_bend_restrictor"],
-        dict_bend_restrictor["rz_version_bend_restrictor"],
+    dict_bend_restrictor["rz_linear_weight_in_air"] = linear_weight(
+        dict_bend_restrictor["rz_wt_air_bend_restrictor"],
+        dict_bend_restrictor["rz_length_bend_restrictor"])
+    dict_bend_restrictor["rz_linear_weight_in_water"] = linear_weight(
+        dict_bend_restrictor["rz_wt_sw_bend_restrictor"],
+        dict_bend_restrictor["rz_length_bend_restrictor"])
+    dict_bend_restrictor["rz_outside_diameter"] = accessories_d_out(
         dict_bend_restrictor["rz_wt_air_bend_restrictor"],
         dict_bend_restrictor["rz_wt_sw_bend_restrictor"],
-        dict_bend_restrictor["rz_length_bend_restrictor"],
-        dict_bend_restrictor["rz_od_bend_restrictor"],
         dict_bend_restrictor["rz_id_bend_restrictor"],
-        dict_bend_restrictor["rz_contact_diameter_bend_restrictor"]
-    )
-
-"bend_restrictor = BendRestrictor()"
+        dict_bend_restrictor["rz_length_bend_restrictor"])
+    dict_bend_restrictor["rz_bending_stiffness_bend_restrictor"] = (
+        bending_stiffness("Steel", dict_bend_restrictor["rz_od_bend_restrictor"],
+                          dict_bend_restrictor["rz_id_bend_restrictor"]))
+    dict_bend_restrictor["rz_axial_stiffness_bend_restrictor"] = (
+        axial_stiffness("Steel", dict_bend_restrictor["rz_od_bend_restrictor"],
+                        dict_bend_restrictor["rz_id_bend_restrictor"]))
+    dict_bend_restrictor["rz_torsional_stiffness_bend_restrictor"] = (
+        torsional_stiffness("Steel", dict_bend_restrictor["rz_od_bend_restrictor"],
+                            dict_bend_restrictor["rz_id_bend_restrictor"]))
 
 dict_bend_restrictor["linear_weight_in_air_bend_restrictor"] = linear_weight(
     dict_bend_restrictor["wt_air_bend_restrictor"], dict_bend_restrictor["length_bend_restrictor"])
@@ -361,7 +369,7 @@ else:
         json_data[8], json_data[9], json_data[10], json_data[11]
     )
 
-objeto = dict_line
+objeto = dict_bend_restrictor
 
 for elemento in objeto:
     print(f"{elemento}: {objeto[elemento]}")
