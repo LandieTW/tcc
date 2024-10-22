@@ -152,89 +152,89 @@ class Line:
                  filled_water_weight, water_depth, contact_diameter, nominal_diameter, mbr_storage,
                  mbr_installation, b_stiffness, t_stiffness, a_stiffness, relative_elongation,
                  s_curve):
-        self.__name = name,
-        self.__revision = revision,
-        self.__eaw = empty_air_weight,
-        self.__faw = filled_air_weight,
-        self.__eww = empty_water_weight,
-        self.__fww = filled_water_weight,
-        self.__lda = water_depth,
-        self.__cd = contact_diameter,
-        self.__nd = nominal_diameter,
-        self.__mbr_s = mbr_storage,
-        self.__mbr_i = mbr_installation,
-        self.__b_stiffness = b_stiffness,
-        self.__t_stiffness = t_stiffness,
-        self.__a_stiffness = a_stiffness,
-        self.__r_elongation = relative_elongation,
-        self.__od = line_d_out(empty_air_weight, empty_water_weight),
-        self.__id = line_d_int(empty_water_weight, filled_water_weight),
-        self.__curvature = s_curve[0],
-        self.__b_moment = [b_moment / 1_000
-                           for b_moment in s_curve[1]]
+        self.name = name  #
+        self.revision = revision
+        self.eaw = empty_air_weight / 1_000  #
+        self.faw = filled_air_weight / 1_000
+        self.eww = empty_water_weight / 1_000
+        self.fww = filled_water_weight / 1_000
+        self.lda = water_depth  #
+        self.cd = contact_diameter / 1_000  #
+        self.nd = nominal_diameter
+        self.mbr_s = mbr_storage
+        self.mbr_i = mbr_installation  #
+        self.b_stiffness = b_stiffness
+        self.t_stiffness = t_stiffness  #
+        self.a_stiffness = a_stiffness  #
+        self.r_elongation = relative_elongation
+        self.od = line_d_out(empty_air_weight, empty_water_weight)  #
+        self.id = line_d_int(empty_water_weight, filled_water_weight)  #
+        self.curvature = s_curve[0]
+        self.b_moment = [b_moment / 1_000
+                         for b_moment in s_curve[1]]
 
 
 class BendRestrictor:
     def __init__(self, name, revision, material, length_mm, air_weight, water_weight,
                  outside_diameter, inner_diameter, contact_diameter, mbr, bend_moment, shear_force,
                  s_curve):
-        self.__name = name,
-        self.__revision = revision,
-        self.__material = material,
-        self.__length = length_mm,
-        self.__aw = air_weight,
-        self.__ww = water_weight,
-        self.__od = outside_diameter,
-        self.__id = inner_diameter,
-        self.__cd = contact_diameter,
-        self.__mbr = mbr,
-        self.__bm = bend_moment,
-        self.__sf = shear_force,
-        self.__lwa = linear_weight(air_weight, length),
-        self.__lww = linear_weight(water_weight, length),
-        self.__out_d = accessories_d_out(air_weight, water_weight, inner_diameter, length),
-        self.__b_stiffness = bending_stiffness(material, outside_diameter, inner_diameter),
-        self.__t_stiffness = 10.0,
-        self.__a_stiffness = 10.0,
-        self.__curvature = s_curve[0],
-        self.__b_moment = s_curve[1]
+        self.name = name
+        self.revision = revision
+        self.material = material
+        self.length = length_mm / 1_000  #
+        self.aw = air_weight
+        self.ww = water_weight
+        self.out_d = outside_diameter
+        self.id = inner_diameter / 1_000  #
+        self.cd = contact_diameter / 1_000  #
+        self.mbr = mbr  #
+        self.bm = bend_moment
+        self.sf = shear_force
+        self.lwa = linear_weight(air_weight, length_mm)  #
+        self.lww = linear_weight(water_weight, length_mm)
+        self.od = accessories_d_out(air_weight, water_weight, inner_diameter, length_mm)  #
+        self.b_stiffness = bending_stiffness(material, outside_diameter, inner_diameter)
+        self.t_stiffness = 10.0  #
+        self.a_stiffness = 10.0  #
+        self.curvature = s_curve[0]
+        self.b_moment = s_curve[1]
 
 
 class Accessory:
     def __init__(self, name, revision, air_weight, water_weight, length_mm, outside_diameter,
                  inner_diameter, contact_diameter, material="Steel"):
-        self.__name = name,
-        self.__revision = revision,
-        self.__aw = air_weight,
-        self.__ww = water_weight,
-        self.__length = length_mm,
-        self.__od = outside_diameter,
-        self.__id = inner_diameter,
-        self.__cd = contact_diameter,
-        self.__lwa = linear_weight(air_weight, length),
-        self.__lww = linear_weight(water_weight, length),
-        self.__out_d = accessories_d_out(air_weight, water_weight, inner_diameter, length),
-        self.__b_stiffness = bending_stiffness(material, outside_diameter, inner_diameter),
-        self.__t_stiffness = torsional_stiffness(material, outside_diameter, inner_diameter),
-        self.__a_stiffness = axial_stiffness(material, outside_diameter, inner_diameter)
+        self.name = name
+        self.revision = revision
+        self.aw = air_weight
+        self.ww = water_weight
+        self.length = length_mm / 1_000  #
+        self.out_d = outside_diameter
+        self.id = inner_diameter / 1_000  #
+        self.cd = contact_diameter / 1_000  #
+        self.lwa = linear_weight(air_weight, length_mm)  #
+        self.lww = linear_weight(water_weight, length_mm)
+        self.od = accessories_d_out(air_weight, water_weight, inner_diameter, length_mm)  #
+        self.b_stiffness = bending_stiffness(material, outside_diameter, inner_diameter)  #
+        self.t_stiffness = torsional_stiffness(material, outside_diameter, inner_diameter)  #
+        self.a_stiffness = axial_stiffness(material, outside_diameter, inner_diameter)  #
 
 
 class Vcm:
     def __init__(self, name, revision, supplier, draw, material, weight, declination, coord):
-        self.__name = name,
-        self.__revision = revision,
-        self.__supplier = supplier,
-        self.__draw = draw,
-        self.__type = material,
-        self.__weight = weight,
-        self.__declination = declination,
-        self.__a, self.__b, self.__c, self.__d, self.__e, self.__f, self.__g, self.__h = coord
-        self.__cg_az = cg_olhal_flange(coord[5], - coord[3]),
-        self.__cg_bx = cg_olhal_flange(coord[6], - coord[4]),
-        self.__olhal_cz = cg_olhal_flange(coord[5], coord[1]),
-        self.__olhal_dx = cg_olhal_flange(coord[6], - coord[2]),
-        self.__flange_ez = cg_olhal_flange(.0, coord[5])
-        self.__flange_fx = cg_olhal_flange(.0, coord[6])
+        self.name = name
+        self.revision = revision
+        self.supplier = supplier
+        self.draw = draw
+        self.type = material
+        self.weight = weight
+        self.declination = declination
+        self.a, self.b, self.c, self.d, self.e, self.f, self.g, self.h = coord
+        self.cg_az = cg_olhal_flange(coord[5], - coord[3])
+        self.cg_bx = cg_olhal_flange(coord[6], - coord[4])
+        self.olhal_cz = cg_olhal_flange(coord[5], coord[1])
+        self.olhal_dx = cg_olhal_flange(coord[6], - coord[2])
+        self.flange_ez = cg_olhal_flange(.0, coord[5])
+        self.flange_fx = cg_olhal_flange(.0, coord[6])
 
 
 line = Line(
@@ -299,9 +299,15 @@ list_bathymetric.append(depth)
 flange_height = (json_data[5]["a_vcm"] - json_data[5]["f_vcm"]) / 1_000
 height_to_seabed = json_data[0]["water_depth"] - flange_height
 
-# (bend restrictor + end fitting) length = br_ef_l
-br_ef_l = (json_data[2]["length_bend_restrictor"] + json_data[3]["length_end_fitting"])
-length = 160 + 100 + 40 + 10 + br_ef_l / 1_000
+# length discounted of seawater depth to be set as line_type.length[0]
+br_ef_length = (json_data[2]["length_bend_restrictor"] + json_data[3]["length_end_fitting"])
+length = 160 + 100 + 40 + 10 + br_ef_length / 1_000
+
+# json_data[7] = rt_number
+# json_data[8] = vessel_name
+# json_data[9] = vessel's buoy_set
+# json_data[10] = RL's buoy_configuration
+# json_data[11] = structural_limits
 
 comb_data = [
     line, bend_restrictor, end_fitting, vcm, winch_length, list_bathymetric,

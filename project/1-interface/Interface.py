@@ -706,30 +706,30 @@ with tab7:
                 }
                 dict_strength_dataframe = st.dataframe(structural_limits)
         combined_data = (
-            dict_line,
+            dict_line,  # 0
             [
                 dict_stiffness["Curvature [1/m]"].tolist(),
                 dict_stiffness["Bend Moment [N.m]"].tolist()
-            ],
-            dict_bend_restrictor,
-            dict_end_fitting,
-            dict_flange,
-            dict_vcm,
+            ],  # 1
+            dict_bend_restrictor,  # 2
+            dict_end_fitting,  # 3
+            dict_flange,  # 4
+            dict_vcm,  # 5
             [
                 dict_bathymetric["Distance from flange [m]"].tolist(),
                 dict_bathymetric["Flange Height to the seabed [mm]"].tolist()
-            ],
-            rt_number,
-            vessel,
+            ],  # 6
+            rt_number,  # 7
+            vessel,  # 8
             [
                 buoy_set["Quantity"].tolist(),
                 buoy_set["Buoy [kg]"].tolist()
-            ],
+            ],  # 9
             [
                 buoys_configuration["Position [m]"].tolist(),
                 buoys_configuration["Buoyancy [kg]"].tolist()
-            ],
-            structural_limits
+            ],  # 10
+            structural_limits  # 11
         )
         json_data = json.dumps(combined_data, indent=4, ensure_ascii=False)
         st.download_button(
