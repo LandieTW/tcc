@@ -202,7 +202,7 @@ class BendRestrictor:
 
 class Accessory:
     def __init__(self, name, revision, air_weight, water_weight, length_mm, outside_diameter,
-                 inner_diameter, contact_diameter, material="Steel"):
+                 inner_diameter, contact_diameter, mbr, material="Steel"):
         self.name = name
         self.revision = revision
         self.aw = air_weight
@@ -211,6 +211,7 @@ class Accessory:
         self.out_d = outside_diameter
         self.id = inner_diameter / 1_000  #
         self.cd = contact_diameter / 1_000  #
+        self.mbr = mbr  #
         self.lwa = linear_weight(air_weight, length_mm)  #
         self.lww = linear_weight(water_weight, length_mm)
         self.od = accessories_d_out(air_weight, water_weight, inner_diameter, length_mm)  #
@@ -275,7 +276,8 @@ end_fitting = Accessory(
     json_data[3]["ident_end_fitting"], json_data[3]["version_end_fitting"],
     json_data[3]["wt_air_end_fitting"], json_data[3]["wt_sw_end_fitting"],
     json_data[3]["length_end_fitting"], json_data[3]["od_end_fitting"],
-    json_data[3]["id_end_fitting"], json_data[3]["contact_diameter_end_fitting"]
+    json_data[3]["id_end_fitting"], json_data[3]["contact_diameter_end_fitting"],
+    json_data[2]["locking_mbr_bend_restrictor"]  # mbr igual ao da vértebra
 )
 
 vcm_geometry = [
@@ -319,21 +321,25 @@ if json_data[4]["ident_flange"] != "":
     flange = Accessory(
         json_data[4]["ident_flange"], json_data[4]["version_flange"], json_data[4]["wt_air_flange"],
         json_data[4]["wt_sw_flange"], json_data[4]["length_flange"], json_data[4]["od_flange"],
-        json_data[4]["id_flange"], json_data[4]["contact_diameter_flange"]
+        json_data[4]["id_flange"], json_data[4]["contact_diameter_flange"],
+        json_data[2]["locking_mbr_bend_restrictor"]  # mbr igual ao da vértebra
     )
 
     comb_data[-1] += json_data[4]["length_flange"] / 1_000
     comb_data.append(flange)
 
-    if json_data[2]["type_bend_restrictor"] == "Polymer":
-        rigid_zone = Accessory(
-            json_data[2]["rz_ident_bend_restrictor"], json_data[2]["rz_version_bend_restrictor"],
-            json_data[2]["rz_wt_air_bend_restrictor"], json_data[2]["rz_wt_sw_bend_restrictor"],
-            json_data[2]["rz_length_bend_restrictor"], json_data[2]["rz_od_bend_restrictor"],
-            json_data[2]["rz_id_bend_restrictor"],
-            json_data[2]["rz_contact_diameter_bend_restrictor"]
-        )
+if json_data[2]["type_bend_restrictor"] == "Polymer":
+    rigid_zone = Accessory(
+        json_data[2]["rz_ident_bend_restrictor"], json_data[2]["rz_version_bend_restrictor"],
+        json_data[2]["rz_wt_air_bend_restrictor"], json_data[2]["rz_wt_sw_bend_restrictor"],
+        json_data[2]["rz_length_bend_restrictor"], json_data[2]["rz_od_bend_restrictor"],
+        json_data[2]["rz_id_bend_restrictor"],
+        json_data[2]["rz_contact_diameter_bend_restrictor"],
+        json_data[2]["locking_mbr_bend_restrictor"]  # mbr igual ao da vértebra
+    )
 
-        comb_data.append(rigid_zone)
+    comb_data.append(rigid_zone)
 
 new_combined_data = comb_data
+
+print(type(line))
