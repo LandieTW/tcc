@@ -221,21 +221,22 @@ class Accessory:
 
 
 class Vcm:
-    def __init__(self, name, revision, supplier, draw, material, weight, declination, coord):
+    def __init__(self, name, revision, supplier, draw, material, weight, declination, coord, lda):
         self.name = name
         self.revision = revision
         self.supplier = supplier
         self.draw = draw
         self.type = material
-        self.weight = weight
+        self.weight = weight / 1_000
         self.declination = declination
         self.a, self.b, self.c, self.d, self.e, self.f, self.g, self.h = coord
-        self.cg_az = cg_olhal_flange(coord[5], - coord[3])
-        self.cg_bx = cg_olhal_flange(coord[6], - coord[4])
-        self.olhal_cz = cg_olhal_flange(coord[5], coord[1])
-        self.olhal_dx = cg_olhal_flange(coord[6], - coord[2])
-        self.flange_ez = cg_olhal_flange(.0, coord[5])
-        self.flange_fx = cg_olhal_flange(.0, coord[6])
+        self.cg_az = cg_olhal_flange(self.f, - self.d)
+        self.cg_bx = cg_olhal_flange(self.g, - self.e)
+        self.olhal_cz = cg_olhal_flange(self.f, self.b)
+        self.olhal_dx = cg_olhal_flange(self.g, - self.c)
+        self.flange_ez = cg_olhal_flange(.0, self.f)
+        self.flange_fx = cg_olhal_flange(.0, self.g)
+        self.hts = - (lda - ((self.a - self.f) / 1_000))
 
 
 line = Line(
@@ -287,7 +288,7 @@ vcm_geometry = [
 vcm = Vcm(
     json_data[5]["subsea_equipment"], json_data[5]["version_vcm"], json_data[5]["supplier_vcm"],
     json_data[5]["drawing_vcm"], json_data[5]["subsea_equipment_type"], json_data[5]["wt_sw_vcm"],
-    json_data[5]["declination"], vcm_geometry
+    json_data[5]["declination"], vcm_geometry, json_data[0]["water_depth"]
 )
 
 olhal_height = (json_data[5]["b_vcm"] + json_data[5]["a_vcm"]) / 1_000
@@ -297,9 +298,6 @@ list_bathymetric = json_data[6]
 depth = [(json_data[0]["water_depth"] + (list_bathymetric[1][i] - json_data[5]["a_vcm"]) / 1_000)
          for i in range(len(list_bathymetric[0]))]
 list_bathymetric.append(depth)
-
-flange_height = (json_data[5]["a_vcm"] - json_data[5]["f_vcm"]) / 1_000
-height_to_seabed = json_data[0]["water_depth"] - flange_height
 
 # length discounted of seawater depth to be set as line_type.length[0]
 br_ef_length = (json_data[2]["length_bend_restrictor"] + json_data[3]["length_end_fitting"])
@@ -313,7 +311,7 @@ length = 160 + 100 + 40 + 10 + br_ef_length / 1_000
 
 comb_data = [
     line, bend_restrictor, end_fitting, vcm, winch_length, list_bathymetric,
-    height_to_seabed, json_data[7], json_data[8], json_data[9], json_data[10],
+    json_data[7], json_data[8], json_data[9], json_data[10],
     json_data[11], length
 ]
 

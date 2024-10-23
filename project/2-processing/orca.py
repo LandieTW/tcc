@@ -48,13 +48,12 @@ end_fitting_object = methods.new_combined_data[2]
 vcm_object = methods.new_combined_data[3]
 winch_length = methods.new_combined_data[4]
 list_bathymetric = methods.new_combined_data[5]
-height_to_seabed = methods.new_combined_data[6]
-rt_number = methods.new_combined_data[7]
-vessel = methods.new_combined_data[8]
-buoy_set = methods.new_combined_data[9]
-buoy_configuration = methods.new_combined_data[10]
-structural_limits = methods.new_combined_data[11]
-length = methods.new_combined_data[12]
+rt_number = methods.new_combined_data[6]
+vessel = methods.new_combined_data[7]
+buoy_set = methods.new_combined_data[8]
+buoy_configuration = methods.new_combined_data[9]
+structural_limits = methods.new_combined_data[10]
+length = methods.new_combined_data[11]
 
 line.OD = line_object.od
 line.ID = line_object.id
@@ -80,65 +79,66 @@ bend_restrictor.Name = bend_restrictor_object.name
 
 modeling_accessory(end_fitting, end_fitting_object)
 
+vcm.Mass = vcm_object.weight
+vcm.Height = vcm_object.cg_az
+vcm.InitialZ = vcm_object.hts  # height to seabed
+vcm.CentreOfMassX = vcm_object.cg_bx
+vcm.CentreOfMassZ = vcm_object.cg_az
+vcm.CentreOfVolumeX = vcm_object.cg_bx
+vcm.CentreOfVolumeZ = vcm_object.cg_az
+vcm.Name = vcm_object.name
+
 line_type.Length[0] = line_object.lda - length  #
 line_type.Length[5] = bend_restrictor_object.length  #
 line_type.Length[6] = end_fitting_object.length  #
 
-if len(methods.new_combined_data) == 15:
-    flange_object = methods.new_combined_data[13]
-    rz_object = methods.new_combined_data[14]
+if bend_restrictor_object.material == "Polymer":
+    rz_object = methods.new_combined_data[12]
+    modeling_accessory(zr_vert, rz_object)
+
+if len(methods.new_combined_data) == 14:
+    flange_object = methods.new_combined_data[12]
+    rz_object = methods.new_combined_data[13]
     modeling_accessory(flange, flange_object)
     modeling_accessory(zr_vert, rz_object)
-elif len(methods.new_combined_data) == 14:
-    if bend_restrictor_object.material == "Polymer":
-        rz_object = methods.new_combined_data[13]
-        modeling_accessory(zr_vert, rz_object)
-    else:
-        flange_object = methods.new_combined_data[13]
-        modeling_accessory(flange, flange_object)
+elif len(methods.new_combined_data) == 13:
+    flange_object = methods.new_combined_data[12]
+    modeling_accessory(flange, flange_object)
 
 if flange:
-    line_type.Length[7] = dict_flange["length_flange"] / 1_000
-    line_type.Attachmentz[0] = (dict_end_fitting["length_end_fitting"] + dict_flange["length_flange"]) / 1_000
+    line_type.Length[7] = flange_object.length
+    line_type.Attachmentz[0] = end_fitting_object.length + flange_object.length
 else:
     line_type.NumberOfSections = 7
     line_type.LineType[6] = end_fitting.Name
     line_type.Attachmentz[0] = end_fitting_object.length
 
-vcm.Mass = dict_vcm["wt_sw_vcm"] / 1_000
-vcm.Height = dict_vcm["olhal_cz"]
-vcm.InitialZ = - height_to_seabed
-vcm.CentreOfMassX = dict_vcm["cg_bx"]
-vcm.CentreOfMassZ = dict_vcm["cg_az"]
-vcm.CentreOfVolumeX = dict_vcm["cg_bx"]
-vcm.CentreOfVolumeZ = dict_vcm["cg_az"]
-vcm.Name = vcm_object.name
-
-line_type.EndBX = dict_vcm["flange_fx"]
-line_type.EndBZ = dict_vcm["flange_ez"]
-line_type.EndBDeclination = dict_vcm["declination"]
+line_type.EndBX = vcm_object.flange_fx
+line_type.EndBZ = vcm_object.flange_ez
+line_type.EndBDeclination = vcm_object.declination
 
 b_restrictor.Length = bend_restrictor_object.length
 
-winch.ConnectionX[1] = dict_vcm["olhal_dx"]
-winch.ConnectionZ[1] = dict_vcm["olhal_cz"]
+winch.ConnectionX[1] = vcm_object.olhal_dx
+winch.ConnectionZ[1] = vcm_object.olhal_cz
 winch.StageValue[0] = winch_length
 
-stiffness_1.NumberOfRows = len(list_curvature_bend_moment_line[0])
-for i in range(1, len(list_curvature_bend_moment_line[0])):
-    stiffness_1.IndependentValue[i] = list_curvature_bend_moment_line[0][i]
-    stiffness_1.DependentValue[i] = (list_curvature_bend_moment_line[1][i] / 1_000)
+stiffness_1.NumberOfRows = len(line_object.curvature)
+for i in range(1, len(line_object.curvature)):
+    stiffness_1.IndependentValue[i] = line_object.curvature[i]
+    stiffness_1.DependentValue[i] = line_object.b_moment[i]
 
 environment.SeabedType = "Profile"
-environment.SeabedProfileDepth[0] = dict_line["water_depth"]
+environment.SeabedProfileDepth[0] = line_object.lda
 environment.SeabedProfileNumberOfPoints = len(list_bathymetric[0])
 for i in range(len(list_bathymetric[1])):
     environment.SeabedProfileDistanceFromSeabedOrigin[i] = list_bathymetric[0][i]
     environment.SeabedProfileDepth[i] = list_bathymetric[2][i]
 
-for i in range(1, len(list_curvature_bend_moment_bend_restrictor[0])):
-    stiffness_2.IndependentValue[i] = list_curvature_bend_moment_bend_restrictor[0][i]
-    stiffness_2.DependentValue[i] = list_curvature_bend_moment_bend_restrictor[1][i]
+stiffness_2.NumberOfRows = len(bend_restrictor_object.curvature)
+for i in range(1, len(bend_restrictor_object.curvature)):
+    stiffness_2.IndependentValue[i] = bend_restrictor_object.curvature[i]
+    stiffness_2.DependentValue[i] = bend_restrictor_object.b_moment[i]
 
 os.makedirs(rt_number, exist_ok=True)
 model.SaveData(rt_number + "\\" + rt_number + "_Static.dat")
