@@ -109,12 +109,12 @@ else:
         modeling_accessory(flange, flange_object)
         line_type.NumberOfSections = 8
         line_type.Attachmentz[0] = flange_object.length
-        line.LineType[6] = end_fitting_object.name
-        line.LineType[7] = flange_object.name
+        line_type.LineType[6] = end_fitting.name
+        line_type.LineType[7] = flange.name
     else:  # n tem rigid zone e n tem flange_adapter
         line_type.NumberOfSections = 7
         line_type.Attachmentz[0] = end_fitting_object.length
-        line.LineType[6] = end_fitting_object.name
+        line_type.LineType[6] = end_fitting.name
 
 line_type.EndBX = vcm_object.flange_fx
 line_type.EndBZ = vcm_object.flange_ez

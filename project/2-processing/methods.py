@@ -333,10 +333,11 @@ if json_data[4]["ident_flange"] != "":
         json_data[4]["id_flange"], json_data[4]["contact_diameter_flange"],
         json_data[2]["locking_mbr_bend_restrictor"]  # mbr igual ao da vértebra
     )
-
-    comb_data[-1] += json_data[4]["length_flange"] / 1_000
+    if bend_restrictor.material == "Polymer":
+        comb_data[-2] += json_data[4]["length_flange"] / 1_000
+    else:
+        comb_data[-1] += json_data[4]["length_flange"] / 1_000
     comb_data.append(flange)
 
-new_combined_data = comb_data
 
-print(type(line))
+new_combined_data = comb_data
