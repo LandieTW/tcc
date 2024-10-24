@@ -310,10 +310,21 @@ length = 160 + 100 + 40 + 10 + br_ef_length / 1_000
 # json_data[11] = structural_limits
 
 comb_data = [
-    line, bend_restrictor, end_fitting, vcm, winch_length, list_bathymetric,
-    json_data[7], json_data[8], json_data[9], json_data[10],
-    json_data[11], length
+    line, bend_restrictor, end_fitting, vcm, winch_length, list_bathymetric, json_data[7],
+    json_data[8], json_data[9], json_data[10], json_data[11], length
 ]
+
+if bend_restrictor.material == "Polymer":
+    rigid_zone = Accessory(
+        json_data[2]["rz_ident_bend_restrictor"], json_data[2]["rz_version_bend_restrictor"],
+        json_data[2]["rz_wt_air_bend_restrictor"], json_data[2]["rz_wt_sw_bend_restrictor"],
+        json_data[2]["rz_length_bend_restrictor"], json_data[2]["rz_od_bend_restrictor"],
+        json_data[2]["rz_id_bend_restrictor"],
+        json_data[2]["rz_contact_diameter_bend_restrictor"],
+        json_data[2]["locking_mbr_bend_restrictor"]  # mbr igual ao da vértebra
+    )
+
+    comb_data.append(rigid_zone)
 
 if json_data[4]["ident_flange"] != "":
     flange = Accessory(
@@ -325,18 +336,6 @@ if json_data[4]["ident_flange"] != "":
 
     comb_data[-1] += json_data[4]["length_flange"] / 1_000
     comb_data.append(flange)
-
-if json_data[2]["type_bend_restrictor"] == "Polymer":
-    rigid_zone = Accessory(
-        json_data[2]["rz_ident_bend_restrictor"], json_data[2]["rz_version_bend_restrictor"],
-        json_data[2]["rz_wt_air_bend_restrictor"], json_data[2]["rz_wt_sw_bend_restrictor"],
-        json_data[2]["rz_length_bend_restrictor"], json_data[2]["rz_od_bend_restrictor"],
-        json_data[2]["rz_id_bend_restrictor"],
-        json_data[2]["rz_contact_diameter_bend_restrictor"],
-        json_data[2]["locking_mbr_bend_restrictor"]  # mbr igual ao da vértebra
-    )
-
-    comb_data.append(rigid_zone)
 
 new_combined_data = comb_data
 
