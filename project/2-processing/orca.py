@@ -56,6 +56,10 @@ buoy_configuration = methods.new_combined_data[9]
 structural_limits = methods.new_combined_data[10]
 length = methods.new_combined_data[11]
 
+object_elements = [
+    line_object, bend_restrictor_object, end_fitting_object, vcm_object
+]
+
 line.OD = line_object.od
 line.ID = line_object.id
 line.MassPerUnitLength = line_object.eaw
@@ -96,6 +100,7 @@ line_type.Length[6] = end_fitting_object.length  #
 if bend_restrictor_object.material == "Polymer":
     rz_object = methods.new_combined_data[12]
     modeling_accessory(zr_vert, rz_object)
+    object_elements.append(rz_object)
     if len(methods.new_combined_data) == 13:
         line_type.NumberOfSections = 8
         line_type.Attachmentz[0] = end_fitting_object.length + rz_object.length
@@ -110,6 +115,7 @@ if bend_restrictor_object.material == "Polymer":
         line_type.Length[6] = rz_object.length
         line_type.Length[7] = end_fitting_object.length
         line_type.Length[8] = flange_object.length
+        object_elements.append(flange_object)
 else:
     if len(methods.new_combined_data) == 13:
         flange_object = methods.new_combined_data[12]
@@ -120,6 +126,7 @@ else:
         line_type.LineType[7] = flange.name
         line_type.Length[6] = end_fitting_object.length
         line_type.Length[7] = flange_object.length
+        object_elements.append(flange_object)
     else:
         line_type.NumberOfSections = 7
         line_type.Attachmentz[0] = end_fitting_object.length
@@ -156,7 +163,10 @@ for i in range(1, len(bend_restrictor_object.curvature)):
 os.makedirs(rt_number, exist_ok=True)
 model.SaveData(rt_number + "\\" + rt_number + "_Static.dat")
 
-model_elements = (line.name, line_type.name, bend_restrictor.name,
-                  end_fitting.name, flange.name, vcm.name,
-                  b_restrictor.name, winch.name, environment.name,
-                  stiffness_1.name, stiffness_2.name)
+objects = object_elements
+
+model_elements = (
+    line.name, line_type.name, bend_restrictor.name, end_fitting.name,
+    flange.name, vcm.name, b_restrictor.name, winch.name, environment.name,
+    stiffness_1.name, stiffness_2.name
+)

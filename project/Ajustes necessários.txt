@@ -8,6 +8,8 @@ Ajustes necessários
 Ajuste na troca de posição de boias - individualizar a manipulação das posições
 Ajuste na troca de referência de empuxo - individualizar a manipulação do empuxo em cada posição
 Ajuste na troca de referência de empuxo - limitar a 2 Tf
+Garantir a correção da altura do MCV na ponta do flange
+Garantir a igualdade entre as coordenadas x's do solo e do MCV
 
 Melhorias
 
