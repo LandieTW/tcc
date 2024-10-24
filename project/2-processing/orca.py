@@ -7,7 +7,8 @@ import OrcFxAPI
 import os
 
 
-def modeling_accessory(obj_model: OrcFxAPI.OrcaFlexObject, obj: methods.Accessory) -> None:
+def modeling_accessory(obj_model: OrcFxAPI.OrcaFlexObject,
+                       obj: methods.Accessory) -> None:
     """
     Model accessory: flange adapter / bend_restrictor's rigid zone
     :param obj_model: accessory in orcaflex
@@ -95,16 +96,17 @@ line_type.Length[6] = end_fitting_object.length  #
 if bend_restrictor_object.material == "Polymer":
     rz_object = methods.new_combined_data[12]
     modeling_accessory(zr_vert, rz_object)
-    if len(methods.new_combined_data) == 13:  # então tem rigid_zone e n tem flange_adapter
+    if len(methods.new_combined_data) == 13:
         line_type.NumberOfSections = 8
         line_type.Attachmentz[0] = end_fitting_object.length + rz_object.length
     else:  # tem rigid_zone e tem flange_adapter
         flange_object = methods.new_combined_data[13]
         modeling_accessory(flange, flange_object)
-        line_type.Attachmentz[0] = (end_fitting_object.length + flange_object.length +
+        line_type.Attachmentz[0] = (end_fitting_object.length +
+                                    flange_object.length +
                                     rz_object.length)
 else:
-    if len(methods.new_combined_data) == 13:  # n tem rigid_zone, mas tem flange_adapter
+    if len(methods.new_combined_data) == 13:
         flange_object = methods.new_combined_data[12]
         modeling_accessory(flange, flange_object)
         line_type.NumberOfSections = 8
@@ -135,7 +137,8 @@ environment.SeabedType = "Profile"
 environment.SeabedProfileDepth[0] = line_object.lda
 environment.SeabedProfileNumberOfPoints = len(list_bathymetric[0])
 for i in range(len(list_bathymetric[1])):
-    environment.SeabedProfileDistanceFromSeabedOrigin[i] = list_bathymetric[0][i]
+    environment.SeabedProfileDistanceFromSeabedOrigin[i] = \
+        list_bathymetric[0][i]
     environment.SeabedProfileDepth[i] = list_bathymetric[2][i]
 
 stiffness_2.NumberOfRows = len(bend_restrictor_object.curvature)

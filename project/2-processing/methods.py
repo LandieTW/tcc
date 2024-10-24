@@ -3,8 +3,7 @@ Pré-processing of the data
 before using it to build the OrcaFlex model
 """
 
-from numpy import sqrt
-from numpy import pi
+import numpy as np
 from math import pow
 from extract import json_data
 
@@ -20,7 +19,7 @@ def line_d_out(w_1, w_2):
     wd = w_1 / 1_000 - w_2 / 1_000
     # seawater density = sd [T/m³]
     sd = 1.025
-    return round(float(sqrt(4 / (pi * sd) * wd)), 4)
+    return round(float(np.sqrt(4 / (np.pi * sd) * wd)), 4)
 
 
 def line_d_int(w_2, w_3):
@@ -34,7 +33,7 @@ def line_d_int(w_2, w_3):
     fwd = w_3 / 1_000 - w_2 / 1_000
     # seawater density = sd [T/m³]
     sd = 1.025
-    return round(float(sqrt(4 / (pi * sd) * fwd)), 4)
+    return round(float(np.sqrt(4 / (np.pi * sd) * fwd)), 4)
 
 
 def linear_weight(not_filled_weight, element_length):
@@ -65,7 +64,7 @@ def accessories_d_out(p_air, p_water, accessory_d_int, element_length):
     sd = 1.025
     # inner diameter square = ids
     ids = pow(accessory_d_int / 1_000, 2)
-    return round(float(sqrt((4 / pi / sd) * (lwa - lww) + ids)), 4)
+    return round(float(np.sqrt((4 / np.pi / sd) * (lwa - lww) + ids)), 4)
 
 
 def bending_stiffness(material, d_out, d_int):
@@ -80,7 +79,7 @@ def bending_stiffness(material, d_out, d_int):
     trd = pow(d_out / 1_000, 4) - pow(d_int / 1_000, 4)
     # young_module = ei
     ei = young_module(material)
-    return round(ei * pi / 64 * trd, 4)
+    return round(ei * np.pi / 64 * trd, 4)
 
 
 def axial_stiffness(material, d_out, d_int):
@@ -95,7 +94,7 @@ def axial_stiffness(material, d_out, d_int):
     trd = pow(d_out / 1_000, 2) - pow(d_int / 1_000, 2)
     # young_module = ei
     ei = young_module(material)
-    return round((ei * pi / 4) * trd, 4)
+    return round((ei * np.pi / 4) * trd, 4)
 
 
 def torsional_stiffness(material, d_out, d_int, poisson=.3):
@@ -111,7 +110,7 @@ def torsional_stiffness(material, d_out, d_int, poisson=.3):
     trd = pow(d_out / 1_000, 4) - pow(d_int / 1_000, 4)
     # torsional young module = gi
     gi = young_module(material) / (2 * (1 + poisson))
-    return round((gi * pi / 32) * trd, 4)
+    return round((gi * np.pi / 32) * trd, 4)
 
 
 def bend_moment_limit(material, d_out, d_int):
@@ -148,10 +147,11 @@ def cg_olhal_flange(cote_1, cote_2):
 
 
 class Line:
-    def __init__(self, name, revision, empty_air_weight, filled_air_weight, empty_water_weight,
-                 filled_water_weight, water_depth, contact_diameter, nominal_diameter, mbr_storage,
-                 mbr_installation, b_stiffness, t_stiffness, a_stiffness, relative_elongation,
-                 s_curve):
+    def __init__(self, name, revision, empty_air_weight, filled_air_weight,
+                 empty_water_weight, filled_water_weight, water_depth,
+                 contact_diameter, nominal_diameter, mbr_storage,
+                 mbr_installation, b_stiffness, t_stiffness, a_stiffness,
+                 relative_elongation, s_curve):
         self.name = name  #
         self.revision = revision
         self.eaw = empty_air_weight / 1_000  #
@@ -175,9 +175,9 @@ class Line:
 
 
 class BendRestrictor:
-    def __init__(self, name, revision, material, length_mm, air_weight, water_weight,
-                 outside_diameter, inner_diameter, contact_diameter, mbr, bend_moment, shear_force,
-                 s_curve):
+    def __init__(self, name, revision, material, length_mm, air_weight,
+                 water_weight, outside_diameter, inner_diameter,
+                 contact_diameter, mbr, bend_moment, shear_force, s_curve):
         self.name = name
         self.revision = revision
         self.material = material
@@ -192,8 +192,10 @@ class BendRestrictor:
         self.sf = shear_force
         self.lwa = linear_weight(air_weight, length_mm)  #
         self.lww = linear_weight(water_weight, length_mm)
-        self.od = accessories_d_out(air_weight, water_weight, inner_diameter, length_mm)  #
-        self.b_stiffness = bending_stiffness(material, outside_diameter, inner_diameter)
+        self.od = accessories_d_out(air_weight, water_weight, inner_diameter,
+                                    length_mm)  #
+        self.b_stiffness = bending_stiffness(material, outside_diameter,
+                                             inner_diameter)
         self.t_stiffness = 10.0  #
         self.a_stiffness = 10.0  #
         self.curvature = s_curve[0]
@@ -201,8 +203,9 @@ class BendRestrictor:
 
 
 class Accessory:
-    def __init__(self, name, revision, air_weight, water_weight, length_mm, outside_diameter,
-                 inner_diameter, contact_diameter, mbr, material="Steel"):
+    def __init__(self, name, revision, air_weight, water_weight, length_mm,
+                 outside_diameter, inner_diameter, contact_diameter, mbr,
+                 material="Steel"):
         self.name = name
         self.revision = revision
         self.aw = air_weight
@@ -214,14 +217,19 @@ class Accessory:
         self.mbr = mbr  #
         self.lwa = linear_weight(air_weight, length_mm)  #
         self.lww = linear_weight(water_weight, length_mm)
-        self.od = accessories_d_out(air_weight, water_weight, inner_diameter, length_mm)  #
-        self.b_stiffness = bending_stiffness(material, outside_diameter, inner_diameter)  #
-        self.t_stiffness = torsional_stiffness(material, outside_diameter, inner_diameter)  #
-        self.a_stiffness = axial_stiffness(material, outside_diameter, inner_diameter)  #
+        self.od = accessories_d_out(air_weight, water_weight, inner_diameter,
+                                    length_mm)  #
+        self.b_stiffness = bending_stiffness(material, outside_diameter,
+                                             inner_diameter)  #
+        self.t_stiffness = torsional_stiffness(material, outside_diameter,
+                                               inner_diameter)  #
+        self.a_stiffness = axial_stiffness(material, outside_diameter,
+                                           inner_diameter)  #
 
 
 class Vcm:
-    def __init__(self, name, revision, supplier, draw, material, weight, declination, coord, lda):
+    def __init__(self, name, revision, supplier, draw, material, weight,
+                 declination, coord, lda):
         self.name = name
         self.revision = revision
         self.supplier = supplier
@@ -240,13 +248,17 @@ class Vcm:
 
 
 line = Line(
-    json_data[0]["ident_line"], json_data[0]["version_line"], json_data[0]["wt_air_line"],
-    json_data[0]["sw_filled_air_line"], json_data[0]["air_filled_sw_line"],
-    json_data[0]["sw_filled_sw_line"], json_data[0]["water_depth"],
-    json_data[0]["contact_diameter_line"], json_data[0]["nominal_diameter_line"],
-    json_data[0]["mbr_storage_line [m]"], json_data[0]["mbr_installation_line"],
-    json_data[0]["bending_stiffness_line"], json_data[0]["torsional_stiffness_line"],
-    json_data[0]["axial_stiffness_line"], json_data[0]["rel_elong_line"], json_data[1]
+    json_data[0]["ident_line"], json_data[0]["version_line"],
+    json_data[0]["wt_air_line"], json_data[0]["sw_filled_air_line"],
+    json_data[0]["air_filled_sw_line"], json_data[0]["sw_filled_sw_line"],
+    json_data[0]["water_depth"], json_data[0]["contact_diameter_line"],
+    json_data[0]["nominal_diameter_line"],
+    json_data[0]["mbr_storage_line [m]"],
+    json_data[0]["mbr_installation_line"],
+    json_data[0]["bending_stiffness_line"],
+    json_data[0]["torsional_stiffness_line"],
+    json_data[0]["axial_stiffness_line"], json_data[0]["rel_elong_line"],
+    json_data[1]
 )
 
 stiffness_curve_bend_restrictor = [
@@ -264,12 +276,17 @@ stiffness_curve_bend_restrictor = [
     ]
 ]
 bend_restrictor = BendRestrictor(
-    json_data[2]["ident_bend_restrictor"], json_data[2]["version_bend_restrictor"],
-    json_data[2]["type_bend_restrictor"], json_data[2]["length_bend_restrictor"],
-    json_data[2]["wt_air_bend_restrictor"], json_data[2]["wt_sw_bend_restrictor"],
+    json_data[2]["ident_bend_restrictor"],
+    json_data[2]["version_bend_restrictor"],
+    json_data[2]["type_bend_restrictor"],
+    json_data[2]["length_bend_restrictor"],
+    json_data[2]["wt_air_bend_restrictor"],
+    json_data[2]["wt_sw_bend_restrictor"],
     json_data[2]["od_bend_restrictor"], json_data[2]["id_bend_restrictor"],
-    json_data[2]["contact_diameter_bend_restrictor"], json_data[2]["locking_mbr_bend_restrictor"],
-    json_data[2]["bend_moment_bend_restrictor"], json_data[2]["shear_stress_bend_restrictor"],
+    json_data[2]["contact_diameter_bend_restrictor"],
+    json_data[2]["locking_mbr_bend_restrictor"],
+    json_data[2]["bend_moment_bend_restrictor"],
+    json_data[2]["shear_stress_bend_restrictor"],
     stiffness_curve_bend_restrictor
 )
 
@@ -277,17 +294,20 @@ end_fitting = Accessory(
     json_data[3]["ident_end_fitting"], json_data[3]["version_end_fitting"],
     json_data[3]["wt_air_end_fitting"], json_data[3]["wt_sw_end_fitting"],
     json_data[3]["length_end_fitting"], json_data[3]["od_end_fitting"],
-    json_data[3]["id_end_fitting"], json_data[3]["contact_diameter_end_fitting"],
+    json_data[3]["id_end_fitting"],
+    json_data[3]["contact_diameter_end_fitting"],
     json_data[2]["locking_mbr_bend_restrictor"]  # mbr igual ao da vértebra
 )
 
 vcm_geometry = [
-    json_data[5]["a_vcm"], json_data[5]["b_vcm"], json_data[5]["c_vcm"], json_data[5]["d_vcm"],
-    json_data[5]["e_vcm"], json_data[5]["f_vcm"], json_data[5]["g_vcm"], json_data[5]["h_vcm"]
+    json_data[5]["a_vcm"], json_data[5]["b_vcm"], json_data[5]["c_vcm"],
+    json_data[5]["d_vcm"], json_data[5]["e_vcm"], json_data[5]["f_vcm"],
+    json_data[5]["g_vcm"], json_data[5]["h_vcm"]
 ]
 vcm = Vcm(
-    json_data[5]["subsea_equipment"], json_data[5]["version_vcm"], json_data[5]["supplier_vcm"],
-    json_data[5]["drawing_vcm"], json_data[5]["subsea_equipment_type"], json_data[5]["wt_sw_vcm"],
+    json_data[5]["subsea_equipment"], json_data[5]["version_vcm"],
+    json_data[5]["supplier_vcm"], json_data[5]["drawing_vcm"],
+    json_data[5]["subsea_equipment_type"], json_data[5]["wt_sw_vcm"],
     json_data[5]["declination"], vcm_geometry, json_data[0]["water_depth"]
 )
 
@@ -295,12 +315,14 @@ olhal_height = (json_data[5]["b_vcm"] + json_data[5]["a_vcm"]) / 1_000
 winch_length = json_data[0]["water_depth"] - olhal_height
 
 list_bathymetric = json_data[6]
-depth = [(json_data[0]["water_depth"] + (list_bathymetric[1][i] - json_data[5]["a_vcm"]) / 1_000)
+depth = [(json_data[0]["water_depth"] + (list_bathymetric[1][i] -
+                                         json_data[5]["a_vcm"]) / 1_000)
          for i in range(len(list_bathymetric[0]))]
 list_bathymetric.append(depth)
 
 # length discounted of seawater depth to be set as line_type.length[0]
-br_ef_length = (json_data[2]["length_bend_restrictor"] + json_data[3]["length_end_fitting"])
+br_ef_length = (json_data[2]["length_bend_restrictor"] +
+                json_data[3]["length_end_fitting"])
 length = 160 + 100 + 40 + 10 + br_ef_length / 1_000
 
 # json_data[7] = rt_number
@@ -310,15 +332,19 @@ length = 160 + 100 + 40 + 10 + br_ef_length / 1_000
 # json_data[11] = structural_limits
 
 comb_data = [
-    line, bend_restrictor, end_fitting, vcm, winch_length, list_bathymetric, json_data[7],
-    json_data[8], json_data[9], json_data[10], json_data[11], length
+    line, bend_restrictor, end_fitting, vcm, winch_length, list_bathymetric,
+    json_data[7], json_data[8], json_data[9], json_data[10], json_data[11],
+    length
 ]
 
 if bend_restrictor.material == "Polymer":
     rigid_zone = Accessory(
-        json_data[2]["rz_ident_bend_restrictor"], json_data[2]["rz_version_bend_restrictor"],
-        json_data[2]["rz_wt_air_bend_restrictor"], json_data[2]["rz_wt_sw_bend_restrictor"],
-        json_data[2]["rz_length_bend_restrictor"], json_data[2]["rz_od_bend_restrictor"],
+        json_data[2]["rz_ident_bend_restrictor"],
+        json_data[2]["rz_version_bend_restrictor"],
+        json_data[2]["rz_wt_air_bend_restrictor"],
+        json_data[2]["rz_wt_sw_bend_restrictor"],
+        json_data[2]["rz_length_bend_restrictor"],
+        json_data[2]["rz_od_bend_restrictor"],
         json_data[2]["rz_id_bend_restrictor"],
         json_data[2]["rz_contact_diameter_bend_restrictor"],
         json_data[2]["locking_mbr_bend_restrictor"]  # mbr igual ao da vértebra
@@ -328,8 +354,9 @@ if bend_restrictor.material == "Polymer":
 
 if json_data[4]["ident_flange"] != "":
     flange = Accessory(
-        json_data[4]["ident_flange"], json_data[4]["version_flange"], json_data[4]["wt_air_flange"],
-        json_data[4]["wt_sw_flange"], json_data[4]["length_flange"], json_data[4]["od_flange"],
+        json_data[4]["ident_flange"], json_data[4]["version_flange"],
+        json_data[4]["wt_air_flange"], json_data[4]["wt_sw_flange"],
+        json_data[4]["length_flange"], json_data[4]["od_flange"],
         json_data[4]["id_flange"], json_data[4]["contact_diameter_flange"],
         json_data[2]["locking_mbr_bend_restrictor"]  # mbr igual ao da vértebra
     )
