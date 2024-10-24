@@ -3,6 +3,7 @@ Simulation methods for the automation.
 """
 
 import OrcFxAPI
+import methods
 
 n_run = 0
 
@@ -16,22 +17,23 @@ def run_static_simulation(model: OrcFxAPI.Model, rt_number: str) -> None:
     """
     model.CalculateStatics()
     global n_run
-    n_run += 1
     model.SaveSimulation(rt_number + "\\" + str(n_run) + "-" + rt_number +
                          "_Static.sim")
+
+    n_run += 1
     print(f"\nRunning time {n_run}")
 
 
 def user_specified(model: OrcFxAPI.Model, rt_number: str) -> None:
     """
-    Put the line's static position configuration in user_specified method
+    Put the static line's position in user_specified method
     :param rt_number: rt identification
     :param model: OrcaFlex model
     :return:
     """
     model.UseCalculatedPositions(SetLinesToUserSpecifiedStartingShape=True)
     model.SaveData(rt_number + "\\" + rt_number + "_Static.dat")
-    
+
 
 def buoy_combination(b_set: list) -> dict:
     """
@@ -39,26 +41,43 @@ def buoy_combination(b_set: list) -> dict:
     :param b_set: vessel's buoys dict
     :return: all possible combinations of 1 to 3 vessel's buoys
     """
-    buoys = [str(b_set[1][i])
-             for i in range(len(b_set[0]))
-             for _ in range(b_set[0][i])]
-    one_buoy = {buoy: float(buoy) for buoy in buoys}
-    two_buoys = {f"{buoy1}+{buoy2}": one_buoy[buoy1] + one_buoy[buoy2]
-                 for i, buoy1 in enumerate(buoys)
-                 for j, buoy2 in enumerate(buoys)
-                 if i < j}
-    three_buoys = {f"{buoy1}+{buoy2}+{buoy3}": one_buoy[buoy1] + one_buoy[
-        buoy2] + one_buoy[buoy3]
-                   for i, buoy1 in enumerate(buoys)
-                   for j, buoy2 in enumerate(buoys)
-                   for k, buoy3 in enumerate(buoys)
-                   if i < j < k}
-    combination = {**one_buoy, **two_buoys, **three_buoys}
-    combination_buoys = {key: value
-                         for key, value in combination.items() if value < 2000}
-    combination_buoys = dict(
-        sorted(combination_buoys.items(), key=lambda item: item[1],
-               reverse=False))
+    buoys = [
+        str(b_set[1][i])
+        for i in range(len(b_set[0]))
+        for _ in range(b_set[0][i])
+    ]
+    one_buoy = {
+        buoy: float(buoy)
+        for buoy in buoys
+    }
+    two_buoys = {
+        f"{buoy1}+{buoy2}": one_buoy[buoy1] + one_buoy[buoy2]
+        for i, buoy1 in enumerate(buoys)
+        for j, buoy2 in enumerate(buoys)
+        if i < j
+        if one_buoy[buoy1] + one_buoy[buoy2] <= 2_000
+    }
+    three_buoys = {
+        f"{buoy1}+{buoy2}+{buoy3}": (one_buoy[buoy1] + one_buoy[buoy2] +
+                                     one_buoy[buoy3])
+        for i, buoy1 in enumerate(buoys)
+        for j, buoy2 in enumerate(buoys)
+        for k, buoy3 in enumerate(buoys)
+        if i < j < k
+        if (one_buoy[buoy1] + one_buoy[buoy2] + one_buoy[buoy3]) <= 2_000
+    }
+    combination = {
+        **one_buoy, **two_buoys, **three_buoys
+    }
+    combination_buoys = {
+        key: value
+        for key, value in combination.items()
+    }
+    combination_buoys = dict(sorted(
+        combination_buoys.items(),
+        key=lambda item: item[1],
+        reverse=False)
+    )
     return combination_buoys
 
 
@@ -96,7 +115,7 @@ def buoyancy_treatment(buoys_config: list, selection: dict) -> dict:
     return treated_buoys
 
 
-def number_buoys(treated_buoys: dict) -> float:
+def number_buoys(treated_buoys: dict) -> int:
     """
     Gives the number of attachments buoys
     :param treated_buoys: set of selected buoys
@@ -108,19 +127,21 @@ def number_buoys(treated_buoys: dict) -> float:
     return len(packs)
 
 
-def input_buoyancy(line_model: OrcFxAPI.OrcaFlexObject, num_buoys: float,
+def input_buoyancy(line_type: OrcFxAPI.OrcaFlexObject, num_buoys: float,
                    treated_buoys: dict, vessel: str) -> None:
     """
     Add the first model's buoyancy configuration
+    :param line_type: line type
     :param vessel: operation's vessel
     :param num_buoys: attachments quantity
     :param treated_buoys: buoy selection to the Orca model
-    :param line_model: line object modeled in OrcaFlex
     :return: nothing
     """
-    line_model.NumberOfAttachments = num_buoys + 1
+    line_type.NumberOfAttachments = int(num_buoys + 1)
+
     ibs_key = tuple(treated_buoys.keys())
     ibs_val = tuple(treated_buoys.values())
+
     ibs_2 = []
     for i in range(len(ibs_val)):
         for j in range(len(ibs_val[i])):
@@ -128,70 +149,17 @@ def input_buoyancy(line_model: OrcFxAPI.OrcaFlexObject, num_buoys: float,
     b = 1
     for m in ibs_2:
         buoy = vessel + "_" + str(m)
-        line_model.AttachmentType[b] = buoy
+        line_type.AttachmentType[b] = buoy
         b += 1
+
     ibs_1 = []
     for z in range(len(ibs_val)):
         for _ in range(len(ibs_val[z])):
             ibs_1.append(ibs_key[z])
     p = 1
     for n in ibs_1:
-        line_model.Attachmentz[p] = n
+        line_type.Attachmentz[p] = n
         p += 1
-
-
-def loop_input_buoyancy(buoys_configuration: list,
-                        line_model: OrcFxAPI.OrcaFlexObject,
-                        model: OrcFxAPI.Model, k_parameter: float,
-                        comb_buoys: dict, vessel: str, rt_number: str):
-    """
-    Creates a starting loop that grows gradually the buoyancy intensity for
-    avoid the run_break that occurs when we sharply change the buoyancy.
-    :param buoys_configuration: RL's buoy configuration
-    :param line_model: line object modeled in OrcaFlex
-    :param model: OrcaFlex model
-    :param k_parameter: parameter that multiplies the buoyancy
-    :param comb_buoys: actual buoy combination, in the model
-    :param vessel: operation's vessel
-    :param rt_number: RT indentification
-    :return:
-    """
-    buoys_configuration_copy = [
-        buoys_configuration[0],
-        [round(k_parameter * x / 4, 0) for x in buoys_configuration[1]]
-    ]
-    selection = buoyancy(buoys_configuration_copy, comb_buoys)
-    treated_buoys = buoyancy_treatment(buoys_configuration_copy, selection)
-    num_buoys = number_buoys(treated_buoys)
-    input_buoyancy(line_model, num_buoys, treated_buoys, vessel)
-
-    run_static_simulation(model, rt_number)
-    user_specified(model, rt_number)
-
-    if buoys_configuration_copy != buoys_configuration:
-        loop_input_buoyancy(buoys_configuration, line_model, model,
-                            k_parameter + 1, comb_buoys, vessel, rt_number)
-
-
-def insert_bend_restrictor(line_model: OrcFxAPI.OrcaFlexObject,
-                           b_restrict: OrcFxAPI.OrcaFlexObject,
-                           flange: dict, end_fitting: dict) -> None:
-    """
-    Inserts bend_restrictor back to the line
-    :param end_fitting: end_fitting model
-    :param flange: flange model
-    :param b_restrict: bend_restrictor's line_type
-    :param line_model: line's line_type
-    :return: nothing
-    """
-    line_model.NumberOfAttachments = 1
-    line_model.AttachmentType[0] = b_restrict.name
-    if flange["ident_flange"] == "":
-        line_model.Attachmentz[0] = end_fitting["length_end_fitting"] / 1000
-    else:
-        line_model.Attachmentz[0] = (end_fitting["length_end_fitting"] +
-                                     flange["length_flange"]) / 1000
-    line_model.AttachmentzRelativeTo[0] = "End B"
 
 
 def verify_line_clearance(line_model: OrcFxAPI.OrcaFlexObject) -> float:
@@ -217,6 +185,129 @@ def verify_vcm_rotation(vcm_: OrcFxAPI.OrcaFlexObject) -> float:
     vcm_rotation = vcm_.StaticResult("Rotation 2")
     print(f"\nRotation: {vcm_rotation}")
     return vcm_rotation
+
+
+def verify_flange_height(line_model: OrcFxAPI.OrcaFlexObject,
+                         line_obj: methods.Line,
+                         vcm_obj: methods.Vcm) -> float:
+    """
+    Verify what is the flange height, and if it's wrong,
+    corrects it with the winch
+    :param vcm_obj: vcm object
+    :param line_obj: line object
+    :param line_model: line model
+    :return:
+    """
+    correct_depth = - line_obj.lda + (vcm_obj.a / 1_000)
+    depth_verified = line_model.StaticResult("Z", OrcFxAPI.oeEndB)
+    delta = round(correct_depth - depth_verified, 4)
+    return delta
+
+
+def loop_initialization(line_model: OrcFxAPI.OrcaFlexObject,
+                        vcm: OrcFxAPI.OrcaFlexObject,
+                        model: OrcFxAPI.Model, rotation: float,
+                        clearance: float, buoy_set: list,
+                        buoys_configuration: list, vessel: str,
+                        rt_number: str, what: bool, selection: dict) -> str:
+    """
+    Function that controls the automation
+    :param selection: present selection of buoys
+    :param clearance: line's clearance
+    :param rotation: vcm's rotation
+    :param rt_number: RT's number
+    :param vessel: vessel
+    :param what: control for change buoys
+    :param buoys_configuration: RL's buoy configuration
+    :param buoy_set: vessel's buoys
+    :param line_model: orcaflex's line
+    :param vcm: orcaflex's vcm
+    :param model: orcaflex's model
+    :return: convergence sinal
+    """
+
+    global n_run
+    if n_run == 100:
+        return f"Sorry, was not possible to converge in {n_run} tentatives."
+
+    if what: # troca de boias
+        user_specified(model, rt_number)
+
+        changing_buoys(selection, buoy_set, rotation, buoys_configuration,
+                       line_model, vessel)
+
+        run_static_simulation(model, rt_number)
+
+        rotation = verify_vcm_rotation(vcm)
+        clearance = verify_line_clearance(line_model)
+
+        loop_initialization(line_model, vcm, model, rotation, clearance,
+                            buoy_set, buoys_configuration, vessel,
+                            rt_number, False, selection)
+
+    if rotation > .5:
+        if line_model.Attachmentz[1] == 3:
+            loop_initialization(line_model, vcm, model, rotation,
+                                clearance, buoy_set, buoys_configuration,
+                                vessel, rt_number, True, selection)
+
+        user_specified(model, rt_number)
+        buoys_configuration = change_buoy_position(line_model, True, rotation,
+                                                   buoys_configuration)
+        run_static_simulation(model, rt_number)
+
+        rotation = verify_vcm_rotation(vcm)
+        clearance = verify_line_clearance(line_model)
+
+        loop_initialization(line_model, vcm, model, rotation, clearance,
+                            buoy_set, buoys_configuration, vessel,
+                            rt_number, False, selection)
+
+    elif rotation < -.5:
+        if line_model.Attachmentz[1] == 5:
+            loop_initialization(line_model, vcm, model, rotation,
+                                clearance, buoy_set, buoys_configuration,
+                                vessel, rt_number, True, selection)
+
+        user_specified(model, rt_number)
+        buoys_configuration = change_buoy_position(line_model, False, rotation,
+                                                   buoys_configuration)
+        run_static_simulation(model, rt_number)
+
+        rotation = verify_vcm_rotation(vcm)
+        clearance = verify_line_clearance(line_model)
+
+        loop_initialization(line_model, vcm, model, rotation, clearance,
+                            buoy_set, buoys_configuration, vessel,
+                            rt_number, False, selection)
+
+    if clearance > .6:
+
+        user_specified(model, rt_number)
+        payout_retrieve_line(line_model, True, clearance)
+        run_static_simulation(model, rt_number)
+
+        rotation = verify_vcm_rotation(vcm)
+        clearance = verify_line_clearance(line_model)
+
+        loop_initialization(line_model, vcm, model, rotation, clearance,
+                            buoy_set, buoys_configuration, vessel,
+                            rt_number, False, selection)
+
+    elif clearance < .5:
+
+        user_specified(model, rt_number)
+        payout_retrieve_line(line_model, False, clearance)
+        run_static_simulation(model, rt_number)
+
+        rotation = verify_vcm_rotation(vcm)
+        clearance = verify_line_clearance(line_model)
+
+        loop_initialization(line_model, vcm, model, rotation, clearance,
+                            buoy_set, buoys_configuration, vessel,
+                            rt_number, False, selection)
+
+    return "\nLooping's end."
 
 
 def payout_retrieve_line(line_model: OrcFxAPI.OrcaFlexObject,
@@ -345,108 +436,13 @@ def changing_buoys(selection: dict, buoy_set: list, rotation: float,
     input_buoyancy(line_model, num_buoys, treated_buoys, vessel)
 
 
-def loop_initialization(line_model: OrcFxAPI.OrcaFlexObject,
-                        vcm: OrcFxAPI.OrcaFlexObject,
-                        model: OrcFxAPI.Model, rotation: float,
-                        clearance: float, buoy_set: list,
-                        buoys_configuration: list, vessel: str,
-                        rt_number: str, what: bool, selection: dict) -> str:
+def flange_height_correction(winch: OrcFxAPI.OrcaFlexObject,
+                             delta: float) -> None:
     """
-    Function that controls the automation
-    :param selection: present selection of buoys
-    :param clearance: line's clearance
-    :param rotation: vcm's rotation
-    :param rt_number: RT's number
-    :param vessel: vessel
-    :param what: control for change buoys
-    :param buoys_configuration: RL's buoy configuration
-    :param buoy_set: vessel's buoys
-    :param line_model: orcaflex's line
-    :param vcm: orcaflex's vcm
-    :param model: orcaflex's model
-    :return: convergence sinal
+    Correct the flange height
+    :param winch: winch model
+    :param delta: pay_out / retrieve winch
+    :return:
     """
-
-    global n_run
-    if n_run == 100:
-        return f"Sorry, was not possible to converge in {n_run} tentatives."
-
-    if what:
-
-        user_specified(model, rt_number)
-
-        changing_buoys(selection, buoy_set, rotation, buoys_configuration,
-                       line_model, vessel)
-
-        run_static_simulation(model, rt_number)
-
-        rotation = verify_vcm_rotation(vcm)
-        clearance = verify_line_clearance(line_model)
-
-        loop_initialization(line_model, vcm, model, rotation, clearance,
-                            buoy_set, buoys_configuration, vessel,
-                            rt_number, False, selection)
-
-    if rotation > .5:
-        if line_model.Attachmentz[1] == 3:
-            loop_initialization(line_model, vcm, model, rotation,
-                                clearance, buoy_set, buoys_configuration,
-                                vessel, rt_number, True, selection)
-
-        user_specified(model, rt_number)
-        buoys_configuration = change_buoy_position(line_model, True, rotation,
-                                                   buoys_configuration)
-        run_static_simulation(model, rt_number)
-
-        rotation = verify_vcm_rotation(vcm)
-        clearance = verify_line_clearance(line_model)
-
-        loop_initialization(line_model, vcm, model, rotation, clearance,
-                            buoy_set, buoys_configuration, vessel,
-                            rt_number, False, selection)
-
-    elif rotation < -.5:
-        if line_model.Attachmentz[1] == 5:
-            loop_initialization(line_model, vcm, model, rotation,
-                                clearance, buoy_set, buoys_configuration,
-                                vessel, rt_number, True, selection)
-
-        user_specified(model, rt_number)
-        buoys_configuration = change_buoy_position(line_model, False, rotation,
-                                                   buoys_configuration)
-        run_static_simulation(model, rt_number)
-
-        rotation = verify_vcm_rotation(vcm)
-        clearance = verify_line_clearance(line_model)
-
-        loop_initialization(line_model, vcm, model, rotation, clearance,
-                            buoy_set, buoys_configuration, vessel,
-                            rt_number, False, selection)
-
-    if clearance > .6:
-
-        user_specified(model, rt_number)
-        payout_retrieve_line(line_model, True, clearance)
-        run_static_simulation(model, rt_number)
-
-        rotation = verify_vcm_rotation(vcm)
-        clearance = verify_line_clearance(line_model)
-
-        loop_initialization(line_model, vcm, model, rotation, clearance,
-                            buoy_set, buoys_configuration, vessel,
-                            rt_number, False, selection)
-
-    elif clearance < .5:
-
-        user_specified(model, rt_number)
-        payout_retrieve_line(line_model, False, clearance)
-        run_static_simulation(model, rt_number)
-
-        rotation = verify_vcm_rotation(vcm)
-        clearance = verify_line_clearance(line_model)
-
-        loop_initialization(line_model, vcm, model, rotation, clearance,
-                            buoy_set, buoys_configuration, vessel,
-                            rt_number, False, selection)
-
-    return "\nLooping's end."
+    winch_length = winch.StageValue[0]
+    winch.StageValue[0] = winch_length + delta

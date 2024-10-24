@@ -1,13 +1,11 @@
 
 
+import OrcFxAPI as Orca
 
+model = Orca.Model("RT 2517\\6-RT 2517_Static.sim")
 
+line = model["Line"]
 
+depth = line.StaticResult("Z", Orca.oeEndB)
 
-t_buoys = {
-    5.0: ['381', '100'],
-    9.0: ['104', '101', '100']
-    }
-
-
-print(t_buoys.values())
+print(depth)
