@@ -99,12 +99,17 @@ if bend_restrictor_object.material == "Polymer":
     if len(methods.new_combined_data) == 13:
         line_type.NumberOfSections = 8
         line_type.Attachmentz[0] = end_fitting_object.length + rz_object.length
-    else:  # tem rigid_zone e tem flange_adapter
+        line_type.Length[6] = rz_object.length
+        line_type.Length[7] = end_fitting_object.length
+    else:
         flange_object = methods.new_combined_data[13]
         modeling_accessory(flange, flange_object)
         line_type.Attachmentz[0] = (end_fitting_object.length +
                                     flange_object.length +
                                     rz_object.length)
+        line_type.Length[6] = rz_object.length
+        line_type.Length[7] = end_fitting_object.length
+        line_type.Length[8] = flange_object.length
 else:
     if len(methods.new_combined_data) == 13:
         flange_object = methods.new_combined_data[12]
@@ -113,7 +118,9 @@ else:
         line_type.Attachmentz[0] = flange_object.length
         line_type.LineType[6] = end_fitting.name
         line_type.LineType[7] = flange.name
-    else:  # n tem rigid zone e n tem flange_adapter
+        line_type.Length[6] = end_fitting_object.length
+        line_type.Length[7] = flange_object.length
+    else:
         line_type.NumberOfSections = 7
         line_type.Attachmentz[0] = end_fitting_object.length
         line_type.LineType[6] = end_fitting.name
