@@ -50,13 +50,9 @@ vcm_object = methods.new_combined_data[3]
 winch_length = methods.new_combined_data[4]
 list_bathymetric = methods.new_combined_data[5]
 rt_number = methods.new_combined_data[6]
-vessel = methods.new_combined_data[7]
-buoy_set = methods.new_combined_data[8]
-buoy_configuration = methods.new_combined_data[9]
-structural_limits = methods.new_combined_data[10]
-length = methods.new_combined_data[11]
+length = methods.new_combined_data[7]
 
-object_elements = [
+objects = [
     line_object, bend_restrictor_object, end_fitting_object, vcm_object
 ]
 
@@ -98,35 +94,35 @@ line_type.Length[5] = bend_restrictor_object.length  #
 line_type.Length[6] = end_fitting_object.length  #
 
 if bend_restrictor_object.material == "Polymer":
-    rz_object = methods.new_combined_data[12]
+    rz_object = methods.new_combined_data[8]
     modeling_accessory(zr_vert, rz_object)
-    object_elements.append(rz_object)
-    if len(methods.new_combined_data) == 13:
+    objects.append(rz_object)
+    if len(methods.new_combined_data) == 9:
         line_type.NumberOfSections = 8
         line_type.Attachmentz[0] = end_fitting_object.length + rz_object.length
         line_type.Length[6] = rz_object.length
         line_type.Length[7] = end_fitting_object.length
     else:
-        flange_object = methods.new_combined_data[13]
+        flange_object = methods.new_combined_data[9]
         modeling_accessory(flange, flange_object)
+        objects.append(flange_object)
         line_type.Attachmentz[0] = (end_fitting_object.length +
                                     flange_object.length +
                                     rz_object.length)
         line_type.Length[6] = rz_object.length
         line_type.Length[7] = end_fitting_object.length
         line_type.Length[8] = flange_object.length
-        object_elements.append(flange_object)
 else:
-    if len(methods.new_combined_data) == 13:
-        flange_object = methods.new_combined_data[12]
+    if len(methods.new_combined_data) == 9:
+        flange_object = methods.new_combined_data[8]
         modeling_accessory(flange, flange_object)
+        objects.append(flange_object)
         line_type.NumberOfSections = 8
         line_type.Attachmentz[0] = flange_object.length
         line_type.LineType[6] = end_fitting.name
         line_type.LineType[7] = flange.name
         line_type.Length[6] = end_fitting_object.length
         line_type.Length[7] = flange_object.length
-        object_elements.append(flange_object)
     else:
         line_type.NumberOfSections = 7
         line_type.Attachmentz[0] = end_fitting_object.length
@@ -163,10 +159,4 @@ for i in range(1, len(bend_restrictor_object.curvature)):
 os.makedirs(rt_number, exist_ok=True)
 model.SaveData(rt_number + "\\" + rt_number + "_Static.dat")
 
-objects = object_elements
-
-model_elements = (
-    line.name, line_type.name, bend_restrictor.name, end_fitting.name,
-    flange.name, vcm.name, b_restrictor.name, winch.name, environment.name,
-    stiffness_1.name, stiffness_2.name
-)
+object_elements = objects

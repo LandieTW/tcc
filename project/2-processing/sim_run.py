@@ -7,6 +7,32 @@ import OrcFxAPI
 n_run = 0
 
 
+def run_static_simulation(model: OrcFxAPI.Model, rt_number: str) -> None:
+    """
+    Runs and save a static simulation
+    :param rt_number: rt identification
+    :param model: OrcaFlex model
+    :return:
+    """
+    model.CalculateStatics()
+    global n_run
+    n_run += 1
+    model.SaveSimulation(rt_number + "\\" + str(n_run) + "-" + rt_number +
+                         "_Static.sim")
+    print(f"\nRunning time {n_run}")
+
+
+def user_specified(model: OrcFxAPI.Model, rt_number: str) -> None:
+    """
+    Put the line's static position configuration in user_specified method
+    :param rt_number: rt identification
+    :param model: OrcaFlex model
+    :return:
+    """
+    model.UseCalculatedPositions(SetLinesToUserSpecifiedStartingShape=True)
+    model.SaveData(rt_number + "\\" + rt_number + "_Static.dat")
+    
+
 def buoy_combination(b_set: list) -> dict:
     """
     Make combinations with 1 to 3 buoys, below 2 tf of buoyancy
@@ -166,32 +192,6 @@ def insert_bend_restrictor(line_model: OrcFxAPI.OrcaFlexObject,
         line_model.Attachmentz[0] = (end_fitting["length_end_fitting"] +
                                      flange["length_flange"]) / 1000
     line_model.AttachmentzRelativeTo[0] = "End B"
-
-
-def run_static_simulation(model: OrcFxAPI.Model, rt_number: str) -> None:
-    """
-    Runs and save a static simulation
-    :param rt_number: rt identification
-    :param model: OrcaFlex model
-    :return:
-    """
-    model.CalculateStatics()
-    global n_run
-    n_run += 1
-    model.SaveSimulation(rt_number + "\\" + str(n_run) + "-" + rt_number +
-                         "_Static.sim")
-    print(f"\nRunning time {n_run}")
-
-
-def user_specified(model: OrcFxAPI.Model, rt_number: str) -> None:
-    """
-    Put the line's static position configuration in user_specified method
-    :param rt_number: rt identification
-    :param model: OrcaFlex model
-    :return:
-    """
-    model.UseCalculatedPositions(SetLinesToUserSpecifiedStartingShape=True)
-    model.SaveData(rt_number + "\\" + rt_number + "_Static.dat")
 
 
 def verify_line_clearance(line_model: OrcFxAPI.OrcaFlexObject) -> float:

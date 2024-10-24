@@ -331,10 +331,11 @@ length = 160 + 100 + 40 + 10 + br_ef_length / 1_000
 # json_data[10] = RL's buoy_configuration
 # json_data[11] = structural_limits
 
+info = (json_data[7], json_data[8], json_data[9], json_data[10], json_data[11])
+
 comb_data = [
     line, bend_restrictor, end_fitting, vcm, winch_length, list_bathymetric,
-    json_data[7], json_data[8], json_data[9], json_data[10], json_data[11],
-    length
+    json_data[7], length
 ]
 
 if bend_restrictor.material == "Polymer":
