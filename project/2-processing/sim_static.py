@@ -120,14 +120,52 @@ while result != "red":
         result = "green"  # LOOPING ENDS HERE
 
     if rotation > .5:
-        """
-        # Troca posição das boias
-        # Quando não é mais possível... troca as boias"""
+
+        """PLAN
+        
+        MOVER A BOIA MAIS PRA PERTO DO MCV
+        
+        change_buoys = "no"
+        pega o RL_config e olha as posições de boias
+            caso 1 -  o limite é [3, 4]m
+            caso 2 -  o limite é [3, 4]m para a primeira 
+                                 [6, 8]m para a segunda
+            caso 3 -  o limite é [3, 4]m para a primeira
+                                 [6, 8]m para a segunda
+                                 [9, 12]m para a terceira
+        verifica, para cada condição, se a boia está posicionada no limite
+            se houve uma condição ainda não satisfeita, move a boia
+            se todas forem satisfeitas, troca conjunto de boias
+                change_buoys = "yes"
+        if change_buoys == "yes":
+            change_buoys
+        
+        PLAN"""
+
     elif rotation < -.5:
-        """
-        # Troca posição das boias
-        # Quando não é mais possível... troca as boias"""
-    if clearance > .7:
+
+        """PLAN
+        
+        MOVER A BOIA MAIS PRA DISTANTE DO MCV
+        
+        change_buoys = "no"
+        pega o RL_config e olha as posições de boias
+            caso 1 -  o limite é [3, 4]m
+            caso 2 -  o limite é [3, 4]m para a primeira 
+                                 [6, 8]m para a segunda
+            caso 3 -  o limite é [3, 4]m para a primeira
+                                 [6, 8]m para a segunda
+                                 [9, 12]m para a terceira
+        verifica, para cada condição, se a boia está posicionada no limite
+            se houve uma condição ainda não satisfeita, move a boia
+            se todas forem satisfeitas, troca conjunto de boias
+                change_buoys = "yes"
+        if change_buoys == "yes":
+            change_buoys
+        
+        PLAN"""
+
+    if clearance > .6:
         """
         # Paga linha"""
     elif clearance < .5:
