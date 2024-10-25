@@ -39,18 +39,14 @@ model_environment = model["Environment"]
 model_stiffness_line = model["Stiffness1"]
 model_stiffness_bend_restrictor = model["Stiffness2"]
 
-# RODANDO SEM VÉRTEBRA
-
-"Retirando a vértebra"
+# RUNNING WITHOUT BEND_RESTRICTOR
 
 model_line_type.NumberOfAttachments = 0
 
 sim_run.run_static_simulation(model, rt_number)
 sim_run.user_specified(model, rt_number)
 
-# RODANDO COM A VÉRTEBRA
-
-"Inserindo a vértebra"
+# ADDING BEND RESTRICTOR
 
 model_line_type.NumberOfAttachments = 1
 model_line_type.AttachmentType[0] = model_bend_restrictor_type.Name
@@ -79,16 +75,14 @@ model_line_type.AttachmentzRelativeTo[0] = "End B"
 sim_run.run_static_simulation(model, rt_number)
 sim_run.user_specified(model, rt_number)
 
-# COLOCANDO OS FLUTUADORES
+# ADDING BUOYS
 
-"Combinações de flutuadores"
-
+"Buoyancy combination"
 buoy_combination = sim_run.buoy_combination(buoy_set)
 
-# RODANDO DE FORMA FRACIONADA ATÉ ATINGIR O PADRÃO DO RL
+# RUNNING UNTIL RL CONDITIONS
 
-"Adicionando o empuxo de forma fracionada"
-
+"Parcially adding buoyancy"
 k = 1
 while k <= 5:
     rl_config_fract = [
@@ -104,7 +98,7 @@ while k <= 5:
 
     k += 1
 
-# PEGANDO RESULTADOS
+# GETTING RESULTS
 
 rotation = sim_run.verify_vcm_rotation(model_vcm)
 clearance = sim_run.verify_line_clearance(model_line_type)
@@ -113,19 +107,18 @@ delta_flange_height = sim_run.verify_flange_height(model_line_type,
 
 # LOOPING
 
-"Condição de entrada no looping"
+"Looping entry"
 result = ""
-while result != "aprovado":
+while result != "red":
     if abs(rotation) > .5:
-        result = "reprovado"
+        result = "red"
     elif .5 > abs(clearance) > .7:
-        result = "reprovado"
+        result = "red"
     elif delta_flange_height != 0:
-        result = "reprovado"
+        result = "red"
     else:
-        result = "aprovado"  # SAÍDA DO LOOPING
+        result = "green"  # LOOPING ENDS HERE
 
-    "Entrada no looping"
     if rotation > .5:
         """
         # Troca posição das boias
@@ -148,6 +141,7 @@ while result != "aprovado":
         # Roda, puxa resultados e volta para o damping normal"""
     """
     # Ajusta o x do solo igual ao x do MCV"""
+
 # FINAL
 
 rotation = sim_run.verify_vcm_rotation(model_vcm)
