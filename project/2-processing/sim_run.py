@@ -230,7 +230,7 @@ def loop_initialization(line_model: OrcFxAPI.OrcaFlexObject,
     if n_run == 100:
         return f"Sorry, was not possible to converge in {n_run} tentatives."
 
-    if what: # troca de boias
+    if what:  # troca de boias
         user_specified(model, rt_number)
 
         changing_buoys(selection, buoy_set, rotation, buoys_configuration,
@@ -310,34 +310,33 @@ def loop_initialization(line_model: OrcFxAPI.OrcaFlexObject,
     return "\nLooping's end."
 
 
-def payout_retrieve_line(line_model: OrcFxAPI.OrcaFlexObject,
-                         what: bool, clearance: float) -> None:
+def get_result(rotation: float, clearance: float, delta_flange_height) -> str:
     """
-    Fine-tuning control - line's payout/retrieve
-    :param clearance: line's clearance, in the model
-    :param what: boolean value to select payout or retrieve
-    :param line_model: model's line
+    Controls the looping
+    :param rotation: vcm rotation result
+    :param clearance: line clearance result
+    :param delta_flange_height: flange height error
+    :return: red or green
     """
-    delta = .25
-    if clearance >= 1.2:
-        delta = 1
-    elif 1.2 > clearance >= .85:
-        delta = .5
-    elif .85 > clearance >= .6:
-        delta = .25
-    elif .5 >= clearance > .25:
-        delta = .25
-    elif .25 >= clearance:
-        delta = .5
-
-    if what:
-        print(f"\nPaying out {delta}m from the line,\n"
-              f"from {line_model.Length[0]} to {line_model.Length[0] + delta}")
-        line_model.Length[0] += delta
+    if abs(rotation) > .5:
+        result = "red"
+    elif .5 > clearance > .7:
+        result = "red"
+    elif delta_flange_height != 0:
+        result = "red"
     else:
-        print(f"\nRetrieving {delta}m from the line,\n"
-              f"from {line_model.Length[0]} to {line_model.Length[0] - delta}")
-        line_model.Length[0] -= delta
+        result = "green"
+    return result
+
+
+def make_pointer(case: float) -> float:
+    """
+    Creates a pointer that selects which of
+    the buoys positions is going to be changed
+    :return:
+    """
+
+    return pointer
 
 
 def change_buoy_position(line_model: OrcFxAPI.OrcaFlexObject,
@@ -434,6 +433,38 @@ def changing_buoys(selection: dict, buoy_set: list, rotation: float,
     treated_buoys = buoyancy_treatment(buoys_configuration, selection)
     num_buoys = number_buoys(treated_buoys)
     input_buoyancy(line_model, num_buoys, treated_buoys, vessel)
+
+
+def define_delta_line(clearance: float) -> float:
+    """
+    Define how much to pay or to retrieve of the line
+    :param clearance: line's clearance to the seabed
+    :return: delta length
+    """
+    delta = abs(clearance - .5)
+    return delta
+
+
+def payout_line(line_model: OrcFxAPI.OrcaFlexObject, delta: float) -> None:
+    """
+    Fine-tuning control - line's payout/retrieve
+    :param delta: line's clearance, in the model
+    :param line_model: model's line
+    """
+    print(f"\nPaying out {delta}m from the line,\n"
+          f"from {line_model.Length[0]} to {line_model.Length[0] + delta}")
+    line_model.Length[0] += delta
+
+
+def retrieve_line(line_model: OrcFxAPI.OrcaFlexObject, delta: float) -> None:
+    """
+    Fine-tuning control - line's payout/retrieve
+    :param delta: line's clearance, in the model
+    :param line_model: model's line
+    """
+    print(f"\nRetrieving {delta}m from the line,\n"
+          f"from {line_model.Length[0]} to {line_model.Length[0] - delta}")
+    line_model.Length[0] -= delta
 
 
 def flange_height_correction(winch: OrcFxAPI.OrcaFlexObject,

@@ -5,6 +5,7 @@ Static analysis automation
 import OrcFxAPI
 import time
 import sim_run
+from collections import Counter
 from orca import object_elements
 from methods import info
 
@@ -82,7 +83,7 @@ buoy_combination = sim_run.buoy_combination(buoy_set)
 
 # RUNNING UNTIL RL CONDITIONS
 
-"Parcially adding buoyancy"
+"Partially adding buoyancy"
 k = 1
 while k <= 5:
     rl_config_fract = [
@@ -100,77 +101,125 @@ while k <= 5:
 
 # GETTING RESULTS
 
+selection = sim_run.buoyancy(rl_config, buoy_combination)
+treated_buoys = sim_run.buoyancy_treatment(rl_config, selection)
+num_buoys = sim_run.number_buoys(treated_buoys)
+
+sim_run.input_buoyancy(model_line_type, num_buoys, treated_buoys, vessel)
+sim_run.run_static_simulation(model, rt_number)
+
 rotation = sim_run.verify_vcm_rotation(model_vcm)
 clearance = sim_run.verify_line_clearance(model_line_type)
-delta_flange_height = sim_run.verify_flange_height(model_line_type,
-                                                   object_line, object_vcm)
+delta_flange_height = sim_run.verify_flange_height(model_line_type, object_line, object_vcm)
 
 # LOOPING
 
 "Looping entry"
-result = ""
+result = sim_run.get_result(rotation, clearance, delta_flange_height)
+
 while result != "red":
-    if abs(rotation) > .5:
-        result = "red"
-    elif .5 > abs(clearance) > .7:
-        result = "red"
-    elif delta_flange_height != 0:
-        result = "red"
-    else:
-        result = "green"  # LOOPING ENDS HERE
+    sim_run.user_specified(model, rt_number)
+    change_buoys = "no"
+    if .5 < rotation < -.5:
+        number = model_line_type.NumberOfAttachments
+        model_buoys_position = []
+        k = 1
+        for _ in range(1, number):
+            model_buoys_position.append(model_line_type.Attachmentz[k])
+            k += 1
+        case = len(Counter(model_buoys_position))
 
-    if rotation > .5:
+        # Podemos iterar a list position de forma manual
+        # alterando a ordem dos seus elementos
+        # itera o primeiro, em seguida coloca o 1° elemento no lugar do último
+        # e todo o restante dos elementos avança uma posição
+        # roda a análise e o looping segue em frente.
 
-        """PLAN
-        
-        MOVER A BOIA MAIS PRA PERTO DO MCV
-        
-        change_buoys = "no"
-        pega o RL_config e olha as posições de boias
-            caso 1 -  o limite é [3, 4]m
-            caso 2 -  o limite é [3, 4]m para a primeira 
-                                 [6, 8]m para a segunda
-            caso 3 -  o limite é [3, 4]m para a primeira
-                                 [6, 8]m para a segunda
-                                 [9, 12]m para a terceira
-        verifica, para cada condição, se a boia está posicionada no limite
-            se houve uma condição ainda não satisfeita, move a boia
-            se todas forem satisfeitas, troca conjunto de boias
-                change_buoys = "yes"
-        if change_buoys == "yes":
-            change_buoys
-        
-        PLAN"""
+        if rotation > .5:
+            if case == 1:
+                limits = [3]
+                if model_buoys_position != limits:
+                    pointer = sim_run.make_pointer(case)
 
-    elif rotation < -.5:
+                    new_model_buoys_position = []
+                    for position in model_buoys_position:
+                        new_model_buoys_position.append(position - .5)
 
-        """PLAN
-        
-        MOVER A BOIA MAIS PRA DISTANTE DO MCV
-        
-        change_buoys = "no"
-        pega o RL_config e olha as posições de boias
-            caso 1 -  o limite é [3, 4]m
-            caso 2 -  o limite é [3, 4]m para a primeira 
-                                 [6, 8]m para a segunda
-            caso 3 -  o limite é [3, 4]m para a primeira
-                                 [6, 8]m para a segunda
-                                 [9, 12]m para a terceira
-        verifica, para cada condição, se a boia está posicionada no limite
-            se houve uma condição ainda não satisfeita, move a boia
-            se todas forem satisfeitas, troca conjunto de boias
-                change_buoys = "yes"
-        if change_buoys == "yes":
-            change_buoys
-        
-        PLAN"""
+                else:
+                    "Troca boias"
+            elif case == 2:
+                limits = [3, 6]
+                if model_buoys_position != limits:
+                    ""
+                else:
+                    "Troca boias"
+            elif case == 3:
+                limits = [3, 6, 9]
+                if model_buoys_position != limits:
+                    ""
+                else:
+                    "Troca boias"
+            """PLAN
+            MOVER A BOIA MAIS PRA PERTO DO MCV
+            change_buoys = "no"
+            pega o RL_config e olha as posições de boias
+                caso 1 -  o limite é [3, 4]m
+                caso 2 -  o limite é [3, 4]m para a primeira 
+                                     [6, 8]m para a segunda
+                caso 3 -  o limite é [3, 4]m para a primeira
+                                     [6, 8]m para a segunda
+                                     [9, 12]m para a terceira
+            verifica, para cada condição, se a boia está posicionada no limite
+                se houve uma condição ainda não satisfeita, move a boia
+                se todas forem satisfeitas, troca conjunto de boias
+                    change_buoys = "yes"
+            if change_buoys == "yes":
+                change_buoys
+            PLAN"""
+        elif rotation < -.5:
+            if case == 1:
+                limits = [4]
+                if model_buoys_position != limits:
+                    ""
+                else:
+                    "Troca boias"
+            elif case == 2:
+                limits = [4, 8]
+                if model_buoys_position != limits:
+                    ""
+                else:
+                    "Troca boias"
+            elif case == 3:
+                limits = [4, 8, 12]
+                if model_buoys_position != limits:
+                    ""
+                else:
+                    "Troca boias"
+            """PLAN
+            MOVER A BOIA MAIS PRA DISTANTE DO MCV
+            change_buoys = "no"
+            pega o RL_config e olha as posições de boias
+                caso 1 -  o limite é [3, 4]m
+                caso 2 -  o limite é [3, 4]m para a primeira 
+                                     [6, 8]m para a segunda
+                caso 3 -  o limite é [3, 4]m para a primeira
+                                     [6, 8]m para a segunda
+                                     [9, 12]m para a terceira
+            verifica, para cada condição, se a boia está posicionada no limite
+                se houve uma condição ainda não satisfeita, move a boia
+                se todas forem satisfeitas, troca conjunto de boias
+                    change_buoys = "yes"
+            if change_buoys == "yes":
+                change_buoys
+            PLAN"""
 
-    if clearance > .6:
-        """
-        # Paga linha"""
-    elif clearance < .5:
-        """
-        # Recolhe linha"""
+    if .5 > clearance > .6:
+        delta = sim_run.define_delta_line(clearance)
+        if clearance > .6:
+            sim_run.payout_line(model_line, delta)
+        elif clearance < .5:
+            sim_run.retrieve_line(model_line, delta)
+
     if delta_flange_height != 0:
         """
         # Ajusta o comprimento do guindaste
@@ -179,6 +228,7 @@ while result != "red":
         # Roda, puxa resultados e volta para o damping normal"""
     """
     # Ajusta o x do solo igual ao x do MCV"""
+    result = sim_run.get_result(rotation, clearance, delta_flange_height)
 
 # FINAL
 
