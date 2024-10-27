@@ -9,6 +9,7 @@ from collections import Counter
 from orca import object_elements
 from methods import info
 
+
 start_time = time.perf_counter()
 
 rt_number = info[0]
@@ -117,102 +118,92 @@ delta_flange_height = sim_run.verify_flange_height(model_line_type, object_line,
 "Looping entry"
 result = sim_run.get_result(rotation, clearance, delta_flange_height)
 
+p_parameter = 0  # to make the pointer
+
 while result != "red":
+
     sim_run.user_specified(model, rt_number)
+
     change_buoys = "no"
+
     if .5 < rotation < -.5:
+
         number = model_line_type.NumberOfAttachments
+
         model_buoys_position = []
         k = 1
         for _ in range(1, number):
             model_buoys_position.append(model_line_type.Attachmentz[k])
             k += 1
+
         case = len(Counter(model_buoys_position))
 
-        # Podemos iterar a list position de forma manual
-        # alterando a ordem dos seus elementos
-        # itera o primeiro, em seguida coloca o 1° elemento no lugar do último
-        # e todo o restante dos elementos avança uma posição
-        # roda a análise e o looping segue em frente.
-
         if rotation > .5:
+            new_positions = [j + .5
+                             for j in model_buoys_position]
             if case == 1:
                 limits = [3]
                 if model_buoys_position != limits:
-                    pointer = sim_run.make_pointer(case)
-
-                    new_model_buoys_position = []
-                    for position in model_buoys_position:
-                        new_model_buoys_position.append(position - .5)
-
+                    pointer, p_parameter = sim_run.make_pointer(case, p_parameter)
+                    rotation, clearance, delta_flange_height = \
+                        sim_run.l_c_b_p(new_positions, model_line_type, number,
+                                        model_buoys_position, pointer, model, rt_number, model_vcm,
+                                        object_line, object_vcm)
                 else:
                     "Troca boias"
             elif case == 2:
                 limits = [3, 6]
                 if model_buoys_position != limits:
-                    ""
+                    pointer, p_parameter = sim_run.make_pointer(case, p_parameter)
+                    rotation, clearance, delta_flange_height = \
+                        sim_run.l_c_b_p(new_positions, model_line_type, number,
+                                        model_buoys_position, pointer, model, rt_number, model_vcm,
+                                        object_line, object_vcm)
                 else:
                     "Troca boias"
             elif case == 3:
                 limits = [3, 6, 9]
                 if model_buoys_position != limits:
-                    ""
+                    pointer, p_parameter = sim_run.make_pointer(case, p_parameter)
+                    rotation, clearance, delta_flange_height = \
+                        sim_run.l_c_b_p(new_positions, model_line_type, number,
+                                        model_buoys_position, pointer, model, rt_number, model_vcm,
+                                        object_line, object_vcm)
                 else:
                     "Troca boias"
-            """PLAN
-            MOVER A BOIA MAIS PRA PERTO DO MCV
-            change_buoys = "no"
-            pega o RL_config e olha as posições de boias
-                caso 1 -  o limite é [3, 4]m
-                caso 2 -  o limite é [3, 4]m para a primeira 
-                                     [6, 8]m para a segunda
-                caso 3 -  o limite é [3, 4]m para a primeira
-                                     [6, 8]m para a segunda
-                                     [9, 12]m para a terceira
-            verifica, para cada condição, se a boia está posicionada no limite
-                se houve uma condição ainda não satisfeita, move a boia
-                se todas forem satisfeitas, troca conjunto de boias
-                    change_buoys = "yes"
-            if change_buoys == "yes":
-                change_buoys
-            PLAN"""
         elif rotation < -.5:
+            new_positions = [j - .5
+                             for j in model_buoys_position]
             if case == 1:
                 limits = [4]
                 if model_buoys_position != limits:
-                    ""
+                    pointer, p_parameter = sim_run.make_pointer(case, p_parameter)
+                    rotation, clearance, delta_flange_height = \
+                        sim_run.l_c_b_p(new_positions, model_line_type, number,
+                                        model_buoys_position, pointer, model, rt_number, model_vcm,
+                                        object_line, object_vcm)
                 else:
                     "Troca boias"
             elif case == 2:
                 limits = [4, 8]
                 if model_buoys_position != limits:
-                    ""
+                    pointer, p_parameter = sim_run.make_pointer(case, p_parameter)
+                    rotation, clearance, delta_flange_height = \
+                        sim_run.l_c_b_p(new_positions, model_line_type, number,
+                                        model_buoys_position, pointer, model, rt_number, model_vcm,
+                                        object_line, object_vcm)
                 else:
                     "Troca boias"
             elif case == 3:
                 limits = [4, 8, 12]
                 if model_buoys_position != limits:
-                    ""
+                    pointer, p_parameter = sim_run.make_pointer(case, p_parameter)
+                    rotation, clearance, delta_flange_height = \
+                        sim_run.l_c_b_p(new_positions, model_line_type, number,
+                                        model_buoys_position, pointer, model, rt_number, model_vcm,
+                                        object_line, object_vcm)
                 else:
                     "Troca boias"
-            """PLAN
-            MOVER A BOIA MAIS PRA DISTANTE DO MCV
-            change_buoys = "no"
-            pega o RL_config e olha as posições de boias
-                caso 1 -  o limite é [3, 4]m
-                caso 2 -  o limite é [3, 4]m para a primeira 
-                                     [6, 8]m para a segunda
-                caso 3 -  o limite é [3, 4]m para a primeira
-                                     [6, 8]m para a segunda
-                                     [9, 12]m para a terceira
-            verifica, para cada condição, se a boia está posicionada no limite
-                se houve uma condição ainda não satisfeita, move a boia
-                se todas forem satisfeitas, troca conjunto de boias
-                    change_buoys = "yes"
-            if change_buoys == "yes":
-                change_buoys
-            PLAN"""
-
     if .5 > clearance > .6:
         delta = sim_run.define_delta_line(clearance)
         if clearance > .6:
@@ -223,8 +214,8 @@ while result != "red":
     if delta_flange_height != 0:
         """
         # Ajusta o comprimento do guindaste
-        # Aumenta pra kcete o damping
-        # muda config para Catenary e puxa o MCV
+        # Aumenta bastante o damping
+        # muda config para catenária e puxa o MCV
         # Roda, puxa resultados e volta para o damping normal"""
     """
     # Ajusta o x do solo igual ao x do MCV"""

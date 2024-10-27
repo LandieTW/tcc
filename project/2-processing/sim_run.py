@@ -1,6 +1,7 @@
 """
 Simulation methods for the automation.
 """
+from typing import Tuple
 
 import OrcFxAPI
 import methods
@@ -204,112 +205,6 @@ def verify_flange_height(line_model: OrcFxAPI.OrcaFlexObject,
     return delta
 
 
-def loop_initialization(line_model: OrcFxAPI.OrcaFlexObject,
-                        vcm: OrcFxAPI.OrcaFlexObject,
-                        model: OrcFxAPI.Model, rotation: float,
-                        clearance: float, buoy_set: list,
-                        buoys_configuration: list, vessel: str,
-                        rt_number: str, what: bool, selection: dict) -> str:
-    """
-    Function that controls the automation
-    :param selection: present selection of buoys
-    :param clearance: line's clearance
-    :param rotation: vcm's rotation
-    :param rt_number: RT's number
-    :param vessel: vessel
-    :param what: control for change buoys
-    :param buoys_configuration: RL's buoy configuration
-    :param buoy_set: vessel's buoys
-    :param line_model: orcaflex's line
-    :param vcm: orcaflex's vcm
-    :param model: orcaflex's model
-    :return: convergence sinal
-    """
-
-    global n_run
-    if n_run == 100:
-        return f"Sorry, was not possible to converge in {n_run} tentatives."
-
-    if what:  # troca de boias
-        user_specified(model, rt_number)
-
-        changing_buoys(selection, buoy_set, rotation, buoys_configuration,
-                       line_model, vessel)
-
-        run_static_simulation(model, rt_number)
-
-        rotation = verify_vcm_rotation(vcm)
-        clearance = verify_line_clearance(line_model)
-
-        loop_initialization(line_model, vcm, model, rotation, clearance,
-                            buoy_set, buoys_configuration, vessel,
-                            rt_number, False, selection)
-
-    if rotation > .5:
-        if line_model.Attachmentz[1] == 3:
-            loop_initialization(line_model, vcm, model, rotation,
-                                clearance, buoy_set, buoys_configuration,
-                                vessel, rt_number, True, selection)
-
-        user_specified(model, rt_number)
-        buoys_configuration = change_buoy_position(line_model, True, rotation,
-                                                   buoys_configuration)
-        run_static_simulation(model, rt_number)
-
-        rotation = verify_vcm_rotation(vcm)
-        clearance = verify_line_clearance(line_model)
-
-        loop_initialization(line_model, vcm, model, rotation, clearance,
-                            buoy_set, buoys_configuration, vessel,
-                            rt_number, False, selection)
-
-    elif rotation < -.5:
-        if line_model.Attachmentz[1] == 5:
-            loop_initialization(line_model, vcm, model, rotation,
-                                clearance, buoy_set, buoys_configuration,
-                                vessel, rt_number, True, selection)
-
-        user_specified(model, rt_number)
-        buoys_configuration = change_buoy_position(line_model, False, rotation,
-                                                   buoys_configuration)
-        run_static_simulation(model, rt_number)
-
-        rotation = verify_vcm_rotation(vcm)
-        clearance = verify_line_clearance(line_model)
-
-        loop_initialization(line_model, vcm, model, rotation, clearance,
-                            buoy_set, buoys_configuration, vessel,
-                            rt_number, False, selection)
-
-    if clearance > .6:
-
-        user_specified(model, rt_number)
-        payout_retrieve_line(line_model, True, clearance)
-        run_static_simulation(model, rt_number)
-
-        rotation = verify_vcm_rotation(vcm)
-        clearance = verify_line_clearance(line_model)
-
-        loop_initialization(line_model, vcm, model, rotation, clearance,
-                            buoy_set, buoys_configuration, vessel,
-                            rt_number, False, selection)
-
-    elif clearance < .5:
-
-        user_specified(model, rt_number)
-        payout_retrieve_line(line_model, False, clearance)
-        run_static_simulation(model, rt_number)
-
-        rotation = verify_vcm_rotation(vcm)
-        clearance = verify_line_clearance(line_model)
-
-        loop_initialization(line_model, vcm, model, rotation, clearance,
-                            buoy_set, buoys_configuration, vessel,
-                            rt_number, False, selection)
-
-    return "\nLooping's end."
-
-
 def get_result(rotation: float, clearance: float, delta_flange_height) -> str:
     """
     Controls the looping
@@ -329,71 +224,73 @@ def get_result(rotation: float, clearance: float, delta_flange_height) -> str:
     return result
 
 
-def make_pointer(case: float) -> float:
+def l_c_b_p(new_positions: list, model_line_type: OrcFxAPI.OrcaFlexObject, number: int,
+            model_buoys_position: list, pointer: int, model: OrcFxAPI.Model, rt_number: str,
+            model_vcm: OrcFxAPI.OrcaFlexObject, object_line: methods.Line, object_vcm: methods.Vcm):
+    """
+    l_c_b_p = looping changing buoy position
+    :param new_positions:
+    :param model_line_type:
+    :param number:
+    :param model_buoys_position:
+    :param pointer:
+    :param model:
+    :param rt_number:
+    :param model_vcm:
+    :param object_line:
+    :param object_vcm:
+    :return: looping results
+    """
+    change_buoy_position(new_positions, model_line_type, number, model_buoys_position, pointer)
+
+    run_static_simulation(model, rt_number)
+
+    rotation = verify_vcm_rotation(model_vcm)
+    clearance = verify_line_clearance(model_line_type)
+    delta_flange_height = verify_flange_height(model_line_type, object_line, object_vcm)
+
+    return rotation, clearance, delta_flange_height
+
+
+def make_pointer(case: float, p_parameter: int) -> tuple[int, int]:
     """
     Creates a pointer that selects which of
     the buoys positions is going to be changed
+    :param case: this is used as a counter parameter to the pointer
+    :param p_parameter: this makes the pointer changes
+    :return: pointer and the p_parameter
+    """
+    if case == 1:
+        pointer = p_parameter
+    else:
+        if p_parameter != case - 1:
+            pointer = p_parameter
+            p_parameter += 1
+        else:
+            p_parameter = 0
+            pointer = p_parameter
+    return pointer, p_parameter
+
+
+def change_buoy_position(new_positions: list, line_model: OrcFxAPI.OrcaFlexObject,
+                         number_attachments: int, model_buoys_position: list, pointer: int) -> None:
+    """
+
+    :param pointer:
+    :param new_positions:
+    :param line_model:
+    :param number_attachments:
+    :param model_buoys_position:
     :return:
     """
-
-    return pointer
-
-
-def change_buoy_position(line_model: OrcFxAPI.OrcaFlexObject,
-                         what: bool, rotation: float,
-                         buoy_config: list) -> list:
-    """
-    Changes the buoys position
-    :param buoy_config: RL's buoy configuration
-    :param rotation: vcm's rotation, in the orcaflex
-    :param what: boolean value to select + or - distance
-    :param line_model: OrcaFlex's line
-    :return: None
-    """
-
-    # AJUSTES --------------------------------------------------
-
-    # 1. Possibilitar mudança de posição individual entre 2 ou mais pontos
-
-    number = line_model.NumberOfAttachments
-    positions = []
-    k = 1
-    for i in range(1, number):
-        positions.append(line_model.Attachmentz[k])
-        k += 1
-    new_positions = []
-
-    delta_x = .5
-    if rotation >= 2:
-        delta_x = positions[0] - 3
-    elif 2 > rotation >= 1:
-        delta_x = positions[0] - 4
-    elif 1 > rotation >= -1:
-        delta_x = .5
-    elif -1 > rotation >= -2:
-        delta_x = 5 - positions[0]
-    elif -2 > rotation:
-        delta_x = 4 - positions[0]
-
-    if what:
-        for j in positions:
-            new_positions.append(j - delta_x)
-    else:
-        for j in positions:
-            new_positions.append(j + delta_x)
-    p = 1
     print(f"changing buoys position,\n"
-          f"from {positions}m to {new_positions}m")
-    for z in range(0, number - 1):
-        line_model.Attachmentz[p] = new_positions[z]
-        p += 1
+          f"from {model_buoys_position[pointer]}m to {new_positions[pointer]}m")
 
-    new_buoy_config = [
-        list(set(new_positions)),
-        buoy_config[1]
-    ]
-    print(new_buoy_config)
-    return new_buoy_config
+    p = 1
+    for z in range(0, number_attachments - 1):
+        if new_positions[z] == new_positions[pointer]:
+            line_model.Attachmentz[p] = new_positions[z]
+        p += 1
 
 
 def changing_buoys(selection: dict, buoy_set: list, rotation: float,
