@@ -208,8 +208,20 @@ while result != "red":
         delta = sim_run.define_delta_line(clearance)
         if clearance > .6:
             sim_run.payout_line(model_line, delta)
+            sim_run.run_static_simulation(model, rt_number)
+
+            rotation = sim_run.verify_vcm_rotation(model_vcm)
+            clearance = sim_run.verify_line_clearance(model_line_type)
+            delta_flange_height = sim_run.verify_flange_height(model_line_type, object_line,
+                                                               object_vcm)
         elif clearance < .5:
             sim_run.retrieve_line(model_line, delta)
+            sim_run.run_static_simulation(model, rt_number)
+
+            rotation = sim_run.verify_vcm_rotation(model_vcm)
+            clearance = sim_run.verify_line_clearance(model_line_type)
+            delta_flange_height = sim_run.verify_flange_height(model_line_type, object_line,
+                                                               object_vcm)
 
     if delta_flange_height != 0:
         """
