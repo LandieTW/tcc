@@ -124,23 +124,28 @@ while result != "red":
 
     sim_run.user_specified(model, rt_number)
 
-    change_buoys = "no"
+    number = model_line_type.NumberOfAttachments
+
+    model_buoys_position = []
+    k = 1
+    for _ in range(1, number):
+        model_buoys_position.append(model_line_type.Attachmentz[k])
+        k += 1
+    model_buoys = list(selection.values())
+    new_rl_config = [
+        model_buoys_position,
+        model_buoys
+    ]
 
     if .5 < rotation < -.5:
 
-        number = model_line_type.NumberOfAttachments
-
-        model_buoys_position = []
-        k = 1
-        for _ in range(1, number):
-            model_buoys_position.append(model_line_type.Attachmentz[k])
-            k += 1
-
         case = len(Counter(model_buoys_position))
+        pointer, p_parameter = sim_run.make_pointer(case, p_parameter)
 
         if rotation > .5:
             new_positions = [j + .5
                              for j in model_buoys_position]
+            limits = []
             if case == 1:
                 limits = [3]
             elif case == 2:
@@ -149,16 +154,18 @@ while result != "red":
                 limits = [3, 6, 9]
 
             if model_buoys_position != limits:
-                pointer, p_parameter = sim_run.make_pointer(case, p_parameter)
+
                 rotation, clearance, delta_flange_height = \
                     sim_run.l_c_b_p(new_positions, model_line_type, number, model_buoys_position,
                                     pointer, model, rt_number, model_vcm, object_line, object_vcm)
             else:
-                "Troca boias"
+                new_rl_config = sim_run.changing_buoyancy(rl_config, pointer, rotation)
+                sim_run.changing_buoys(selection, buoy_set, new_rl_config, model_line_type, vessel)
 
         elif rotation < -.5:
             new_positions = [j - .5
                              for j in model_buoys_position]
+            limits = []
             if case == 1:
                 limits = [4]
             elif case == 2:
@@ -167,12 +174,12 @@ while result != "red":
                 limits = [4, 8, 12]
 
             if model_buoys_position != limits:
-                pointer, p_parameter = sim_run.make_pointer(case, p_parameter)
                 rotation, clearance, delta_flange_height = \
                     sim_run.l_c_b_p(new_positions, model_line_type, number, model_buoys_position,
                                     pointer, model, rt_number, model_vcm, object_line, object_vcm)
             else:
-                "Troca boias"
+                new_rl_config = sim_run.changing_buoyancy(rl_config, pointer, rotation)
+                sim_run.changing_buoys(selection, buoy_set, new_rl_config, model_line_type, vessel)
 
     if .5 > clearance > .6:
         delta = sim_run.define_delta_line(clearance)

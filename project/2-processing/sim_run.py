@@ -293,41 +293,49 @@ def change_buoy_position(new_positions: list, line_model: OrcFxAPI.OrcaFlexObjec
         p += 1
 
 
-def changing_buoys(selection: dict, buoy_set: list, rotation: float, buoys_configuration: list,
+def changing_buoyancy(rl_config: list, pointer: int, rotation: float) -> list:
+    """
+
+    :param rotation: VCM's rotation.
+    :param rl_config: RL's configuration.
+    :param pointer: which buoy position change
+    :return:
+    """
+    total_buoyancy = rl_config[1]
+    if rotation > 0:
+        if 1.1 * total_buoyancy[pointer] < 2_000:
+            total_buoyancy[pointer] = 1.1 * total_buoyancy[pointer]
+    elif rotation < 0:
+        if .9 * total_buoyancy[pointer] > 0:
+            total_buoyancy[pointer] = .9 * total_buoyancy[pointer]
+    rl_config = [
+        rl_config[0],
+        total_buoyancy
+    ]
+    return rl_config
+
+
+def changing_buoys(selection: dict, buoy_set: list, new_rl_config: list,
                    line_model: OrcFxAPI.OrcaFlexObject, vessel: str) -> None:
     """
     With this method we can change the buoy_set
     :param selection: actual selection of buoys
     :param buoy_set: vessel's available buoys
-    :param rotation: actual vcm's rotation
-    :param buoys_configuration: RL's buoy configuration
+    :param new_rl_config: RL's buoy configuration changed
     :param line_model: orcaflex's line
     :param vessel: vessel for operation
     :return:
     """
 
-    # AJUSTES --------------------------------------------------
-
-    # 1. Possibilitar aumento de empuxo individual entre 2 ou mais pontos
-    # 2. Limitar aumento de empuxo a 2 Tf
-
     print(f"\nChanging buoys,\n"
-          f"from {list(selection.keys())}: {list(selection.values())}")
-    teta = 100
+          f"from {tuple(selection.keys())}: {tuple(selection.values())}")
+
     combination_buoys = buoy_combination(buoy_set)
-    buoyancy_config = []
-    if rotation > 0:
-        for buoy in range(len(buoys_configuration[1])):
-            buoyancy_config.append(buoys_configuration[1][buoy] + teta)
-    else:
-        for buoy in range(len(buoys_configuration[1])):
-            buoyancy_config.append(buoys_configuration[1][buoy] - teta)
 
-    buoys_configuration = [buoys_configuration[0], buoyancy_config]
-    selection = buoyancy(buoys_configuration, combination_buoys)
-    print(f"to {list(selection.keys())}: {list(selection.values())}")
+    selection = buoyancy(new_rl_config, combination_buoys)
+    print(f"to {tuple(selection.keys())}: {tuple(selection.values())}")
 
-    treated_buoys = buoyancy_treatment(buoys_configuration, selection)
+    treated_buoys = buoyancy_treatment(new_rl_config, selection)
     num_buoys = number_buoys(treated_buoys)
     input_buoyancy(line_model, num_buoys, treated_buoys, vessel)
 
