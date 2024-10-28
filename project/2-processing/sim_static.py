@@ -137,12 +137,14 @@ while result == "red":
         model_buoys
     ]
 
-    if rotation < -.5 or rotation > .5:
+    while rotation > .5 or rotation < -.5:
 
         case = len(Counter(model_buoys_position))
         pointer, p_parameter = sim_run.make_pointer(case, p_parameter)
+        print(f"Pointer: {pointer}")
 
         if rotation > .5:
+            print(f"Rotation > .5")
             new_positions = [j + .5
                              for j in model_buoys_position]
             limits = []
@@ -169,6 +171,7 @@ while result == "red":
                                                                    object_vcm)
 
         elif rotation < -.5:
+            print(f"Rotation < -.5")
             new_positions = [j - .5
                              for j in model_buoys_position]
             limits = []
@@ -193,9 +196,10 @@ while result == "red":
                 delta_flange_height = sim_run.verify_flange_height(model_line_type, object_line,
                                                                    object_vcm)
 
-    if clearance < .5 or clearance > .6:
+    while clearance < .5 or clearance > .6:
         delta = sim_run.define_delta_line(clearance)
         if clearance > .6:
+            print(f"Clearance > .6")
             sim_run.payout_line(model_line_type, delta)
             sim_run.run_static_simulation(model, rt_number)
 
@@ -204,6 +208,7 @@ while result == "red":
             delta_flange_height = sim_run.verify_flange_height(model_line_type, object_line,
                                                                object_vcm)
         elif clearance < .5:
+            print(f"Clearance < .5")
             sim_run.retrieve_line(model_line_type, delta)
             sim_run.run_static_simulation(model, rt_number)
 

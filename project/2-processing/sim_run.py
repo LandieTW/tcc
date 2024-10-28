@@ -1,7 +1,6 @@
 """
 Simulation methods for the automation.
 """
-from typing import Tuple
 
 import OrcFxAPI
 import methods
@@ -173,7 +172,7 @@ def verify_line_clearance(line_model: OrcFxAPI.OrcaFlexObject) -> float:
     list_vsc = [vsc
                 for index, vsc in enumerate(line_clearance.Mean)]
     vsc_min = round(min(list_vsc), 4)
-    print(f"\nClearance: {vsc_min}")
+    print(f"Clearance: {vsc_min}")
     return vsc_min
 
 
@@ -203,9 +202,9 @@ def verify_flange_height(line_model: OrcFxAPI.OrcaFlexObject,
     depth_verified = line_model.StaticResult("Z", OrcFxAPI.oeEndB)
     delta = round(correct_depth - depth_verified, 4)
     if delta == 0:
-        print(f"\nNo need to adjust flange's height")
+        print(f"No need to adjust flange's height")
     else:
-        print(f"\nflange's height adjustment: {delta}")
+        print(f"Flange's height adjustment: {delta}")
     return delta
 
 
@@ -267,7 +266,7 @@ def make_pointer(case: float, p_parameter: int) -> tuple[int, int]:
     if case == 1:
         pointer = p_parameter
     else:
-        if p_parameter != case - 1:
+        if p_parameter == case - 1:
             pointer = p_parameter
             p_parameter += 1
         else:
@@ -287,7 +286,7 @@ def change_buoy_position(new_positions: list, line_model: OrcFxAPI.OrcaFlexObjec
     :param model_buoys_position:
     :return:
     """
-    print(f"changing buoys position,\n"
+    print(f"\nChanging buoys position,\n"
           f"from {model_buoys_position[pointer]}m to {new_positions[pointer]}m")
 
     p = 1
@@ -299,9 +298,9 @@ def change_buoy_position(new_positions: list, line_model: OrcFxAPI.OrcaFlexObjec
 
 def changing_buoyancy(rl_config: list, pointer: int, rotation: float) -> list:
     """
-
-    :param rotation: VCM's rotation.
-    :param rl_config: RL's configuration.
+    Determines how buoyancy changes
+    :param rotation: VCM's rotation
+    :param rl_config: RL's configuration
     :param pointer: which buoy position change
     :return:
     """
@@ -350,7 +349,10 @@ def define_delta_line(clearance: float) -> float:
     :param clearance: line's clearance to the seabed
     :return: delta length
     """
-    delta = round(abs(clearance - .5), 4)
+    if clearance < .1:
+        delta = abs(clearance) + .1
+    else:
+        delta = .2
     return delta
 
 
@@ -361,7 +363,7 @@ def payout_line(line_model: OrcFxAPI.OrcaFlexObject, delta: float) -> None:
     :param line_model: model's line
     """
     print(f"\nPaying out {delta}m from the line,\n"
-          f"from {line_model.Length[0]} to {line_model.Length[0] + delta}")
+          f"from {round(line_model.Length[0], 2)} to {round(line_model.Length[0] + delta, 2)}")
     line_model.Length[0] += delta
 
 
@@ -372,7 +374,7 @@ def retrieve_line(line_model: OrcFxAPI.OrcaFlexObject, delta: float) -> None:
     :param line_model: model's line
     """
     print(f"\nRetrieving {delta}m from the line,\n"
-          f"from {line_model.Length[0]} to {line_model.Length[0] - delta}")
+          f"from {round(line_model.Length[0], 2)} to {round(line_model.Length[0] - delta, 2)}")
     line_model.Length[0] -= delta
 
 
