@@ -1,0 +1,190 @@
+Running 8th time.
+
+Rotation: 0.2113
+Clearance: -0.0882
+flange's height adjustment: 0.0011
+
+Running 9th time.
+
+Retrieving 0.5882m from the line,
+from 1983.999 to 1983.4108
+
+Running 10th time.
+
+Rotation: 0.3414
+Clearance: -0.0876
+flange's height adjustment: 0.0024
+
+Running 11th time.
+
+Retrieving 0.5876m from the line,
+from 1983.4108 to 1982.8232
+
+Running 12th time.
+
+Rotation: 0.5321
+Clearance: -0.0854
+flange's height adjustment: 0.0045
+
+Running 13th time.
+
+Pointer: 0
+changing buoys position,
+from 3.0m to 3.5m
+
+Running 14th time.
+
+Rotation: -2.215
+Clearance: -0.0794
+flange's height adjustment: -0.0394
+
+Retrieving 0.5794m from the line,
+from 1982.8232 to 1982.2438
+
+Running 15th time.
+
+Rotation: -1.7951
+Clearance: -0.0713
+flange's height adjustment: -0.0336
+
+Running 16th time.
+
+Pointer: 0
+changing buoys position,
+from 3.5m to 3.0m
+
+Running 17th time.
+
+Rotation: 0.7843
+Clearance: -0.0812
+flange's height adjustment: 0.0075
+
+Retrieving 0.5812m from the line,
+from 1982.2438 to 1981.6625999999999
+
+Running 18th time.
+
+Rotation: 1.108
+Clearance: -0.0746
+flange's height adjustment: 0.0115
+
+Running 19th time.
+
+Pointer: 0
+changing buoys position,
+from 3.0m to 3.5m
+
+Running 20th time.
+
+Rotation: -1.2885
+Clearance: -0.0595
+flange's height adjustment: -0.0266
+
+Retrieving 0.5595m from the line,
+from 1981.6625999999999 to 1981.1030999999998
+
+Running 21th time.
+
+Rotation: -0.7182
+Clearance: -0.0442
+flange's height adjustment: -0.0187
+
+Running 22th time.
+
+Pointer: 0
+changing buoys position,
+from 3.5m to 3.0m
+
+Running 23th time.
+
+Rotation: 1.4965
+Clearance: -0.0661
+flange's height adjustment: 0.0163
+
+Retrieving 0.5661m from the line,
+from 1981.1030999999998 to 1980.5369999999998
+
+Running 24th time.
+
+Rotation: 1.9734
+Clearance: -0.0544
+flange's height adjustment: 0.0224
+
+Running 25th time.
+
+Pointer: 0
+changing buoys position,
+from 3.0m to 3.5m
+
+Running 26th time.
+
+Rotation: -0.0674
+Clearance: -0.0216
+flange's height adjustment: -0.0097
+
+Retrieving 0.5216m from the line,
+from 1980.5369999999998 to 1980.0153999999998
+
+Running 27th time.
+
+Rotation: -0.0305
+Clearance: 0.157
+flange's height adjustment: -0.0099
+
+Running 28th time.
+
+Retrieving 0.343m from the line,
+from 1980.0153999999998 to 1979.6723999999997
+
+Running 29th time.
+
+Rotation: -0.4394
+Clearance: 0.3789
+flange's height adjustment: -0.0165
+
+Running 30th time.
+
+Retrieving 0.1211m from the line,
+from 1979.6723999999997 to 1979.5512999999996
+
+Running 31th time.
+
+Rotation: -0.5842
+Clearance: 0.4574
+flange's height adjustment: -0.0188
+
+Running 32th time.
+
+Pointer: 0
+changing buoys position,
+from 3.5m to 3.0m
+
+Running 33th time.
+
+Rotation: 2.9783
+Clearance: -0.0208
+flange's height adjustment: 0.0353
+
+Retrieving 0.5208m from the line,
+from 1979.5512999999996 to 1979.0304999999996
+
+Running 34th time.
+
+Rotation: 2.9785
+Clearance: 0.1542
+flange's height adjustment: 0.0345
+
+Running 35th time.
+
+Pointer: 0
+changing buoys position,
+from 3.0m to 3.5m
+
+Running 36th time.
+
+Rotation: -1.2079
+Clearance: 0.7908
+flange's height adjustment: -0.0289
+
+Paying out 0.2908m from the line,
+from 1979.0304999999996 to 1979.3212999999996

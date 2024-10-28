@@ -113,6 +113,8 @@ rotation = sim_run.verify_vcm_rotation(model_vcm)
 clearance = sim_run.verify_line_clearance(model_line_type)
 delta_flange_height = sim_run.verify_flange_height(model_line_type, object_line, object_vcm)
 
+sim_run.user_specified(model, rt_number)
+
 # LOOPING
 
 "Looping entry"
@@ -120,9 +122,7 @@ result = sim_run.get_result(rotation, clearance, delta_flange_height)
 
 p_parameter = 0  # to make the pointer
 
-while result != "red":
-
-    sim_run.user_specified(model, rt_number)
+while result == "red":
 
     number = model_line_type.NumberOfAttachments
 
@@ -137,7 +137,7 @@ while result != "red":
         model_buoys
     ]
 
-    if .5 < rotation < -.5:
+    if rotation < -.5 or rotation > .5:
 
         case = len(Counter(model_buoys_position))
         pointer, p_parameter = sim_run.make_pointer(case, p_parameter)
@@ -161,6 +161,12 @@ while result != "red":
             else:
                 new_rl_config = sim_run.changing_buoyancy(rl_config, pointer, rotation)
                 sim_run.changing_buoys(selection, buoy_set, new_rl_config, model_line_type, vessel)
+                sim_run.run_static_simulation(model, rt_number)
+
+                rotation = sim_run.verify_vcm_rotation(model_vcm)
+                clearance = sim_run.verify_line_clearance(model_line_type)
+                delta_flange_height = sim_run.verify_flange_height(model_line_type, object_line,
+                                                                   object_vcm)
 
         elif rotation < -.5:
             new_positions = [j - .5
@@ -180,11 +186,17 @@ while result != "red":
             else:
                 new_rl_config = sim_run.changing_buoyancy(rl_config, pointer, rotation)
                 sim_run.changing_buoys(selection, buoy_set, new_rl_config, model_line_type, vessel)
+                sim_run.run_static_simulation(model, rt_number)
 
-    if .5 > clearance > .6:
+                rotation = sim_run.verify_vcm_rotation(model_vcm)
+                clearance = sim_run.verify_line_clearance(model_line_type)
+                delta_flange_height = sim_run.verify_flange_height(model_line_type, object_line,
+                                                                   object_vcm)
+
+    if clearance < .5 or clearance > .6:
         delta = sim_run.define_delta_line(clearance)
         if clearance > .6:
-            sim_run.payout_line(model_line, delta)
+            sim_run.payout_line(model_line_type, delta)
             sim_run.run_static_simulation(model, rt_number)
 
             rotation = sim_run.verify_vcm_rotation(model_vcm)
@@ -192,7 +204,7 @@ while result != "red":
             delta_flange_height = sim_run.verify_flange_height(model_line_type, object_line,
                                                                object_vcm)
         elif clearance < .5:
-            sim_run.retrieve_line(model_line, delta)
+            sim_run.retrieve_line(model_line_type, delta)
             sim_run.run_static_simulation(model, rt_number)
 
             rotation = sim_run.verify_vcm_rotation(model_vcm)
@@ -200,14 +212,15 @@ while result != "red":
             delta_flange_height = sim_run.verify_flange_height(model_line_type, object_line,
                                                                object_vcm)
 
-    if delta_flange_height != 0:
-        """
-        # Ajusta o comprimento do guindaste
-        # Aumenta bastante o damping
-        # muda config para catenária e puxa o MCV
-        # Roda, puxa resultados e volta para o damping normal"""
+    """if delta_flange_height != 0:"""
+    """
+    # Ajusta o comprimento do guindaste
+    # Aumenta bastante o damping
+    # muda config para catenária e puxa o MCV
+    # Roda, puxa resultados e volta para o damping normal"""
     """
     # Ajusta o x do solo igual ao x do MCV"""
+    sim_run.user_specified(model, rt_number)
     result = sim_run.get_result(rotation, clearance, delta_flange_height)
 
 # FINAL

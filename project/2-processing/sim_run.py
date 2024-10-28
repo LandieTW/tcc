@@ -22,7 +22,7 @@ def run_static_simulation(model: OrcFxAPI.Model, rt_number: str) -> None:
                          "_Static.sim")
 
     n_run += 1
-    print(f"\nRunning time {n_run}")
+    print(f"\nRunning {n_run}th time.")
 
 
 def user_specified(model: OrcFxAPI.Model, rt_number: str) -> None:
@@ -172,7 +172,7 @@ def verify_line_clearance(line_model: OrcFxAPI.OrcaFlexObject) -> float:
     line_clearance = line_model.RangeGraph("Seabed clearance")
     list_vsc = [vsc
                 for index, vsc in enumerate(line_clearance.Mean)]
-    vsc_min = min(list_vsc)
+    vsc_min = round(min(list_vsc), 4)
     print(f"\nClearance: {vsc_min}")
     return vsc_min
 
@@ -183,7 +183,7 @@ def verify_vcm_rotation(vcm_: OrcFxAPI.OrcaFlexObject) -> float:
     :param vcm_: OrcaFlex's vcm
     :return: rotation in y_axis
     """
-    vcm_rotation = vcm_.StaticResult("Rotation 2")
+    vcm_rotation = round(vcm_.StaticResult("Rotation 2"), 4)
     print(f"\nRotation: {vcm_rotation}")
     return vcm_rotation
 
@@ -202,6 +202,10 @@ def verify_flange_height(line_model: OrcFxAPI.OrcaFlexObject,
     correct_depth = - line_obj.lda + (vcm_obj.a / 1_000)
     depth_verified = line_model.StaticResult("Z", OrcFxAPI.oeEndB)
     delta = round(correct_depth - depth_verified, 4)
+    if delta == 0:
+        print(f"\nNo need to adjust flange's height")
+    else:
+        print(f"\nflange's height adjustment: {delta}")
     return delta
 
 
@@ -346,7 +350,7 @@ def define_delta_line(clearance: float) -> float:
     :param clearance: line's clearance to the seabed
     :return: delta length
     """
-    delta = abs(clearance - .5)
+    delta = round(abs(clearance - .5), 4)
     return delta
 
 
