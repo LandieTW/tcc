@@ -143,67 +143,37 @@ while result != "red":
                              for j in model_buoys_position]
             if case == 1:
                 limits = [3]
-                if model_buoys_position != limits:
-                    pointer, p_parameter = sim_run.make_pointer(case, p_parameter)
-                    rotation, clearance, delta_flange_height = \
-                        sim_run.l_c_b_p(new_positions, model_line_type, number,
-                                        model_buoys_position, pointer, model, rt_number, model_vcm,
-                                        object_line, object_vcm)
-                else:
-                    "Troca boias"
             elif case == 2:
                 limits = [3, 6]
-                if model_buoys_position != limits:
-                    pointer, p_parameter = sim_run.make_pointer(case, p_parameter)
-                    rotation, clearance, delta_flange_height = \
-                        sim_run.l_c_b_p(new_positions, model_line_type, number,
-                                        model_buoys_position, pointer, model, rt_number, model_vcm,
-                                        object_line, object_vcm)
-                else:
-                    "Troca boias"
             elif case == 3:
                 limits = [3, 6, 9]
-                if model_buoys_position != limits:
-                    pointer, p_parameter = sim_run.make_pointer(case, p_parameter)
-                    rotation, clearance, delta_flange_height = \
-                        sim_run.l_c_b_p(new_positions, model_line_type, number,
-                                        model_buoys_position, pointer, model, rt_number, model_vcm,
-                                        object_line, object_vcm)
-                else:
-                    "Troca boias"
+
+            if model_buoys_position != limits:
+                pointer, p_parameter = sim_run.make_pointer(case, p_parameter)
+                rotation, clearance, delta_flange_height = \
+                    sim_run.l_c_b_p(new_positions, model_line_type, number, model_buoys_position,
+                                    pointer, model, rt_number, model_vcm, object_line, object_vcm)
+            else:
+                "Troca boias"
+
         elif rotation < -.5:
             new_positions = [j - .5
                              for j in model_buoys_position]
             if case == 1:
                 limits = [4]
-                if model_buoys_position != limits:
-                    pointer, p_parameter = sim_run.make_pointer(case, p_parameter)
-                    rotation, clearance, delta_flange_height = \
-                        sim_run.l_c_b_p(new_positions, model_line_type, number,
-                                        model_buoys_position, pointer, model, rt_number, model_vcm,
-                                        object_line, object_vcm)
-                else:
-                    "Troca boias"
             elif case == 2:
                 limits = [4, 8]
-                if model_buoys_position != limits:
-                    pointer, p_parameter = sim_run.make_pointer(case, p_parameter)
-                    rotation, clearance, delta_flange_height = \
-                        sim_run.l_c_b_p(new_positions, model_line_type, number,
-                                        model_buoys_position, pointer, model, rt_number, model_vcm,
-                                        object_line, object_vcm)
-                else:
-                    "Troca boias"
             elif case == 3:
                 limits = [4, 8, 12]
-                if model_buoys_position != limits:
-                    pointer, p_parameter = sim_run.make_pointer(case, p_parameter)
-                    rotation, clearance, delta_flange_height = \
-                        sim_run.l_c_b_p(new_positions, model_line_type, number,
-                                        model_buoys_position, pointer, model, rt_number, model_vcm,
-                                        object_line, object_vcm)
-                else:
-                    "Troca boias"
+
+            if model_buoys_position != limits:
+                pointer, p_parameter = sim_run.make_pointer(case, p_parameter)
+                rotation, clearance, delta_flange_height = \
+                    sim_run.l_c_b_p(new_positions, model_line_type, number, model_buoys_position,
+                                    pointer, model, rt_number, model_vcm, object_line, object_vcm)
+            else:
+                "Troca boias"
+
     if .5 > clearance > .6:
         delta = sim_run.define_delta_line(clearance)
         if clearance > .6:

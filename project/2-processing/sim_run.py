@@ -229,16 +229,16 @@ def l_c_b_p(new_positions: list, model_line_type: OrcFxAPI.OrcaFlexObject, numbe
             model_vcm: OrcFxAPI.OrcaFlexObject, object_line: methods.Line, object_vcm: methods.Vcm):
     """
     l_c_b_p = looping changing buoy position
-    :param new_positions:
-    :param model_line_type:
-    :param number:
-    :param model_buoys_position:
-    :param pointer:
-    :param model:
-    :param rt_number:
-    :param model_vcm:
-    :param object_line:
-    :param object_vcm:
+    :param new_positions: changed positions
+    :param model_line_type: model line type
+    :param number: buoys quantity
+    :param model_buoys_position: model's buoys positions
+    :param pointer: which buoy position change
+    :param model: model orcaflex
+    :param rt_number: rt_number
+    :param model_vcm: vcm's model
+    :param object_line: line object
+    :param object_vcm: vcm object
     :return: looping results
     """
     change_buoy_position(new_positions, model_line_type, number, model_buoys_position, pointer)
@@ -293,8 +293,7 @@ def change_buoy_position(new_positions: list, line_model: OrcFxAPI.OrcaFlexObjec
         p += 1
 
 
-def changing_buoys(selection: dict, buoy_set: list, rotation: float,
-                   buoys_configuration: list,
+def changing_buoys(selection: dict, buoy_set: list, rotation: float, buoys_configuration: list,
                    line_model: OrcFxAPI.OrcaFlexObject, vessel: str) -> None:
     """
     With this method we can change the buoy_set
@@ -323,6 +322,7 @@ def changing_buoys(selection: dict, buoy_set: list, rotation: float,
     else:
         for buoy in range(len(buoys_configuration[1])):
             buoyancy_config.append(buoys_configuration[1][buoy] - teta)
+
     buoys_configuration = [buoys_configuration[0], buoyancy_config]
     selection = buoyancy(buoys_configuration, combination_buoys)
     print(f"to {list(selection.keys())}: {list(selection.values())}")
