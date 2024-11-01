@@ -228,7 +228,7 @@ def looping(model_line_type: OrcFxAPI.OrcaFlexObject, selection: dict, rotation:
         model_buoys
     ]
 
-    if rotation > .5 or rotation < -.5:
+    if rotation > .5 or rotation < -.5:  # Determinar constantes no topo do código
 
         case = len(Counter(model_buoys_position))
         pointer, p_parameter = make_pointer(case, p_parameter)
@@ -291,24 +291,6 @@ def looping(model_line_type: OrcFxAPI.OrcaFlexObject, selection: dict, rotation:
         looping(model_line_type, selection, rotation, p_parameter, model, rt_number, vessel,
                 model_vcm, object_line, object_vcm, rl_config, clearance, delta_flange, buoy_set)
 
-
-def get_result(rotation: float, clearance: float, delta_flange_height) -> str:
-    """
-    Controls the looping
-    :param rotation: vcm rotation result
-    :param clearance: line clearance result
-    :param delta_flange_height: flange height error
-    :return: red or green
-    """
-    if abs(rotation) > .5:
-        result = "red"
-    elif .5 > clearance > .7:
-        result = "red"
-    elif delta_flange_height != 0:
-        result = "red"
-    else:
-        result = "green"
-    return result
 
 
 def make_pointer(case: float, p_parameter: int) -> tuple[int, int]:

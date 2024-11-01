@@ -116,9 +116,6 @@ sim_run.user_specified(model, rt_number)
 
 # LOOPING
 
-"Looping entry"
-result = sim_run.get_result(rotation, clearance, delta_flange)
-
 p_parameter = 0  # to make the pointer
 
 # line_type.StaticsStep1 = "Analytic catenary"
@@ -133,3 +130,9 @@ clearance = sim_run.verify_line_clearance(model_line_type)
 print(f"\n Automation's end."
       f"\n Line clearance: {clearance} m."
       f"\n MCV rotation: {rotation} °")
+
+
+# Sugestão: utilizar o damping informado na ET.
+# Sugestão: Ao invés de usar o timer, utilizar a quantidade de interações que o orcaflex executa em
+# um comando run_static.
+# Colocar a função run_static dentro de uma condição try/Exception -> Tratar em caso de exceção.
