@@ -1,0 +1,207 @@
+"C:\Users\dwanderley\Digicorner\Installation Analysis Subsea - Daniel Wanderley\venv\Scripts\python.exe" "C:\Users\dwanderley\Digicorner\Installation Analysis Subsea - Daniel Wanderley\tcc\project\2-processing\sim_static.py" 
+
+Running without bend_restrictor
+
+Running 1th time.
+VCM Rotation: 22.114°.
+Line Clearance: -0.0643m.
+Flange Height error: 0.3014m.
+
+Running with bend_restrictor
+
+Running 2th time.
+VCM Rotation: 26.3078°.
+Line Clearance: -0.0614m.
+Flange Height error: 0.3467m.
+
+Running with buoys
+
+Partially adding buoyancy
+
+Partial buoyancy: [360.0, 200.0]
+
+Running 3th time.
+VCM Rotation: 24.144°.
+Line Clearance: -0.0615m.
+Flange Height error: 0.3239m.
+
+Partial buoyancy: [720.0, 400.0]
+
+Running 4th time.
+VCM Rotation: 21.5478°.
+Line Clearance: -0.0618m.
+Flange Height error: 0.295m.
+
+Partial buoyancy: [1080.0, 600.0]
+
+Running 5th time.
+VCM Rotation: 17.1602°.
+Line Clearance: -0.0641m.
+Flange Height error: 0.2424m.
+
+Partial buoyancy: [1440.0, 800.0]
+
+Running 6th time.
+VCM Rotation: 9.7636°.
+Line Clearance: -0.0759m.
+Flange Height error: 0.1441m.
+
+Partial buoyancy: [1800.0, 1000.0]
+
+Running 7th time.
+VCM Rotation: 0.2113°.
+Line Clearance: -0.0882m.
+Flange Height error: 0.0011m.
+
+Automation's start.
+
+Retrieving out 0.2m from the line,
+from 1984.0 to 1983.8
+
+Running 8th time.
+VCM Rotation: 0.2511°.
+Line Clearance: -0.0881m.
+Flange Height error: 0.0015m.
+
+Retrieving out 0.2m from the line,
+from 1983.8 to 1983.6
+
+Running 9th time.
+VCM Rotation: 0.293°.
+Line Clearance: -0.0881m.
+Flange Height error: 0.0019m.
+
+Retrieving out 0.2m from the line,
+from 1983.6 to 1983.4
+
+Running 10th time.
+VCM Rotation: 0.3443°.
+Line Clearance: -0.0877m.
+Flange Height error: 0.0025m.
+
+Retrieving out 0.2m from the line,
+from 1983.4 to 1983.2
+
+Running 11th time.
+VCM Rotation: 0.4042°.
+Line Clearance: -0.0868m.
+Flange Height error: 0.0031m.
+
+Retrieving out 0.2m from the line,
+from 1983.2 to 1983.0
+
+Running 12th time.
+VCM Rotation: 0.4666°.
+Line Clearance: -0.0862m.
+Flange Height error: 0.0038m.
+
+Retrieving out 0.2m from the line,
+from 1983.0 to 1982.8
+
+Running 13th time.
+VCM Rotation: 0.5418°.
+Line Clearance: -0.0853m.
+Flange Height error: 0.0047m.
+
+N° de posições de boias: 2
+Pointer: 0
+Parameter: 1
+
+Novas posições: [3.5, 6.5]
+Limites das posições: [4, 8]
+
+Possível erro
+posição desejada: 3.5
+Posição limite: 4
+
+Changing buoys position
+from 3.0m to 3.5m
+
+Running 14th time.
+VCM Rotation: -2.1995°.
+Line Clearance: -0.0792m.
+Flange Height error: -0.0392m.
+
+N° de posições de boias: 2
+Pointer: 1
+Parameter: 2
+
+Novas posições: [3.0, 5.5]
+Limites das posições: [3, 6]
+
+Possível erro
+posição desejada: 5.5
+Posição limite: 6
+
+Changing buoys position
+from 3.5m to 5.5m
+
+Running 15th time.
+VCM Rotation: -2.9284°.
+Line Clearance: -0.0841m.
+Flange Height error: -0.0509m.
+
+N° de posições de boias: 2
+Pointer: 0
+Parameter: 0
+
+Novas posições: [3.0, 5.0]
+Limites das posições: [3, 6]
+
+Possível erro
+posição desejada: 3.0
+Posição limite: 3
+
+Changing buoys position
+from 3.5m to 3.0m
+
+Running 16th time.
+VCM Rotation: -0.3105°.
+Line Clearance: -0.088m.
+Flange Height error: -0.0088m.
+
+Retrieving out 0.2m from the line,
+from 1982.8 to 1982.6
+
+Running 17th time.
+VCM Rotation: -0.2435°.
+Line Clearance: -0.0873m.
+Flange Height error: -0.0081m.
+
+Retrieving out 0.2m from the line,
+from 1982.6 to 1982.4
+
+Running 18th time.
+VCM Rotation: -0.1659°.
+Line Clearance: -0.0867m.
+Flange Height error: -0.0072m.
+
+Retrieving out 0.2m from the line,
+from 1982.4 to 1982.2
+
+Running 19th time.
+VCM Rotation: -0.0862°.
+Line Clearance: -0.0852m.
+Flange Height error: -0.0063m.
+
+Retrieving out 0.2m from the line,
+from 1982.2 to 1982.0
+
+Running 20th time.
+VCM Rotation: 0.0079°.
+Line Clearance: -0.0841m.
+Flange Height error: -0.0052m.
+
+Retrieving out 0.2m from the line,
+from 1982.0 to 1981.8
+
+Running 21th time.
+VCM Rotation: 0.1056°.
+Line Clearance: -0.0826m.
+Flange Height error: -0.004m.
+
+Sorry, it was not possible to converge.
+
+ Automation's end.
+
+Process finished with exit code 0
