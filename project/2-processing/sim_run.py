@@ -8,7 +8,7 @@ from collections import Counter
 
 # CONSTANTS
 n_run = 0  # Static running counter
-n_run_limit = 20  # Limit number of tentatives to converge
+n_run_limit = 30  # Limit number of tentatives to converge
 rotation = 0  # VCM's rotation
 clearance = 0  # Line's clearance
 delta_flange = 0  # Error to adjustment in Flange's height to the seabed
@@ -20,11 +20,11 @@ buoyancy_pace = .1  # Buoyancy changes 10% in each looping, if needed
 buoy_position_pace = .5  # Buoys movement 50 cm in each looping, if needed
 buoy_position_near_vcm = [3, 6, 9]  # Buoy's nearest limit position to the VCM.
 buoy_position_far_vcm = [4, 8, 12]  # Buoy's far limit position to the VCM
-first_buoy_position_range = [3, 4]
+"""first_buoy_position_range = [3, 4]
 second_buoy_position_range = [6, 8]
-third_buoy_position_range = [9, 12]
-payout_retrieve_pace = .2  # Line's payout/retrieve: 20 cm in each looping
-pointer_parameter = 0  # Parameter that controls the pointer, used to manage buoy's changes
+third_buoy_position_range = [9, 12]"""
+payout_retrieve_pace_min = .2  # Line's payout/retrieve: 20 cm in each looping
+payout_retrieve_pace_max = .5  # Line's payout/retrieve: 50 m in each looping
 
 
 def run_static(model: OrcFxAPI.Model, rt_number: str, vcm_: OrcFxAPI.OrcaFlexObject,
@@ -51,7 +51,7 @@ def run_static(model: OrcFxAPI.Model, rt_number: str, vcm_: OrcFxAPI.OrcaFlexObj
         n_run += 1
         print(
             f"\nRunning {n_run}th time."
-            f"\nVCM Rotation: {rotation}°."
+            f"\n\nVCM Rotation: {rotation}°."
             f"\nLine Clearance: {clearance}m."
             f"\nFlange Height error: {delta_flange}m."
         )
@@ -245,7 +245,7 @@ def looping(model_line_type: OrcFxAPI.OrcaFlexObject, selection: dict, model: Or
     :return:
     """
 
-    global pointer_parameter, rotation, clearance, delta_flange
+    global rotation, clearance, delta_flange
 
     if n_run > n_run_limit:
         rotation = 0
@@ -253,117 +253,116 @@ def looping(model_line_type: OrcFxAPI.OrcaFlexObject, selection: dict, model: Or
         delta_flange = 0
         print("\nSorry, it was not possible to converge.")
 
-    number = model_line_type.NumberOfAttachments
-
-    model_buoys_position = []
-    k = 1
-    for _ in range(1, number):
-        model_buoys_position.append(model_line_type.Attachmentz[k])
-        k += 1
-    model_buoys = list(selection.values())
-    new_rl_config = [model_buoys_position, model_buoys]
-
-    if rotation > vcm_rotation_limit or rotation < -vcm_rotation_limit:
-
-        case = len(Counter(model_buoys_position))
-        print(f"\nN° de posições de boias: {case}")
-        pointer, pointer_parameter = make_pointer(case, pointer_parameter)
-        print(f"Pointer: {pointer}")
-        print(f"Parameter: {pointer_parameter}")
-
-        new_positions = []
-        limits = []
-
-        if rotation > vcm_rotation_limit:
-            new_positions = list(set([j + buoy_position_pace
-                                      for j in model_buoys_position]))
-            if case == 1:
-                limits = [4]
-            elif case == 2:
-                limits = [4, 8]
-            elif case == 3:
-                limits = [4, 8, 12]
-
-        elif rotation < -vcm_rotation_limit:
-            new_positions = list(set([j - buoy_position_pace
-                                      for j in model_buoys_position]))
-            if case == 1:
-                limits = [3]
-            elif case == 2:
-                limits = [3, 6]
-            elif case == 3:
-                limits = [3, 6, 9]
-
-        print(f"\nNovas posições: {new_positions}")
-        print(f"Limites das posições: {limits}")
-
-        print(f"\nPossível erro")
-        print(f"posição desejada: {new_positions[pointer]}")
-        print(f"Posição limite: {limits[pointer]}")
-        if new_positions != limits[pointer]:  # verificar aqui
-            change_buoy_position(
-                new_positions, model_line_type, number, model_buoys_position, pointer)
-            run_static(model, rt_number, model_vcm, model_line_type, object_line, object_vcm)
-            user_specified(model, rt_number)
-            looping(model_line_type, selection, model, rt_number, vessel, rl_config, buoy_set,
-                    model_vcm, object_line, object_vcm)
-        else:
-            new_rl_config = changing_buoyancy(new_rl_config, pointer)
-            changing_buoys(selection, buoy_set, new_rl_config, model_line_type, vessel)
-            run_static(model, rt_number, model_vcm, model_line_type, object_line, object_vcm)
-            user_specified(model, rt_number)
-            looping(model_line_type, selection, model, rt_number, vessel, rl_config, buoy_set,
-                    model_vcm, object_line, object_vcm)
     if clearance < clearance_limit_inf or clearance > clearance_limit_sup:
-        if clearance < clearance_limit_inf:
-            payout_retrieve_line(model_line_type, -payout_retrieve_pace)
+        if clearance < payout_retrieve_pace_min:
+            payout_retrieve_line(model_line_type, -payout_retrieve_pace_max)
         else:
-            payout_retrieve_line(model_line_type, payout_retrieve_pace)
+            if clearance < clearance_limit_inf:
+                payout_retrieve_line(model_line_type, -payout_retrieve_pace_min)
+            else:
+                payout_retrieve_line(model_line_type, payout_retrieve_pace_min)
         run_static(model, rt_number, model_vcm, model_line_type, object_line, object_vcm)
         user_specified(model, rt_number)
         looping(model_line_type, selection, model, rt_number, vessel, rl_config, buoy_set,
                 model_vcm, object_line, object_vcm)
 
+    if rotation > vcm_rotation_limit or rotation < -vcm_rotation_limit:
 
-def make_pointer(case: float, p_parameter: int) -> tuple[int, int]:
-    """
-    Creates a pointer that selects which of
-    the buoys positions is going to be changed
-    :param case: this is used as a counter parameter to the pointer
-    :param p_parameter: this makes the pointer changes
-    :return: pointer and the p_parameter
-    """
-    if case == 1:
-        pointer = p_parameter
-    else:
-        if p_parameter != case:
-            pointer = p_parameter
-            p_parameter += 1
+        number = model_line_type.NumberOfAttachments
+
+        position = []
+        k = 1
+        for _ in range(1, number):
+            position.append(model_line_type.Attachmentz[k])
+            k += 1
+        buoys = list(selection.values())
+        buoy_model = [position, buoys]
+
+        num_positions = len(Counter(buoy_model[0]))
+        unique_positions = list(set(buoy_model[0]))
+        pointer = make_pointer(num_positions, unique_positions)
+        print(f"Pointer: {pointer}")
+        limits = [list(set(buoy_position_near_vcm[i]
+                           for i in range(num_positions)))
+                  if rotation > vcm_rotation_limit
+                  else
+                  list(set(buoy_position_far_vcm[i]
+                           for i in range(num_positions)))][0]
+        print(f"Limits: {limits}")
+        if unique_positions[pointer] != limits[pointer]:
+            new_positions = [list(set(buoy_position - buoy_position_pace
+                                      for buoy_position in unique_positions))
+                             if rotation > vcm_rotation_limit
+                             else
+                             list(set(buoy_position + buoy_position_pace
+                                      for buoy_position in unique_positions))][0]
+            print(f"New positions: {new_positions}")
+            change_position(model_line_type, new_positions, pointer, num_positions, position)
+            run_static(model, rt_number, model_vcm, model_line_type, object_line, object_vcm)
+            user_specified(model, rt_number)
+            looping(model_line_type, selection, model, rt_number, vessel, rl_config, buoy_set,
+                    model_vcm, object_line, object_vcm)
         else:
-            p_parameter = 0
-            pointer = p_parameter
-    return pointer, p_parameter
+            new_rl_config = changing_buoyancy(buoy_model, pointer)
+            changing_buoys(selection, buoy_set, new_rl_config, model_line_type, vessel)
+            run_static(model, rt_number, model_vcm, model_line_type, object_line, object_vcm)
+            user_specified(model, rt_number)
+            looping(model_line_type, selection, model, rt_number, vessel, rl_config, buoy_set,
+                    model_vcm, object_line, object_vcm)
 
 
-def change_buoy_position(new_positions: list, line_model: OrcFxAPI.OrcaFlexObject,
-                         number_attachments: int, model_buoys_position: list, pointer: int) -> None:
+# PROBLEM:
+# The buoy_position changes without verify if there is, at least, 3m of distance between
+# different buoys positions.
+
+
+def change_position(line_model: OrcFxAPI.OrcaFlexObject, new_positions: list, pointer: int,
+                    num_positions: int, positions: list) -> None:
     """
-
-    :param pointer:
-    :param new_positions:
-    :param line_model:
-    :param number_attachments:
-    :param model_buoys_position:
-    :return:
+    Changes buoy position with the index = pointer
+    :param line_model: Line model
+    :param new_positions: Next buoy position
+    :param pointer: Position's index that will be changed
+    :param num_positions: Number of buoys positions in the line
+    :param positions: Buoys positions distance to the vcm
+    :return: nothing
     """
-    print(f"\nChanging buoys position"
-          f"\nfrom {model_buoys_position[pointer]}m to {new_positions[pointer]}m")
     p = 1
-    for z in range(0, number_attachments - 1):
-        if (model_buoys_position[z] + buoy_position_pace == new_positions[pointer]
-                or model_buoys_position[z] - buoy_position_pace == new_positions[pointer]):
+    for z in range(0, num_positions - 1):
+        if (positions[z] + buoy_position_pace == new_positions[pointer]
+                or positions[z] - buoy_position_pace == new_positions[pointer]):
             line_model.Attachmentz[p] = new_positions[pointer]
         p += 1
+    if rotation < 0:
+        print(f"\nChanging buoys position"
+              f"\nfrom {new_positions[pointer] + buoy_position_pace}m to {new_positions[pointer]}m")
+    else:
+        print(f"\nChanging buoys position"
+              f"\nfrom {new_positions[pointer] - buoy_position_pace}m to {new_positions[pointer]}m")
+
+
+def make_pointer(num_positions: float, positions: list) -> int:
+    """
+    Creates a pointer that selects which of the buoys positions is going to be changed
+    :param positions: Buoys model positions
+    :param num_positions: number of attachments (buoys) in all the line
+    :return: pointer
+    """
+    pointer = 0
+    if num_positions == 2:
+        first_buoy_position = positions[0]
+        second_buoy_position = positions[1]
+        if second_buoy_position - first_buoy_position == 3:
+            pointer = 1
+    elif num_positions == 3:
+        first_buoy_position = positions[0]
+        second_buoy_position = positions[1]
+        third_buoy_position = positions[2]
+        if second_buoy_position - first_buoy_position == 3:
+            pointer = 1
+        if third_buoy_position - second_buoy_position == 3:
+            pointer = 2
+    return pointer
 
 
 def changing_buoyancy(rl_config: list, pointer: int) -> list:

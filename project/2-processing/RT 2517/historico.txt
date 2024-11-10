@@ -103,24 +103,110 @@ VCM Rotation: 0.5418°.
 Line Clearance: -0.0853m.
 Flange Height error: 0.0047m.
 
+Retrieving out 0.5m from the line,
+from 1982.8 to 1982.3
+
+Running 14th time.
+VCM Rotation: 0.7591°.
+Line Clearance: -0.0814m.
+Flange Height error: 0.0072m.
+
+Retrieving out 0.5m from the line,
+from 1982.3 to 1981.8
+
+Running 15th time.
+VCM Rotation: 1.0264°.
+Line Clearance: -0.0765m.
+Flange Height error: 0.0105m.
+
+Retrieving out 0.5m from the line,
+from 1981.8 to 1981.3
+
+Running 16th time.
+VCM Rotation: 1.3505°.
+Line Clearance: -0.0698m.
+Flange Height error: 0.0145m.
+
+Retrieving out 0.5m from the line,
+from 1981.3 to 1980.8
+
+Running 17th time.
+VCM Rotation: 1.7398°.
+Line Clearance: -0.0601m.
+Flange Height error: 0.0194m.
+
+Retrieving out 0.5m from the line,
+from 1980.8 to 1980.3
+
+Running 18th time.
+VCM Rotation: 2.1912°.
+Line Clearance: -0.0475m.
+Flange Height error: 0.0252m.
+
+Retrieving out 0.5m from the line,
+from 1980.3 to 1979.8
+
+Running 19th time.
+VCM Rotation: 2.7052°.
+Line Clearance: -0.0315m.
+Flange Height error: 0.0318m.
+
+Retrieving out 0.5m from the line,
+from 1979.8 to 1979.3
+
+Running 20th time.
+VCM Rotation: 3.2509°.
+Line Clearance: -0.004m.
+Flange Height error: 0.0388m.
+
+Retrieving out 0.5m from the line,
+from 1979.3 to 1978.8
+
+Running 21th time.
+VCM Rotation: 2.7064°.
+Line Clearance: 0.2985m.
+Flange Height error: 0.0302m.
+
+Retrieving out 0.5m from the line,
+from 1978.8 to 1978.3
+
+Running 22th time.
+VCM Rotation: 2.1118°.
+Line Clearance: 0.6067m.
+Flange Height error: 0.0208m.
+
 N° de posições de boias: 2
 Pointer: 0
 Parameter: 1
 
 Novas posições: [3.5, 6.5]
 Limites das posições: [4, 8]
-
-Possível erro
 posição desejada: 3.5
 Posição limite: 4
 
 Changing buoys position
 from 3.0m to 3.5m
 
-Running 14th time.
-VCM Rotation: -2.1995°.
-Line Clearance: -0.0792m.
-Flange Height error: -0.0392m.
+Running 23th time.
+VCM Rotation: -2.0822°.
+Line Clearance: 1.2503m.
+Flange Height error: -0.0433m.
+
+Paying out 0.5m from the line,
+from 1978.3 to 1978.8
+
+Running 24th time.
+VCM Rotation: -1.4832°.
+Line Clearance: 0.9363m.
+Flange Height error: -0.0334m.
+
+Paying out 0.5m from the line,
+from 1978.8 to 1979.3
+
+Running 25th time.
+VCM Rotation: -0.8852°.
+Line Clearance: 0.6182m.
+Flange Height error: -0.0237m.
 
 N° de posições de boias: 2
 Pointer: 1
@@ -128,77 +214,56 @@ Parameter: 2
 
 Novas posições: [3.0, 5.5]
 Limites das posições: [3, 6]
-
-Possível erro
 posição desejada: 5.5
 Posição limite: 6
 
 Changing buoys position
-from 3.5m to 5.5m
+from 6.0m to 5.5m
 
-Running 15th time.
-VCM Rotation: -2.9284°.
-Line Clearance: -0.0841m.
-Flange Height error: -0.0509m.
+Running 26th time.
+VCM Rotation: -0.8626°.
+Line Clearance: 0.3573m.
+Flange Height error: -0.0242m.
 
-N° de posições de boias: 2
-Pointer: 0
-Parameter: 0
+Retrieving out 0.5m from the line,
+from 1979.3 to 1978.8
 
-Novas posições: [3.0, 5.0]
-Limites das posições: [3, 6]
+Running 27th time.
+VCM Rotation: -1.4879°.
+Line Clearance: 0.6725m.
+Flange Height error: -0.0344m.
 
-Possível erro
-posição desejada: 3.0
-Posição limite: 3
+Paying out 0.5m from the line,
+from 1978.8 to 1979.3
 
-Changing buoys position
-from 3.5m to 3.0m
+Running 28th time.
+VCM Rotation: -0.8626°.
+Line Clearance: 0.3573m.
+Flange Height error: -0.0242m.
 
-Running 16th time.
-VCM Rotation: -0.3105°.
-Line Clearance: -0.088m.
-Flange Height error: -0.0088m.
+Retrieving out 0.5m from the line,
+from 1979.3 to 1978.8
 
-Retrieving out 0.2m from the line,
-from 1982.8 to 1982.6
+Running 29th time.
+VCM Rotation: -1.4879°.
+Line Clearance: 0.6725m.
+Flange Height error: -0.0344m.
 
-Running 17th time.
-VCM Rotation: -0.2435°.
-Line Clearance: -0.0873m.
-Flange Height error: -0.0081m.
+Paying out 0.5m from the line,
+from 1978.8 to 1979.3
 
-Retrieving out 0.2m from the line,
-from 1982.6 to 1982.4
+Running 30th time.
+VCM Rotation: -0.8626°.
+Line Clearance: 0.3573m.
+Flange Height error: -0.0242m.
 
-Running 18th time.
-VCM Rotation: -0.1659°.
-Line Clearance: -0.0867m.
-Flange Height error: -0.0072m.
+Retrieving out 0.5m from the line,
+from 1979.3 to 1978.8
 
-Retrieving out 0.2m from the line,
-from 1982.4 to 1982.2
-
-Running 19th time.
-VCM Rotation: -0.0862°.
-Line Clearance: -0.0852m.
-Flange Height error: -0.0063m.
-
-Retrieving out 0.2m from the line,
-from 1982.2 to 1982.0
-
-Running 20th time.
-VCM Rotation: 0.0079°.
-Line Clearance: -0.0841m.
-Flange Height error: -0.0052m.
-
-Retrieving out 0.2m from the line,
-from 1982.0 to 1981.8
-
-Running 21th time.
-VCM Rotation: 0.1056°.
-Line Clearance: -0.0826m.
-Flange Height error: -0.004m.
+Running 31th time.
+VCM Rotation: -1.4879°.
+Line Clearance: 0.6725m.
+Flange Height error: -0.0344m.
 
 Sorry, it was not possible to converge.
 
