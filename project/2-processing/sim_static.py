@@ -44,7 +44,8 @@ print("\nRunning without bend_restrictor")
 
 model_line_type.NumberOfAttachments = 0
 
-sim_run.run_static(model, rt_number, model_vcm, model_line_type, object_line, object_vcm)
+sim_run.run_static(model, rt_number, model_vcm, model_line_type, object_line, object_vcm,
+                   model_general)
 sim_run.user_specified(model, rt_number)
 
 print("\nRunning with bend_restrictor")
@@ -72,7 +73,8 @@ else:
 model_line_type.Attachmentz[0] = bend_restrictor_ini_position
 model_line_type.AttachmentzRelativeTo[0] = "End B"
 
-sim_run.run_static(model, rt_number, model_vcm, model_line_type, object_line, object_vcm)
+sim_run.run_static(model, rt_number, model_vcm, model_line_type, object_line, object_vcm,
+                   model_general)
 sim_run.user_specified(model, rt_number)
 
 print("\nRunning with buoys")
@@ -90,13 +92,14 @@ while k <= 5:
     num_buoys = sim_run.number_buoys(treated_buoys)
     sim_run.input_buoyancy(model_line_type, num_buoys, treated_buoys, vessel)
     print(f"\nPartial buoyancy: {rl_config_fract[1]}")
-    sim_run.run_static(model, rt_number, model_vcm, model_line_type, object_line, object_vcm)
+    sim_run.run_static(model, rt_number, model_vcm, model_line_type, object_line, object_vcm,
+                       model_general)
     sim_run.user_specified(model, rt_number)
     k += 1
 
 print("\nAutomation's start.")
 sim_run.looping(model_line_type, selection, model, rt_number, vessel, rl_config, buoy_set,
-                model_vcm, object_line, object_vcm)
+                model_vcm, object_line, object_vcm, model_winch, model_general)
 
 print(f"\n Automation's end.")
 
