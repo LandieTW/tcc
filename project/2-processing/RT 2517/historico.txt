@@ -201,9 +201,6 @@ Running 18th time.
 VCM Rotation: 2.1106°.
 Line Clearance: 0.6073m.
 Flange Height error: 0.0208m.
-Pointer: 1
-Limits: [3, 6]
-New RL's configuration: [[3.0, 6.0], [1800.0, 1100.0]]
 
 Changing buoys
 from ('973+573+205', '573+205+205'): (1751.0, 983.0)
@@ -260,6 +257,13 @@ VCM Rotation: -0.2607°.
 Line Clearance: 0.5959m.
 Flange Height error: -0.0m.
 
+Running 25th time.
+
+VCM Rotation: -0.2607°.
+Line Clearance: 0.5959m.
+Flange Height error: -0.0m.
+
  Automation's end.
+ Execution time: 177.98s
 
 Process finished with exit code 0

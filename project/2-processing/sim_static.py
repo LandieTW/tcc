@@ -3,13 +3,17 @@ Static analysis automation
 """
 
 import OrcFxAPI
-# import time
+import time
 import sim_run
 from orca import object_elements
 from methods import info
 
 
-# start_time = time.perf_counter()
+statics_max_iterations = 400  # Maximum number of iterations
+statics_min_damping = 5  # Minimum damping
+statics_max_damping = 15  # Maximum damping
+
+start_time = time.time()
 
 rt_number = info[0]
 vessel = info[1]
@@ -48,6 +52,10 @@ sim_run.run_static(model, rt_number, model_vcm, model_line_type, object_line, ob
                    model_general)
 sim_run.user_specified(model, rt_number)
 
+model_general.StaticsMinDamping = statics_min_damping
+model_general.StaticsMaxDamping = statics_max_damping
+model_general.StaticsMaxIterations = statics_max_iterations
+
 print("\nRunning with bend_restrictor")
 
 model_line_type.NumberOfAttachments = 1
@@ -77,6 +85,10 @@ sim_run.run_static(model, rt_number, model_vcm, model_line_type, object_line, ob
                    model_general)
 sim_run.user_specified(model, rt_number)
 
+model_general.StaticsMinDamping = statics_min_damping
+model_general.StaticsMaxDamping = statics_max_damping
+model_general.StaticsMaxIterations = statics_max_iterations
+
 print("\nRunning with buoys")
 
 buoy_combination = sim_run.buoy_combination(buoy_set)
@@ -95,15 +107,18 @@ while k <= 5:
     sim_run.run_static(model, rt_number, model_vcm, model_line_type, object_line, object_vcm,
                        model_general)
     sim_run.user_specified(model, rt_number)
+
+    model_general.StaticsMinDamping = statics_min_damping
+    model_general.StaticsMaxDamping = statics_max_damping
+    model_general.StaticsMaxIterations = statics_max_iterations
     k += 1
 
 print("\nAutomation's start.")
 sim_run.looping(model_line_type, selection, model, rt_number, vessel, rl_config, buoy_set,
-                model_vcm, object_line, object_vcm, model_winch, model_general)
+                model_vcm, object_line, object_vcm, model_winch, model_general, model_environment)
 
-print(f"\n Automation's end.")
+end_time = time.time()
+execution_time = end_time - start_time
 
-# Sugestão: utilizar o damping informado na ET.
-# Sugestão: Ao invés de usar o temporizador, utilizar a quantidade de interações que o orcaflex
-# executa em um comando run_static.
-# Colocar a função run_static dentro de uma condição try/Exception ⇾ Tratar em caso de exceção.
+print(f"\n Automation's end."
+      f"\n Execution time: {execution_time:.2f}s")

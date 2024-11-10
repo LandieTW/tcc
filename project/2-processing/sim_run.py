@@ -25,6 +25,9 @@ payout_retrieve_pace_min = .2  # Line's payout/retrieve: 20 cm in each looping
 payout_retrieve_pace_max = .5  # Line's payout/retrieve: 50 m in each looping
 min_distance_buoys = 3  # Minimum distance between buoys is, at least, 3m.
 vcm_delta_x = 20  # VCM's movement: 20m (helps convergence when adjusting flange height)
+statics_max_iterations = 400  # Maximum number of iterations
+statics_min_damping = 5  # Minimum damping
+statics_max_damping = 15  # Maximum damping
 
 
 def run_static(model: OrcFxAPI.Model, rt_number: str, vcm_: OrcFxAPI.OrcaFlexObject,
@@ -44,6 +47,7 @@ def run_static(model: OrcFxAPI.Model, rt_number: str, vcm_: OrcFxAPI.OrcaFlexObj
     """
     try:
         global n_run, rotation, clearance, delta_flange
+
         model.CalculateStatics()
         rotation = verify_vcm_rotation(vcm_)
         clearance = verify_line_clearance(line_type)
@@ -56,14 +60,18 @@ def run_static(model: OrcFxAPI.Model, rt_number: str, vcm_: OrcFxAPI.OrcaFlexObj
             f"\nFlange Height error: {delta_flange}m."
         )
         n_run += 1
+
     except Exception as e:
         print(f"\nError: {e}"
               f"\nChanging Line's StaticStep to 'Catenary'"
-              f"\nChanging General configuration StaticStep to: 'Solve coupled systems'"
               f"\nMoving VCM, in X axis.")
+
         line_type.StaticsStep1 = "Catenary"
-        general.LineStaticsStep2Policy = "Solve coupled systems"
+        general.StaticsMinDamping = 2 * statics_min_damping
+        general.StaticsMaxDamping = 2 * statics_max_damping
+        general.StaticsMaxIterations = 3 * statics_max_iterations
         vcm_.InitialX -= vcm_delta_x
+
         run_static(model, rt_number, vcm_, line_type, line_obj, vcm_obj, general)
 
 
@@ -233,13 +241,14 @@ def looping(model_line_type: OrcFxAPI.OrcaFlexObject, selection: dict, model: Or
             rt_number: str, vessel: str, rl_config: list, buoy_set: list,
             model_vcm: OrcFxAPI.OrcaFlexObject, object_line: methods.Line,
             object_vcm: methods.Vcm, winch: OrcFxAPI.OrcaFlexObject,
-            general: OrcFxAPI.OrcaFlexObject) -> None:
+            general: OrcFxAPI.OrcaFlexObject, environment: OrcFxAPI.OrcaFlexObject) -> None:
     """
     In looping, controls the model's changing.
     If VCM's rotation's the problem: changes buoy position
     If can't, changes the buoys
     If Line's clearance's the problema: payout or retrieves line
     If there's need some adjustment in flange's height: payout or retrieves winch
+    :param environment: Environment model
     :param general: General configuration model
     :param winch: Winch model
     :param model_line_type: Line model
@@ -258,6 +267,10 @@ def looping(model_line_type: OrcFxAPI.OrcaFlexObject, selection: dict, model: Or
     global rotation, clearance, delta_flange
 
     general.LineStaticsStep2Policy = "None"
+    environment.SeabedOriginX = model_vcm.InitialX
+    general.StaticsMinDamping = statics_min_damping
+    general.StaticsMaxDamping = statics_max_damping
+    general.StaticsMaxIterations = statics_max_iterations
 
     if n_run > n_run_limit:
         rotation = 0
@@ -276,7 +289,7 @@ def looping(model_line_type: OrcFxAPI.OrcaFlexObject, selection: dict, model: Or
         run_static(model, rt_number, model_vcm, model_line_type, object_line, object_vcm, general)
         user_specified(model, rt_number)
         looping(model_line_type, selection, model, rt_number, vessel, rl_config, buoy_set,
-                model_vcm, object_line, object_vcm, winch, general)
+                model_vcm, object_line, object_vcm, winch, general, environment)
 
     if rotation > vcm_rotation_limit or rotation < -vcm_rotation_limit:
 
@@ -293,14 +306,12 @@ def looping(model_line_type: OrcFxAPI.OrcaFlexObject, selection: dict, model: Or
         num_positions = len(Counter(buoy_model[0]))
         unique_positions = list(set(buoy_model[0]))
         pointer = make_pointer(num_positions, unique_positions)
-        print(f"Pointer: {pointer}")
         limits = [list(set(buoy_position_near_vcm[i]
                            for i in range(num_positions)))
                   if rotation > vcm_rotation_limit
                   else
                   list(set(buoy_position_far_vcm[i]
                            for i in range(num_positions)))][0]
-        print(f"Limits: {limits}")
         if unique_positions[pointer] != limits[pointer]:
             new_positions = [list(set(buoy_position - buoy_position_pace
                                       for buoy_position in unique_positions))
@@ -308,22 +319,21 @@ def looping(model_line_type: OrcFxAPI.OrcaFlexObject, selection: dict, model: Or
                              else
                              list(set(buoy_position + buoy_position_pace
                                       for buoy_position in unique_positions))][0]
-            print(f"New positions: {new_positions}")
             change_position(model_line_type, new_positions, pointer, num_positions, position)
             run_static(model, rt_number, model_vcm, model_line_type, object_line, object_vcm,
                        general)
             user_specified(model, rt_number)
             looping(model_line_type, selection, model, rt_number, vessel, rl_config, buoy_set,
-                    model_vcm, object_line, object_vcm, winch, general)
+                    model_vcm, object_line, object_vcm, winch, general, environment)
         else:
             new_rl_config = changing_buoyancy(rl_config, pointer)
-            print(f"New RL's configuration: {new_rl_config}")
             changing_buoys(selection, buoy_set, new_rl_config, model_line_type, vessel)
             run_static(model, rt_number, model_vcm, model_line_type, object_line, object_vcm,
                        general)
             user_specified(model, rt_number)
             looping(model_line_type, selection, model, rt_number, vessel, rl_config, buoy_set,
-                    model_vcm, object_line, object_vcm, winch, general)
+                    model_vcm, object_line, object_vcm, winch, general, environment)
+
     if delta_flange != delta_flange_error_limit:
         flange_height_correction(winch, delta_flange)
         model_line_type.StaticsStep1 = "Catenary"
@@ -332,12 +342,7 @@ def looping(model_line_type: OrcFxAPI.OrcaFlexObject, selection: dict, model: Or
         run_static(model, rt_number, model_vcm, model_line_type, object_line, object_vcm, general)
         user_specified(model, rt_number)
         looping(model_line_type, selection, model, rt_number, vessel, rl_config, buoy_set,
-                model_vcm, object_line, object_vcm, winch, general)
-
-
-# PROBLEM:
-# The buoy_position changes without verify if there is, at least, 3m of distance between
-# different buoys positions.
+                model_vcm, object_line, object_vcm, winch, general, environment)
 
 
 def change_position(line_model: OrcFxAPI.OrcaFlexObject, new_positions: list, pointer: int,
@@ -433,9 +438,10 @@ def changing_buoys(selection: dict, buoy_set: list, new_rl_config: list,
 
 def payout_retrieve_line(line_model: OrcFxAPI.OrcaFlexObject, delta: float) -> None:
     """
-    Fine-tuning control - line's payout/retrieve
-    :param delta: line's clearance, in the model
-    :param line_model: model's line
+    Line's payout/retrieve
+    :param delta: Line range to be retrieved or payed out
+    :param line_model: Line model
+    :return: Nothing
     """
     if delta > 0:
         print(f"\nPaying out {delta}m from the line,\n"

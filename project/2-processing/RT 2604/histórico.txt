@@ -1,0 +1,530 @@
+"C:\Users\dwanderley\Digicorner\Installation Analysis Subsea - Daniel Wanderley\venv\Scripts\python.exe" "C:\Users\dwanderley\Digicorner\Installation Analysis Subsea - Daniel Wanderley\tcc\project\2-processing\sim_static.py" 
+
+Running without bend_restrictor
+
+Error: 
+Error code: 27
+Static calculation failed (Whole system statics: Not converged.)
+Changing Line's StaticStep to 'Catenary'
+Moving VCM, in X axis.
+
+Line's in contact with seabed
+
+Running 0th time.
+
+VCM Rotation: 22.6034°.
+Line Clearance: -0.0597m.
+Flange Height error: 0.6708m.
+
+Running with bend_restrictor
+
+Line's in contact with seabed
+
+Running 1th time.
+
+VCM Rotation: 29.7614°.
+Line Clearance: -0.0571m.
+Flange Height error: 0.8306m.
+
+Running with buoys
+
+Partially adding buoyancy
+
+Partial buoyancy: [300.0, nan]
+
+Line's in contact with seabed
+
+Running 2th time.
+
+VCM Rotation: 27.5865°.
+Line Clearance: -0.0534m.
+Flange Height error: 0.7854m.
+
+Partial buoyancy: [600.0, nan]
+
+Line's in contact with seabed
+
+Running 3th time.
+
+VCM Rotation: 23.1772°.
+Line Clearance: -0.0605m.
+Flange Height error: 0.6848m.
+
+Partial buoyancy: [900.0, nan]
+
+Line's in contact with seabed
+
+Running 4th time.
+
+VCM Rotation: 19.2553°.
+Line Clearance: -0.0672m.
+Flange Height error: 0.5862m.
+
+Partial buoyancy: [1200.0, nan]
+
+Line's in contact with seabed
+
+Running 5th time.
+
+VCM Rotation: 14.3041°.
+Line Clearance: -0.0725m.
+Flange Height error: 0.4497m.
+
+Partial buoyancy: [1500.0, nan]
+
+Line's in contact with seabed
+
+Running 6th time.
+
+VCM Rotation: 8.7954°.
+Line Clearance: -0.0722m.
+Flange Height error: 0.2835m.
+
+Automation's start.
+
+Retrieving out 0.5m from the line,
+from 1546.33 to 1545.83
+
+Line's in contact with seabed
+
+Running 7th time.
+
+VCM Rotation: 8.8917°.
+Line Clearance: -0.0668m.
+Flange Height error: 0.2851m.
+
+Retrieving out 0.5m from the line,
+from 1545.83 to 1545.33
+
+Line's in contact with seabed
+
+Running 8th time.
+
+VCM Rotation: 9.0402°.
+Line Clearance: -0.0597m.
+Flange Height error: 0.2884m.
+
+Retrieving out 0.5m from the line,
+from 1545.33 to 1544.83
+
+Line's in contact with seabed
+
+Running 9th time.
+
+VCM Rotation: 9.2399°.
+Line Clearance: -0.0485m.
+Flange Height error: 0.2933m.
+
+Retrieving out 0.5m from the line,
+from 1544.83 to 1544.33
+
+Line's in contact with seabed
+
+Running 10th time.
+
+VCM Rotation: 9.4876°.
+Line Clearance: -0.028m.
+Flange Height error: 0.2996m.
+
+Retrieving out 0.5m from the line,
+from 1544.33 to 1543.83
+
+Running 11th time.
+
+VCM Rotation: 9.6135°.
+Line Clearance: 0.078m.
+Flange Height error: 0.3024m.
+
+Retrieving out 0.5m from the line,
+from 1543.83 to 1543.33
+
+Running 12th time.
+
+VCM Rotation: 9.3401°.
+Line Clearance: 0.3765m.
+Flange Height error: 0.2938m.
+
+Retrieving out 0.2m from the line,
+from 1543.33 to 1543.13
+
+Running 13th time.
+
+VCM Rotation: 9.231°.
+Line Clearance: 0.4974m.
+Flange Height error: 0.2904m.
+
+Retrieving out 0.2m from the line,
+from 1543.13 to 1542.93
+
+Running 14th time.		XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+VCM Rotation: 9.1216°.
+Line Clearance: 0.6162m.
+Flange Height error: 0.2869m.
+
+Changing buoys
+from ('1213+100+100', '100'): (1413.0, 100.0)
+to ('1213+100+100', '100'): (1413.0, 100.0)
+
+Running 15th time.
+
+VCM Rotation: 9.1216°.
+Line Clearance: 0.6161m.
+Flange Height error: 0.2869m.
+
+Changing buoys
+from ('1213+100+100', '100'): (1413.0, 100.0)
+to ('1213+100+100', '100'): (1413.0, 100.0)
+
+Running 16th time.
+
+VCM Rotation: 9.1216°.
+Line Clearance: 0.6161m.
+Flange Height error: 0.2869m.
+
+Changing buoys
+from ('1213+100+100', '100'): (1413.0, 100.0)
+to ('1213+100+100', '100'): (1413.0, 100.0)
+
+Running 17th time.
+
+VCM Rotation: 9.1216°.
+Line Clearance: 0.6161m.
+Flange Height error: 0.2869m.
+
+Changing buoys
+from ('1213+100+100', '100'): (1413.0, 100.0)
+to ('1213+100+100', '100'): (1413.0, 100.0)
+
+Running 18th time.
+
+VCM Rotation: 9.1216°.
+Line Clearance: 0.6161m.
+Flange Height error: 0.2869m.
+
+Changing buoys
+from ('1213+100+100', '100'): (1413.0, 100.0)
+to ('1213+100+100', '100'): (1413.0, 100.0)
+
+Running 19th time.
+
+VCM Rotation: 9.1216°.
+Line Clearance: 0.6161m.
+Flange Height error: 0.2869m.
+
+Changing buoys
+from ('1213+100+100', '100'): (1413.0, 100.0)
+to ('1213+100+100', '100'): (1413.0, 100.0)
+
+Running 20th time.
+
+VCM Rotation: 9.1216°.
+Line Clearance: 0.6161m.
+Flange Height error: 0.2869m.
+
+Changing buoys
+from ('1213+100+100', '100'): (1413.0, 100.0)
+to ('1213+100+100', '100'): (1413.0, 100.0)
+
+Running 21th time.
+
+VCM Rotation: 9.1216°.
+Line Clearance: 0.6161m.
+Flange Height error: 0.2869m.
+
+Changing buoys
+from ('1213+100+100', '100'): (1413.0, 100.0)
+to ('1213+100+100', '100'): (1413.0, 100.0)
+
+Running 22th time.
+
+VCM Rotation: 9.1216°.
+Line Clearance: 0.6161m.
+Flange Height error: 0.2869m.
+
+Changing buoys
+from ('1213+100+100', '100'): (1413.0, 100.0)
+to ('1213+100+100', '100'): (1413.0, 100.0)
+
+Running 23th time.
+
+VCM Rotation: 9.1216°.
+Line Clearance: 0.6161m.
+Flange Height error: 0.2869m.
+
+Changing buoys
+from ('1213+100+100', '100'): (1413.0, 100.0)
+to ('1213+100+100', '100'): (1413.0, 100.0)
+
+Running 24th time.
+
+VCM Rotation: 9.1216°.
+Line Clearance: 0.6161m.
+Flange Height error: 0.2869m.
+
+Changing buoys
+from ('1213+100+100', '100'): (1413.0, 100.0)
+to ('1213+100+100', '100'): (1413.0, 100.0)
+
+Running 25th time.
+
+VCM Rotation: 9.1216°.
+Line Clearance: 0.6161m.
+Flange Height error: 0.2869m.
+
+Changing buoys
+from ('1213+100+100', '100'): (1413.0, 100.0)
+to ('1213+100+100', '100'): (1413.0, 100.0)
+
+Running 26th time.
+
+VCM Rotation: 9.1216°.
+Line Clearance: 0.6161m.
+Flange Height error: 0.2869m.
+
+Changing buoys
+from ('1213+100+100', '100'): (1413.0, 100.0)
+to ('1213+100+100', '100'): (1413.0, 100.0)
+
+Running 27th time.
+
+VCM Rotation: 9.1216°.
+Line Clearance: 0.6161m.
+Flange Height error: 0.2869m.
+
+Changing buoys
+from ('1213+100+100', '100'): (1413.0, 100.0)
+to ('1213+100+100', '100'): (1413.0, 100.0)
+
+Running 28th time.
+
+VCM Rotation: 9.1216°.
+Line Clearance: 0.6161m.
+Flange Height error: 0.2869m.
+
+Changing buoys
+from ('1213+100+100', '100'): (1413.0, 100.0)
+to ('1213+100+100', '100'): (1413.0, 100.0)
+
+Running 29th time.
+
+VCM Rotation: 9.1216°.
+Line Clearance: 0.6161m.
+Flange Height error: 0.2869m.
+
+Changing buoys
+from ('1213+100+100', '100'): (1413.0, 100.0)
+to ('1213+100+100', '100'): (1413.0, 100.0)
+
+Running 30th time.
+
+VCM Rotation: 9.1216°.
+Line Clearance: 0.6161m.
+Flange Height error: 0.2869m.
+
+Changing buoys
+from ('1213+100+100', '100'): (1413.0, 100.0)
+to ('1213+100+100', '100'): (1413.0, 100.0)
+
+Running 31th time.
+
+VCM Rotation: 9.1216°.
+Line Clearance: 0.6161m.
+Flange Height error: 0.2869m.
+
+Changing buoys
+from ('1213+100+100', '100'): (1413.0, 100.0)
+to ('1213+100+100', '100'): (1413.0, 100.0)
+
+Running 32th time.
+
+VCM Rotation: 9.1216°.
+Line Clearance: 0.6161m.
+Flange Height error: 0.2869m.
+
+Changing buoys
+from ('1213+100+100', '100'): (1413.0, 100.0)
+to ('1213+100+100', '100'): (1413.0, 100.0)
+
+Running 33th time.
+
+VCM Rotation: 9.1216°.
+Line Clearance: 0.6161m.
+Flange Height error: 0.2869m.
+
+Changing buoys
+from ('1213+100+100', '100'): (1413.0, 100.0)
+to ('1213+100+100', '100'): (1413.0, 100.0)
+
+Running 34th time.
+
+VCM Rotation: 9.1216°.
+Line Clearance: 0.6161m.
+Flange Height error: 0.2869m.
+
+Changing buoys
+from ('1213+100+100', '100'): (1413.0, 100.0)
+to ('1213+100+100', '100'): (1413.0, 100.0)
+
+Running 35th time.
+
+VCM Rotation: 9.1216°.
+Line Clearance: 0.6161m.
+Flange Height error: 0.2869m.
+
+Changing buoys
+from ('1213+100+100', '100'): (1413.0, 100.0)
+to ('1213+100+100', '100'): (1413.0, 100.0)
+
+Running 36th time.
+
+VCM Rotation: 9.1216°.
+Line Clearance: 0.6161m.
+Flange Height error: 0.2869m.
+
+Changing buoys
+from ('1213+100+100', '100'): (1413.0, 100.0)
+to ('1213+100+100', '100'): (1413.0, 100.0)
+
+Running 37th time.
+
+VCM Rotation: 9.1216°.
+Line Clearance: 0.6161m.
+Flange Height error: 0.2869m.
+
+Changing buoys
+from ('1213+100+100', '100'): (1413.0, 100.0)
+to ('1213+100+100', '100'): (1413.0, 100.0)
+
+Running 38th time.
+
+VCM Rotation: 9.1216°.
+Line Clearance: 0.6161m.
+Flange Height error: 0.2869m.
+
+Changing buoys
+from ('1213+100+100', '100'): (1413.0, 100.0)
+to ('1213+100+100', '100'): (1413.0, 100.0)
+
+Running 39th time.
+
+VCM Rotation: 9.1216°.
+Line Clearance: 0.6161m.
+Flange Height error: 0.2869m.
+
+Changing buoys
+from ('1213+100+100', '100'): (1413.0, 100.0)
+to ('1213+100+100', '100'): (1413.0, 100.0)
+
+Running 40th time.
+
+VCM Rotation: 9.1216°.
+Line Clearance: 0.6161m.
+Flange Height error: 0.2869m.
+
+Changing buoys
+from ('1213+100+100', '100'): (1413.0, 100.0)
+to ('1213+100+100', '100'): (1413.0, 100.0)
+
+Running 41th time.
+
+VCM Rotation: 9.1216°.
+Line Clearance: 0.6161m.
+Flange Height error: 0.2869m.
+
+Changing buoys
+from ('1213+100+100', '100'): (1413.0, 100.0)
+to ('1213+100+100', '100'): (1413.0, 100.0)
+
+Running 42th time.
+
+VCM Rotation: 9.1216°.
+Line Clearance: 0.6161m.
+Flange Height error: 0.2869m.
+
+Changing buoys
+from ('1213+100+100', '100'): (1413.0, 100.0)
+to ('1213+100+100', '100'): (1413.0, 100.0)
+
+Running 43th time.
+
+VCM Rotation: 9.1216°.
+Line Clearance: 0.6161m.
+Flange Height error: 0.2869m.
+
+Changing buoys
+from ('1213+100+100', '100'): (1413.0, 100.0)
+to ('1213+100+100', '100'): (1413.0, 100.0)
+
+Running 44th time.
+
+VCM Rotation: 9.1216°.
+Line Clearance: 0.6161m.
+Flange Height error: 0.2869m.
+
+Changing buoys
+from ('1213+100+100', '100'): (1413.0, 100.0)
+to ('1213+100+100', '100'): (1413.0, 100.0)
+
+Running 45th time.
+
+VCM Rotation: 9.1216°.
+Line Clearance: 0.6161m.
+Flange Height error: 0.2869m.
+
+Changing buoys
+from ('1213+100+100', '100'): (1413.0, 100.0)
+to ('1213+100+100', '100'): (1413.0, 100.0)
+
+Running 46th time.
+
+VCM Rotation: 9.1216°.
+Line Clearance: 0.6161m.
+Flange Height error: 0.2869m.
+
+Changing buoys
+from ('1213+100+100', '100'): (1413.0, 100.0)
+to ('1213+100+100', '100'): (1413.0, 100.0)
+
+Running 47th time.
+
+VCM Rotation: 9.1216°.
+Line Clearance: 0.6161m.
+Flange Height error: 0.2869m.
+
+Changing buoys
+from ('1213+100+100', '100'): (1413.0, 100.0)
+to ('1213+100+100', '100'): (1413.0, 100.0)
+
+Running 48th time.
+
+VCM Rotation: 9.1216°.
+Line Clearance: 0.6161m.
+Flange Height error: 0.2869m.
+
+Changing buoys
+from ('1213+100+100', '100'): (1413.0, 100.0)
+to ('1213+100+100', '100'): (1413.0, 100.0)
+
+Running 49th time.
+
+VCM Rotation: 9.1216°.
+Line Clearance: 0.6161m.
+Flange Height error: 0.2869m.
+
+Changing buoys
+from ('1213+100+100', '100'): (1413.0, 100.0)
+to ('1213+100+100', '100'): (1413.0, 100.0)
+
+Running 50th time.
+
+VCM Rotation: 9.1216°.
+Line Clearance: 0.6161m.
+Flange Height error: 0.2869m.
+
+Sorry, it was not possible to converge.
+
+ Automation's end.
+ Execution time: 184.73s
+
+Process finished with exit code 0
