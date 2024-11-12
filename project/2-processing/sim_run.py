@@ -9,6 +9,7 @@ from collections import Counter
 # CONSTANTS
 n_run = 0  # Static running counter
 n_run_limit = 50  # Limit number of tentatives to converge
+n_run_error = 0  # Error correction counter
 rotation = 0  # VCM's rotation
 clearance = 0  # Line's clearance
 delta_flange = 0  # Error to adjustment in Flange's height to the seabed
@@ -30,7 +31,7 @@ statics_min_damping = 5  # Minimum damping
 statics_max_damping = 15  # Maximum damping
 
 
-def run_static(model: OrcFxAPI.Model, rt_number: str, vcm_: OrcFxAPI.OrcaFlexObject,
+def run_static(model: OrcFxAPI.Model, rt_number: str, vcm: OrcFxAPI.OrcaFlexObject,
                line_type: OrcFxAPI.OrcaFlexObject, line_obj: methods.Line,
                vcm_obj: methods.Vcm, general: OrcFxAPI.OrcaFlexObject) -> None:
     """
@@ -39,7 +40,7 @@ def run_static(model: OrcFxAPI.Model, rt_number: str, vcm_: OrcFxAPI.OrcaFlexObj
     :param general: General configuration model
     :param vcm_obj: VCM object class
     :param line_obj: Line object class
-    :param vcm_: VCM model
+    :param vcm: VCM model
     :param line_type: Line model
     :param model: Orca model
     :param rt_number: Analysis identification
@@ -49,7 +50,7 @@ def run_static(model: OrcFxAPI.Model, rt_number: str, vcm_: OrcFxAPI.OrcaFlexObj
         global n_run, rotation, clearance, delta_flange
 
         model.CalculateStatics()
-        rotation = verify_vcm_rotation(vcm_)
+        rotation = verify_vcm_rotation(vcm)
         clearance = verify_line_clearance(line_type)
         delta_flange = verify_flange_height(line_type, line_obj, vcm_obj)
         model.SaveSimulation(rt_number + "\\" + str(n_run) + "-" + rt_number + "_Static.sim")
@@ -65,14 +66,31 @@ def run_static(model: OrcFxAPI.Model, rt_number: str, vcm_: OrcFxAPI.OrcaFlexObj
         print(f"\nError: {e}"
               f"\nChanging Line's StaticStep to 'Catenary'"
               f"\nMoving VCM, in X axis.")
+        error_correction(general, line_type, vcm)
+        run_static(model, rt_number, vcm, line_type, line_obj, vcm_obj, general)
 
-        line_type.StaticsStep1 = "Catenary"
+
+def error_correction(general: OrcFxAPI.OrcaFlexObject, line_type: OrcFxAPI.OrcaFlexObject,
+                     vcm: OrcFxAPI.OrcaFlexObject):
+    """
+    What to do if occurs some exception while trying to run static calculations
+    :param general: General configuration model
+    :param line_type: Line model
+    :param vcm: VCM model
+    :return: Nothing
+    """
+    global n_run_error
+
+    if n_run_error == 0:
         general.StaticsMinDamping = 2 * statics_min_damping
         general.StaticsMaxDamping = 2 * statics_max_damping
         general.StaticsMaxIterations = 3 * statics_max_iterations
-        vcm_.InitialX -= vcm_delta_x
+    elif n_run_error == 1:
+        line_type.StaticsStep1 = "Catenary"
+    elif n_run_error == 2:
+        vcm.InitialX -= vcm_delta_x
 
-        run_static(model, rt_number, vcm_, line_type, line_obj, vcm_obj, general)
+    n_run_error += 1
 
 
 def user_specified(model: OrcFxAPI.Model, rt_number: str) -> None:
@@ -336,9 +354,9 @@ def looping(model_line_type: OrcFxAPI.OrcaFlexObject, selection: dict, model: Or
 
     if delta_flange != delta_flange_error_limit:
         flange_height_correction(winch, delta_flange)
-        model_line_type.StaticsStep1 = "Catenary"
-        general.LineStaticsStep2Policy = "Solve coupled systems"
-        model_vcm.InitialX -= vcm_delta_x
+        general.StaticsMinDamping = 2 * statics_min_damping
+        general.StaticsMaxDamping = 2 * statics_max_damping
+        general.StaticsMaxIterations = 3 * statics_max_iterations
         run_static(model, rt_number, model_vcm, model_line_type, object_line, object_vcm, general)
         user_specified(model, rt_number)
         looping(model_line_type, selection, model, rt_number, vessel, rl_config, buoy_set,
@@ -404,10 +422,10 @@ def changing_buoyancy(rl_config: list, pointer: int) -> list:
     total_buoyancy = rl_config[1]
     if rotation > 0:
         if (total := (1 + buoyancy_pace) * total_buoyancy[pointer]) < buoyancy_limit:
-            total_buoyancy[pointer] = total
+            total_buoyancy[pointer] = max(total, total_buoyancy[pointer] + 100)
     elif rotation < 0:
         if (total := (1 - buoyancy_pace) * total_buoyancy[pointer]) > 0:
-            total_buoyancy[pointer] = total
+            total_buoyancy[pointer] = min(total, total_buoyancy[pointer] - 100)
     rl_config = [rl_config[0], total_buoyancy]
     return rl_config
 

@@ -1,18 +1,2 @@
-Correção de erros
 
-A modelagem na consideração de da Zona Rígida de vértebras poliméricas
-A modelagem na consideração de Adaptadores de flange
-
-Ajustes necessários
-
-Ajuste na troca de posição de boias - individualizar a manipulação das posições
-Ajuste na troca de referência de empuxo - individualizar a manipulação do empuxo em cada posição
-Ajuste na troca de referência de empuxo - limitar a 2 Tf
-Garantir a correção da altura do MCV na ponta do flange
-Garantir a igualdade entre as coordenadas x's do solo e do MCV
-
-Melhorias
-
-Utilizar paradigma Orientado a Objetos, ao invés de Estrutural
-Englobar CVD com jumpers
-Englobar CVD com umbilicais
+Viabilizar uma condição na qual a automação verifica a possibilidade de adicionar novos pontos para instalação de flutuadores e, havendo esta possibilidade, adiciona-os.

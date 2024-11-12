@@ -257,13 +257,7 @@ VCM Rotation: -0.2607°.
 Line Clearance: 0.5959m.
 Flange Height error: -0.0m.
 
-Running 25th time.
-
-VCM Rotation: -0.2607°.
-Line Clearance: 0.5959m.
-Flange Height error: -0.0m.
-
  Automation's end.
- Execution time: 177.98s
+ Execution time: 365.38s
 
 Process finished with exit code 0

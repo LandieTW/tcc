@@ -1,13 +1,3 @@
-Timer durante o comando Run
-	Colocar um timer que inicia cada vez que uma análise for rodada.
-	Toda análise iniciará com step_damping baixo, para ganho de tempo.
-	Caso o timer chegue a um valor x determinado, o step_damping aumenta.
-	A análise inicia e caso, novamente, não convergir
-	Muda-se as condições de contorno para um ajuste mais suave.
 
-Fração do empuxo do RL como referência de ajuste do buoyancy
-	Um meio passo na direção de individualizar os ajustes nas 
-	configurações de boias consiste em possibilitar que cada um
-	deles seja guiado por padrões diferentes,
-	Assim sendo, o referencial de ajuste será uma fração do respectivo
-	valor de empuxo informado no RL para cada posição.
+Englobar CVD com jumpers
+Englobar CVD com umbilicais

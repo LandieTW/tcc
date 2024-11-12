@@ -1,0 +1,500 @@
+"C:\Users\dwanderley\Digicorner\Installation Analysis Subsea - Daniel Wanderley\venv\Scripts\python.exe" "C:\Users\dwanderley\Digicorner\Installation Analysis Subsea - Daniel Wanderley\tcc\project\2-processing\sim_static.py" 
+
+Running without bend_restrictor
+
+Error: 
+Error code: 27
+Static calculation failed (Whole system statics: Not converged.)
+Changing Line's StaticStep to 'Catenary'
+Moving VCM, in X axis.
+
+Line's in contact with seabed
+
+Running 0th time.
+
+VCM Rotation: 22.1814°.
+Line Clearance: -0.0362m.
+Flange Height error: 0.4798m.
+
+Running with bend_restrictor
+
+Line's in contact with seabed
+
+Running 1th time.
+
+VCM Rotation: 22.5626°.
+Line Clearance: -0.0225m.
+Flange Height error: 0.4871m.
+
+Running with buoys
+
+Partially adding buoyancy
+
+Partial buoyancy: [60.0]
+
+Line's in contact with seabed
+
+Running 2th time.
+
+VCM Rotation: 21.2582°.
+Line Clearance: -0.0219m.
+Flange Height error: 0.4623m.
+
+Partial buoyancy: [120.0]
+
+Line's in contact with seabed
+
+Running 3th time.
+
+VCM Rotation: 21.2582°.
+Line Clearance: -0.0219m.
+Flange Height error: 0.4623m.
+
+Partial buoyancy: [180.0]
+
+Line's in contact with seabed
+
+Running 4th time.
+
+VCM Rotation: 21.2582°.
+Line Clearance: -0.0219m.
+Flange Height error: 0.4623m.
+
+Partial buoyancy: [240.0]
+
+Line's in contact with seabed
+
+Running 5th time.
+
+VCM Rotation: 19.8521°.
+Line Clearance: -0.0187m.
+Flange Height error: 0.4348m.
+
+Partial buoyancy: [300.0]
+
+Line's in contact with seabed
+
+Running 6th time.
+
+VCM Rotation: 19.075°.
+Line Clearance: -0.0137m.
+Flange Height error: 0.4193m.
+
+Automation's start.
+
+Retrieving out 0.5m from the line,
+from 419.13 to 418.63
+
+Running 7th time.
+
+VCM Rotation: 18.89°.
+Line Clearance: 0.1262m.
+Flange Height error: 0.4139m.
+
+Retrieving out 0.5m from the line,
+from 418.63 to 418.13
+
+Running 8th time.
+
+VCM Rotation: 18.1984°.
+Line Clearance: 0.3451m.
+Flange Height error: 0.399m.
+
+Retrieving out 0.2m from the line,
+from 418.13 to 417.93
+
+Running 9th time.
+
+VCM Rotation: 17.9101°.
+Line Clearance: 0.4351m.
+Flange Height error: 0.3927m.
+
+Retrieving out 0.2m from the line,
+from 417.93 to 417.73
+
+Running 10th time.
+
+VCM Rotation: 17.6148°.
+Line Clearance: 0.5211m.
+Flange Height error: 0.3862m.
+
+Changing buoys
+from ('250',): (250.0,)
+to ('250+100',): (350.0,)
+
+Running 11th time.
+
+VCM Rotation: 15.1862°.
+Line Clearance: 0.6552m.
+Flange Height error: 0.3362m.
+
+Paying out 0.2m from the line,
+from 417.73 to 417.93
+
+Running 12th time.
+
+VCM Rotation: 15.4887°.
+Line Clearance: 0.566m.
+Flange Height error: 0.3431m.
+
+Changing buoys
+from ('250',): (250.0,)
+to ('250+100+100',): (450.0,)
+
+Running 13th time.
+
+VCM Rotation: 12.8489°.
+Line Clearance: 0.713m.
+Flange Height error: 0.2866m.
+
+Paying out 0.2m from the line,
+from 417.93 to 418.13
+
+Error: 
+Error code: 27
+Static calculation failed (Whole system statics: Not converged.)
+Changing Line's StaticStep to 'Catenary'
+Moving VCM, in X axis.
+
+Running 14th time.
+
+VCM Rotation: 13.151°.
+Line Clearance: 0.6242m.
+Flange Height error: 0.2937m.
+
+Changing buoys
+from ('250',): (250.0,)
+to ('250+250',): (500.0,)
+
+Running 15th time.
+
+VCM Rotation: 11.7462°.
+Line Clearance: 0.7045m.
+Flange Height error: 0.2627m.
+
+Paying out 0.2m from the line,
+from 418.13 to 418.33
+
+Running 16th time.
+
+VCM Rotation: 12.0451°.
+Line Clearance: 0.6136m.
+Flange Height error: 0.2698m.
+
+Changing buoys
+from ('250',): (250.0,)
+to ('250+250+100',): (600.0,)
+
+Running 17th time.
+
+VCM Rotation: 9.052°.
+Line Clearance: 0.7882m.
+Flange Height error: 0.2018m.
+
+Paying out 0.2m from the line,
+from 418.33 to 418.53
+
+Running 18th time.
+
+VCM Rotation: 9.3507°.
+Line Clearance: 0.6945m.
+Flange Height error: 0.2092m.
+
+Paying out 0.2m from the line,
+from 418.53 to 418.73
+
+Running 19th time.
+
+VCM Rotation: 9.6439°.
+Line Clearance: 0.5993m.
+Flange Height error: 0.2164m.
+
+Changing buoys
+from ('250',): (250.0,)
+to ('500+250',): (750.0,)
+
+Running 20th time.
+
+VCM Rotation: 4.6591°.
+Line Clearance: 0.8956m.
+Flange Height error: 0.0975m.
+
+Paying out 0.2m from the line,
+from 418.73 to 418.93
+
+Running 21th time.
+
+VCM Rotation: 4.9542°.
+Line Clearance: 0.7955m.
+Flange Height error: 0.1051m.
+
+Paying out 0.2m from the line,
+from 418.93 to 419.13
+
+Running 22th time.
+
+VCM Rotation: 5.2446°.
+Line Clearance: 0.6963m.
+Flange Height error: 0.1126m.
+
+Paying out 0.2m from the line,
+from 419.13 to 419.33
+
+Running 23th time.
+
+VCM Rotation: 5.5307°.
+Line Clearance: 0.5953m.
+Flange Height error: 0.1199m.
+
+Changing buoys
+from ('250',): (250.0,)
+to ('500+250+100',): (850.0,)
+
+Running 24th time.
+
+VCM Rotation: 1.8526°.
+Line Clearance: 0.813m.
+Flange Height error: 0.0282m.
+
+Paying out 0.2m from the line,
+from 419.33 to 419.53
+
+Running 25th time.
+
+VCM Rotation: 2.1382°.
+Line Clearance: 0.7097m.
+Flange Height error: 0.0358m.
+
+Paying out 0.2m from the line,
+from 419.53 to 419.73
+
+Running 26th time.
+
+VCM Rotation: 2.42°.
+Line Clearance: 0.6053m.
+Flange Height error: 0.0432m.
+
+Changing buoys
+from ('250',): (250.0,)
+to ('500+250+100',): (850.0,)
+
+Running 27th time.
+
+VCM Rotation: 2.42°.
+Line Clearance: 0.6054m.
+Flange Height error: 0.0432m.
+
+Changing buoys
+from ('250',): (250.0,)
+to ('500+250+250',): (1000.0,)
+
+Running 28th time.
+
+VCM Rotation: -3.6697°.
+Line Clearance: 0.9672m.
+Flange Height error: -0.1161m.
+
+Paying out 0.2m from the line,
+from 419.73 to 419.93
+
+Running 29th time.
+
+VCM Rotation: -3.388°.
+Line Clearance: 0.8595m.
+Flange Height error: -0.1082m.
+
+Paying out 0.2m from the line,
+from 419.93 to 420.13
+
+Running 30th time.
+
+VCM Rotation: -3.1094°.
+Line Clearance: 0.7495m.
+Flange Height error: -0.1005m.
+
+Paying out 0.2m from the line,
+from 420.13 to 420.33
+
+Running 31th time.
+
+VCM Rotation: -2.8339°.
+Line Clearance: 0.6408m.
+Flange Height error: -0.0929m.
+
+Changing buoys position
+from 4.0m to 3.5m
+
+Running 32th time.
+
+VCM Rotation: -2.8339°.
+Line Clearance: 0.6409m.
+Flange Height error: -0.0929m.
+
+Changing buoys position
+from 4.0m to 3.5m
+
+Running 33th time.
+
+VCM Rotation: -2.8339°.
+Line Clearance: 0.6409m.
+Flange Height error: -0.0929m.
+
+Changing buoys position
+from 4.0m to 3.5m
+
+Running 34th time.
+
+VCM Rotation: -2.8339°.
+Line Clearance: 0.6409m.
+Flange Height error: -0.0929m.
+
+Changing buoys position
+from 4.0m to 3.5m
+
+Running 35th time.
+
+VCM Rotation: -2.8339°.
+Line Clearance: 0.6409m.
+Flange Height error: -0.0929m.
+
+Changing buoys position
+from 4.0m to 3.5m
+
+Running 36th time.
+
+VCM Rotation: -2.8339°.
+Line Clearance: 0.6409m.
+Flange Height error: -0.0929m.
+
+Changing buoys position
+from 4.0m to 3.5m
+
+Running 37th time.
+
+VCM Rotation: -2.8339°.
+Line Clearance: 0.6409m.
+Flange Height error: -0.0929m.
+
+Changing buoys position
+from 4.0m to 3.5m
+
+Running 38th time.
+
+VCM Rotation: -2.8339°.
+Line Clearance: 0.6409m.
+Flange Height error: -0.0929m.
+
+Changing buoys position
+from 4.0m to 3.5m
+
+Running 39th time.
+
+VCM Rotation: -2.8339°.
+Line Clearance: 0.6409m.
+Flange Height error: -0.0929m.
+
+Changing buoys position
+from 4.0m to 3.5m
+
+Running 40th time.
+
+VCM Rotation: -2.8339°.
+Line Clearance: 0.6409m.
+Flange Height error: -0.0929m.
+
+Changing buoys position
+from 4.0m to 3.5m
+
+Running 41th time.
+
+VCM Rotation: -2.8339°.
+Line Clearance: 0.6409m.
+Flange Height error: -0.0929m.
+
+Changing buoys position
+from 4.0m to 3.5m
+
+Running 42th time.
+
+VCM Rotation: -2.8339°.
+Line Clearance: 0.6409m.
+Flange Height error: -0.0929m.
+
+Changing buoys position
+from 4.0m to 3.5m
+
+Running 43th time.
+
+VCM Rotation: -2.8339°.
+Line Clearance: 0.6409m.
+Flange Height error: -0.0929m.
+
+Changing buoys position
+from 4.0m to 3.5m
+
+Running 44th time.
+
+VCM Rotation: -2.8339°.
+Line Clearance: 0.6409m.
+Flange Height error: -0.0929m.
+
+Changing buoys position
+from 4.0m to 3.5m
+
+Running 45th time.
+
+VCM Rotation: -2.8339°.
+Line Clearance: 0.6409m.
+Flange Height error: -0.0929m.
+
+Changing buoys position
+from 4.0m to 3.5m
+
+Running 46th time.
+
+VCM Rotation: -2.8339°.
+Line Clearance: 0.6409m.
+Flange Height error: -0.0929m.
+
+Changing buoys position
+from 4.0m to 3.5m
+
+Running 47th time.
+
+VCM Rotation: -2.8339°.
+Line Clearance: 0.6409m.
+Flange Height error: -0.0929m.
+
+Changing buoys position
+from 4.0m to 3.5m
+
+Running 48th time.
+
+VCM Rotation: -2.8339°.
+Line Clearance: 0.6409m.
+Flange Height error: -0.0929m.
+
+Changing buoys position
+from 4.0m to 3.5m
+
+Running 49th time.
+
+VCM Rotation: -2.8339°.
+Line Clearance: 0.6409m.
+Flange Height error: -0.0929m.
+
+Changing buoys position
+from 4.0m to 3.5m
+
+Running 50th time.
+
+VCM Rotation: -2.8339°.
+Line Clearance: 0.6409m.
+Flange Height error: -0.0929m.
+
+Sorry, it was not possible to converge.
+
+ Automation's end.
+ Execution time: 225.70s
+
+Process finished with exit code 0
