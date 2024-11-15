@@ -50,6 +50,7 @@ def run_static(model: OrcFxAPI.Model, rt_number: str, vcm: OrcFxAPI.OrcaFlexObje
         global n_run, rotation, clearance, delta_flange
 
         model.CalculateStatics()
+        n_run_error = 0
         rotation = verify_vcm_rotation(vcm)
         clearance = verify_line_clearance(line_type)
         delta_flange = verify_flange_height(line_type, line_obj, vcm_obj)

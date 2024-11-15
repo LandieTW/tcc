@@ -1,4 +1,7 @@
-"C:\Users\dwanderley\Digicorner\Installation Analysis Subsea - Daniel Wanderley\venv\Scripts\python.exe" "C:\Users\dwanderley\Digicorner\Installation Analysis Subsea - Daniel Wanderley\tcc\project\2-processing\sim_static.py" 
+Python 3.10.11 (tags/v3.10.11:7d4cc5a, Apr  5 2023, 00:38:17) [MSC v.1929 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license()" for more information.
+
+= RESTART: C:\Users\dwanderley\Digicorner\Installation Analysis Subsea - Daniel Wanderley\tcc\project\2-processing\sim_static.py
 
 Running without bend_restrictor
 
@@ -495,6 +498,4 @@ Flange Height error: -0.0929m.
 Sorry, it was not possible to converge.
 
  Automation's end.
- Execution time: 225.70s
-
-Process finished with exit code 0
+ Execution time: 221.29s

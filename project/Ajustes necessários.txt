@@ -1,2 +1,9 @@
 
-Viabilizar uma condição na qual a automação verifica a possibilidade de adicionar novos pontos para instalação de flutuadores e, havendo esta possibilidade, adiciona-os.
+Viabilizar uma condição na qual a automação verifica a 
+possibilidade de adicionar novos pontos para instalação 
+de flutuadores e, havendo esta possibilidade, adiciona-os.
+
+Transformar a exception do run em uma série sucessivas de condicionais
+que resetam a partir do momento que um run static ocorre.
+
+O print que referencia as trocas de boias está incorreto.
