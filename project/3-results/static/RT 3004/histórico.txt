@@ -1,0 +1,160 @@
+C:\Users\dwanderley\AppData\Local\Programs\Python\Python310\python.exe "C:\Users\dwanderley\Digicorner\Installation Analysis Subsea - Daniel Wanderley\tcc\project\2-processing\sim_static.py" 
+
+Running without bend_restrictor
+
+Error: 
+Error code: 27
+Static calculation failed (Whole system statics: Not converged.)
+Changing Static damping range and Increasing iterations.
+
+Running 1th time.
+
+VCM Rotation: 4.525°.
+Line Clearance: 1.114m.
+Flange Height error: 0.11m.
+
+Running with bend_restrictor
+
+Running 2th time.
+
+VCM Rotation: 6.565°.
+Line Clearance: 0.93m.
+Flange Height error: 0.159m.
+
+Running with buoys
+
+Partially adding buoyancy
+
+Partial buoyancy: [60.0]
+
+Running 3th time.
+
+VCM Rotation: 4.112°.
+Line Clearance: 1.114m.
+Flange Height error: 0.099m.
+
+Partial buoyancy: [120.0]
+
+Running 4th time.
+
+VCM Rotation: 4.112°.
+Line Clearance: 1.114m.
+Flange Height error: 0.099m.
+
+Partial buoyancy: [180.0]
+
+Running 5th time.
+
+VCM Rotation: 4.112°.
+Line Clearance: 1.114m.
+Flange Height error: 0.099m.
+
+Partial buoyancy: [240.0]
+
+Running 6th time.
+
+VCM Rotation: 1.565°.
+Line Clearance: 1.32m.
+Flange Height error: 0.035m.
+
+Partial buoyancy: [300.0]
+
+Running 7th time.
+
+VCM Rotation: 0.264°.
+Line Clearance: 1.433m.
+Flange Height error: 0.001m.
+
+Automation's start.
+
+Paying out 0.93m from the line,
+from 419.13 to 420.06
+
+VCM Rotation: 1.905°.
+Line Clearance: 1.003m.
+Flange Height error: 0.045m.
+
+Paying out 0.5m from the line,
+from 420.06 to 420.56
+
+VCM Rotation: 2.766°.
+Line Clearance: 0.772m.
+Flange Height error: 0.067m.
+
+Paying out 0.27m from the line,
+from 420.56 to 420.83
+
+VCM Rotation: 3.225°.
+Line Clearance: 0.646m.
+Flange Height error: 0.079m.
+
+Changing buoys
+from dict_keys(['250']): dict_values([250.0])
+to dict_keys(['250+100']): dict_values([350.0])
+
+Running 8th time.
+
+VCM Rotation: 0.786°.
+Line Clearance: 0.878m.
+Flange Height error: 0.017m.
+
+Paying out 0.38m from the line,
+from 420.83 to 421.21
+
+VCM Rotation: 1.469°.
+Line Clearance: 0.696m.
+Flange Height error: 0.035m.
+
+Paying out 0.2m from the line,
+from 421.21 to 421.41
+
+VCM Rotation: 1.825°.
+Line Clearance: 0.599m.
+Flange Height error: 0.044m.
+
+Changing buoys
+from dict_keys(['250+100']): dict_values([350.0])
+to dict_keys(['250+100+100']): dict_values([450.0])
+
+Running 9th time.
+
+VCM Rotation: -0.581°.
+Line Clearance: 0.849m.
+Flange Height error: -0.018m.
+
+Paying out 0.35m from the line,
+from 421.41 to 421.76
+
+VCM Rotation: 0.074°.
+Line Clearance: 0.676m.
+Flange Height error: -0.001m.
+
+Paying out 0.2m from the line,
+from 421.76 to 421.96
+
+VCM Rotation: 0.446°.
+Line Clearance: 0.577m.
+Flange Height error: 0.009m.
+
+Paying out 0.009m from the winch,
+from 729.54 to 729.55
+
+Running 10th time.
+
+VCM Rotation: 0.462°.
+Line Clearance: 0.581m.
+Flange Height error: 0.001m.
+
+Paying out 0.001m from the winch,
+from 729.53 to 729.53
+
+Running 11th time.
+
+VCM Rotation: 0.464°.
+Line Clearance: 0.582m.
+Flange Height error: -0.0m.
+
+ Automation's end.
+ Execution time: 97.20s
+
+Process finished with exit code 0

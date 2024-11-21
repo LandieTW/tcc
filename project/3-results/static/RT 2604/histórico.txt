@@ -1,0 +1,202 @@
+C:\Users\dwanderley\AppData\Local\Programs\Python\Python310\python.exe "C:\Users\dwanderley\Digicorner\Installation Analysis Subsea - Daniel Wanderley\tcc\project\2-processing\sim_static.py" 
+
+Running without bend_restrictor
+
+Error: 
+Error code: 27
+Static calculation failed (Whole system statics: Not converged.)
+Changing Static damping range and Increasing iterations.
+
+Line's in contact with seabed
+
+Running 1th time.
+
+VCM Rotation: 22.603°.
+Line Clearance: -0.06m.
+Flange Height error: 0.671m.
+
+Running with bend_restrictor
+
+Line's in contact with seabed
+
+Running 2th time.
+
+VCM Rotation: 29.761°.
+Line Clearance: -0.057m.
+Flange Height error: 0.831m.
+
+Running with buoys
+
+Partially adding buoyancy
+
+Partial buoyancy: [300.0, 60.0]
+
+Line's in contact with seabed
+
+Running 3th time.
+
+VCM Rotation: 27.586°.
+Line Clearance: -0.053m.
+Flange Height error: 0.785m.
+
+Partial buoyancy: [600.0, 120.0]
+
+Line's in contact with seabed
+
+Running 4th time.
+
+VCM Rotation: 23.177°.
+Line Clearance: -0.06m.
+Flange Height error: 0.685m.
+
+Partial buoyancy: [900.0, 180.0]
+
+Line's in contact with seabed
+
+Running 5th time.
+
+VCM Rotation: 19.255°.
+Line Clearance: -0.067m.
+Flange Height error: 0.586m.
+
+Partial buoyancy: [1200.0, 240.0]
+
+Line's in contact with seabed
+
+Running 6th time.
+
+VCM Rotation: 12.762°.
+Line Clearance: -0.069m.
+Flange Height error: 0.405m.
+
+Partial buoyancy: [1500.0, 300.0]
+
+Line's in contact with seabed
+
+Running 7th time.
+
+VCM Rotation: 6.887°.
+Line Clearance: -0.063m.
+Flange Height error: 0.223m.
+
+Automation's start.
+
+Retrieving out 0.5m from the line,
+from 1546.33 to 1545.83
+
+Line's in contact with seabed
+
+VCM Rotation: 7.06°.
+Line Clearance: -0.053m.
+Flange Height error: 0.227m.
+
+Retrieving out 0.5m from the line,
+from 1545.83 to 1545.33
+
+Line's in contact with seabed
+
+VCM Rotation: 7.278°.
+Line Clearance: -0.039m.
+Flange Height error: 0.233m.
+
+Retrieving out 0.5m from the line,
+from 1545.33 to 1544.83
+
+Line's in contact with seabed
+
+VCM Rotation: 7.542°.
+Line Clearance: -0.014m.
+Flange Height error: 0.24m.
+
+Retrieving out 0.5m from the line,
+from 1544.83 to 1544.33
+
+VCM Rotation: 7.428°.
+Line Clearance: 0.227m.
+Flange Height error: 0.236m.
+
+Retrieving out 0.27m from the line,
+from 1544.33 to 1544.06
+
+VCM Rotation: 7.289°.
+Line Clearance: 0.398m.
+Flange Height error: 0.231m.
+
+Retrieving out 0.2m from the line,
+from 1544.06 to 1543.86
+
+VCM Rotation: 7.183°.
+Line Clearance: 0.524m.
+Flange Height error: 0.228m.
+
+Changing buoys
+from dict_keys(['1213+100+100', '100+100']): dict_values([1413.0, 200.0])
+to dict_keys(['1213+100+100', '381']): dict_values([1413.0, 381.0])
+
+Running 8th time.
+
+VCM Rotation: 1.999°.
+Line Clearance: 1.512m.
+Flange Height error: 0.059m.
+
+Paying out 1.01m from the line,
+from 1543.86 to 1544.87
+
+VCM Rotation: 2.506°.
+Line Clearance: 0.82m.
+Flange Height error: 0.076m.
+
+Paying out 0.32m from the line,
+from 1544.87 to 1545.19
+
+VCM Rotation: 2.664°.
+Line Clearance: 0.598m.
+Flange Height error: 0.082m.
+
+Changing buoys
+from dict_keys(['1213+100+100', '381']): dict_values([1413.0, 381.0])
+to dict_keys(['1213+100+100', '381+100']): dict_values([1413.0, 481.0])
+
+Running 9th time.
+
+VCM Rotation: -0.598°.
+Line Clearance: 1.162m.
+Flange Height error: -0.03m.
+
+Paying out 0.66m from the line,
+from 1545.19 to 1545.85
+
+VCM Rotation: -0.251°.
+Line Clearance: 0.699m.
+Flange Height error: -0.017m.
+
+Paying out 0.2m from the line,
+from 1545.85 to 1546.05
+
+Error: 
+Error code: 27
+Static calculation failed (Whole system statics: Not converged.)
+Changing Static damping range and Increasing iterations.
+
+Error: 
+Error code: 27
+Static calculation failed (Whole system statics: Not converged.)
+Changing Line's Static policy to Catenary
+
+VCM Rotation: -0.145°.
+Line Clearance: 0.56m.
+Flange Height error: -0.014m.
+
+Retrieving out 0.014m from the winch,
+from 1855.34 to 1855.33
+
+Running 10th time.
+
+VCM Rotation: -0.152°.
+Line Clearance: 0.555m.
+Flange Height error: 0.0m.
+
+ Automation's end.
+ Execution time: 591.01s
+
+Process finished with exit code 0

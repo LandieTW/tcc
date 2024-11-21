@@ -1,24 +1,24 @@
-"C:\Users\dwanderley\Digicorner\Installation Analysis Subsea - Daniel Wanderley\venv\Scripts\python.exe" "C:\Users\dwanderley\Digicorner\Installation Analysis Subsea - Daniel Wanderley\tcc\project\2-processing\sim_static.py" 
+C:\Users\dwanderley\AppData\Local\Programs\Python\Python310\python.exe "C:\Users\dwanderley\Digicorner\Installation Analysis Subsea - Daniel Wanderley\tcc\project\2-processing\sim_static.py" 
 
 Running without bend_restrictor
 
 Line's in contact with seabed
 
-Running 0th time.
+Running 1th time.
 
 VCM Rotation: 22.114°.
-Line Clearance: -0.0643m.
-Flange Height error: 0.3014m.
+Line Clearance: -0.064m.
+Flange Height error: 0.301m.
 
 Running with bend_restrictor
 
 Line's in contact with seabed
 
-Running 1th time.
+Running 2th time.
 
-VCM Rotation: 26.3078°.
-Line Clearance: -0.0614m.
-Flange Height error: 0.3467m.
+VCM Rotation: 26.308°.
+Line Clearance: -0.061m.
+Flange Height error: 0.347m.
 
 Running with buoys
 
@@ -28,51 +28,51 @@ Partial buoyancy: [360.0, 200.0]
 
 Line's in contact with seabed
 
-Running 2th time.
+Running 3th time.
 
 VCM Rotation: 24.144°.
-Line Clearance: -0.0615m.
-Flange Height error: 0.3239m.
+Line Clearance: -0.061m.
+Flange Height error: 0.324m.
 
 Partial buoyancy: [720.0, 400.0]
 
 Line's in contact with seabed
 
-Running 3th time.
+Running 4th time.
 
-VCM Rotation: 21.5478°.
-Line Clearance: -0.0618m.
+VCM Rotation: 21.548°.
+Line Clearance: -0.062m.
 Flange Height error: 0.295m.
 
 Partial buoyancy: [1080.0, 600.0]
 
 Line's in contact with seabed
 
-Running 4th time.
+Running 5th time.
 
-VCM Rotation: 17.1602°.
-Line Clearance: -0.0641m.
-Flange Height error: 0.2424m.
+VCM Rotation: 17.16°.
+Line Clearance: -0.064m.
+Flange Height error: 0.242m.
 
 Partial buoyancy: [1440.0, 800.0]
 
 Line's in contact with seabed
 
-Running 5th time.
+Running 6th time.
 
-VCM Rotation: 9.7636°.
-Line Clearance: -0.0759m.
-Flange Height error: 0.1441m.
+VCM Rotation: 9.764°.
+Line Clearance: -0.076m.
+Flange Height error: 0.144m.
 
 Partial buoyancy: [1800.0, 1000.0]
 
 Line's in contact with seabed
 
-Running 6th time.
+Running 7th time.
 
-VCM Rotation: 0.2113°.
-Line Clearance: -0.0882m.
-Flange Height error: 0.0011m.
+VCM Rotation: 0.211°.
+Line Clearance: -0.088m.
+Flange Height error: 0.001m.
 
 Automation's start.
 
@@ -81,43 +81,35 @@ from 1984.0 to 1983.5
 
 Line's in contact with seabed
 
-Running 7th time.
-
 VCM Rotation: 0.318°.
-Line Clearance: -0.0875m.
-Flange Height error: 0.0022m.
+Line Clearance: -0.088m.
+Flange Height error: 0.002m.
 
 Retrieving out 0.5m from the line,
 from 1983.5 to 1983.0
 
 Line's in contact with seabed
 
-Running 8th time.
-
 VCM Rotation: 0.467°.
-Line Clearance: -0.0861m.
-Flange Height error: 0.0038m.
+Line Clearance: -0.086m.
+Flange Height error: 0.004m.
 
 Retrieving out 0.5m from the line,
 from 1983.0 to 1982.5
 
 Line's in contact with seabed
 
-Running 9th time.
-
-VCM Rotation: 0.6626°.
-Line Clearance: -0.0832m.
-Flange Height error: 0.0061m.
+VCM Rotation: 0.663°.
+Line Clearance: -0.083m.
+Flange Height error: 0.006m.
 
 Retrieving out 0.5m from the line,
 from 1982.5 to 1982.0
 
 Line's in contact with seabed
 
-Running 10th time.
-
-VCM Rotation: 0.9099°.
-Line Clearance: -0.0785m.
+VCM Rotation: 0.91°.
+Line Clearance: -0.078m.
 Flange Height error: 0.009m.
 
 Retrieving out 0.5m from the line,
@@ -125,139 +117,101 @@ from 1982.0 to 1981.5
 
 Line's in contact with seabed
 
-Running 11th time.
-
-VCM Rotation: 1.2145°.
-Line Clearance: -0.0725m.
-Flange Height error: 0.0128m.
+VCM Rotation: 1.214°.
+Line Clearance: -0.073m.
+Flange Height error: 0.013m.
 
 Retrieving out 0.5m from the line,
 from 1981.5 to 1981.0
 
 Line's in contact with seabed
 
-Running 12th time.
-
-VCM Rotation: 1.5813°.
-Line Clearance: -0.0645m.
-Flange Height error: 0.0174m.
+VCM Rotation: 1.581°.
+Line Clearance: -0.064m.
+Flange Height error: 0.017m.
 
 Retrieving out 0.5m from the line,
 from 1981.0 to 1980.5
 
 Line's in contact with seabed
 
-Running 13th time.
-
-VCM Rotation: 2.0068°.
-Line Clearance: -0.0537m.
-Flange Height error: 0.0228m.
+VCM Rotation: 2.007°.
+Line Clearance: -0.054m.
+Flange Height error: 0.023m.
 
 Retrieving out 0.5m from the line,
 from 1980.5 to 1980.0
 
 Line's in contact with seabed
 
-Running 14th time.
-
-VCM Rotation: 2.4966°.
-Line Clearance: -0.0389m.
-Flange Height error: 0.0291m.
+VCM Rotation: 2.497°.
+Line Clearance: -0.039m.
+Flange Height error: 0.029m.
 
 Retrieving out 0.5m from the line,
 from 1980.0 to 1979.5
 
 Line's in contact with seabed
 
-Running 15th time.
-
-VCM Rotation: 3.0362°.
-Line Clearance: -0.0175m.
+VCM Rotation: 3.036°.
+Line Clearance: -0.018m.
 Flange Height error: 0.036m.
 
 Retrieving out 0.5m from the line,
 from 1979.5 to 1979.0
 
-Running 16th time.
-
-VCM Rotation: 2.9414°.
-Line Clearance: 0.1738m.
-Flange Height error: 0.0339m.
+VCM Rotation: 2.941°.
+Line Clearance: 0.174m.
+Flange Height error: 0.034m.
 
 Retrieving out 0.5m from the line,
 from 1979.0 to 1978.5
 
-Running 17th time.
-
-VCM Rotation: 2.3492°.
-Line Clearance: 0.4844m.
-Flange Height error: 0.0246m.
+VCM Rotation: 2.349°.
+Line Clearance: 0.484m.
+Flange Height error: 0.025m.
 
 Retrieving out 0.2m from the line,
 from 1978.5 to 1978.3
 
-Running 18th time.
-
-VCM Rotation: 2.1106°.
-Line Clearance: 0.6073m.
-Flange Height error: 0.0208m.
+VCM Rotation: 2.111°.
+Line Clearance: 0.607m.
+Flange Height error: 0.021m.
 
 Changing buoys
-from ('973+573+205', '573+205+205'): (1751.0, 983.0)
-to ('973+573+205', '973+118'): (1751.0, 1091.0)
+from dict_keys(['973+573+205', '573+205+205']): dict_values([1751.0, 983.0])
+to dict_keys(['973+573+205', '973+118']): dict_values([1751.0, 1091.0])
 
-Running 19th time.
+Running 8th time.
 
-VCM Rotation: -0.9501°.
+VCM Rotation: -0.95°.
 Line Clearance: 0.979m.
 Flange Height error: -0.026m.
 
-Paying out 0.2m from the line,
-from 1978.3 to 1978.5
+Paying out 0.48m from the line,
+from 1978.3 to 1978.78
 
-Running 20th time.
-
-VCM Rotation: -0.7146°.
-Line Clearance: 0.8543m.
-Flange Height error: -0.0222m.
+VCM Rotation: -0.385°.
+Line Clearance: 0.677m.
+Flange Height error: -0.017m.
 
 Paying out 0.2m from the line,
-from 1978.5 to 1978.7
+from 1978.78 to 1978.98
 
-Running 21th time.
+VCM Rotation: -0.149°.
+Line Clearance: 0.55m.
+Flange Height error: -0.013m.
 
-VCM Rotation: -0.4789°.
-Line Clearance: 0.7277m.
-Flange Height error: -0.0183m.
+Retrieving out 0.013m from the winch,
+from 2295.69 to 2295.68
 
-Paying out 0.2m from the line,
-from 1978.7 to 1978.9
+Running 9th time.
 
-Running 22th time.
-
-VCM Rotation: -0.2434°.
-Line Clearance: 0.6013m.
-Flange Height error: -0.0145m.
-
-Retrieving out 0.0145m from the winch,
-from 2295.69 to 2295.67
-
-Running 23th time.
-
-VCM Rotation: -0.2604°.
-Line Clearance: 0.596m.
-Flange Height error: -0.0003m.
-
-Retrieving out 0.0003m from the winch,
-from 2295.7 to 2295.7
-
-Running 24th time.
-
-VCM Rotation: -0.2607°.
-Line Clearance: 0.5959m.
+VCM Rotation: -0.164°.
+Line Clearance: 0.545m.
 Flange Height error: -0.0m.
 
  Automation's end.
- Execution time: 365.38s
+ Execution time: 280.36s
 
 Process finished with exit code 0
