@@ -3,7 +3,9 @@ Viabilizar uma condição na qual a automação verifica a
 possibilidade de adicionar novos pontos para instalação 
 de flutuadores e, havendo esta possibilidade, adiciona-os.
 
-Transformar a exception do run em uma série sucessivas de condicionais
-que resetam a partir do momento que um run static ocorre.
+Criar uma condicional dentro do looping
+p/ fazer com que se verifique os esforços na vértebra
+em caso de infração, troca a configuração de boias
 
-O print que referencia as trocas de boias está incorreto.
+Pensar numa forma de evitar que, quando houverem 2 ou 3 pontos de empuxo, não hajam grandezas mt diferentes
+evitar que os pontos 1 e 2 tenham, respectivamente, empuxos E1 e E2, tal que E1 > 4 x E2

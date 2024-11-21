@@ -19,6 +19,7 @@ rt_number = info[0]
 vessel = info[1]
 buoy_set = info[2]
 rl_config = info[3]
+structural_limits = info[4]
 
 model = OrcFxAPI.Model(rt_number + "\\" + rt_number + "_Static.dat")
 model_general = model['General']
@@ -48,8 +49,12 @@ print("\nRunning without bend_restrictor")
 
 model_line_type.NumberOfAttachments = 0
 
-sim_run.run_static(model, rt_number, model_vcm, model_line_type, object_line, object_vcm,
-                   model_general)
+# AQUI NÃO É PARA CHAMAR A RUN_STATIC
+# É SÓ PARA RODAR O CALCULATE_STATIC E SEGUIR EM FRENTE
+# A RUN_STATIC DEVE SER RODADA SÓ NO LOOPING
+    # MAS PRECISA HAVER TRATAMENTO DE ERRO
+sim_run.run_static(model, rt_number, model_vcm, model_line_type, model_bend_restrictor_type,
+                   object_line, object_bend_restrictor, object_vcm, model_general)
 sim_run.user_specified(model, rt_number)
 
 model_general.StaticsMinDamping = statics_min_damping
@@ -81,8 +86,12 @@ else:
 model_line_type.Attachmentz[0] = bend_restrictor_ini_position
 model_line_type.AttachmentzRelativeTo[0] = "End B"
 
-sim_run.run_static(model, rt_number, model_vcm, model_line_type, object_line, object_vcm,
-                   model_general)
+# AQUI NÃO É PARA CHAMAR A RUN_STATIC
+# É SÓ PARA RODAR O CALCULATE_STATIC E SEGUIR EM FRENTE
+# A RUN_STATIC DEVE SER RODADA SÓ NO LOOPING
+    # MAS PRECISA HAVER TRATAMENTO DE ERRO
+sim_run.run_static(model, rt_number, model_vcm, model_line_type, model_bend_restrictor_type,
+                   object_line, object_bend_restrictor, object_vcm, model_general)
 sim_run.user_specified(model, rt_number)
 
 model_general.StaticsMinDamping = statics_min_damping
@@ -104,8 +113,12 @@ while k <= 5:
     num_buoys = sim_run.number_buoys(treated_buoys)
     sim_run.input_buoyancy(model_line_type, num_buoys, treated_buoys, vessel)
     print(f"\nPartial buoyancy: {rl_config_fract[1]}")
-    sim_run.run_static(model, rt_number, model_vcm, model_line_type, object_line, object_vcm,
-                       model_general)
+    # AQUI NÃO É PARA CHAMAR A RUN_STATIC
+    # É SÓ PARA RODAR O CALCULATE_STATIC E SEGUIR EM FRENTE
+    # A RUN_STATIC DEVE SER RODADA SÓ NO LOOPING
+    # MAS PRECISA HAVER TRATAMENTO DE ERRO
+    sim_run.run_static(model, rt_number, model_vcm, model_line_type, model_bend_restrictor_type,
+                       object_line, object_bend_restrictor, object_vcm, model_general)
     sim_run.user_specified(model, rt_number)
 
     model_general.StaticsMinDamping = statics_min_damping
@@ -114,8 +127,9 @@ while k <= 5:
     k += 1
 
 print("\nAutomation's start.")
-sim_run.looping(model_line_type, selection, model, rt_number, vessel, rl_config, buoy_set,
-                model_vcm, object_line, object_vcm, model_winch, model_general, model_environment)
+sim_run.looping(model_line_type, selection, model, model_bend_restrictor_type, rt_number, vessel,
+                rl_config, buoy_set, model_vcm, object_line, object_bend_restrictor, object_vcm,
+                model_winch, model_general, model_environment, structural_limits)
 
 end_time = time.time()
 execution_time = end_time - start_time
