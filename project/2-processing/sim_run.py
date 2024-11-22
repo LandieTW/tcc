@@ -33,6 +33,24 @@ statics_min_damping = 5  # Minimum damping
 statics_max_damping = 15  # Maximum damping
 
 
+def previous_run_static(model: OrcFxAPI.Model, general: OrcFxAPI.OrcaFlexObject, 
+                        line_type: OrcFxAPI.OrcaFlexObject, vcm: OrcFxAPI.OrcaFlexObject) -> None:
+    """
+    Previous statics runs
+    :param model: Orca model
+    :param general: General configuration model
+    :param line_type: Line model
+    :param vcm: VCM model
+    :return: Nothing
+    """
+    try:
+        model.CalculateStatics()
+    except Exception as e:
+        print(f"\nError: {e}")
+        error_correction(general, line_type, vcm)
+        previous_run_static(model, general, line_type, vcm)
+
+
 def run_static(model: OrcFxAPI.Model, rt_number: str, vcm: OrcFxAPI.OrcaFlexObject,
                line_type: OrcFxAPI.OrcaFlexObject, bend_restrictor_model: OrcFxAPI.OrcaFlexObject,
                line_obj: methods.Line, bend_restrictor_object: methods.BendRestrictor,
@@ -276,6 +294,8 @@ def verify_bend_moment(bend_restrictor_model: OrcFxAPI.OrcaFlexObject,
     :return: bend moment in bend restrictor
     """
     moment = bend_restrictor_model.RangeGraph("Bend moment")
+    moment = [bm
+              for index, bm in enumerate(moment.Mean)]
     max_moment = round(max(moment), 3)
     if max_moment > bend_restrictor_object.bm:
         print(f"\nBend moment limit infringed: {bend_restrictor_object.bm}kN.m < {max_moment}kN.m.")
@@ -290,7 +310,9 @@ def verify_shear_force(bend_restrictor_model: OrcFxAPI.OrcaFlexObject,
     :param bend_restrictor_object: bend restrictor object
     :return: shear force in bend restrictor
     """
-    shear = bend_restrictor_model.RangeGraph("Shear force")
+    shear = bend_restrictor_model.RangeGraph("Shear Force")
+    shear = [sf
+             for index, sf in enumerate(shear.Mean)]
     max_shear = round(max(shear), 3)
     if max_shear > bend_restrictor_object.sf:
         print(f"\nShear force limit infringed: {bend_restrictor_object.sf}kN.m < {max_shear}kN.m.")

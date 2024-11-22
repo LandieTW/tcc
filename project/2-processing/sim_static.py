@@ -32,7 +32,6 @@ model_line_type = model["Line"]
 
 object_bend_restrictor = object_elements[1]
 model_bend_restrictor = model[object_bend_restrictor.name]
-model_bend_restrictor_type = model["Vert"]
 
 object_end_fitting = object_elements[2]
 model_end_fitting = model[object_end_fitting.name]
@@ -49,12 +48,7 @@ print("\nRunning without bend_restrictor")
 
 model_line_type.NumberOfAttachments = 0
 
-# AQUI NÃO É PARA CHAMAR A RUN_STATIC
-# É SÓ PARA RODAR O CALCULATE_STATIC E SEGUIR EM FRENTE
-# A RUN_STATIC DEVE SER RODADA SÓ NO LOOPING
-    # MAS PRECISA HAVER TRATAMENTO DE ERRO
-sim_run.run_static(model, rt_number, model_vcm, model_line_type, model_bend_restrictor_type,
-                   object_line, object_bend_restrictor, object_vcm, model_general)
+sim_run.previous_run_static(model, model_general, model_line_type, model_vcm)
 sim_run.user_specified(model, rt_number)
 
 model_general.StaticsMinDamping = statics_min_damping
@@ -64,7 +58,8 @@ model_general.StaticsMaxIterations = statics_max_iterations
 print("\nRunning with bend_restrictor")
 
 model_line_type.NumberOfAttachments = 1
-model_line_type.AttachmentType[0] = model_bend_restrictor_type.Name
+model_line_type.AttachmentType[0] = "Vert"
+stiffener_type = model["Stiffener1"]
 
 bend_restrictor_ini_position = object_end_fitting.length
 
@@ -86,12 +81,7 @@ else:
 model_line_type.Attachmentz[0] = bend_restrictor_ini_position
 model_line_type.AttachmentzRelativeTo[0] = "End B"
 
-# AQUI NÃO É PARA CHAMAR A RUN_STATIC
-# É SÓ PARA RODAR O CALCULATE_STATIC E SEGUIR EM FRENTE
-# A RUN_STATIC DEVE SER RODADA SÓ NO LOOPING
-    # MAS PRECISA HAVER TRATAMENTO DE ERRO
-sim_run.run_static(model, rt_number, model_vcm, model_line_type, model_bend_restrictor_type,
-                   object_line, object_bend_restrictor, object_vcm, model_general)
+sim_run.previous_run_static(model, model_general, model_line_type, model_vcm)
 sim_run.user_specified(model, rt_number)
 
 model_general.StaticsMinDamping = statics_min_damping
@@ -113,12 +103,7 @@ while k <= 5:
     num_buoys = sim_run.number_buoys(treated_buoys)
     sim_run.input_buoyancy(model_line_type, num_buoys, treated_buoys, vessel)
     print(f"\nPartial buoyancy: {rl_config_fract[1]}")
-    # AQUI NÃO É PARA CHAMAR A RUN_STATIC
-    # É SÓ PARA RODAR O CALCULATE_STATIC E SEGUIR EM FRENTE
-    # A RUN_STATIC DEVE SER RODADA SÓ NO LOOPING
-    # MAS PRECISA HAVER TRATAMENTO DE ERRO
-    sim_run.run_static(model, rt_number, model_vcm, model_line_type, model_bend_restrictor_type,
-                       object_line, object_bend_restrictor, object_vcm, model_general)
+    sim_run.previous_run_static(model, model_general, model_line_type, model_vcm)
     sim_run.user_specified(model, rt_number)
 
     model_general.StaticsMinDamping = statics_min_damping
@@ -127,7 +112,7 @@ while k <= 5:
     k += 1
 
 print("\nAutomation's start.")
-sim_run.looping(model_line_type, selection, model, model_bend_restrictor_type, rt_number, vessel,
+sim_run.looping(model_line_type, selection, model, stiffener_type, rt_number, vessel,
                 rl_config, buoy_set, model_vcm, object_line, object_bend_restrictor, object_vcm,
                 model_winch, model_general, model_environment, structural_limits)
 

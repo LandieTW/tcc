@@ -27,8 +27,10 @@ def modeling_accessory(obj_model: OrcFxAPI.OrcaFlexObject,
     obj_model.GJ = obj.t_stiffness
     obj_model.Name = obj.name
 
-
-model = OrcFxAPI.Model("ModeloRTCVD1a.dat")
+diretorio = os.path.dirname(os.path.abspath(__file__))
+model_name = "ModeloRTCVD1a.dat"
+executable = os.path.join(diretorio, model_name)
+model = OrcFxAPI.Model(executable)
 
 line = model['Linha']
 line_type = model['Line']
