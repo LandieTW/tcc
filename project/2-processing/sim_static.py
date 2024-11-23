@@ -5,10 +5,27 @@ Static analysis automation
 import OrcFxAPI
 import time
 import os
+import sys
 import sim_run
+from io import StringIO
 from orca import object_elements
 from methods import info
 
+class DualOutput:
+    def __init__(self, original_stdout, buffer):
+        self.original_stdout = original_stdout
+        self.buffer = buffer
+
+    def write(self, message):
+        self.original_stdout.write(message)
+        self.buffer.write(message)
+
+    def flush(self):
+        self.original_stdout.flush()
+
+original_stdout = sys.stdout
+buffer = StringIO()
+sys.stdout = DualOutput(original_stdout, buffer)
 
 statics_max_iterations = 400  # Maximum number of iterations
 statics_min_damping = 5  # Minimum damping
@@ -21,12 +38,7 @@ vessel = info[1]
 buoy_set = info[2]
 rl_config = info[3]
 structural_limits = info[4]
-print(structural_limits)
-"""{
-    '3ia': [3.37, -8.02, 30.67],
-    '3ib': [8.89, -11.76, 8.13],
-    '3ii': [6.99, -10.97, 11.84]
-    }"""
+
 this_path = os.path.dirname(os.path.abspath(__file__))
 file_path = os.path.join(this_path, rt_number)
 file = rt_number + ".dat"
@@ -92,6 +104,24 @@ else:
 model_line_type.Attachmentz[0] = bend_restrictor_ini_position
 model_line_type.AttachmentzRelativeTo[0] = "End B"
 
+stiffener_fin_position = round(bend_restrictor_ini_position + object_bend_restrictor.length, 3)
+prohibited_position = (stiffener_fin_position // .5) * .5
+
+# Restrição de colocação de flutuadores na interface 
+# final da vértebra, por motivos de dificuldades operacionais na instalação.
+"""num_pos = len(rl_config[0])
+# MUDANDO O RL CONFIG
+for i in range(len(rl_config[0])):
+    if rl_config[0][i] == prohibited_position:
+        print(
+            f"\nAjustando a configuração proposta no RL para evitar dificuldades"
+            f"operacionais na instalação de boias na interface final da vértebra."
+            )
+        rl_config[0][i] += .5
+        if num_pos == 3:
+            if i == 1:
+                rl_config[0][2] += .5"""
+
 sim_run.previous_run_static(model, model_general, model_line_type, model_vcm)
 sim_run.user_specified(model, rt_number, file_path)
 
@@ -125,10 +155,19 @@ while k <= 5:
 print("\nAutomation's start.")
 sim_run.looping(model_line_type, selection, model, stiffener_type, rt_number, vessel,
                 rl_config, buoy_set, model_vcm, object_line, object_bend_restrictor, object_vcm,
-                model_winch, model_general, model_environment, file_path, structural_limits)
+                model_winch, model_general, model_environment, file_path, structural_limits,
+                prohibited_position)
 
 end_time = time.time()
 execution_time = end_time - start_time
 
 print(f"\n Automation's end."
       f"\n Execution time: {execution_time:.2f}s")
+
+sys.stdout = original_stdout
+captured_text = buffer.getvalue()
+txt_file = rt_number + ".txt"
+results_path = os.path.join(file_path, txt_file)
+
+with open(results_path, "w", encoding="utf-8") as file:
+    file.write(captured_text)

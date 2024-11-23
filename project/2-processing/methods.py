@@ -19,7 +19,7 @@ def line_d_out(w_1, w_2):
     wd = w_1 / 1_000 - w_2 / 1_000
     # seawater density = sd [T/m³]
     sd = 1.025
-    return round(float(np.sqrt(4 / (np.pi * sd) * wd)), 4)
+    return round(float(np.sqrt(4 / (np.pi * sd) * wd)), 3)
 
 
 def line_d_int(w_2, w_3):
@@ -33,7 +33,7 @@ def line_d_int(w_2, w_3):
     fwd = w_3 / 1_000 - w_2 / 1_000
     # seawater density = sd [T/m³]
     sd = 1.025
-    return round(float(np.sqrt(4 / (np.pi * sd) * fwd)), 4)
+    return round(float(np.sqrt(4 / (np.pi * sd) * fwd)), 3)
 
 
 def linear_weight(not_filled_weight, element_length):
@@ -44,7 +44,7 @@ def linear_weight(not_filled_weight, element_length):
     :param element_length: element length
     :return: linear weight
     """
-    return round(not_filled_weight / element_length, 4)
+    return round(not_filled_weight / element_length, 3)
 
 
 def accessories_d_out(p_air, p_water, accessory_d_int, element_length):
@@ -64,7 +64,7 @@ def accessories_d_out(p_air, p_water, accessory_d_int, element_length):
     sd = 1.025
     # inner diameter square = ids
     ids = pow(accessory_d_int / 1_000, 2)
-    return round(float(np.sqrt((4 / np.pi / sd) * (lwa - lww) + ids)), 4)
+    return round(float(np.sqrt((4 / np.pi / sd) * (lwa - lww) + ids)), 3)
 
 
 def bending_stiffness(material, d_out, d_int):
@@ -79,7 +79,7 @@ def bending_stiffness(material, d_out, d_int):
     trd = pow(d_out / 1_000, 4) - pow(d_int / 1_000, 4)
     # young_module = ei
     ei = young_module(material)
-    return round(ei * np.pi / 64 * trd, 4)
+    return round(ei * np.pi / 64 * trd, 3)
 
 
 def axial_stiffness(material, d_out, d_int):
@@ -94,7 +94,7 @@ def axial_stiffness(material, d_out, d_int):
     trd = pow(d_out / 1_000, 2) - pow(d_int / 1_000, 2)
     # young_module = ei
     ei = young_module(material)
-    return round((ei * np.pi / 4) * trd, 4)
+    return round((ei * np.pi / 4) * trd, 3)
 
 
 def torsional_stiffness(material, d_out, d_int, poisson=.3):
@@ -110,7 +110,7 @@ def torsional_stiffness(material, d_out, d_int, poisson=.3):
     trd = pow(d_out / 1_000, 4) - pow(d_int / 1_000, 4)
     # torsional young module = gi
     gi = young_module(material) / (2 * (1 + poisson))
-    return round((gi * np.pi / 32) * trd, 4)
+    return round((gi * np.pi / 32) * trd, 3)
 
 
 def bend_moment_limit(material, d_out, d_int):
@@ -121,7 +121,7 @@ def bend_moment_limit(material, d_out, d_int):
     :param d_int: accessory's interior diameter
     :return: bend moment limit
     """
-    return round(bending_stiffness(material, d_out, d_int) + .01, 4)
+    return round(bending_stiffness(material, d_out, d_int) + .01, 3)
 
 
 def young_module(material):
@@ -131,9 +131,9 @@ def young_module(material):
     :return: young's module
     """
     if material == "Polymer":
-        return round(7 * 1_000_000, 4)
+        return round(7 * 1_000_000, 3)
     else:
-        return round(207 * 1_000_000, 4)
+        return round(207 * 1_000_000, 3)
 
 
 def cg_olhal_flange(cote_1, cote_2):
@@ -143,7 +143,7 @@ def cg_olhal_flange(cote_1, cote_2):
     :param cote_2: another some VCM's pont
     :return: main VCM's point
     """
-    return round(cote_1 / 1_000 + cote_2 / 1_000, 4)
+    return round(cote_1 / 1_000 + cote_2 / 1_000, 3)
 
 
 class Line:
@@ -154,12 +154,12 @@ class Line:
                  relative_elongation, s_curve):
         self.name = name  #
         self.revision = revision
-        self.eaw = empty_air_weight / 1_000  #
-        self.faw = filled_air_weight / 1_000
-        self.eww = empty_water_weight / 1_000
-        self.fww = filled_water_weight / 1_000
+        self.eaw = round(empty_air_weight / 1_000, 3)  #
+        self.faw = round(filled_air_weight / 1_000, 3)
+        self.eww = round(empty_water_weight / 1_000, 3)
+        self.fww = round(filled_water_weight / 1_000, 3)
         self.lda = water_depth  #
-        self.cd = contact_diameter / 1_000  #
+        self.cd = round(contact_diameter / 1_000, 3)  #
         self.nd = nominal_diameter
         self.mbr_s = mbr_storage
         self.mbr_i = mbr_installation  #
@@ -170,7 +170,7 @@ class Line:
         self.od = line_d_out(empty_air_weight, empty_water_weight)  #
         self.id = line_d_int(empty_water_weight, filled_water_weight)  #
         self.curvature = s_curve[0]
-        self.b_moment = [b_moment / 1_000
+        self.b_moment = [round(b_moment / 1_000, 3)
                          for b_moment in s_curve[1]]
 
 
@@ -181,12 +181,12 @@ class BendRestrictor:
         self.name = name
         self.revision = revision
         self.material = material
-        self.length = length_mm / 1_000  #
+        self.length = round(length_mm / 1_000, 3)  #
         self.aw = air_weight
         self.ww = water_weight
         self.out_d = outside_diameter
-        self.id = inner_diameter / 1_000  #
-        self.cd = contact_diameter / 1_000  #
+        self.id = round(inner_diameter / 1_000, 3)  #
+        self.cd = round(contact_diameter / 1_000, 3)  #
         self.mbr = mbr  #
         if bend_moment not in (None, "None", "null"):
             self.bm = bend_moment
@@ -216,10 +216,10 @@ class Accessory:
         self.revision = revision
         self.aw = air_weight
         self.ww = water_weight
-        self.length = length_mm / 1_000  #
+        self.length = round(length_mm / 1_000, 3)  #
         self.out_d = outside_diameter
-        self.id = inner_diameter / 1_000  #
-        self.cd = contact_diameter / 1_000  #
+        self.id = round(inner_diameter / 1_000, 3)  #
+        self.cd = round(contact_diameter / 1_000, 3)  #
         self.mbr = mbr  #
         self.lwa = linear_weight(air_weight, length_mm)  #
         self.lww = linear_weight(water_weight, length_mm)
@@ -241,7 +241,7 @@ class Vcm:
         self.supplier = supplier
         self.draw = draw
         self.type = material
-        self.weight = weight / 1_000
+        self.weight = round(weight / 1_000, 3)
         self.declination = declination
         self.a, self.b, self.c, self.d, self.e, self.f, self.g, self.h = coord
         self.cg_az = cg_olhal_flange(self.f, - self.d)
@@ -250,7 +250,7 @@ class Vcm:
         self.olhal_dx = cg_olhal_flange(self.g, - self.c)
         self.flange_ez = cg_olhal_flange(.0, self.f)
         self.flange_fx = cg_olhal_flange(.0, self.g)
-        self.hts = - (lda - ((self.a - self.f) / 1_000))
+        self.hts = - round((lda - ((self.a - self.f) / 1_000)), 3)
 
 
 line = Line(
