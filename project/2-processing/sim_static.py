@@ -21,10 +21,15 @@ vessel = info[1]
 buoy_set = info[2]
 rl_config = info[3]
 structural_limits = info[4]
-
+print(structural_limits)
+"""{
+    '3ia': [3.37, -8.02, 30.67],
+    '3ib': [8.89, -11.76, 8.13],
+    '3ii': [6.99, -10.97, 11.84]
+    }"""
 this_path = os.path.dirname(os.path.abspath(__file__))
 file_path = os.path.join(this_path, rt_number)
-file = rt_number + "_Static.dat"
+file = rt_number + ".dat"
 executable = os.path.join(file_path, file)
 model = OrcFxAPI.Model(executable)
 

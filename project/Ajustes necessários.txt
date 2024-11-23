@@ -3,9 +3,7 @@ Viabilizar uma condição na qual a automação verifica a
 possibilidade de adicionar novos pontos para instalação 
 de flutuadores e, havendo esta possibilidade, adiciona-os.
 
-Criar uma condicional dentro do looping
-p/ fazer com que se verifique os esforços na vértebra
-em caso de infração, troca a configuração de boias
-
 Pensar numa forma de evitar que, quando houverem 2 ou 3 pontos de empuxo, não hajam grandezas mt diferentes
 evitar que os pontos 1 e 2 tenham, respectivamente, empuxos E1 e E2, tal que E1 > 4 x E2
+
+Verificar esforços no flange já na parte estática

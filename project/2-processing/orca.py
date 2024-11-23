@@ -158,9 +158,10 @@ for i in range(1, len(bend_restrictor_object.curvature)):
     stiffness_2.IndependentValue[i] = bend_restrictor_object.curvature[i]
     stiffness_2.DependentValue[i] = bend_restrictor_object.b_moment[i]
 
-os.makedirs(rt_number, exist_ok=True)
+rt_dir = os.path.join(diretorio, rt_number)
+os.makedirs(rt_dir, exist_ok=True)
 destiny = os.path.join(diretorio, rt_number)
-file = rt_number + "_Static.dat"
+file = rt_number + ".dat"
 destiny_file = os.path.join(destiny, file)
 model.SaveData(destiny_file)
 
