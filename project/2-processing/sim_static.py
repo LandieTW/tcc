@@ -4,6 +4,7 @@ Static analysis automation
 
 import OrcFxAPI
 import time
+import os
 import sim_run
 from orca import object_elements
 from methods import info
@@ -21,7 +22,12 @@ buoy_set = info[2]
 rl_config = info[3]
 structural_limits = info[4]
 
-model = OrcFxAPI.Model(rt_number + "\\" + rt_number + "_Static.dat")
+this_path = os.path.dirname(os.path.abspath(__file__))
+file_path = os.path.join(this_path, rt_number)
+file = rt_number + "_Static.dat"
+executable = os.path.join(file_path, file)
+model = OrcFxAPI.Model(executable)
+
 model_general = model['General']
 
 len_obj_pack = len(object_elements)
@@ -49,7 +55,7 @@ print("\nRunning without bend_restrictor")
 model_line_type.NumberOfAttachments = 0
 
 sim_run.previous_run_static(model, model_general, model_line_type, model_vcm)
-sim_run.user_specified(model, rt_number)
+sim_run.user_specified(model, rt_number, file_path)
 
 model_general.StaticsMinDamping = statics_min_damping
 model_general.StaticsMaxDamping = statics_max_damping
@@ -82,7 +88,7 @@ model_line_type.Attachmentz[0] = bend_restrictor_ini_position
 model_line_type.AttachmentzRelativeTo[0] = "End B"
 
 sim_run.previous_run_static(model, model_general, model_line_type, model_vcm)
-sim_run.user_specified(model, rt_number)
+sim_run.user_specified(model, rt_number, file_path)
 
 model_general.StaticsMinDamping = statics_min_damping
 model_general.StaticsMaxDamping = statics_max_damping
@@ -104,7 +110,7 @@ while k <= 5:
     sim_run.input_buoyancy(model_line_type, num_buoys, treated_buoys, vessel)
     print(f"\nPartial buoyancy: {rl_config_fract[1]}")
     sim_run.previous_run_static(model, model_general, model_line_type, model_vcm)
-    sim_run.user_specified(model, rt_number)
+    sim_run.user_specified(model, rt_number, file_path)
 
     model_general.StaticsMinDamping = statics_min_damping
     model_general.StaticsMaxDamping = statics_max_damping
@@ -114,7 +120,7 @@ while k <= 5:
 print("\nAutomation's start.")
 sim_run.looping(model_line_type, selection, model, stiffener_type, rt_number, vessel,
                 rl_config, buoy_set, model_vcm, object_line, object_bend_restrictor, object_vcm,
-                model_winch, model_general, model_environment, structural_limits)
+                model_winch, model_general, model_environment, file_path, structural_limits)
 
 end_time = time.time()
 execution_time = end_time - start_time

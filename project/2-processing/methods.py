@@ -188,8 +188,14 @@ class BendRestrictor:
         self.id = inner_diameter / 1_000  #
         self.cd = contact_diameter / 1_000  #
         self.mbr = mbr  #
-        self.bm = bend_moment
-        self.sf = shear_force
+        if bend_moment not in (None, "None", "null"):
+            self.bm = bend_moment
+        else:
+            self.bm = 0
+        if shear_force  not in (None, "None", "null"):
+            self.sf = shear_force
+        else:
+            self.sf = 0
         self.lwa = linear_weight(air_weight, length_mm)  #
         self.lww = linear_weight(water_weight, length_mm)
         self.od = accessories_d_out(air_weight, water_weight, inner_diameter,

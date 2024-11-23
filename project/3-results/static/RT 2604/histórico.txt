@@ -1,5 +1,3 @@
-C:\Users\dwanderley\AppData\Local\Programs\Python\Python310\python.exe "C:\Users\dwanderley\Digicorner\Installation Analysis Subsea - Daniel Wanderley\tcc\project\2-processing\sim_static.py" 
-
 Running without bend_restrictor
 
 Error: 
@@ -7,23 +5,7 @@ Error code: 27
 Static calculation failed (Whole system statics: Not converged.)
 Changing Static damping range and Increasing iterations.
 
-Line's in contact with seabed
-
-Running 1th time.
-
-VCM Rotation: 22.603°.
-Line Clearance: -0.06m.
-Flange Height error: 0.671m.
-
 Running with bend_restrictor
-
-Line's in contact with seabed
-
-Running 2th time.
-
-VCM Rotation: 29.761°.
-Line Clearance: -0.057m.
-Flange Height error: 0.831m.
 
 Running with buoys
 
@@ -31,172 +13,305 @@ Partially adding buoyancy
 
 Partial buoyancy: [300.0, 60.0]
 
-Line's in contact with seabed
-
-Running 3th time.
-
-VCM Rotation: 27.586°.
-Line Clearance: -0.053m.
-Flange Height error: 0.785m.
-
 Partial buoyancy: [600.0, 120.0]
-
-Line's in contact with seabed
-
-Running 4th time.
-
-VCM Rotation: 23.177°.
-Line Clearance: -0.06m.
-Flange Height error: 0.685m.
 
 Partial buoyancy: [900.0, 180.0]
 
-Line's in contact with seabed
-
-Running 5th time.
-
-VCM Rotation: 19.255°.
-Line Clearance: -0.067m.
-Flange Height error: 0.586m.
-
 Partial buoyancy: [1200.0, 240.0]
-
-Line's in contact with seabed
-
-Running 6th time.
-
-VCM Rotation: 12.762°.
-Line Clearance: -0.069m.
-Flange Height error: 0.405m.
 
 Partial buoyancy: [1500.0, 300.0]
 
-Line's in contact with seabed
-
-Running 7th time.
-
-VCM Rotation: 6.887°.
-Line Clearance: -0.063m.
-Flange Height error: 0.223m.
-
 Automation's start.
 
-Retrieving out 0.5m from the line,
-from 1546.33 to 1545.83
+Retrieving out 0.2m from the line,
+from 1546.33 to 1546.13
 
 Line's in contact with seabed
 
-VCM Rotation: 7.06°.
-Line Clearance: -0.053m.
-Flange Height error: 0.227m.
+ Bend Restrictor's locked
+
+Shear force in bend_restrictor: 6.005kN.
+Bend moment in bend_restrictor: 4.009kN.m.
+
+Running 1th time.
+
+VCM Rotation: 6.947°.
+Line Clearance: -0.06m.
+Flange Height error: 0.224m.
 
 Retrieving out 0.5m from the line,
-from 1545.83 to 1545.33
+from 1546.13 to 1545.63
 
 Line's in contact with seabed
 
-VCM Rotation: 7.278°.
-Line Clearance: -0.039m.
-Flange Height error: 0.233m.
+ Bend Restrictor's locked
+
+Shear force in bend_restrictor: 5.948kN.
+Bend moment in bend_restrictor: 3.854kN.m.
+
+VCM Rotation: 7.144°.
+Line Clearance: -0.048m.
+Flange Height error: 0.229m.
 
 Retrieving out 0.5m from the line,
-from 1545.33 to 1544.83
+from 1545.63 to 1545.13
 
 Line's in contact with seabed
 
-VCM Rotation: 7.542°.
-Line Clearance: -0.014m.
-Flange Height error: 0.24m.
+ Bend Restrictor's locked
+
+Shear force in bend_restrictor: 5.879kN.
+Bend moment in bend_restrictor: 3.676kN.m.
+
+VCM Rotation: 7.38°.
+Line Clearance: -0.031m.
+Flange Height error: 0.235m.
 
 Retrieving out 0.5m from the line,
-from 1544.83 to 1544.33
+from 1545.13 to 1544.63
 
-VCM Rotation: 7.428°.
-Line Clearance: 0.227m.
-Flange Height error: 0.236m.
+ Bend Restrictor's locked
 
-Retrieving out 0.27m from the line,
-from 1544.33 to 1544.06
+Shear force in bend_restrictor: 5.817kN.
+Bend moment in bend_restrictor: 3.532kN.m.
 
-VCM Rotation: 7.289°.
-Line Clearance: 0.398m.
+VCM Rotation: 7.582°.
+Line Clearance: 0.037m.
+Flange Height error: 0.241m.
+
+Retrieving out 0.2m from the line,
+from 1544.63 to 1544.43
+
+ Bend Restrictor's locked
+
+Shear force in bend_restrictor: 5.842kN.
+Bend moment in bend_restrictor: 3.62kN.m.
+
+VCM Rotation: 7.479°.
+Line Clearance: 0.163m.
+Flange Height error: 0.237m.
+
+Retrieving out 0.2m from the line,
+from 1544.43 to 1544.23
+
+ Bend Restrictor's locked
+
+Shear force in bend_restrictor: 5.868kN.
+Bend moment in bend_restrictor: 3.708kN.m.
+
+VCM Rotation: 7.376°.
+Line Clearance: 0.289m.
+Flange Height error: 0.234m.
+
+Retrieving out 0.2m from the line,
+from 1544.23 to 1544.03
+
+ Bend Restrictor's locked
+
+Shear force in bend_restrictor: 5.893kN.
+Bend moment in bend_restrictor: 3.798kN.m.
+
+VCM Rotation: 7.273°.
+Line Clearance: 0.417m.
 Flange Height error: 0.231m.
 
 Retrieving out 0.2m from the line,
-from 1544.06 to 1543.86
+from 1544.03 to 1543.83
 
-VCM Rotation: 7.183°.
-Line Clearance: 0.524m.
-Flange Height error: 0.228m.
+ Bend Restrictor's locked
+
+Shear force in bend_restrictor: 5.919kN.
+Bend moment in bend_restrictor: 3.891kN.m.
+
+VCM Rotation: 7.167°.
+Line Clearance: 0.543m.
+Flange Height error: 0.227m.
 
 Changing buoys
 from dict_keys(['1213+100+100', '100+100']): dict_values([1413.0, 200.0])
 to dict_keys(['1213+100+100', '381']): dict_values([1413.0, 381.0])
 
-Running 8th time.
+ Bend Restrictor's locked
 
-VCM Rotation: 1.999°.
-Line Clearance: 1.512m.
+Shear force in bend_restrictor: 8.693kN.
+Bend moment in bend_restrictor: 7.613kN.m.
+
+Running 2th time.
+
+VCM Rotation: 1.983°.
+Line Clearance: 1.532m.
 Flange Height error: 0.059m.
 
-Paying out 1.01m from the line,
-from 1543.86 to 1544.87
+Paying out 0.2m from the line,
+from 1543.83 to 1544.03
 
-VCM Rotation: 2.506°.
-Line Clearance: 0.82m.
+ Bend Restrictor's locked
+
+Shear force in bend_restrictor: 8.672kN.
+Bend moment in bend_restrictor: 7.52kN.m.
+
+VCM Rotation: 2.088°.
+Line Clearance: 1.4m.
+Flange Height error: 0.062m.
+
+Paying out 0.2m from the line,
+from 1544.03 to 1544.23
+
+ Bend Restrictor's locked
+
+Shear force in bend_restrictor: 8.651kN.
+Bend moment in bend_restrictor: 7.431kN.m.
+
+VCM Rotation: 2.189°.
+Line Clearance: 1.263m.
+Flange Height error: 0.066m.
+
+Paying out 0.2m from the line,
+from 1544.23 to 1544.43
+
+ Bend Restrictor's locked
+
+Shear force in bend_restrictor: 8.559kN.
+Bend moment in bend_restrictor: 7.343kN.m.
+
+VCM Rotation: 2.29°.
+Line Clearance: 1.126m.
+Flange Height error: 0.069m.
+
+Paying out 0.2m from the line,
+from 1544.43 to 1544.63
+
+ Bend Restrictor's locked
+
+Shear force in bend_restrictor: 8.227kN.
+Bend moment in bend_restrictor: 7.258kN.m.
+
+VCM Rotation: 2.388°.
+Line Clearance: 0.986m.
+Flange Height error: 0.072m.
+
+Paying out 0.2m from the line,
+from 1544.63 to 1544.83
+
+ Bend Restrictor's locked
+
+Shear force in bend_restrictor: 7.937kN.
+Bend moment in bend_restrictor: 7.173kN.m.
+
+VCM Rotation: 2.486°.
+Line Clearance: 0.848m.
 Flange Height error: 0.076m.
 
-Paying out 0.32m from the line,
-from 1544.87 to 1545.19
+Paying out 0.2m from the line,
+from 1544.83 to 1545.03
 
-VCM Rotation: 2.664°.
-Line Clearance: 0.598m.
+ Bend Restrictor's locked
+
+Shear force in bend_restrictor: 7.916kN.
+Bend moment in bend_restrictor: 7.088kN.m.
+
+VCM Rotation: 2.585°.
+Line Clearance: 0.71m.
+Flange Height error: 0.079m.
+
+Paying out 0.2m from the line,
+from 1545.03 to 1545.23
+
+ Bend Restrictor's locked
+
+Shear force in bend_restrictor: 7.894kN.
+Bend moment in bend_restrictor: 7.002kN.m.
+
+VCM Rotation: 2.684°.
+Line Clearance: 0.571m.
 Flange Height error: 0.082m.
 
 Changing buoys
 from dict_keys(['1213+100+100', '381']): dict_values([1413.0, 381.0])
 to dict_keys(['1213+100+100', '381+100']): dict_values([1413.0, 481.0])
 
-Running 9th time.
+ Bend Restrictor's locked
 
-VCM Rotation: -0.598°.
-Line Clearance: 1.162m.
-Flange Height error: -0.03m.
+Shear force in bend_restrictor: 9.35kN.
+Bend moment in bend_restrictor: 9.364kN.m.
 
-Paying out 0.66m from the line,
-from 1545.19 to 1545.85
+Running 3th time.
 
-VCM Rotation: -0.251°.
-Line Clearance: 0.699m.
-Flange Height error: -0.017m.
+VCM Rotation: -0.578°.
+Line Clearance: 1.133m.
+Flange Height error: -0.029m.
 
 Paying out 0.2m from the line,
-from 1545.85 to 1546.05
+from 1545.23 to 1545.43
 
-Error: 
+ Bend Restrictor's locked
+
+Shear force in bend_restrictor: 9.329kN.
+Bend moment in bend_restrictor: 9.277kN.m.
+
+VCM Rotation: -0.473°.
+Line Clearance: 0.994m.
+Flange Height error: -0.025m.
+
+Paying out 0.2m from the line,
+from 1545.43 to 1545.63
+
+ Bend Restrictor's locked
+
+Shear force in bend_restrictor: 9.308kN.
+Bend moment in bend_restrictor: 9.189kN.m.
+
+VCM Rotation: -0.368°.
+Line Clearance: 0.854m.
+Flange Height error: -0.022m.
+
+Paying out 0.2m from the line,
+from 1545.63 to 1545.83
+
+ Bend Restrictor's locked
+
+Shear force in bend_restrictor: 9.287kN.
+Bend moment in bend_restrictor: 9.101kN.m.
+
+VCM Rotation: -0.262°.
+Line Clearance: 0.713m.
+Flange Height error: -0.018m.
+
+Paying out 0.2m from the line,
+from 1545.83 to 1546.03
+
+Error:
 Error code: 27
 Static calculation failed (Whole system statics: Not converged.)
 Changing Static damping range and Increasing iterations.
 
-Error: 
+Error:
 Error code: 27
 Static calculation failed (Whole system statics: Not converged.)
 Changing Line's Static policy to Catenary
 
-VCM Rotation: -0.145°.
-Line Clearance: 0.56m.
+ Bend Restrictor's locked
+
+Shear force in bend_restrictor: 9.266kN.
+Bend moment in bend_restrictor: 9.012kN.m.
+
+VCM Rotation: -0.156°.
+Line Clearance: 0.574m.
 Flange Height error: -0.014m.
 
 Retrieving out 0.014m from the winch,
 from 1855.34 to 1855.33
 
-Running 10th time.
+ Bend Restrictor's locked
 
-VCM Rotation: -0.152°.
-Line Clearance: 0.555m.
-Flange Height error: 0.0m.
+Shear force in bend_restrictor: 9.267kN.
+Bend moment in bend_restrictor: 9.018kN.m.
+
+Running 4th time.
+
+VCM Rotation: -0.163°.
+Line Clearance: 0.569m.
+Flange Height error: -0.0m.
 
  Automation's end.
- Execution time: 591.01s
-
-Process finished with exit code 0
+ Execution time: 595.37s

@@ -1,0 +1,200 @@
+Running without bend_restrictor
+
+Running with bend_restrictor
+
+Running with buoys
+
+Partially adding buoyancy
+
+Partial buoyancy: [360.0, 200.0]
+
+Partial buoyancy: [720.0, 400.0]
+
+Partial buoyancy: [1080.0, 600.0]
+
+Partial buoyancy: [1440.0, 800.0]
+
+Partial buoyancy: [1800.0, 1000.0]
+
+Automation's start.
+
+Retrieving out 0.2m from the line,
+from 1984.0 to 1983.8
+
+Line's in contact with seabed
+
+Running 1th time.
+
+VCM Rotation: 0.251°.
+Line Clearance: -0.088m.
+Flange Height error: 0.002m.
+
+Retrieving out 0.5m from the line,
+from 1983.8 to 1983.3
+
+Line's in contact with seabed
+
+VCM Rotation: 0.374°.
+Line Clearance: -0.087m.
+Flange Height error: 0.003m.
+
+Retrieving out 0.5m from the line,
+from 1983.3 to 1982.8
+
+Line's in contact with seabed
+
+VCM Rotation: 0.542°.
+Line Clearance: -0.085m.
+Flange Height error: 0.005m.
+
+Retrieving out 0.5m from the line,
+from 1982.8 to 1982.3
+
+Line's in contact with seabed
+
+VCM Rotation: 0.76°.
+Line Clearance: -0.081m.
+Flange Height error: 0.007m.
+
+Retrieving out 0.5m from the line,
+from 1982.3 to 1981.8
+
+Line's in contact with seabed
+
+VCM Rotation: 1.027°.
+Line Clearance: -0.077m.
+Flange Height error: 0.01m.
+
+Retrieving out 0.5m from the line,
+from 1981.8 to 1981.3
+
+Line's in contact with seabed
+
+VCM Rotation: 1.351°.
+Line Clearance: -0.07m.
+Flange Height error: 0.014m.
+
+Retrieving out 0.5m from the line,
+from 1981.3 to 1980.8
+
+Line's in contact with seabed
+
+VCM Rotation: 1.741°.
+Line Clearance: -0.06m.
+Flange Height error: 0.019m.
+
+Retrieving out 0.5m from the line,
+from 1980.8 to 1980.3
+
+Line's in contact with seabed
+
+VCM Rotation: 2.192°.
+Line Clearance: -0.048m.
+Flange Height error: 0.025m.
+
+Retrieving out 0.5m from the line,
+from 1980.3 to 1979.8
+
+Line's in contact with seabed
+
+VCM Rotation: 2.706°.
+Line Clearance: -0.031m.
+Flange Height error: 0.032m.
+
+Retrieving out 0.5m from the line,
+from 1979.8 to 1979.3
+
+Line's in contact with seabed
+
+VCM Rotation: 3.252°.
+Line Clearance: -0.004m.
+Flange Height error: 0.039m.
+
+Retrieving out 0.5m from the line,
+from 1979.3 to 1978.8
+
+VCM Rotation: 2.705°.
+Line Clearance: 0.299m.
+Flange Height error: 0.03m.
+
+Retrieving out 0.2m from the line,
+from 1978.8 to 1978.6
+
+VCM Rotation: 2.468°.
+Line Clearance: 0.423m.
+Flange Height error: 0.026m.
+
+Retrieving out 0.2m from the line,
+from 1978.6 to 1978.4
+
+VCM Rotation: 2.23°.
+Line Clearance: 0.546m.
+Flange Height error: 0.023m.
+
+Changing buoys
+from dict_keys(['973+573+205', '573+205+205']): dict_values([1751.0, 983.0])
+to dict_keys(['973+573+205', '973+118']): dict_values([1751.0, 1091.0])
+
+ Bend Restrictor's locked
+
+Shear force in bend_restrictor: 3.501kN.
+Bend moment in bend_restrictor: 0.711kN.m.
+
+Running 2th time.
+
+VCM Rotation: -0.832°.
+Line Clearance: 0.917m.
+Flange Height error: -0.024m.
+
+Paying out 0.2m from the line,
+from 1978.4 to 1978.6
+
+ Bend Restrictor's locked
+
+Shear force in bend_restrictor: 2.518kN.
+Bend moment in bend_restrictor: 0.514kN.m.
+
+VCM Rotation: -0.597°.
+Line Clearance: 0.791m.
+Flange Height error: -0.02m.
+
+Paying out 0.2m from the line,
+from 1978.6 to 1978.8
+
+ Bend Restrictor's locked
+
+Shear force in bend_restrictor: 1.534kN.
+Bend moment in bend_restrictor: 0.316kN.m.
+
+VCM Rotation: -0.361°.
+Line Clearance: 0.665m.
+Flange Height error: -0.016m.
+
+Paying out 0.2m from the line,
+from 1978.8 to 1979.0
+
+ Bend Restrictor's locked
+
+Shear force in bend_restrictor: 0.547kN.
+Bend moment in bend_restrictor: 0.118kN.m.
+
+VCM Rotation: -0.125°.
+Line Clearance: 0.537m.
+Flange Height error: -0.013m.
+
+Retrieving out 0.013m from the winch,
+from 2295.69 to 2295.68
+
+ Bend Restrictor's locked
+
+Shear force in bend_restrictor: 0.61kN.
+Bend moment in bend_restrictor: 0.131kN.m.
+
+Running 3th time.
+
+VCM Rotation: -0.141°.
+Line Clearance: 0.532m.
+Flange Height error: 0.0m.
+
+ Automation's end.
+ Execution time: 304.89s
