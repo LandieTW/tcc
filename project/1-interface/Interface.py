@@ -10,6 +10,7 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import json
+import os
 from st_aggrid.grid_options_builder import GridOptionsBuilder
 from st_aggrid import AgGrid
 from st_aggrid import GridUpdateMode
@@ -61,10 +62,15 @@ tooltip_css = """
 
 
 st.markdown(tooltip_css, unsafe_allow_html=True)
-image1_path = Image.open('1-interface/image/Screenshot_1.jpg')
-image2_path = Image.open('1-interface/image/Screenshot_2.jpg')
-image3_path = Image.open('1-interface/image/Screenshot_3.jpg')
-image4_path = Image.open('1-interface/image/Screenshot_4.jpg')
+this_path = os.path.dirname(os.path.abspath(__file__))
+image_1 = os.path.join(this_path, "\\image\\Screenshot_1.jpg")
+image_2 = os.path.join(this_path, "\\image\\Screenshot_2.jpg")
+image_3 = os.path.join(this_path, "\\image\\Screenshot_3.jpg")
+image_4 = os.path.join(this_path, "\\image\\Screenshot_4.jpg")
+image1_path = Image.open(r'C:\\Users\\Daniel\\Downloads\\tcc\\project\\1-interface\\image\\Screenshot_1.jpg')
+image2_path = Image.open(r'C:\\Users\\Daniel\\Downloads\\tcc\\project\\1-interface\\image\\Screenshot_2.jpg')
+image3_path = Image.open(r'C:\\Users\\Daniel\\Downloads\\tcc\\project\\1-interface\\image\\Screenshot_3.jpg')
+image4_path = Image.open(r'C:\\Users\\Daniel\\Downloads\\tcc\\project\\1-interface\\image\\Screenshot_4.jpg')
 
 
 def show_table(dict_data: pd.DataFrame, config: dict):
@@ -127,7 +133,7 @@ def buoys_set(name_vessel: str) -> pd.DataFrame:
     :return: set of vessel's buoys
     """
     set_of_buoys = "buoy_" + name_vessel.lower() + ".json"
-    path = "1-interface/buoy/" + set_of_buoys
+    path = "C:\\Users\\Daniel\\Downloads\\tcc\\project\\1-interface\\buoy\\" + set_of_buoys
     with open(path, 'r', encoding='utf-8') as file:
         json_buoys = json.load(file)
         counter = list(Counter(json_buoys).items())
@@ -142,7 +148,7 @@ def buoys_set(name_vessel: str) -> pd.DataFrame:
         return vessel_buoys_set
 
 
-def st_number_input(label: str) -> st.Number:
+def st_number_input(label: str):
     """
     Pattern for st.number_input in this application
     :param label: Label for a unique st.number_input
@@ -151,7 +157,7 @@ def st_number_input(label: str) -> st.Number:
     return st.number_input(label=label, value=.0, min_value=-200.0, max_value=1_000_000.0, step=.01)
 
 
-def st_image_input(path: Image, caption: str) -> st.DeltaGenerator:
+def st_image_input(path: Image, caption: str):
     """
     Pattern for 'st.image' in this application
     :param path: image's path
