@@ -10,9 +10,9 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import json
+from st_aggrid.grid_options_builder import GridOptionsBuilder
 from st_aggrid import AgGrid
 from st_aggrid import GridUpdateMode
-from st_aggrid import GridOptionsBuilder
 from PIL import Image
 from collections import Counter
 
@@ -67,7 +67,7 @@ image3_path = Image.open('1-interface/image/Screenshot_3.jpg')
 image4_path = Image.open('1-interface/image/Screenshot_4.jpg')
 
 
-def show_table(dict_data: pd.DataFrame, config: dict) -> AgGrid:
+def show_table(dict_data: pd.DataFrame, config: dict):
     """
     Shows the table in the interface
     :param dict_data: dict_data
@@ -92,10 +92,8 @@ def data_treatment(data_: dict) -> pd.DataFrame:
     :return: treated dataframe
     """
     df = pd.DataFrame(data_)
-    df = df.map(lambda x: x.replace(",", ".") if isinstance(
-        x, str) else x)
-    df = df.map(lambda x: x.strip() if isinstance(
-        x, str) else x)
+    df = df.map(lambda x: x.replace(",", ".") if isinstance(x, str) else x)
+    df = df.map(lambda x: x.strip() if isinstance(x, str) else x)
     for col in df.columns:
         df[col] = pd.to_numeric(df[col], errors='coerce')
     df.replace("", pd.NA, inplace=True)
@@ -104,8 +102,7 @@ def data_treatment(data_: dict) -> pd.DataFrame:
     return df
 
 
-def creating_table(
-        dict_data: pd.DataFrame, column_1: str, column_2: str) -> dict:
+def creating_table(dict_data: pd.DataFrame, column_1: str, column_2: str) -> dict:
     """
     Creates the table configuration
     :param dict_data: dict to configure
@@ -115,8 +112,7 @@ def creating_table(
     """
     this_data = pd.DataFrame(dict_data)
     gb = GridOptionsBuilder.from_dataframe(this_data)
-    gb.configure_default_column(
-        editable=True, min_column_width=100, resizable=True)
+    gb.configure_default_column(editable=True, min_column_width=100, resizable=True)
     gb.configure_column(column_1, flex=1)
     gb.configure_column(column_2, flex=1)
     gb.configure_grid_options()
@@ -146,18 +142,16 @@ def buoys_set(name_vessel: str) -> pd.DataFrame:
         return vessel_buoys_set
 
 
-def st_number_input(label: str) -> st.number_input:
+def st_number_input(label: str) -> st.Number:
     """
     Pattern for st.number_input in this application
     :param label: Label for a unique st.number_input
     :return: st.number_input
     """
-    return st.number_input(
-        label=label, value=.0, min_value=-200.0, max_value=1_000_000.0,
-        step=.01)
+    return st.number_input(label=label, value=.0, min_value=-200.0, max_value=1_000_000.0, step=.01)
 
 
-def st_image_input(path: Image, caption: str) -> st.image:
+def st_image_input(path: Image, caption: str) -> st.DeltaGenerator:
     """
     Pattern for 'st.image' in this application
     :param path: image's path
