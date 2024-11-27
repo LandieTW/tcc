@@ -133,7 +133,7 @@ def buoys_set(name_vessel: str) -> pd.DataFrame:
     :return: set of vessel's buoys
     """
     set_of_buoys = "buoy_" + name_vessel.lower() + ".json"
-    path = "C:\\Users\\Daniel\\Downloads\\tcc\\project\\1-interface\\buoy\\" + set_of_buoys
+    path = os.getcwd() + "\\buoy\\" + set_of_buoys
     with open(path, 'r', encoding='utf-8') as file:
         json_buoys = json.load(file)
         counter = list(Counter(json_buoys).items())

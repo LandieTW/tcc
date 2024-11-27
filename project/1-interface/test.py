@@ -25,6 +25,14 @@ def show_table(dict_data: pd.DataFrame) -> pd.DataFrame:
     # Retorna os dados modificados pelo usuário
     return grid_response['data']
 
+st.set_page_config(
+    page_title="Automatic DVC",
+    layout="wide"
+)
+st.title(
+    "Installation Analysis Subsea"
+)
+
 # Exemplo de dados
 data1 = pd.DataFrame({
     'Curvature [1/m]': [1.2, 2.3, 3.4],
@@ -34,12 +42,15 @@ data1 = pd.DataFrame({
 # Exibe a tabela interativa
 grid_response1 = show_table(data1)
 
-# Exibe os dados modificados
-st.write("Dados após a edição:")
-st.write(grid_response1)
+tab0 = st.tabs["teste"]
 
-# Exemplo de botão para salvar os dados editados
-if st.button("Save Data"):
-    # Aqui você pode salvar os dados em um arquivo ou banco de dados
-    # Exemplo: grid_response1.to_csv("dados_editados.csv")
-    st.write("Dados salvos com sucesso!")
+with tab0:
+    # Exibe os dados modificados
+    st.write("Dados após a edição:")
+    st.write(grid_response1)
+
+    # Exemplo de botão para salvar os dados editados
+    if st.button("Save Data"):
+        # Aqui você pode salvar os dados em um arquivo ou banco de dados
+        # Exemplo: grid_response1.to_csv("dados_editados.csv")
+        st.write("Dados salvos com sucesso!")
