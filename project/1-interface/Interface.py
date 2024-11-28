@@ -5,7 +5,6 @@ for the installation stages, in conformity with the technical specification
 ET-3000.00-1500-951-PMU-001 Rev. F
 """
 
-
 import streamlit as st
 import pandas as pd
 import plotly.express as px
@@ -17,15 +16,11 @@ from st_aggrid import GridUpdateMode
 from PIL import Image
 from collections import Counter
 
-
 st.set_page_config(
     page_title="Automatic DVC",
     layout="wide"
 )
-st.title(
-    "Installation Analysis Subsea"
-)
-
+st.title("Installation Analysis Subsea")
 
 tooltip_css = """
 <style>
@@ -60,18 +55,12 @@ tooltip_css = """
 </style>
 """
 
-
 st.markdown(tooltip_css, unsafe_allow_html=True)
 this_path = os.path.dirname(os.path.abspath(__file__))
-image_1 = os.path.join(this_path, "\\image\\Screenshot_1.jpg")
-image_2 = os.path.join(this_path, "\\image\\Screenshot_2.jpg")
-image_3 = os.path.join(this_path, "\\image\\Screenshot_3.jpg")
-image_4 = os.path.join(this_path, "\\image\\Screenshot_4.jpg")
-image1_path = Image.open(r'C:\\Users\\Daniel\\Downloads\\tcc\\project\\1-interface\\image\\Screenshot_1.jpg')
-image2_path = Image.open(r'C:\\Users\\Daniel\\Downloads\\tcc\\project\\1-interface\\image\\Screenshot_2.jpg')
-image3_path = Image.open(r'C:\\Users\\Daniel\\Downloads\\tcc\\project\\1-interface\\image\\Screenshot_3.jpg')
-image4_path = Image.open(r'C:\\Users\\Daniel\\Downloads\\tcc\\project\\1-interface\\image\\Screenshot_4.jpg')
-
+image1_path = Image.open(this_path + "\\image\\Screenshot_1.jpg")
+image2_path = Image.open(this_path + "\\image\\Screenshot_2.jpg")
+image3_path = Image.open(this_path + "\\image\\Screenshot_3.jpg")
+image4_path = Image.open(this_path + "\\image\\Screenshot_4.jpg")
 
 def show_table(dict_data: pd.DataFrame, config: dict):
     """
@@ -90,8 +79,7 @@ def show_table(dict_data: pd.DataFrame, config: dict):
         update_mode=GridUpdateMode.MODEL_CHANGED
     )
 
-
-def data_treatment(data_: dict) -> pd.DataFrame:
+def data_treatment(data_: dict):
     """
     Receives data and treats it
     :param data_: grid_response_data
@@ -100,13 +88,12 @@ def data_treatment(data_: dict) -> pd.DataFrame:
     df = pd.DataFrame(data_)
     df = df.map(lambda x: x.replace(",", ".") if isinstance(x, str) else x)
     df = df.map(lambda x: x.strip() if isinstance(x, str) else x)
-    for col in df.columns:
+    for col in df.columns: 
         df[col] = pd.to_numeric(df[col], errors='coerce')
     df.replace("", pd.NA, inplace=True)
     df = df.dropna(how="all")
     df.reset_index(drop=True, inplace=True)
     return df
-
 
 def creating_table(dict_data: pd.DataFrame, column_1: str, column_2: str) -> dict:
     """
@@ -116,8 +103,7 @@ def creating_table(dict_data: pd.DataFrame, column_1: str, column_2: str) -> dic
     :param column_2: header_2 name
     :return: grid_build of the table
     """
-    this_data = pd.DataFrame(dict_data)
-    gb = GridOptionsBuilder.from_dataframe(this_data)
+    gb = GridOptionsBuilder.from_dataframe(dict_data)
     gb.configure_default_column(editable=True, min_column_width=100, resizable=True)
     gb.configure_column(column_1, flex=1)
     gb.configure_column(column_2, flex=1)
@@ -125,15 +111,14 @@ def creating_table(dict_data: pd.DataFrame, column_1: str, column_2: str) -> dic
     g_build = gb.build()
     return g_build
 
-
-def buoys_set(name_vessel: str) -> pd.DataFrame:
+def buoys_set(name_vessel: str):
     """
     Returns the vessel's buoy
     :param name_vessel: operation's vessel
     :return: set of vessel's buoys
     """
     set_of_buoys = "buoy_" + name_vessel.lower() + ".json"
-    path = os.path.dirname(os.path.abspath(__file__)) + "\\buoy\\" + set_of_buoys
+    path = this_path + "\\buoy\\" + set_of_buoys
     with open(path, 'r', encoding='utf-8') as file:
         json_buoys = json.load(file)
         counter = list(Counter(json_buoys).items())
@@ -147,15 +132,19 @@ def buoys_set(name_vessel: str) -> pd.DataFrame:
         })
         return vessel_buoys_set
 
-
 def st_number_input(label: str):
     """
     Pattern for st.number_input in this application
     :param label: Label for a unique st.number_input
     :return: st.number_input
     """
-    return st.number_input(label=label, value=.0, min_value=-200.0, max_value=1_000_000.0, step=.01)
-
+    return st.number_input(
+        label=label, 
+        value=.0, 
+        min_value=-200.0, 
+        max_value=1_000_000.0, 
+        step=.01
+        )
 
 def st_image_input(path: Image, caption: str):
     """
@@ -164,33 +153,49 @@ def st_image_input(path: Image, caption: str):
     :param caption: image's caption
     :return: 'st.image'
     """
-    return st.image(path, caption=caption, use_column_width=False, width=500)
+    return st.image(
+        path, 
+        caption=caption, 
+        use_column_width=False, 
+        width=500
+        )
 
-
-data1 = pd.DataFrame({
+data1 = pd.DataFrame(
+    {
     'Curvature [1/m]': [pd.NA] * 50,
     'Bend Moment [N.m]': [pd.NA] * 50
-})
+    })
+
 grid_options1 = creating_table(
     data1,
     "Curvature [1/m]",
-    "Bend Moment [N.m]")
-data2 = pd.DataFrame({
+    "Bend Moment [N.m]"
+    )
+
+data2 = pd.DataFrame(
+    {
     'Distance from flange [m]': [pd.NA] * 50,
     'Flange Height to the seabed [mm]': [pd.NA] * 50
-})
+    })
+
 grid_options2 = creating_table(
     data2,
     "Distance from flange [m]",
-    "Flange Height to the seabed [mm]")
-data3 = pd.DataFrame({
+    "Flange Height to the seabed [mm]"
+    )
+
+data3 = pd.DataFrame(
+    {
     'Position [m]': [pd.NA] * 50,
     'Buoyancy [kg]': [pd.NA] * 50
-})
+    })
+
 grid_options3 = creating_table(
     data3,
     "Position [m]",
-    "Buoyancy [kg]")
+    "Buoyancy [kg]"
+    )
+
 tab0, tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs([
     "Notes",
     "Flexible pipe",
@@ -201,7 +206,6 @@ tab0, tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs([
     "Analysis",
     "Review"
 ])
-
 
 with tab0:
     st.header("ADOPTED DATA")
@@ -216,72 +220,45 @@ with tab0:
     col1, col2, col3 = st.columns([1.25, 1.25, 2])
     with col1:
         st.text(
-            "SEABED DATA"
-            "\n"
-            "Longitudinal friction coefficient = 0.35"
-            "\n"
-            "Transversal friction coefficient = 0.9"
-            "\n"
-            "Normal stiffness = 100 kN/m/m"
-            "\n"
-            "Shear stiffness = 10000 kN/m/m"
-            "\n"
-            "Slope = 0.00 °"
-            "\n"
+            "SEABED DATA\n"
+            "Longitudinal friction coefficient = 0.35\n"
+            "Transversal friction coefficient = 0.9\n"
+            "Normal stiffness = 100 kN/m/m\n"
+            "Shear stiffness = 10000 kN/m/m\n"
+            "Slope = 0.00 °\n"
             "Note: The friction coefficients are properties that\n"
-            "depend not only on the soil but also on the pipe."
-            "\n\n"
+            "depend not only on the soil but also on the pipe.\n\n"
         )
         st.text(
-            "STEEL PROPERTIES"
-            "\n"
-            "Elastic Modulus = 2,07 . 10e8 kN/m²"
-            "\n"
-            "Poisson's Ratio = 0,3"
-            "\n\n"
+            "STEEL PROPERTIES\n"
+            "Elastic Modulus = 2,07 . 10e8 kN/m²\n"
+            "Poisson's Ratio = 0,3\n\n"
         )
         st.text(
-            "DENSITIES"
-            "\n"
-            "Seawater: 1025 kg/m³"
-            "\n"
-            "Steel: 7800 kg/m³"
-            "\n\n"
+            "DENSITIES\n"
+            "Seawater: 1025 kg/m³\n"
+            "Steel: 7800 kg/m³\n"
         )
     with col2:
         st.text(
-            "BEND RESTRICTOR STIFFNESS"
-            "\n"
-            "Axial Stiffness: 10 kN"
-            "\n"
-            "Torsional Stiffness: 10 kN.m²"
-            "\n\n"
+            "BEND RESTRICTOR STIFFNESS\n"
+            "Axial Stiffness: 10 kN\n"
+            "Torsional Stiffness: 10 kN.m²\n\n"
         )
         st.text(
-            "LINK OBJECTS"
-            "\n"
-            "Length: 3 m"
-            "\n"
-            "Axial stiffness: 1000 kN"
-            "\n\n"
+            "LINK OBJECTS\n"
+            "Length: 3 m\n"
+            "Axial stiffness: 1000 kN\n\n"
         )
         st.text(
-            "CRANE CABLE"
-            "\n"
-            "OD = 0,09"
-            "\n"
-            "ID = 0"
-            "\n"
-            "W = 31 kgf/m"
-            "\n"
-            "Bending stiffness (EI) = 50 kN.m²"
-            "\n"
-            "Axial stiffness (EA) = 500.000 kN"
-            "\n"
-            "Torsional stiffness (GJ) = 200 kN.m²"
-            "\n"
-            "Poisson's ratio = 0,3"
-            "\n\n"
+            "CRANE CABLE\n"
+            "OD = 0,09\n"
+            "ID = 0\n"
+            "W = 31 kgf/m\n"
+            "Bending stiffness (EI) = 50 kN.m²\n"
+            "Axial stiffness (EA) = 500.000 kN\n"
+            "Torsional stiffness (GJ) = 200 kN.m²\n"
+            "Poisson's ratio = 0,3\n"
         )
     with col3:
         st.write("")
@@ -293,52 +270,59 @@ with tab1:
     col1, col2, col3, col4 = st.columns([1, 1, 2, 3])
     with col1:
         ident_line = st.text_input("1. Structure Number")
-        version_line = st.text_input("2. Document Version")
-        wt_air_line = st_number_input("3. Wt, Empty in Air [kg/m]")
-        sw_filled_air_line = st_number_input("4. S/W, Filled in Air [kg/m]")
-        air_filled_sw_line = st_number_input("5. Air Filled in S/W [kg/m]")
-        sw_filled_sw_line = st_number_input("6. S/W Filled in S/W [kg/m]")
-        contact_diameter_line = st_number_input("7. Contact Diameter [mm]")
-        nominal_diameter_line = st_number_input('8. Nominal Diameter ["]')
-    with col2:
-        water_depth = st_number_input("9. Water Depth [m]")
-        mbr_storage_line = st_number_input("10. MBR Storage [m]")
-        mbr_installation_line = st_number_input("11. MBR Installation [m]")
-        bending_stiffness_line = st_number_input(
-            "12. Pipe Bending Stiffness [kN.m²]")
+        water_depth = st_number_input("2. Water Depth [m]")
         st.markdown(
-            '<div class="tooltip"># Torsional Stiffness Tooltip'
+            '<div class="tooltip"># Lines length Tooltip'
             '<span class="tooltip_text">'
-            "For cases in which there is no<br>"
-            "Torsional Stiffness in datasheet,<br>"
-            "use the values below:<br>"
-            'ND=2,5" -> TS=300kN.m²<br>'
-            'ND=4" -> TS=500kN.m²<br>'
-            'ND=6"(no isolation) -> TS=1000kN.m²<br>'
-            'ND=6"(isolation) -> TS=1500kN.m²<br>'
-            'ND=8" -> TS=2000kN.m²<br>'
-            'ND=9,13" -> TS=2300kN.m²<br>'
+                "Filled just in case of jumper DVC.<br>"
+                "(When line's length < Water depth)"
             '</span>'
             '</div>',
             unsafe_allow_html=True
         )
-        torsional_stiffness_line = st_number_input(
-            "13. Torsional Stiffness (Limp Direction) [kN.m²]")
+        line_length = st_number_input("3. Line's length [m]")
+        contact_diameter_line = st_number_input("4. Contact Diameter [mm]")
+        nominal_diameter_line = st_number_input('5. Nominal Diameter ["]')
+        mbr_storage_line = st_number_input("6. MBR Storage [m]")
+        mbr_installation_line = st_number_input("7. MBR Installation [m]")
         st.markdown(
             '<div class="tooltip"># Axial Stiffness Tooltip'
             '<span class="tooltip_text">'
-            "Axial Stiffness considered for<br>"
-            "a 100kN axial load"
+                "Axial Stiffness considered for<br>"
+                "a 100kN axial load"
             '</span>'
             '</div>',
             unsafe_allow_html=True
         )
-        axial_stiffness_line = st_number_input("14. Axial Stiffness [kN]")
+        axial_stiffness_line = st_number_input("8. Axial Stiffness [kN]")
+    with col2:
+        wt_air_line = st_number_input("9. Wt, Empty in Air [kg/m]")
+        sw_filled_air_line = st_number_input("10. S/W, Filled in Air [kg/m]")
+        air_filled_sw_line = st_number_input("11. Air Filled in S/W [kg/m]")
+        sw_filled_sw_line = st_number_input("12. S/W Filled in S/W [kg/m]")
+        bending_stiffness_line = st_number_input("13. Pipe Bending Stiffness [kN.m²]")
+        st.markdown(
+            '<div class="tooltip"># Torsional Stiffness Tooltip'
+            '<span class="tooltip_text">'
+                "For cases in which there is no<br>"
+                "Torsional Stiffness in datasheet,<br>"
+                "use the values below:<br>"
+                'ND=2,5" - TS=300kN.m²<br>'
+                'ND=4" - TS=500kN.m²<br>'
+                'ND=6"(no isolation) - TS=1000kN.m²<br>'
+                'ND=6"(isolation) - TS=1500kN.m²<br>'
+                'ND=8" - TS=2000kN.m²<br>'
+                'ND=9,13" - TS=2300kN.m²<br>'
+            '</span>'
+            '</div>',
+            unsafe_allow_html=True
+        )
+        torsional_stiffness_line = st_number_input("14. Torsional Stiffness (Limp Direction) [kN.m²]")
         st.markdown(
             '<div class="tooltip"># Rel. Elong. Tooltip'
             '<span class="tooltip_text">'
-            "Just fill it if there is no Axial<br>"
-            "Stiffness in datasheet."
+                "Just fill it if there is no Axial<br>"
+                "Stiffness in datasheet."
             '</span>'
             '</div>',
             unsafe_allow_html=True
@@ -360,16 +344,14 @@ with tab1:
                 fig.update_traces(mode='lines+markers')
                 st.plotly_chart(fig)
 
-
 with tab2:
     st.header("Bend Restrictor")
     st.write("Inform the Bend Restrictor's Data")
     col1, col2, col3, col4, col5 = st.columns([1, 1, 1, 1, 2])
     with col1:
-        type_bend_restrictor = st.radio("18. Material Selection", ["Steel",
-                                                                   "Polymer"])
-        ident_bend_restrictor = st.text_input("16. Structure Number")
-        version_bend_restrictor = st.text_input("17. Document Version")
+        type_bend_restrictor = st.radio("16. Material Selection", ["Steel", "Polymer"])
+        ident_bend_restrictor = st.text_input("17. Structure Number")
+        version_bend_restrictor = st.text_input("18. Document Version")
         if type_bend_restrictor == "Polymer":
             st.markdown(
                 '<div class="tooltip"># Free Length Tooltip'
@@ -395,20 +377,15 @@ with tab2:
     with col2:
         od_bend_restrictor = st_number_input("22. Outside Diameter [mm]")
         id_bend_restrictor = st_number_input("23. Internal Diameter [mm]")
-        contact_diameter_bend_restrictor = st_number_input(
-            "24. Contact Diameter [mm]")
+        contact_diameter_bend_restrictor = st_number_input("24. Contact Diameter [mm]")
         locking_mbr_bend_restrictor = st_number_input("25. Locking MBR [m]")
-        bend_moment_bend_restrictor = st_number_input(
-            "26. Maximum Allowable Bend Moment [kN.m]")
-        shear_stress_bend_restrictor = st_number_input(
-            "27. Maximum Allowable Shear Stress [kN]")
+        bend_moment_bend_restrictor = st_number_input("26. Maximum Allowable Bend Moment [kN.m]")
+        shear_stress_bend_restrictor = st_number_input("27. Maximum Allowable Shear Stress [kN]")
     if type_bend_restrictor == "Polymer":
         with col3:
             rz_ident_bend_restrictor = st.text_input("28. RZ Structure Number")
-            rz_version_bend_restrictor = st.text_input(
-                "29. RZ Document Version")
-            rz_wt_air_bend_restrictor = st_number_input(
-                "30. RZ Wt in Air [kg]")
+            rz_version_bend_restrictor = st.text_input("29. RZ Document Version")
+            rz_wt_air_bend_restrictor = st_number_input("30. RZ Wt in Air [kg]")
             st.markdown(
                 '<div class="tooltip">Wt in S/W Tooltip'
                 '<span class="tooltip_text">'
@@ -419,22 +396,15 @@ with tab2:
             )
             rz_wt_sw_bend_restrictor = st_number_input("31. RZ Wt in S/W [kg]")
         with col4:
-            rz_length_bend_restrictor = st_number_input(
-                "32. RZ Total Length [mm]")
-            rz_od_bend_restrictor = st_number_input(
-                "33. RZ Outside Diameter [mm]")
-            rz_id_bend_restrictor = st_number_input(
-                "34. RZ Internal Diameter [mm]")
-            rz_contact_diameter_bend_restrictor = st_number_input(
-                "35. RZ Contact Diameter [mm]")
+            rz_length_bend_restrictor = st_number_input("32. RZ Total Length [mm]")
+            rz_od_bend_restrictor = st_number_input("33. RZ Outside Diameter [mm]")
+            rz_id_bend_restrictor = st_number_input("34. RZ Internal Diameter [mm]")
+            rz_contact_diameter_bend_restrictor = st_number_input("35. RZ Contact Diameter [mm]")
         with col5:
-            image_bend_restrictor = st_image_input(
-                image1_path, "Typical Bend Restrictor, with MBR")
+            image_bend_restrictor = st_image_input(image1_path, "Typical Bend Restrictor, with MBR")
     else:
         with col3:
-            image_bend_restrictor = st_image_input(
-                image1_path, "Typical Bend Restrictor, with MBR")
-
+            image_bend_restrictor = st_image_input(image1_path, "Typical Bend Restrictor, with MBR")
 
 with tab3:
     st.header("End-Fitting")
@@ -457,12 +427,9 @@ with tab3:
         length_end_fitting = st_number_input("40. Total Length [mm]")
         od_end_fitting = st_number_input("41. Outside Diameter [mm]")
         id_end_fitting = st_number_input("42. Internal Diameter [mm]")
-        contact_diameter_end_fitting = st_number_input(
-            "43. Contact Diameter [mm]")
+        contact_diameter_end_fitting = st_number_input("43. Contact Diameter [mm]")
     with col3:
-        image_end_fitting = st_image_input(
-            image2_path, "Typical End Fitting")
-
+        image_end_fitting = st_image_input(image2_path, "Typical End Fitting")
 
 with tab4:
     st.header("Flange Adapter")
@@ -501,22 +468,14 @@ with tab5:
         wt_sw_vcm = st_number_input("57. Weight in S/W")
         declination = st_number_input("58. Declination Goose-neck's Angle")
     with col2:
-        a_vcm = st_number_input(
-            "59. A [mm] - VCM Flange's Vertical Distance to the Seabed")
-        b_vcm = st_number_input(
-            "60. B [mm] - Handle's Vertical Distance to the Flange")
-        c_vcm = st_number_input(
-            "61. C [mm] - Handle's Horizontal Distance to the Flange")
-        d_vcm = st_number_input(
-            "62. D [mm] - CoG Vertical Distance to the Flange")
-        e_vcm = st_number_input(
-            "63. E [mm] - CoG Horizontal Distance to the Flange")
-        f_vcm = st_number_input(
-            "64. F [mm] - VCM Base's Vertical Distance to the Flange")
-        g_vcm = st_number_input(
-            "65. G [mm] - VCM Base's Horizontal Distance to the Flange")
-        h_vcm = st_number_input(
-            "66. H [mm] - CoG Position Relative to the y-Axis")
+        a_vcm = st_number_input("59. A [mm] - VCM Flange's Vertical Distance to the Seabed")
+        b_vcm = st_number_input("60. B [mm] - Handle's Vertical Distance to the Flange")
+        c_vcm = st_number_input("61. C [mm] - Handle's Horizontal Distance to the Flange")
+        d_vcm = st_number_input("62. D [mm] - CoG Vertical Distance to the Flange")
+        e_vcm = st_number_input("63. E [mm] - CoG Horizontal Distance to the Flange")
+        f_vcm = st_number_input("64. F [mm] - VCM Base's Vertical Distance to the Flange")
+        g_vcm = st_number_input("65. G [mm] - VCM Base's Horizontal Distance to the Flange")
+        h_vcm = st_number_input("66. H [mm] - CoG Position Relative to the y-Axis")
     with col3:
         image_vcm = st_image_input(image3_path, "Typical VCM")
     with col4:
@@ -532,14 +491,10 @@ with tab6:
     col1, col2, col3, col4, col5 = st.columns(5)
     with col1:
         rt_number = st.text_input("RT+Number")
-        vessel = st.selectbox(
-            "67. Vessel",
-            ["CDA", "SKA", "SKB", "SKN", "SKR", "SKO", "SKV"]
-        )
+        vessel = st.selectbox("67. Vessel", ["CDA", "SKA", "SKB", "SKN", "SKR", "SKO", "SKV"])
         if vessel:
             data4 = buoys_set(vessel)
-            grid_options4 = creating_table(
-                data4, "Quantity", "Buoy [kg]")
+            grid_options4 = creating_table(data4, "Quantity", "Buoy [kg]")
             grid_response4 = show_table(data4, grid_options4)
     with col2:
         st.write("Report's Buoy Configuration")
@@ -562,10 +517,7 @@ with tab6:
 
 
 with tab7:
-    uploaded_file = st.file_uploader(
-        "Choose the file",
-        type=["json"]
-    )
+    uploaded_file = st.file_uploader("Choose the file", type=["json"])
     if uploaded_file is not None:
         file_content = uploaded_file.read()
         data = json.loads(file_content)
@@ -586,9 +538,11 @@ with tab7:
             col7_1, col7_2, col7_3, col7_4, col7_5, col7_6 = st.columns(6)
             with col7_1:
                 st.write("Line's data")
+                if line_length == .0:
+                    line_length = water_depth
                 dict_line = {
                     'ident_line': ident_line,
-                    'version_line': version_line,
+                    'line_length': line_length,
                     'wt_air_line': wt_air_line,
                     'sw_filled_air_line': sw_filled_air_line,
                     'air_filled_sw_line': air_filled_sw_line,
@@ -599,8 +553,7 @@ with tab7:
                     'mbr_storage_line [m]': mbr_storage_line,
                     'mbr_installation_line': mbr_installation_line,
                     'bending_stiffness_line': bending_stiffness_line,
-                    'torsional_stiffness_line':
-                        torsional_stiffness_line,
+                    'torsional_stiffness_line':torsional_stiffness_line,
                     'axial_stiffness_line': axial_stiffness_line,
                     'rel_elong_line': rel_elong_line
                 }
