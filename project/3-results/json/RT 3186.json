@@ -1,0 +1,167 @@
+[
+    {
+        "ident_line": "WSI 152.54903",
+        "line_length": 990.0,
+        "wt_air_line": 193.26,
+        "sw_filled_air_line": 213.96,
+        "air_filled_sw_line": 78.36,
+        "sw_filled_sw_line": 99.05,
+        "water_depth": 2232.0,
+        "contact_diameter_line": 377.8,
+        "nominal_diameter_line": 6.0,
+        "mbr_storage_line [m]": 2.45,
+        "mbr_installation_line": 3.07,
+        "bending_stiffness_line": 148.29,
+        "torsional_stiffness_line": 1000.0,
+        "axial_stiffness_line": 100000.02,
+        "rel_elong_line": 0.009815
+    },
+    [
+        [
+            0.0,
+            0.0118,
+            0.034,
+            0.0778,
+            0.3265
+        ],
+        [
+            0.0,
+            84228.0,
+            128348.0,
+            166733.0,
+            384523.0
+        ]
+    ],
+    {
+        "ident_bend_restrictor": "300121C-079741-000-DW-5224-0008",
+        "version_bend_restrictor": "0",
+        "type_bend_restrictor": "Steel",
+        "length_bend_restrictor": 4515.0,
+        "wt_air_bend_restrictor": 2828.0,
+        "wt_sw_bend_restrictor": 2460.0,
+        "od_bend_restrictor": 655.0,
+        "id_bend_restrictor": 404.0,
+        "contact_diameter_bend_restrictor": 774.0,
+        "locking_mbr_bend_restrictor": 3.414,
+        "bend_moment_bend_restrictor": 46.0,
+        "shear_stress_bend_restrictor": 97.0
+    },
+    {
+        "ident_end_fitting": "300121C-079741-000-DW-5212-0057",
+        "version_end_fitting": "0",
+        "wt_air_end_fitting": 1314.0,
+        "wt_sw_end_fitting": 1143.0,
+        "length_end_fitting": 1795.0,
+        "od_end_fitting": 280.0,
+        "id_end_fitting": 152.4,
+        "contact_diameter_end_fitting": 545.0
+    },
+    {
+        "ident_flange": "",
+        "version_flange": "",
+        "wt_air_flange": 0.0,
+        "wt_sw_flange": 0.0,
+        "length_flange": 0.0,
+        "od_flange": 0.0,
+        "id_flange": 0.0,
+        "contact_diameter_flange": 0.0
+    },
+    {
+        "subsea_equipment": "FD-3A38.00-1516-619-PEK-019",
+        "version_vcm": "0",
+        "supplier_vcm": "TechnipFMC",
+        "drawing_vcm": "10133646 / 10001714705 (AS-240) Rev. 06",
+        "subsea_equipment_type": "BAP",
+        "wt_sw_vcm": 6513.0,
+        "declination": 60.0,
+        "a_vcm": 4400.0,
+        "b_vcm": 936.0,
+        "c_vcm": 1618.0,
+        "d_vcm": 322.0,
+        "e_vcm": 1620.0,
+        "f_vcm": 1773.0,
+        "g_vcm": 1919.0,
+        "h_vcm": 0.0
+    },
+    [
+        [
+            0.0,
+            3.0,
+            8.0,
+            13.0,
+            16.5
+        ],
+        [
+            4400.0,
+            4400.0,
+            5500.0,
+            5500.0,
+            4400.0
+        ]
+    ],
+    "RT 3186",
+    "SKA",
+    [
+        [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            2,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+        ],
+        [
+            1416,
+            1376,
+            1345,
+            1323,
+            1320,
+            871,
+            741,
+            660,
+            647,
+            381,
+            377,
+            155,
+            104,
+            101,
+            100
+        ]
+    ],
+    [
+        [
+            3.0,
+            6.0
+        ],
+        [
+            2000.0,
+            700.0
+        ]
+    ],
+    {
+        "3ia": [
+            8.5,
+            -11.35,
+            126.14
+        ],
+        "3ib": [
+            13.82,
+            -28.89,
+            -68.61
+        ],
+        "3ii": [
+            15.15,
+            -29.45,
+            -149.18
+        ]
+    }
+]

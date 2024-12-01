@@ -1,7 +1,7 @@
 [
     {
         "ident_line": "NOV-101-9101",
-        "version_line": "C",
+        "line_length": 735.0,
         "wt_air_line": 45.97,
         "sw_filled_air_line": 55.3,
         "air_filled_sw_line": 23.9,

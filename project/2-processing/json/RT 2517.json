@@ -1,7 +1,7 @@
 [
     {
         "ident_line": "WSI 152.2547-RD-4042-X",
-        "version_line": "2",
+        "line_length": 2300.0,
         "wt_air_line": 106.58,
         "sw_filled_air_line": 126.39,
         "air_filled_sw_line": 54.46,

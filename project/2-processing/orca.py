@@ -170,4 +170,6 @@ file = rt_number + ".dat"
 destiny_file = os.path.join(destiny, file)
 model.SaveData(destiny_file)
 
+objects.append(a_r)
+
 object_elements = objects
