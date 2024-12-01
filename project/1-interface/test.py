@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 
 import os
@@ -46,3 +47,5 @@ File "C:\Users\dwanderley\AppData\Local\Programs\Python\Python310\lib\codecs.py"
 
 UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte
 """
+=======
+>>>>>>> 82e82c9d16301a8192bb2b23b8bfc450f75836bc
