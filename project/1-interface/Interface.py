@@ -4,15 +4,11 @@ import pandas as pd
 import plotly.express as px
 import json
 import os
-import sys
-import codecs
 from st_aggrid.grid_options_builder import GridOptionsBuilder
 from st_aggrid import AgGrid
 from st_aggrid import GridUpdateMode
 from PIL import Image
 from collections import Counter
-
-sys.stdout = codecs.getwriter("utf-8")(sys.stdout.buffer)
 
 st.set_page_config(
     page_title="Automatic DVC",
