@@ -390,7 +390,8 @@ def looping(model_line_type: OrcFxAPI.OrcaFlexObject, selection: dict, model: Or
             object_line: methods.Line, object_bend_restrictor: methods.BendRestrictor,
             object_vcm: methods.Vcm, winch: OrcFxAPI.OrcaFlexObject,
             general: OrcFxAPI.OrcaFlexObject, environment: OrcFxAPI.OrcaFlexObject,
-            file_path: str, structural: dict, prohibited_position: float) -> None:
+            file_path: str, structural: dict, prohibited_position: float, 
+            a_r: OrcFxAPI.OrcaFlexObject) -> None:
     """
     In looping, controls the model's changing.
     If VCM's rotation's the problem: changes buoy position
@@ -412,6 +413,7 @@ def looping(model_line_type: OrcFxAPI.OrcaFlexObject, selection: dict, model: Or
     :param rl_config: RL's configuration suggestion
     :param buoy_set: Vessel's buoys
     :param model_vcm: VCM model
+    :param a_r: A/R cable model
     :param object_line: Line object class
     :param object_vcm: VCM object class
     :param prohibited_position: prohibited position to insert buoys for operational reasons
@@ -471,11 +473,11 @@ def looping(model_line_type: OrcFxAPI.OrcaFlexObject, selection: dict, model: Or
                 """
     if clearance < clearance_limit_inf or clearance > clearance_limit_sup:
         if clearance < 0:
-            payout_retrieve_line(model_line_type, -payout_retrieve_pace_max)
+            payout_retrieve_line(model_line_type, -payout_retrieve_pace_max, object_line, a_r)
         elif clearance < clearance_limit_inf:
-            payout_retrieve_line(model_line_type, - payout_retrieve_pace_min)
+            payout_retrieve_line(model_line_type, - payout_retrieve_pace_min, object_line, a_r)
         elif clearance > clearance_limit_sup:
-            payout_retrieve_line(model_line_type, payout_retrieve_pace_min)
+            payout_retrieve_line(model_line_type, payout_retrieve_pace_min, object_line, a_r)
         n_run = max(n_run - 1, 0)  # não contabiliza ajustes no comprimento da linha como iteração
         call_loop(model_line_type, selection, model, bend_restrictor_model, rt_number, vessel,
                     rl_config, buoy_set, model_vcm, object_line, object_bend_restrictor, object_vcm,
@@ -631,20 +633,30 @@ def changing_buoys(selection: dict, buoy_set: list, new_rl_config: list,
     return selection
 
 
-def payout_retrieve_line(line_model: OrcFxAPI.OrcaFlexObject, delta: float) -> None:
+def payout_retrieve_line(line_model: OrcFxAPI.OrcaFlexObject, delta: float,
+                         object_line: methods.Line, a_r: OrcFxAPI.OrcaFlexObject) -> None:
     """
     Line's payout/retrieve
     :param delta: Line range to be retrieved or payed out
     :param line_model: Line model
     :return: Nothing
     """
-    if delta > 0:
-        print(f"\nPaying out {delta}m from the line,\n"
-              f"from {round(line_model.Length[0], 2)} to {round(line_model.Length[0] + delta, 2)}")
+    if object_line.length == object_line.lda:
+        if delta > 0:
+            print(f"\nPaying out {delta}m from the line,\n"
+                f"from {round(line_model.Length[0], 2)} to {round(line_model.Length[0] + delta, 2)}")
+        else:
+            print(f"\nRetrieving out {-delta}m from the line,\n"
+                f"from {round(line_model.Length[0], 2)} to {round(line_model.Length[0] + delta, 2)}")
+        line_model.Length[0] = round(line_model.Length[0] + delta, 3)
     else:
-        print(f"\nRetrieving out {-delta}m from the line,\n"
-              f"from {round(line_model.Length[0], 2)} to {round(line_model.Length[0] + delta, 2)}")
-    line_model.Length[0] = round(line_model.Length[0] + delta, 3)
+        if delta > 0:
+            print(f"\nPaying out {delta}m from the A/R,\n"
+                  f"from {round(a_r.StageValue[0], 2)} to {round(a_r.StageValue[0] + delta, 2)}")
+        else:
+            print(f"\nRetrieving out {-delta}m from the A/R, \n"
+                  f"from {round(a_r.StageValue[0], 2)} to {round(a_r.StageValue[0] + delta, 2)}")
+        a_r.StageValue[0] = round(a_r.StageValue[0] + delta, 3)
 
 
 def flange_height_correction(winch: OrcFxAPI.OrcaFlexObject, delta: float) -> None:

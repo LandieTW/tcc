@@ -41,6 +41,7 @@ end_fitting = model['Conector']
 flange = model['Adaptador']
 vcm = model['MCV']
 winch = model['Guindaste']
+a_r = model['A/R']
 environment = model['Environment']
 stiffness_1 = model['Stiffness1']
 stiffness_2 = model['Stiffness2']
@@ -52,7 +53,7 @@ vcm_object = methods.new_combined_data[3]
 winch_length = methods.new_combined_data[4]
 list_bathymetric = methods.new_combined_data[5]
 rt_number = methods.new_combined_data[6]
-length = methods.new_combined_data[7]
+length = methods.new_combined_data[7]  # aqui está o length
 
 objects = [
     line_object, bend_restrictor_object, end_fitting_object, vcm_object
@@ -91,7 +92,11 @@ vcm.CentreOfVolumeX = vcm_object.cg_bx
 vcm.CentreOfVolumeZ = vcm_object.cg_az
 vcm.Name = vcm_object.name
 
-line_type.Length[0] = line_object.lda - length  #
+line_type.Length[0] = line_object.lda - length
+if line_object.length != line_object.lda:
+    diff_lda = line_object.lda - line_object.length
+    a_r.StageValue[0] = diff_lda
+    line_type.EndAZ = - diff_lda
 line_type.Length[5] = bend_restrictor_object.length  #
 line_type.Length[6] = end_fitting_object.length  #
 

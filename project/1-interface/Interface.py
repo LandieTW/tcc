@@ -1,20 +1,18 @@
-"""
-Automatic DVC application interface
-This application automatize the DVC first extremity analysis
-for the installation stages, in conformity with the technical specification
-ET-3000.00-1500-951-PMU-001 Rev. F
-"""
-
+ 
 import streamlit as st
 import pandas as pd
 import plotly.express as px
 import json
 import os
+import sys
+import codecs
 from st_aggrid.grid_options_builder import GridOptionsBuilder
 from st_aggrid import AgGrid
 from st_aggrid import GridUpdateMode
 from PIL import Image
 from collections import Counter
+
+sys.stdout = codecs.getwriter("utf-8")(sys.stdout.buffer)
 
 st.set_page_config(
     page_title="Automatic DVC",
@@ -482,7 +480,6 @@ with tab5:
         st.header("Bathymetric Data")
         grid_response2 = show_table(data2, grid_options2)
         image_bathymetric = st_image_input(image4_path, "Seabed Bathymetric")
-
 
 with tab6:
     st.header("Analysis Data")

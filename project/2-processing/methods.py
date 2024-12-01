@@ -147,13 +147,13 @@ def cg_olhal_flange(cote_1, cote_2):
 
 
 class Line:
-    def __init__(self, name, revision, empty_air_weight, filled_air_weight,
+    def __init__(self, name, length, empty_air_weight, filled_air_weight,
                  empty_water_weight, filled_water_weight, water_depth,
                  contact_diameter, nominal_diameter, mbr_storage,
                  mbr_installation, b_stiffness, t_stiffness, a_stiffness,
                  relative_elongation, s_curve):
         self.name = name  #
-        self.revision = revision
+        self.length = length
         self.eaw = round(empty_air_weight / 1_000, 3)  #
         self.faw = round(filled_air_weight / 1_000, 3)
         self.eww = round(empty_water_weight / 1_000, 3)
@@ -254,7 +254,7 @@ class Vcm:
 
 
 line = Line(
-    json_data[0]["ident_line"], json_data[0]["version_line"],
+    json_data[0]["ident_line"], json_data[0]["line_length"],
     json_data[0]["wt_air_line"], json_data[0]["sw_filled_air_line"],
     json_data[0]["air_filled_sw_line"], json_data[0]["sw_filled_sw_line"],
     json_data[0]["water_depth"], json_data[0]["contact_diameter_line"],
@@ -329,7 +329,11 @@ list_bathymetric.append(depth)
 # length discounted of seawater depth to be set as line_type.length[0]
 br_ef_length = (json_data[2]["length_bend_restrictor"] +
                 json_data[3]["length_end_fitting"])
-length = 160 + 100 + 40 + 10 + br_ef_length / 1_000
+if json_data[0]["line_length"] == json_data[0]["water_depth"]:
+    length = 160 + 100 + 40 + 10 + br_ef_length / 1_000
+else:
+    difference_lda = json_data[0]['water_depth'] - json_data[0]['line_length']
+    length = 160 + 100 + 40 + 10 + br_ef_length / 1_000 + difference_lda
 
 # json_data[7] = rt_number
 # json_data[8] = vessel_name
