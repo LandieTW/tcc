@@ -36,9 +36,10 @@ statics_max_iterations = 400  # Maximum number of iterations
 statics_min_damping = 5  # Minimum damping
 statics_max_damping = 15  # Maximum damping
 heave_up = [2.5, 2.0, 1.8]  # heave up options
-heave_up_period = [.0, 2.15]  # period in which heave up occurs
-transition_period = [2.15, 32.15]  # period between heave up and tdp
-tdp_period = [32.15, 72.15]  # period in which tdp occurs
+heave_up_period = OrcFxAPI.SpecifiedPeriod(0, 2.15)  # period in which 'heave up' occurs
+transition_period = OrcFxAPI.SpecifiedPeriod(2.15, 32.15)  # period between heave up and tdp
+tdp_period = OrcFxAPI.SpecifiedPeriod(32.15, 72.15)  # period in which tdp occurs
+total_period = OrcFxAPI.SpecifiedPeriod(0, 72.15)  # all period
 
 def previous_run_static(model: OrcFxAPI.Model, general: OrcFxAPI.OrcaFlexObject, 
                         line_type: OrcFxAPI.OrcaFlexObject, vcm: OrcFxAPI.OrcaFlexObject) -> None:
@@ -312,6 +313,7 @@ def verify_flange_loads(line_model: OrcFxAPI.OrcaFlexObject, structural_limits: 
     Verify the loads in gooseneck of the flange
     :param line_model: line in model
     :param structural_limts: structural limits informed in RL
+    :param case: case of load [2, 3, 3i, 3ii]
     :return: True if the loads are above the limits, false if not
     """
     normal = abs(round(line_model.StaticResult("End Ez force", OrcFxAPI.oeEndB), 3))
@@ -728,12 +730,10 @@ def run_dynamic(model: OrcFxAPI.Model, line: OrcFxAPI.OrcaFlexObject,
     """
     model.RunSimulation()
     dyn_result = dyn_results(line, bend_restrictor)
-    flange_normal_loads = dyn_result[0]
-    flange_shear_loads = dyn_result[1]
-    flange_moment_loads = dyn_result[2]
-    stiffener_mbr = dyn_result[3]
-    stiffener_shear_load = dyn_result[3][1]
-    stiffener_moment_load = dyn_result[3][2]
+    heave_up_loads = dyn_result[0]
+    transition_loads = dyn_result[1]
+    tdp_loads = dyn_result[2]
+    
 
 def dyn_results(line: OrcFxAPI.OrcaFlexObject, bend_restrictor: OrcFxAPI.OrcaFlexObject) -> list:
     """
@@ -742,3 +742,21 @@ def dyn_results(line: OrcFxAPI.OrcaFlexObject, bend_restrictor: OrcFxAPI.OrcaFle
     :param bend_restrictor: stiffener model
     :return: Dynamic results
     """
+    results = []
+    heaveup_loads = []
+    heaveup_loads.append(abs(round(max(line.TimeHistory("End Ez force", OrcFxAPI.oeEndB, period=heave_up_period)), 3)))
+    heaveup_loads.append(abs(round(max(line.TimeHistory("End Ex force", OrcFxAPI.oeEndB, period=heave_up_period)), 3)))
+    heaveup_loads.append(abs(round(max(line.TimeHistory("End Ey moment", OrcFxAPI.oeEndB, period=heave_up_period)), 3)))
+    results.append(tuple(heaveup_loads))
+    transition_loads = []
+    transition_loads.append(abs(round(max(line.TimeHistory("End Ez force", OrcFxAPI.oeEndB, period=transition_period)), 3)))
+    transition_loads.append(abs(round(max(line.TimeHistory("End Ex force", OrcFxAPI.oeEndB, period=transition_period)), 3)))
+    transition_loads.append(abs(round(max(line.TimeHistory("End Ey moment", OrcFxAPI.oeEndB, period=transition_period)), 3)))
+    results.append(tuple(transition_loads))
+    tdp_loads = []
+    tdp_loads.append(abs(round(max(line.TimeHistory("End Ez force", OrcFxAPI.oeEndB, period=tdp_period)), 3)))
+    tdp_loads.append(abs(round(max(line.TimeHistory("End Ex force", OrcFxAPI.oeEndB, period=tdp_period)), 3)))
+    tdp_loads.append(abs(round(max(line.TimeHistory("End Ey moment", OrcFxAPI.oeEndB, period=tdp_period)), 3)))
+    results.append(tuple(tdp_loads))
+    stiffener_loads = []
+    return results
