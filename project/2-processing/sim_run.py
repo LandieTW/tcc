@@ -35,7 +35,7 @@ vcm_delta_x = 20  # VCM's movement: 20m (helps convergence when adjusting flange
 statics_max_iterations = 400  # Maximum number of iterations
 statics_min_damping = 5  # Minimum damping
 statics_max_damping = 15  # Maximum damping
-
+heave_up = [2.5, 2.0, 1.8]  # heave up options
 
 def previous_run_static(model: OrcFxAPI.Model, general: OrcFxAPI.OrcaFlexObject, 
                         line_type: OrcFxAPI.OrcaFlexObject, vcm: OrcFxAPI.OrcaFlexObject) -> None:
@@ -691,3 +691,27 @@ def flange_height_correction(winch: OrcFxAPI.OrcaFlexObject, delta: float) -> No
         print(f"\nRetrieving out {-delta}m from the winch,\n"
               f"from {round(winch.StageValue[0], 2)} to {round(winch.StageValue[0] + delta, 2)}")
     winch.StageValue[0] = round(winch.StageValue[0] - delta, 3)
+
+def dynamic_simulation(model: OrcFxAPI.Model, line: OrcFxAPI.OrcaFlexObject,
+                       vcm: OrcFxAPI.OrcaFlexObject, bend_restrictor: OrcFxAPI.OrcaFlexObject,
+                       a_r: OrcFxAPI.OrcaFlexObject, save_simulation: str):
+    """
+    Runs dynamic simulation for 3 'heave up' options: [1.8, 2.0, 2.5].
+    :param model: model in orcaflex
+    :param line: line model
+    :param vcm: vcm model
+    :param bend_restrictor: stiffener model
+    :param a_r: A/R cable model
+    :param save_simulation: path to save dyn_file
+    :return: nothing
+    """
+    global heave_up
+    for heave in heave_up:
+        a_r.StageValue[2] = - heave
+        vcm.Connection == "Fixed"
+        run_dynamic(model, line, bend_restrictor, save_simulation)
+
+def run_dynamic(model: OrcFxAPI.Model, line: OrcFxAPI.OrcaFlexObject,
+                bend_restrictor: OrcFxAPI.OrcaFlexObject, save_simulation: str):
+    model.RunSimulation()
+

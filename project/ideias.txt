@@ -1,5 +1,4 @@
 
-Englobar CVD com jumpers
 Englobar CVD com umbilicais
 
 

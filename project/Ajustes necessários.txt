@@ -4,7 +4,7 @@ de flutuadores e, havendo esta possibilidade, adiciona-os.
 
 2
 Pensar numa forma de evitar que, quando houverem 2 ou 3 pontos de empuxo, não hajam grandezas mt diferentes
-evitar que os pontos 1 e 2 tenham, respectivamente, empuxos E1 e E2, tal que E1 > 4 x E2
+evitar que os pontos 1 e 2 tenham, respectivamente, empuxos E1 e E2, tal que E1 > k x E2 (p/ k = 3 ou 4, por exemplo)
 
 3
 Ajustar o código para que se evite colocação de flutuadores na região + ou - 50 cm ao redor da extremidade final da vértebra.

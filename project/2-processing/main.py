@@ -1,5 +1,5 @@
 """
-Static analysis automation
+DVC analysis automation
 """
 
 import OrcFxAPI
@@ -165,15 +165,48 @@ sim_run.looping(model_line_type, selection, model, stiffener_type, rt_number, ve
                 model_winch, model_general, model_environment, file_path, structural_limits,
                 prohibited_position, a_r)
 
-end_time = time.time()
-execution_time = end_time - start_time
+static_end_time = time.time()
+exec_static_time = static_end_time - start_time
 
-print(f"\n Automation's end."
-      f"\n Execution time: {execution_time:.2f}s")
+print(f"\n Static automation's end."
+      f"\n Execution time: {exec_static_time:.2f}s")
 
 sys.stdout = original_stdout
 captured_text = buffer.getvalue()
 txt_file = "Static\\" + rt_number + " - Report.txt"
+results_path = os.path.join(file_path, txt_file)
+
+with open(results_path, "w", encoding="utf-8") as file:
+    file.write(captured_text)
+
+original_stdout = sys.stdout
+buffer = StringIO()
+sys.stdout = DualOutput(original_stdout, buffer)
+
+# xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+# Dynamic part
+
+dyn_dir = "Dynamic"
+dyn_path = os.path.join(file_path, dyn_dir)
+os.makedirs(dyn_path, exist_ok=True)
+file_name = rt_number + ".sim"
+save_simulation = os.path.join(dyn_path, file_name)
+model.SaveSimulation(save_simulation)
+
+sim_run.dynamic_simulation(model, model_line_type, model_vcm, stiffener_type, a_r, 
+                           save_simulation)
+
+# xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+dynamic_end_time = time.time()
+exec_dynamic_time = dynamic_end_time - static_end_time
+
+print(f"\n Dynamic automation's end."
+      f"\n Execution time: {exec_dynamic_time:.2f}s")
+
+sys.stdout = original_stdout
+captured_text = buffer.getvalue()
+txt_file = "Dynamic\\" + rt_number + " - Report.txt"
 results_path = os.path.join(file_path, txt_file)
 
 with open(results_path, "w", encoding="utf-8") as file:
