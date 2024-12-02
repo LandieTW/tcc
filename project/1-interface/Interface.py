@@ -481,7 +481,7 @@ with tab6:
     st.header("Analysis Data")
     st.write("Inform the Vessel, the Report's Buoy Configuration "
              "and the Structural Limits for this Analysis")
-    col1, col2, col3, col4, col5 = st.columns(5)
+    col1, col2, col3, col4, col5, col6 = st.columns(6)
     with col1:
         rt_number = st.text_input("RT+Number")
         vessel = st.selectbox("67. Vessel", ["CDA", "SKA", "SKB", "SKN", "SKR", "SKO", "SKV"])
@@ -493,20 +493,25 @@ with tab6:
         st.write("Report's Buoy Configuration")
         grid_response3 = show_table(data3, grid_options3)
     with col3:
-        st.write("DVC 1st - VCM in Hub with hanging line (Cas2 3i.A)")
-        traction_3ia = st_number_input("68. Traction [kN]")
-        shear_3ia = st_number_input("69. Shear [kN]")
-        bend_moment_3ia = st_number_input("70. Bend Moment [kN.m]")
+        st.write("Case 2 - Equilibrium condition")
+        normal_2 = st_number_input("68. Normal [kN]")
+        shear_2 = st_number_input("69. Shear [kN]")
+        bend_moment_2 = st_number_input("70. Bend Moment [kN.m]")
     with col4:
-        st.write("DVC 1st - VCM in Hub with hanging line (Cas2 3i.B)")
-        traction_3ib = st_number_input("71. Traction [kN]")
-        shear_3ib = st_number_input("72. Shear [kN]")
-        bend_moment_3ib = st_number_input("73. Bend Moment [kN.m]")
+        st.write("Case 3 - Connection (VCM x HUB)")
+        normal_3 = st_number_input("71. Normal [kN]")
+        shear_3 = st_number_input("72. Shear [kN]")
+        bend_moment_3 = st_number_input("73. Bend Moment [kN.m]")
     with col5:
-        st.write("DVC 1st - VCM in Hub (Cas2 3ii)")
-        traction_3ii = st_number_input("74. Traction [kN]")
-        shear_3ii = st_number_input("75. Shear [kN]")
-        bend_moment_3ii = st_number_input("76. Bend Moment [kN.m]")
+        st.write("Case 3(i) - Heave up")
+        normal_3i = st_number_input("74. Normal [kN]")
+        shear_3i = st_number_input("75. Shear [kN]")
+        bend_moment_3i = st_number_input("76. Bend Moment [kN.m]")
+    with col5:
+        st.write("Case 3(ii) - Touch Down Point")
+        normal_3ii = st_number_input("77. Normal [kN]")
+        shear_3ii = st_number_input("78. Shear [kN]")
+        bend_moment_3ii = st_number_input("79. Bend Moment [kN.m]")
 
 
 with tab7:
@@ -646,9 +651,10 @@ with tab7:
                 data3_dataframe = st.dataframe(buoys_configuration)
                 st.write("Report's Structural Limits")
                 structural_limits = {
-                    "3ia": [traction_3ia, shear_3ia, bend_moment_3ia],
-                    "3ib": [traction_3ib, shear_3ib, bend_moment_3ib],
-                    "3ii": [traction_3ii, shear_3ii, bend_moment_3ii]
+                    "2": [normal_2, shear_2, bend_moment_2],
+                    "3": [normal_3, shear_3, bend_moment_3],
+                    "3i": [normal_3i, shear_3i, bend_moment_3i],
+                    "3ii": [normal_3ii, shear_3ii, bend_moment_3ii]
                 }
                 dict_strength_dataframe = st.dataframe(structural_limits)
         combined_data = (
