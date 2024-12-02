@@ -13,8 +13,6 @@ Ajustar o código para que se evite colocação de flutuadores na região + ou -
 		EM ANDAMENTO
 
 4
-Verificar esforços no flange já na parte estática
-	FEITO
-	No entanto, o que fazer quando os esforços não forem admissíveis?...
-		EM ANDAMENTO
+Verificar como corrigir a configuração para lidar com esforços inadimissíveis no flange ou na vértebras
+	-> buscar maior inclinação no MCV
 

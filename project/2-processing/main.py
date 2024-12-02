@@ -170,6 +170,7 @@ exec_static_time = static_end_time - start_time
 
 print(f"\n Static automation's end."
       f"\n Execution time: {exec_static_time:.2f}s")
+print(f"\n Starting dynamics...")
 
 sys.stdout = original_stdout
 captured_text = buffer.getvalue()
@@ -183,20 +184,14 @@ original_stdout = sys.stdout
 buffer = StringIO()
 sys.stdout = DualOutput(original_stdout, buffer)
 
-# xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-# Dynamic part
-
 dyn_dir = "Dynamic"
 dyn_path = os.path.join(file_path, dyn_dir)
 os.makedirs(dyn_path, exist_ok=True)
 file_name = rt_number + ".sim"
 save_simulation = os.path.join(dyn_path, file_name)
-model.SaveSimulation(save_simulation)
 
-sim_run.dynamic_simulation(model, model_line_type, model_vcm, stiffener_type, a_r, 
-                           save_simulation, structural_limits)
-
-# xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+sim_run.dynamic_simulation(model, model_line_type, model_vcm, stiffener_type, 
+                           object_bend_restrictor, a_r, dyn_path, structural_limits, rt_number)
 
 dynamic_end_time = time.time()
 exec_dynamic_time = dynamic_end_time - static_end_time

@@ -103,14 +103,9 @@ def run_static(model: OrcFxAPI.Model, rt_number: str, vcm: OrcFxAPI.OrcaFlexObje
             f"\n        Flange Height error: {delta_flange}m."
         )
         flange_loads = verify_flange_loads(line_type, structural_limits, '2')
-        normalised_curvature = verify_normalised_curvature(bend_restrictor_model)   
+        normalised_curvature = verify_normalised_curvature(bend_restrictor_model, "Mean")   
         if normalised_curvature >= 1:
-            shear_force = verify_shear_force(bend_restrictor_model, bend_restrictor_object)
-            bend_moment = verify_bend_moment(bend_restrictor_model, bend_restrictor_object)
-            print(
-                f"\n        Shear force in bend_restrictor: {shear_force}kN."
-                f"\n        Bend moment in bend_restrictor: {bend_moment}kN.m."
-            )
+            verify_br_loads(bend_restrictor_model, bend_restrictor_object, "Mean")
     except Exception as e:
         print(f"\nError: {e}")
         error_correction(general, line_type, vcm)
@@ -308,7 +303,7 @@ def verify_flange_height(line_model: OrcFxAPI.OrcaFlexObject, line_obj: methods.
 
 
 def verify_flange_loads(line_model: OrcFxAPI.OrcaFlexObject, structural_limits: dict,
-                        case: str) -> bool:
+                        case: str, *f_loads: list) -> bool:
     """
     Verify the loads in gooseneck of the flange
     :param line_model: line in model
@@ -316,17 +311,31 @@ def verify_flange_loads(line_model: OrcFxAPI.OrcaFlexObject, structural_limits: 
     :param case: case of load [2, 3, 3i, 3ii]
     :return: True if the loads are above the limits, false if not
     """
-    normal = abs(round(line_model.StaticResult("End Ez force", OrcFxAPI.oeEndB), 3))
-    shear = abs(round(line_model.StaticResult("End Ex force", OrcFxAPI.oeEndB), 3))
-    moment = abs(round(line_model.StaticResult("End Ey moment", OrcFxAPI.oeEndB), 3))
-    print(
-        f"\n        Normal force in flange's gooseneck: {normal}kN."
-        f"\n        Shear force in flange's gooseneck: {shear}kN."
-        f"\n        Bend moment in flange's gooseneck: {moment}kN.m."
-    )
-    flange_loads = (normal, shear, moment)
-    load_check = []
     load_case = structural_limits[case]
+    if case == "2":
+        normal = abs(round(line_model.StaticResult("End Ez force", OrcFxAPI.oeEndB), 3))
+        shear = abs(round(line_model.StaticResult("End Ex force", OrcFxAPI.oeEndB), 3))
+        moment = abs(round(line_model.StaticResult("End Ey moment", OrcFxAPI.oeEndB), 3))
+        print(
+            f"\n        Normal force in flange's gooseneck: {normal}kN (Limit: {load_case[0]}kN)"
+            f"\n        Shear force in flange's gooseneck: {shear}kN  (Limit: {load_case[1]}kN)"
+            f"\n        Bend moment in flange's gooseneck: {moment}kN.m (Limit: {load_case[2]}kN)"
+        )
+        flange_loads = (normal, shear, moment)
+    else:
+        if case == "3":
+            print(f"\nFor heave period...")
+        elif case == "3i":
+            print(f"\nFor transition period...")
+        elif case == "3ii":
+            print(f"\nFor TDP period...")
+        flange_loads = f_loads[0]
+        print(
+            f"\n        Normal force in flange's gooseneck: {flange_loads[0]}kN (Limit: {load_case[0]}kN)"
+            f"\n        Shear force in flange's gooseneck: {flange_loads[1]}kN (Limit: {load_case[1]}kN)"
+            f"\n        Bend moment in flange's gooseneck: {flange_loads[2]}kN.m (Limit: {load_case[2]}kN.m)"
+        )
+    load_check = []
     for i in range(len(load_case)):
         if flange_loads[i] < abs(round(load_case[i], 3)):
             load_check.append(True)
@@ -339,54 +348,62 @@ def verify_flange_loads(line_model: OrcFxAPI.OrcaFlexObject, structural_limits: 
     return loads
 
 
-def verify_normalised_curvature(bend_restrictor_model: OrcFxAPI.OrcaFlexObject) -> float:
+def verify_normalised_curvature(bend_restrictor_model: OrcFxAPI.OrcaFlexObject, magnitude: str) -> float:
     """
     Verify if the bend_restrictor is locked
     :param bend_restrictor_model: stiffener1 in model
     :return: normalised_curvature result
     """
-    n_curve = bend_restrictor_model.RangeGraph("Normalised curvature")
-    nc = [nc
-          for _, nc in enumerate(n_curve.Mean)]
+    if magnitude == "Mean":
+        n_curve = bend_restrictor_model.RangeGraph("Normalised curvature")
+        nc = [nc for _, nc in enumerate(n_curve.Mean)]
+    elif magnitude == "Max":
+        n_curve = bend_restrictor_model.RangeGraph("Normalised curvature", period=OrcFxAPI.PeriodNum.WholeSimulation)
+        nc = [nc for _, nc in enumerate(n_curve.Max)]
     nc_max = round(max(nc), 3)
     if nc_max >= 1:
         print(f"\n Bend Restrictor's locked")
     return nc_max
 
 
-def verify_bend_moment(bend_restrictor_model: OrcFxAPI.OrcaFlexObject,
-                       bend_restrictor_object: methods.BendRestrictor) -> float:
+def verify_br_loads(bend_restrictor_model: OrcFxAPI.OrcaFlexObject,
+                    bend_restrictor_object: methods.BendRestrictor,
+                    magnitude: str) -> float:
     """
     Verify the bend moment in bend restrictor
     :param bend_restrictor_model: bend restrictor in model
     :param bend_restrictor_object: bend restrictor object
     :return: bend moment in bend restrictor
     """
-    moment = bend_restrictor_model.RangeGraph("Bend moment")
-    moment = [bm
-              for _, bm in enumerate(moment.Mean)]
+    limit_sf, limit_bf = bend_restrictor_object.sf, bend_restrictor_object.bm
+    if magnitude == "Mean":
+        moment = bend_restrictor_model.RangeGraph("Bend moment")
+        moment = [bm for _, bm in enumerate(moment.Mean)]
+        shear = bend_restrictor_model.RangeGraph("Shear Force")
+        shear = [sf for _, sf in enumerate(shear.Mean)]
+    elif magnitude == "Max":
+        moment = bend_restrictor_model.RangeGraph("Bend moment", period=OrcFxAPI.PeriodNum.WholeSimulation)
+        moment = [bm for _, bm in enumerate(moment.Max)]
+        shear = bend_restrictor_model.RangeGraph("Shear Force", period=OrcFxAPI.PeriodNum.WholeSimulation)
+        shear = [sf for _, sf in enumerate(shear.Max)]
     max_moment = round(max(moment), 3)
-    if max_moment > bend_restrictor_object.bm:
-        print(f"\nBend moment limit infringed: {bend_restrictor_object.bm}kN.m < {max_moment}kN.m.")
-    return max_moment
-
-
-def verify_shear_force(bend_restrictor_model: OrcFxAPI.OrcaFlexObject,
-                       bend_restrictor_object: methods.BendRestrictor) -> float:
-    """
-    Verify the shear force in bend restrictor
-    :param bend_restrictor_model: bend restrictor in model
-    :param bend_restrictor_object: bend restrictor object
-    :return: shear force in bend restrictor
-    """
-    shear = bend_restrictor_model.RangeGraph("Shear Force")
-    shear = [sf
-             for _, sf in enumerate(shear.Mean)]
     max_shear = round(max(shear), 3)
-    if max_shear > bend_restrictor_object.sf:
-        print(f"\nShear force limit infringed: {bend_restrictor_object.sf}kN.m < {max_shear}kN.m.")
-    return max_shear
-
+    print(
+        f"\n        Shear force in bend_restrictor: {max_shear}kN (Limit: {limit_sf}kN)"
+        f"\n        Bend moment in bend_restrictor: {max_moment}kN.m (Limit: {limit_bf}kN.m)"
+        )
+    load_check = []
+    br_loads = [max_shear, max_moment]
+    load_case = [limit_sf, limit_bf]
+    for i in range(len(load_case)):
+        if br_loads[i] < abs(round(load_case[i], 3)):
+            load_check.append(True)
+        else:
+            load_check.append(False)
+    if all(load_check):
+        print("\nOs esforços verificados na vértebra são admissíveis.")
+    else:
+        print("\nOs esforços verificados na vértebra não são admissíveis")
 
 def looping(model_line_type: OrcFxAPI.OrcaFlexObject, selection: dict, model: OrcFxAPI.Model,
             bend_restrictor_model: OrcFxAPI.OrcaFlexObject, rt_number: str, vessel: str,
@@ -476,19 +493,11 @@ def looping(model_line_type: OrcFxAPI.OrcaFlexObject, selection: dict, model: Or
                     rl_config, buoy_set, model_vcm, object_line, object_bend_restrictor, object_vcm,
                     winch, general, environment, file_path, structural, prohibited_position, a_r)
     if vcm_rotation_inf_limit > abs(rotation) or abs(rotation) > vcm_rotation_sup_limit:
-        limits = [list(set(buoy_position_near_vcm[i]
-                           for i in range(len(unique_positions))))
-                  if rotation > vcm_rotation_sup_limit
-                  else
-                  list(set(buoy_position_far_vcm[i]
-                           for i in range(len(unique_positions))))][0]
+        limits = [list(set(buoy_position_near_vcm[i] for i in range(len(unique_positions)))) if rotation > vcm_rotation_sup_limit \
+            else list(set(buoy_position_far_vcm[i] for i in range(len(unique_positions))))][0]
         if unique_positions[pointer] != limits[pointer]:
-            new_positions = [list(set(buoy_position - buoy_position_pace
-                                      for buoy_position in unique_positions))
-                             if rotation > vcm_rotation_sup_limit
-                             else
-                             list(set(buoy_position + buoy_position_pace
-                                      for buoy_position in unique_positions))][0]
+            new_positions = [list(set(buoy_position - buoy_position_pace for buoy_position in unique_positions)) if rotation > vcm_rotation_sup_limit \
+                else list(set(buoy_position + buoy_position_pace for buoy_position in unique_positions))][0]
             # Esta parte se refere à restrição de colocação de flutuadores na interface 
             # final da vértebra, por motivos de dificuldades operacionais na instalação.
             """if new_positions[pointer] != prohibited_position:"""
@@ -511,7 +520,9 @@ def looping(model_line_type: OrcFxAPI.OrcaFlexObject, selection: dict, model: Or
                             winch, general, environment, file_path, structural, prohibited_position, a_r)
     # Restrição da configuração devido aos esforços verificados 
     # no gooseneck serem superiores ao limite estrutural informado no RL. 
-    if not flange_loads:
+    if flange_loads:
+        pass
+    else:
         if clearance >= .55:
             print(f"\nTrying to adjust line's clearance to the seabed,"
                   f"to reduce flange stresses.")
@@ -697,8 +708,9 @@ def flange_height_correction(winch: OrcFxAPI.OrcaFlexObject, delta: float) -> No
 
 def dynamic_simulation(model: OrcFxAPI.Model, line: OrcFxAPI.OrcaFlexObject,
                        vcm: OrcFxAPI.OrcaFlexObject, bend_restrictor: OrcFxAPI.OrcaFlexObject,
+                       bend_restrictor_obj: methods.BendRestrictor,
                        a_r: OrcFxAPI.OrcaFlexObject, save_simulation: str,
-                       structural_limits: dict):
+                       structural_limits: dict, rt_number: str):
     """
     Runs dynamic simulation for 3 'heave up' options: [1.8, 2.0, 2.5].
     :param model: model in orcaflex
@@ -711,52 +723,75 @@ def dynamic_simulation(model: OrcFxAPI.Model, line: OrcFxAPI.OrcaFlexObject,
     :return: nothing
     """
     global heave_up
-    for heave in heave_up:
-        a_r.StageValue[2] = - heave
-        vcm.Connection == "Fixed"
-        run_dynamic(model, line, bend_restrictor, save_simulation, structural_limits)
+    i = 0
+    vcm.Connection == "Fixed"
+    while i < len(heave_up):
+        print(f"\nRunning dynamics for heave up in {heave_up[i]}m")
+        a_r.StageValue[2] = -heave_up[i]
+        file_name = rt_number + " - heave_" + str(heave_up[i]) + "m.sim"
+        simulation = os.path.join(save_simulation, file_name)
+        result = run_dynamic(model, line, bend_restrictor, bend_restrictor_obj, structural_limits, simulation)
+        if result:
+            print(f"\nPara {heave_up[i]}m de heave up, os esforços verificados no gooseneck são admissíveis.")
+            i = len(heave_up)
+        else:
+            print(f"\nPara {heave_up[i]}m de heave up, os esforços verificados no gooseneck não são admissíveis.")
+        i += 1
 
 def run_dynamic(model: OrcFxAPI.Model, line: OrcFxAPI.OrcaFlexObject,
-                bend_restrictor: OrcFxAPI.OrcaFlexObject, save_simulation: str,
-                structural_limits: dict):
+                bend_restrictor: OrcFxAPI.OrcaFlexObject, 
+                bend_restrictor_obj: methods.BendRestrictor, structural_limits: dict,
+                simulation: str) -> bool:
     """
     Run simulation and work their results
     :param model: orcaflex model
     :param line: line model
     :param bend_restrictor: stiffener model
-    :param save_simulation: path to save simulation
+    :param bend_restrictor_obj: stiffener object
     :param structural_limits: load limits cases in RL
-    :return: nothing
+    :param simulation: path to save file after it runs
+    :return: True / False
     """
     model.RunSimulation()
-    dyn_result = dyn_results(line, bend_restrictor)
+    model.SaveSimulation(simulation)
+    dyn_result = dyn_results(line, bend_restrictor, bend_restrictor_obj)
     heave_up_loads = dyn_result[0]
     transition_loads = dyn_result[1]
     tdp_loads = dyn_result[2]
+    dynamic_load = [
+        verify_flange_loads(line, structural_limits, '3', heave_up_loads),
+        verify_flange_loads(line, structural_limits, '3i', transition_loads),
+        verify_flange_loads(line, structural_limits, '3ii', tdp_loads)
+    ]
+    return any(dynamic_load)
     
 
-def dyn_results(line: OrcFxAPI.OrcaFlexObject, bend_restrictor: OrcFxAPI.OrcaFlexObject) -> list:
+def dyn_results(line: OrcFxAPI.OrcaFlexObject, bend_restrictor: OrcFxAPI.OrcaFlexObject, 
+                bend_restrictor_obj: methods.BendRestrictor) -> list:
     """
     Extract the dynamic results
     :param line: line model
     :param bend_restrictor: stiffener model
+    :param bend_restrictor_obj: stiffener object
     :return: Dynamic results
     """
     results = []
     heaveup_loads = []
-    heaveup_loads.append(abs(round(max(line.TimeHistory("End Ez force", OrcFxAPI.oeEndB, period=heave_up_period)), 3)))
-    heaveup_loads.append(abs(round(max(line.TimeHistory("End Ex force", OrcFxAPI.oeEndB, period=heave_up_period)), 3)))
-    heaveup_loads.append(abs(round(max(line.TimeHistory("End Ey moment", OrcFxAPI.oeEndB, period=heave_up_period)), 3)))
+    heaveup_loads.append(abs(round(max(line.TimeHistory("End Ez force", heave_up_period, OrcFxAPI.oeEndB)), 3)))
+    heaveup_loads.append(abs(round(max(line.TimeHistory("End Ex force", heave_up_period, OrcFxAPI.oeEndB)), 3)))
+    heaveup_loads.append(abs(round(max(line.TimeHistory("End Ey moment", heave_up_period, OrcFxAPI.oeEndB)), 3)))
     results.append(tuple(heaveup_loads))
     transition_loads = []
-    transition_loads.append(abs(round(max(line.TimeHistory("End Ez force", OrcFxAPI.oeEndB, period=transition_period)), 3)))
-    transition_loads.append(abs(round(max(line.TimeHistory("End Ex force", OrcFxAPI.oeEndB, period=transition_period)), 3)))
-    transition_loads.append(abs(round(max(line.TimeHistory("End Ey moment", OrcFxAPI.oeEndB, period=transition_period)), 3)))
+    transition_loads.append(abs(round(max(line.TimeHistory("End Ez force", transition_period, OrcFxAPI.oeEndB)), 3)))
+    transition_loads.append(abs(round(max(line.TimeHistory("End Ex force", transition_period, OrcFxAPI.oeEndB)), 3)))
+    transition_loads.append(abs(round(max(line.TimeHistory("End Ey moment", transition_period, OrcFxAPI.oeEndB)), 3)))
     results.append(tuple(transition_loads))
     tdp_loads = []
-    tdp_loads.append(abs(round(max(line.TimeHistory("End Ez force", OrcFxAPI.oeEndB, period=tdp_period)), 3)))
-    tdp_loads.append(abs(round(max(line.TimeHistory("End Ex force", OrcFxAPI.oeEndB, period=tdp_period)), 3)))
-    tdp_loads.append(abs(round(max(line.TimeHistory("End Ey moment", OrcFxAPI.oeEndB, period=tdp_period)), 3)))
+    tdp_loads.append(abs(round(max(line.TimeHistory("End Ez force", tdp_period, OrcFxAPI.oeEndB)), 3)))
+    tdp_loads.append(abs(round(max(line.TimeHistory("End Ex force", tdp_period, OrcFxAPI.oeEndB)), 3)))
+    tdp_loads.append(abs(round(max(line.TimeHistory("End Ey moment", tdp_period, OrcFxAPI.oeEndB)), 3)))
     results.append(tuple(tdp_loads))
-    stiffener_loads = []
+    nc_br = verify_normalised_curvature(bend_restrictor, "Max")
+    if nc_br > 1:
+        verify_br_loads(bend_restrictor, bend_restrictor_obj, "Max")
     return results

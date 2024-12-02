@@ -4,9 +4,6 @@ Englobar CVD com umbilicais
 
 -> sobre restrição da configuração devido aos esforços na vértebra ou no gooseneck
 
-	# PENSANDO SE VALE A PENA PAGAR LINHA PARA TENTAR APROXIMAR DO SOLO OU ALGUMA OUTRA COISA
-	# UMA FORMA DE MEXER COM A POSIÇÃO DA LINHA É FAZER
-		clearance_limit_sup -= .05
-		clearance_limit_sup = max(.55, clearance_limit_sup)
-		payout_retrieve_pace_min -= payout_retrieve_pace_min/2
-	# OUTRA IDEIA É MODIFICAR A CONFIGURAÇÃO, ACRESCENTANDO / RETIRANDO UM PT DE FLUTUADORES
+	Verificar a possibilidade de buscar maior inclinação do MCV.
+	Verificar a possibilidade de aproximar flutuadores do MCV. (boias na vértebra)
+	Colocar a menor quantidade de empuxo possível.

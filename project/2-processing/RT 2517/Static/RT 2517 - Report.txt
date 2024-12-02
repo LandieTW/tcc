@@ -31,11 +31,11 @@ Running 1th time.
         Line Clearance: -0.089m.
         Flange Height error: 0.002m.
 
-        Normal force in flange's gooseneck: 6.1kN.
-        Shear force in flange's gooseneck: 10.271kN.
-        Bend moment in flange's gooseneck: 12.603kN.m.
+        Normal force in flange's gooseneck: 6.1kN (Limit: 6.9kN)
+        Shear force in flange's gooseneck: 10.271kN  (Limit: -10.47kN)
+        Bend moment in flange's gooseneck: 12.603kN.m (Limit: 13.11kN)
 
-Os esforços verificados no gooseneck não são admissíveis
+Os esforços verificados no gooseneck são admissíveis.
 
 Retrieving out 0.5m from the line,
 from 1983.8 to 1983.3
@@ -47,11 +47,11 @@ Line's in contact with seabed
         Line Clearance: -0.088m.
         Flange Height error: 0.003m.
 
-        Normal force in flange's gooseneck: 6.144kN.
-        Shear force in flange's gooseneck: 10.276kN.
-        Bend moment in flange's gooseneck: 12.493kN.m.
+        Normal force in flange's gooseneck: 6.144kN (Limit: 6.9kN)
+        Shear force in flange's gooseneck: 10.276kN  (Limit: -10.47kN)
+        Bend moment in flange's gooseneck: 12.493kN.m (Limit: 13.11kN)
 
-Os esforços verificados no gooseneck não são admissíveis
+Os esforços verificados no gooseneck são admissíveis.
 
 Retrieving out 0.5m from the line,
 from 1983.3 to 1982.8
@@ -63,11 +63,11 @@ Line's in contact with seabed
         Line Clearance: -0.086m.
         Flange Height error: 0.005m.
 
-        Normal force in flange's gooseneck: 6.201kN.
-        Shear force in flange's gooseneck: 10.285kN.
-        Bend moment in flange's gooseneck: 12.34kN.m.
+        Normal force in flange's gooseneck: 6.201kN (Limit: 6.9kN)
+        Shear force in flange's gooseneck: 10.285kN  (Limit: -10.47kN)
+        Bend moment in flange's gooseneck: 12.34kN.m (Limit: 13.11kN)
 
-Os esforços verificados no gooseneck não são admissíveis
+Os esforços verificados no gooseneck são admissíveis.
 
 Retrieving out 0.5m from the line,
 from 1982.8 to 1982.3
@@ -79,11 +79,11 @@ Line's in contact with seabed
         Line Clearance: -0.083m.
         Flange Height error: 0.007m.
 
-        Normal force in flange's gooseneck: 6.273kN.
-        Shear force in flange's gooseneck: 10.298kN.
-        Bend moment in flange's gooseneck: 12.142kN.m.
+        Normal force in flange's gooseneck: 6.273kN (Limit: 6.9kN)
+        Shear force in flange's gooseneck: 10.298kN  (Limit: -10.47kN)
+        Bend moment in flange's gooseneck: 12.142kN.m (Limit: 13.11kN)
 
-Os esforços verificados no gooseneck não são admissíveis
+Os esforços verificados no gooseneck são admissíveis.
 
 Retrieving out 0.5m from the line,
 from 1982.3 to 1981.8
@@ -95,11 +95,11 @@ Line's in contact with seabed
         Line Clearance: -0.078m.
         Flange Height error: 0.01m.
 
-        Normal force in flange's gooseneck: 6.362kN.
-        Shear force in flange's gooseneck: 10.315kN.
-        Bend moment in flange's gooseneck: 11.895kN.m.
+        Normal force in flange's gooseneck: 6.362kN (Limit: 6.9kN)
+        Shear force in flange's gooseneck: 10.315kN  (Limit: -10.47kN)
+        Bend moment in flange's gooseneck: 11.895kN.m (Limit: 13.11kN)
 
-Os esforços verificados no gooseneck não são admissíveis
+Os esforços verificados no gooseneck são admissíveis.
 
 Retrieving out 0.5m from the line,
 from 1981.8 to 1981.3
@@ -111,9 +111,11 @@ Line's in contact with seabed
         Line Clearance: -0.071m.
         Flange Height error: 0.014m.
 
-        Normal force in flange's gooseneck: 6.468kN.
-        Shear force in flange's gooseneck: 10.338kN.
-        Bend moment in flange's gooseneck: 11.599kN.m.
+        Normal force in flange's gooseneck: 6.468kN (Limit: 6.9kN)
+        Shear force in flange's gooseneck: 10.338kN  (Limit: -10.47kN)
+        Bend moment in flange's gooseneck: 11.599kN.m (Limit: 13.11kN)
+
+Os esforços verificados no gooseneck são admissíveis.
 
 Retrieving out 0.5m from the line,
 from 1981.3 to 1980.8
@@ -125,9 +127,11 @@ Line's in contact with seabed
         Line Clearance: -0.062m.
         Flange Height error: 0.019m.
 
-        Normal force in flange's gooseneck: 6.594kN.
-        Shear force in flange's gooseneck: 10.366kN.
-        Bend moment in flange's gooseneck: 11.247kN.m.
+        Normal force in flange's gooseneck: 6.594kN (Limit: 6.9kN)
+        Shear force in flange's gooseneck: 10.366kN  (Limit: -10.47kN)
+        Bend moment in flange's gooseneck: 11.247kN.m (Limit: 13.11kN)
+
+Os esforços verificados no gooseneck são admissíveis.
 
 Retrieving out 0.5m from the line,
 from 1980.8 to 1980.3
@@ -139,9 +143,11 @@ Line's in contact with seabed
         Line Clearance: -0.051m.
         Flange Height error: 0.025m.
 
-        Normal force in flange's gooseneck: 6.744kN.
-        Shear force in flange's gooseneck: 10.403kN.
-        Bend moment in flange's gooseneck: 10.836kN.m.
+        Normal force in flange's gooseneck: 6.744kN (Limit: 6.9kN)
+        Shear force in flange's gooseneck: 10.403kN  (Limit: -10.47kN)
+        Bend moment in flange's gooseneck: 10.836kN.m (Limit: 13.11kN)
+
+Os esforços verificados no gooseneck são admissíveis.
 
 Retrieving out 0.5m from the line,
 from 1980.3 to 1979.8
@@ -153,9 +159,11 @@ Line's in contact with seabed
         Line Clearance: -0.036m.
         Flange Height error: 0.031m.
 
-        Normal force in flange's gooseneck: 6.917kN.
-        Shear force in flange's gooseneck: 10.447kN.
-        Bend moment in flange's gooseneck: 10.369kN.m.
+        Normal force in flange's gooseneck: 6.917kN (Limit: 6.9kN)
+        Shear force in flange's gooseneck: 10.447kN  (Limit: -10.47kN)
+        Bend moment in flange's gooseneck: 10.369kN.m (Limit: 13.11kN)
+
+Os esforços verificados no gooseneck não são admissíveis
 
 Retrieving out 0.5m from the line,
 from 1979.8 to 1979.3
@@ -167,9 +175,9 @@ Line's in contact with seabed
         Line Clearance: -0.012m.
         Flange Height error: 0.038m.
 
-        Normal force in flange's gooseneck: 7.11kN.
-        Shear force in flange's gooseneck: 10.5kN.
-        Bend moment in flange's gooseneck: 9.865kN.m.
+        Normal force in flange's gooseneck: 7.11kN (Limit: 6.9kN)
+        Shear force in flange's gooseneck: 10.5kN  (Limit: -10.47kN)
+        Bend moment in flange's gooseneck: 9.865kN.m (Limit: 13.11kN)
 
 Os esforços verificados no gooseneck não são admissíveis
 
@@ -181,9 +189,9 @@ from 1979.3 to 1978.8
         Line Clearance: 0.241m.
         Flange Height error: 0.033m.
 
-        Normal force in flange's gooseneck: 7.037kN.
-        Shear force in flange's gooseneck: 10.519kN.
-        Bend moment in flange's gooseneck: 10.234kN.m.
+        Normal force in flange's gooseneck: 7.037kN (Limit: 6.9kN)
+        Shear force in flange's gooseneck: 10.519kN  (Limit: -10.47kN)
+        Bend moment in flange's gooseneck: 10.234kN.m (Limit: 13.11kN)
 
 Os esforços verificados no gooseneck não são admissíveis
 
@@ -195,9 +203,11 @@ from 1978.8 to 1978.6
         Line Clearance: 0.366m.
         Flange Height error: 0.029m.
 
-        Normal force in flange's gooseneck: 6.977kN.
-        Shear force in flange's gooseneck: 10.522kN.
-        Bend moment in flange's gooseneck: 10.48kN.m.
+        Normal force in flange's gooseneck: 6.977kN (Limit: 6.9kN)
+        Shear force in flange's gooseneck: 10.522kN  (Limit: -10.47kN)
+        Bend moment in flange's gooseneck: 10.48kN.m (Limit: 13.11kN)
+
+Os esforços verificados no gooseneck não são admissíveis
 
 Retrieving out 0.2m from the line,
 from 1978.6 to 1978.4
@@ -207,9 +217,11 @@ from 1978.6 to 1978.4
         Line Clearance: 0.49m.
         Flange Height error: 0.025m.
 
-        Normal force in flange's gooseneck: 6.917kN.
-        Shear force in flange's gooseneck: 10.525kN.
-        Bend moment in flange's gooseneck: 10.726kN.m.
+        Normal force in flange's gooseneck: 6.917kN (Limit: 6.9kN)
+        Shear force in flange's gooseneck: 10.525kN  (Limit: -10.47kN)
+        Bend moment in flange's gooseneck: 10.726kN.m (Limit: 13.11kN)
+
+Os esforços verificados no gooseneck não são admissíveis
 
 Retrieving out 0.2m from the line,
 from 1978.4 to 1978.2
@@ -219,9 +231,11 @@ from 1978.4 to 1978.2
         Line Clearance: 0.612m.
         Flange Height error: 0.021m.
 
-        Normal force in flange's gooseneck: 6.858kN.
-        Shear force in flange's gooseneck: 10.528kN.
-        Bend moment in flange's gooseneck: 10.972kN.m.
+        Normal force in flange's gooseneck: 6.858kN (Limit: 6.9kN)
+        Shear force in flange's gooseneck: 10.528kN  (Limit: -10.47kN)
+        Bend moment in flange's gooseneck: 10.972kN.m (Limit: 13.11kN)
+
+Os esforços verificados no gooseneck não são admissíveis
 
 Changing buoys
 from dict_keys(['973+573+205', '573+205+205']): dict_values([1751.0, 983.0])
@@ -234,16 +248,18 @@ Running 2th time.
         Line Clearance: 0.982m.
         Flange Height error: -0.025m.
 
-        Normal force in flange's gooseneck: 5.906kN.
-        Shear force in flange's gooseneck: 10.22kN.
-        Bend moment in flange's gooseneck: 13.75kN.m.
+        Normal force in flange's gooseneck: 5.906kN (Limit: 6.9kN)
+        Shear force in flange's gooseneck: 10.22kN  (Limit: -10.47kN)
+        Bend moment in flange's gooseneck: 13.75kN.m (Limit: 13.11kN)
 
 Os esforços verificados no gooseneck não são admissíveis
 
  Bend Restrictor's locked
 
-        Shear force in bend_restrictor: 3.868kN.
-        Bend moment in bend_restrictor: 0.785kN.m.
+        Shear force in bend_restrictor: 3.868kN (Limit: 43.0kN)
+        Bend moment in bend_restrictor: 0.785kN.m (Limit: 57.0kN.m)
+
+Os esforços verificados na vértebra são admissíveis.
 
 Paying out 0.2m from the line,
 from 1978.2 to 1978.4
@@ -253,16 +269,18 @@ from 1978.2 to 1978.4
         Line Clearance: 0.858m.
         Flange Height error: -0.022m.
 
-        Normal force in flange's gooseneck: 5.961kN.
-        Shear force in flange's gooseneck: 10.221kN.
-        Bend moment in flange's gooseneck: 13.51kN.m.
+        Normal force in flange's gooseneck: 5.961kN (Limit: 6.9kN)
+        Shear force in flange's gooseneck: 10.221kN  (Limit: -10.47kN)
+        Bend moment in flange's gooseneck: 13.51kN.m (Limit: 13.11kN)
 
 Os esforços verificados no gooseneck não são admissíveis
 
  Bend Restrictor's locked
 
-        Shear force in bend_restrictor: 2.88kN.
-        Bend moment in bend_restrictor: 0.586kN.m.
+        Shear force in bend_restrictor: 2.88kN (Limit: 43.0kN)
+        Bend moment in bend_restrictor: 0.586kN.m (Limit: 57.0kN.m)
+
+Os esforços verificados na vértebra são admissíveis.
 
 Paying out 0.2m from the line,
 from 1978.4 to 1978.6
@@ -272,16 +290,18 @@ from 1978.4 to 1978.6
         Line Clearance: 0.731m.
         Flange Height error: -0.018m.
 
-        Normal force in flange's gooseneck: 6.017kN.
-        Shear force in flange's gooseneck: 10.221kN.
-        Bend moment in flange's gooseneck: 13.27kN.m.
+        Normal force in flange's gooseneck: 6.017kN (Limit: 6.9kN)
+        Shear force in flange's gooseneck: 10.221kN  (Limit: -10.47kN)
+        Bend moment in flange's gooseneck: 13.27kN.m (Limit: 13.11kN)
 
 Os esforços verificados no gooseneck não são admissíveis
 
  Bend Restrictor's locked
 
-        Shear force in bend_restrictor: 1.892kN.
-        Bend moment in bend_restrictor: 0.388kN.m.
+        Shear force in bend_restrictor: 1.892kN (Limit: 43.0kN)
+        Bend moment in bend_restrictor: 0.388kN.m (Limit: 57.0kN.m)
+
+Os esforços verificados na vértebra são admissíveis.
 
 Paying out 0.2m from the line,
 from 1978.6 to 1978.8
@@ -291,74 +311,43 @@ from 1978.6 to 1978.8
         Line Clearance: 0.605m.
         Flange Height error: -0.014m.
 
-        Normal force in flange's gooseneck: 6.073kN.
-        Shear force in flange's gooseneck: 10.222kN.
-        Bend moment in flange's gooseneck: 13.03kN.m.
+        Normal force in flange's gooseneck: 6.073kN (Limit: 6.9kN)
+        Shear force in flange's gooseneck: 10.222kN  (Limit: -10.47kN)
+        Bend moment in flange's gooseneck: 13.03kN.m (Limit: 13.11kN)
 
-Os esforços verificados no gooseneck não são admissíveis
-
- Bend Restrictor's locked
-
-        Shear force in bend_restrictor: 0.901kN.
-        Bend moment in bend_restrictor: 0.189kN.m.
-
-Trying to adjust line's clearance to the seabed,to reduce flange stresses.
-
-    Results
-        VCM Rotation: -0.191°.
-        Line Clearance: 0.605m.
-        Flange Height error: -0.014m.
-
-        Normal force in flange's gooseneck: 6.073kN.
-        Shear force in flange's gooseneck: 10.222kN.
-        Bend moment in flange's gooseneck: 13.03kN.m.
-
-Os esforços verificados no gooseneck não são admissíveis
+Os esforços verificados no gooseneck são admissíveis.
 
  Bend Restrictor's locked
 
-        Shear force in bend_restrictor: 0.901kN.
-        Bend moment in bend_restrictor: 0.189kN.m.
+        Shear force in bend_restrictor: 0.901kN (Limit: 43.0kN)
+        Bend moment in bend_restrictor: 0.189kN.m (Limit: 57.0kN.m)
 
-Paying out 0.15m from the line,
-from 1978.8 to 1978.95
+Os esforços verificados na vértebra são admissíveis.
 
-    Results
-        VCM Rotation: -0.013°.
-        Line Clearance: 0.509m.
-        Flange Height error: -0.011m.
-
-        Normal force in flange's gooseneck: 6.115kN.
-        Shear force in flange's gooseneck: 10.222kN.
-        Bend moment in flange's gooseneck: 12.849kN.m.
-
-Os esforços verificados no gooseneck não são admissíveis
-
- Bend Restrictor's locked
-
-        Shear force in bend_restrictor: 0.233kN.
-        Bend moment in bend_restrictor: 0.04kN.m.
-
-Retrieving out 0.011m from the winch,
-from 2295.69 to 2295.68
+Retrieving out 0.014m from the winch,
+from 2295.69 to 2295.67
 
 Running 3th time.
 
     Results
-        VCM Rotation: -0.026°.
-        Line Clearance: 0.505m.
+        VCM Rotation: -0.207°.
+        Line Clearance: 0.6m.
         Flange Height error: -0.0m.
 
-        Normal force in flange's gooseneck: 6.112kN.
-        Shear force in flange's gooseneck: 10.222kN.
-        Bend moment in flange's gooseneck: 12.862kN.m.
+        Normal force in flange's gooseneck: 6.069kN (Limit: 6.9kN)
+        Shear force in flange's gooseneck: 10.222kN  (Limit: -10.47kN)
+        Bend moment in flange's gooseneck: 13.047kN.m (Limit: 13.11kN)
 
-Os esforços verificados no gooseneck não são admissíveis
+Os esforços verificados no gooseneck são admissíveis.
 
  Bend Restrictor's locked
 
-        Shear force in bend_restrictor: 0.233kN.
-        Bend moment in bend_restrictor: 0.051kN.m.
+        Shear force in bend_restrictor: 0.97kN (Limit: 43.0kN)
+        Bend moment in bend_restrictor: 0.203kN.m (Limit: 57.0kN.m)
 
- Automation's end.
- Execution time: 216.66s
+Os esforços verificados na vértebra são admissíveis.
+
+ Static automation's end.
+ Execution time: 165.90s
+
+ Starting dynamics...

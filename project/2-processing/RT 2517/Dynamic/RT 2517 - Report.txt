@@ -1,0 +1,38 @@
+
+Running dynamics for heave up in 2.5m
+
+ Bend Restrictor's locked
+
+        Shear force in bend_restrictor: 11.854kN (Limit: 43.0kN)
+        Bend moment in bend_restrictor: 8.54kN.m (Limit: 57.0kN.m)
+
+Os esforços verificados na vértebra são admissíveis.
+
+For heave period...
+
+        Normal force in flange's gooseneck: 7.122kN (Limit: 6.68kN)
+        Shear force in flange's gooseneck: 10.204kN (Limit: -10.74kN)
+        Bend moment in flange's gooseneck: 11.619kN.m (Limit: 11.84kN.m)
+
+Os esforços verificados no gooseneck não são admissíveis
+
+For transition period...
+
+        Normal force in flange's gooseneck: 7.757kN (Limit: 3.37kN)
+        Shear force in flange's gooseneck: 9.526kN (Limit: -8.02kN)
+        Bend moment in flange's gooseneck: 11.305kN.m (Limit: 30.67kN.m)
+
+Os esforços verificados no gooseneck não são admissíveis
+
+For TDP period...
+
+        Normal force in flange's gooseneck: 6.602kN (Limit: 6.68kN)
+        Shear force in flange's gooseneck: 9.861kN (Limit: -10.74kN)
+        Bend moment in flange's gooseneck: 10.834kN.m (Limit: 11.84kN.m)
+
+Os esforços verificados no gooseneck são admissíveis.
+
+Para 2.5m de heave up, os esforços verificados no gooseneck são admissíveis.
+
+ Dynamic automation's end.
+ Execution time: 422.20s
