@@ -274,7 +274,7 @@ def verify_line_clearance(line_model: OrcFxAPI.OrcaFlexObject) -> float:
     """
     line_clearance = line_model.RangeGraph("Seabed clearance")
     list_vsc = [vsc
-                for index, vsc in enumerate(line_clearance.Mean)]
+                for _, vsc in enumerate(line_clearance.Mean)]
     vsc_min = round(min(list_vsc), 3)
     if vsc_min < 0:
         print(f"\nLine's in contact with seabed")
@@ -717,16 +717,28 @@ def dynamic_simulation(model: OrcFxAPI.Model, line: OrcFxAPI.OrcaFlexObject,
 def run_dynamic(model: OrcFxAPI.Model, line: OrcFxAPI.OrcaFlexObject,
                 bend_restrictor: OrcFxAPI.OrcaFlexObject, save_simulation: str,
                 structural_limits: dict):
+    """
+    Run simulation and work their results
+    :param model: orcaflex model
+    :param line: line model
+    :param bend_restrictor: stiffener model
+    :param save_simulation: path to save simulation
+    :param structural_limits: load limits cases in RL
+    :return: nothing
+    """
     model.RunSimulation()
-    dyn_result = dyn_line_results(line, bend_restrictor)
-    line_mbr = dyn_result[0]
-    flange_normal_load = dyn_result[1]
-    flange_shear_load = dyn_result[2]
-    flange_moment_load = dyn_result[3]
-    stiffener_mbr = dyn_result[4]
-    stiffener_shear_load = dyn_result[5]
-    stiffener_moment_load = dyn_result[6]
+    dyn_result = dyn_results(line, bend_restrictor)
+    flange_normal_loads = dyn_result[0]
+    flange_shear_loads = dyn_result[1]
+    flange_moment_loads = dyn_result[2]
+    stiffener_mbr = dyn_result[3]
+    stiffener_shear_load = dyn_result[3][1]
+    stiffener_moment_load = dyn_result[3][2]
 
-def dyn_line_results(line: OrcFxAPI.OrcaFlexObject, 
-                     bend_restrictor: OrcFxAPI.OrcaFlexObject) -> list:
-    ""
+def dyn_results(line: OrcFxAPI.OrcaFlexObject, bend_restrictor: OrcFxAPI.OrcaFlexObject) -> list:
+    """
+    Extract the dynamic results
+    :param line: line model
+    :param bend_restrictor: stiffener model
+    :return: Dynamic results
+    """
