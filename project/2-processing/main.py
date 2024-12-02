@@ -194,7 +194,7 @@ save_simulation = os.path.join(dyn_path, file_name)
 model.SaveSimulation(save_simulation)
 
 sim_run.dynamic_simulation(model, model_line_type, model_vcm, stiffener_type, a_r, 
-                           save_simulation)
+                           save_simulation, structural_limits)
 
 # xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 

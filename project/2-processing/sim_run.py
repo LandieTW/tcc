@@ -694,7 +694,8 @@ def flange_height_correction(winch: OrcFxAPI.OrcaFlexObject, delta: float) -> No
 
 def dynamic_simulation(model: OrcFxAPI.Model, line: OrcFxAPI.OrcaFlexObject,
                        vcm: OrcFxAPI.OrcaFlexObject, bend_restrictor: OrcFxAPI.OrcaFlexObject,
-                       a_r: OrcFxAPI.OrcaFlexObject, save_simulation: str):
+                       a_r: OrcFxAPI.OrcaFlexObject, save_simulation: str,
+                       structural_limits: dict):
     """
     Runs dynamic simulation for 3 'heave up' options: [1.8, 2.0, 2.5].
     :param model: model in orcaflex
@@ -703,15 +704,28 @@ def dynamic_simulation(model: OrcFxAPI.Model, line: OrcFxAPI.OrcaFlexObject,
     :param bend_restrictor: stiffener model
     :param a_r: A/R cable model
     :param save_simulation: path to save dyn_file
+    :param structural_limits: load limits cases in RL
     :return: nothing
     """
     global heave_up
     for heave in heave_up:
         a_r.StageValue[2] = - heave
         vcm.Connection == "Fixed"
-        run_dynamic(model, line, bend_restrictor, save_simulation)
+        run_dynamic(model, line, bend_restrictor, save_simulation, structural_limits)
 
 def run_dynamic(model: OrcFxAPI.Model, line: OrcFxAPI.OrcaFlexObject,
-                bend_restrictor: OrcFxAPI.OrcaFlexObject, save_simulation: str):
+                bend_restrictor: OrcFxAPI.OrcaFlexObject, save_simulation: str,
+                structural_limits: dict):
     model.RunSimulation()
+    dyn_result = dyn_line_results(line, bend_restrictor)
+    line_mbr = dyn_result[0]
+    flange_normal_load = dyn_result[1]
+    flange_shear_load = dyn_result[2]
+    flange_moment_load = dyn_result[3]
+    stiffener_mbr = dyn_result[4]
+    stiffener_shear_load = dyn_result[5]
+    stiffener_moment_load = dyn_result[6]
 
+def dyn_line_results(line: OrcFxAPI.OrcaFlexObject, 
+                     bend_restrictor: OrcFxAPI.OrcaFlexObject) -> list:
+    ""
