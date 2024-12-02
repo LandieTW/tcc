@@ -36,6 +36,9 @@ statics_max_iterations = 400  # Maximum number of iterations
 statics_min_damping = 5  # Minimum damping
 statics_max_damping = 15  # Maximum damping
 heave_up = [2.5, 2.0, 1.8]  # heave up options
+heave_up_period = [.0, 2.15]  # period in which heave up occurs
+transition_period = [2.15, 32.15]  # period between heave up and tdp
+tdp_period = [32.15, 72.15]  # period in which tdp occurs
 
 def previous_run_static(model: OrcFxAPI.Model, general: OrcFxAPI.OrcaFlexObject, 
                         line_type: OrcFxAPI.OrcaFlexObject, vcm: OrcFxAPI.OrcaFlexObject) -> None:
@@ -98,7 +101,7 @@ def run_static(model: OrcFxAPI.Model, rt_number: str, vcm: OrcFxAPI.OrcaFlexObje
             f"\n        Line Clearance: {clearance}m."
             f"\n        Flange Height error: {delta_flange}m."
         )
-        flange_loads = verify_flange_loads(line_type, structural_limits)
+        flange_loads = verify_flange_loads(line_type, structural_limits, '2')
         normalised_curvature = verify_normalised_curvature(bend_restrictor_model)   
         if normalised_curvature >= 1:
             shear_force = verify_shear_force(bend_restrictor_model, bend_restrictor_object)
@@ -303,7 +306,8 @@ def verify_flange_height(line_model: OrcFxAPI.OrcaFlexObject, line_obj: methods.
     return delta
 
 
-def verify_flange_loads(line_model: OrcFxAPI.OrcaFlexObject, structural_limits: dict) -> bool:
+def verify_flange_loads(line_model: OrcFxAPI.OrcaFlexObject, structural_limits: dict,
+                        case: str) -> bool:
     """
     Verify the loads in gooseneck of the flange
     :param line_model: line in model
@@ -320,19 +324,16 @@ def verify_flange_loads(line_model: OrcFxAPI.OrcaFlexObject, structural_limits: 
     )
     flange_loads = (normal, shear, moment)
     load_check = []
-    for case in structural_limits.values():
-        if len(load_check) == 3:
-            if all(load_check):
-                print("\nOs esforços verificados no gooseneck são admissíveis.")
-                break
-            load_check.clear()
-        for i in range(len(case)):
-            if flange_loads[i]  < abs(round(case[i], 3)):
-                load_check.append(True)
-            else:
-                load_check.append(False)
+    load_case = structural_limits[case]
+    for i in range(len(load_case)):
+        if flange_loads[i] < abs(round(load_case[i], 3)):
+            load_check.append(True)
+        else:
+            load_check.append(False)
     if (loads := all(load_check)) == False:
         print("\nOs esforços verificados no gooseneck não são admissíveis")
+    else:
+        print("\nOs esforços verificados no gooseneck são admissíveis.")
     return loads
 
 
