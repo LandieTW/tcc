@@ -87,7 +87,7 @@
         "shear_stress_bend_restrictor": 34.0
     },
     {
-        "ident_end_fitting": "CB-EF1522540-00-05 ",
+        "ident_end_fitting": "CB-EF1522540-00-05",
         "version_end_fitting": "4",
         "wt_air_end_fitting": 2600.0,
         "wt_sw_end_fitting": 2262.0,

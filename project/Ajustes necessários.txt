@@ -15,4 +15,5 @@ Ajustar o código para que se evite colocação de flutuadores na região + ou -
 4
 Verificar como corrigir a configuração para lidar com esforços inadimissíveis no flange ou na vértebras
 	-> buscar maior inclinação no MCV
-
+	-> buscar posições para flutuadores mais próximas do MCV
+	-> buscar pagar o máximo de linha possível

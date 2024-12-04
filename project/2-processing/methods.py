@@ -329,11 +329,10 @@ list_bathymetric.append(depth)
 # length discounted of seawater depth to be set as line_type.length[0]
 br_ef_length = (json_data[2]["length_bend_restrictor"] +
                 json_data[3]["length_end_fitting"])
-if json_data[0]["line_length"] == json_data[0]["water_depth"]:
-    length = 160 + 100 + 40 + 10 + br_ef_length / 1_000
-else:
+length = 160 + 100 + 40 + 20 + br_ef_length / 1_000
+if json_data[0]["line_length"] != json_data[0]["water_depth"]:
     difference_lda = json_data[0]['water_depth'] - json_data[0]['line_length']
-    length = 160 + 100 + 40 + 10 + br_ef_length / 1_000 + difference_lda
+    length += difference_lda
 
 # json_data[7] = rt_number
 # json_data[8] = vessel_name

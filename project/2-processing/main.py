@@ -56,6 +56,7 @@ model_line_type = model["Line"]
 
 object_bend_restrictor = object_elements[1]
 model_bend_restrictor = model[object_bend_restrictor.name]
+stiffener_type = model["Stiffener1"]
 
 object_end_fitting = object_elements[2]
 model_end_fitting = model[object_end_fitting.name]
@@ -111,24 +112,6 @@ else:
 model_line_type.Attachmentz[0] = bend_restrictor_ini_position
 model_line_type.AttachmentzRelativeTo[0] = "End B"
 
-stiffener_fin_position = round(bend_restrictor_ini_position + object_bend_restrictor.length, 3)
-prohibited_position = (stiffener_fin_position // .5) * .5
-
-# Restrição de colocação de flutuadores na interface 
-# final da vértebra, por motivos de dificuldades operacionais na instalação.
-"""num_pos = len(rl_config[0])
-# MUDANDO O RL CONFIG
-for i in range(len(rl_config[0])):
-    if rl_config[0][i] == prohibited_position:
-        print(
-            f"\nAjustando a configuração proposta no RL para evitar dificuldades"
-            f"operacionais na instalação de boias na interface final da vértebra."
-            )
-        rl_config[0][i] += .5
-        if num_pos == 3:
-            if i == 1:
-                rl_config[0][2] += .5"""
-
 sim_run.previous_run_static(model, model_general, model_line_type, model_vcm)
 sim_run.user_specified(model, rt_number, file_path)
 
@@ -147,6 +130,7 @@ while k <= 5:
     rl_config_fract = [rl_config[0], [round(k * x / 5, 0)
                                       for x in rl_config[1]]]
     selection = sim_run.buoyancy(rl_config_fract, buoy_combination)
+    print(selection)
     treated_buoys = sim_run.buoyancy_treatment(rl_config_fract, selection)
     num_buoys = sim_run.number_buoys(treated_buoys)
     sim_run.input_buoyancy(model_line_type, num_buoys, treated_buoys, vessel)
@@ -163,7 +147,7 @@ print("\nAutomation's start.")
 sim_run.looping(model_line_type, selection, model, stiffener_type, rt_number, vessel,
                 rl_config, buoy_set, model_vcm, object_line, object_bend_restrictor, object_vcm,
                 model_winch, model_general, model_environment, file_path, structural_limits,
-                prohibited_position, a_r)
+                a_r)
 
 static_end_time = time.time()
 exec_static_time = static_end_time - start_time

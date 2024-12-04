@@ -6,20 +6,25 @@ Running with bend_restrictor
 Running with buoys
 
 Partially adding buoyancy
+{'118+118+118': 354.0, '118': 118.0}
 
 Partial buoyancy: [360.0, 200.0]
+{'283+205+205': 693.0, '283+100': 383.0}
 
 Partial buoyancy: [720.0, 400.0]
+{'973+100': 1073.0, '283+205+100': 588.0}
 
 Partial buoyancy: [1080.0, 600.0]
+{'573+573+283': 1429.0, '573+118+100': 791.0}
 
 Partial buoyancy: [1440.0, 800.0]
+{'973+573+205': 1751.0, '573+205+205': 983.0}
 
 Partial buoyancy: [1800.0, 1000.0]
 
 Automation's start.
 
-Retrieving out 0.2m from the line,
+Retrieving out 0.2m of line,
 from 1984.0 to 1983.8
 
 Line's in contact with seabed
@@ -37,7 +42,7 @@ Running 1th time.
 
 Os esforços verificados no gooseneck são admissíveis.
 
-Retrieving out 0.5m from the line,
+Retrieving out 0.5m of line,
 from 1983.8 to 1983.3
 
 Line's in contact with seabed
@@ -53,7 +58,7 @@ Line's in contact with seabed
 
 Os esforços verificados no gooseneck são admissíveis.
 
-Retrieving out 0.5m from the line,
+Retrieving out 0.5m of line,
 from 1983.3 to 1982.8
 
 Line's in contact with seabed
@@ -69,7 +74,7 @@ Line's in contact with seabed
 
 Os esforços verificados no gooseneck são admissíveis.
 
-Retrieving out 0.5m from the line,
+Retrieving out 0.5m of line,
 from 1982.8 to 1982.3
 
 Line's in contact with seabed
@@ -85,7 +90,7 @@ Line's in contact with seabed
 
 Os esforços verificados no gooseneck são admissíveis.
 
-Retrieving out 0.5m from the line,
+Retrieving out 0.5m of line,
 from 1982.3 to 1981.8
 
 Line's in contact with seabed
@@ -101,7 +106,7 @@ Line's in contact with seabed
 
 Os esforços verificados no gooseneck são admissíveis.
 
-Retrieving out 0.5m from the line,
+Retrieving out 0.5m of line,
 from 1981.8 to 1981.3
 
 Line's in contact with seabed
@@ -117,7 +122,7 @@ Line's in contact with seabed
 
 Os esforços verificados no gooseneck são admissíveis.
 
-Retrieving out 0.5m from the line,
+Retrieving out 0.5m of line,
 from 1981.3 to 1980.8
 
 Line's in contact with seabed
@@ -133,7 +138,7 @@ Line's in contact with seabed
 
 Os esforços verificados no gooseneck são admissíveis.
 
-Retrieving out 0.5m from the line,
+Retrieving out 0.5m of line,
 from 1980.8 to 1980.3
 
 Line's in contact with seabed
@@ -149,7 +154,7 @@ Line's in contact with seabed
 
 Os esforços verificados no gooseneck são admissíveis.
 
-Retrieving out 0.5m from the line,
+Retrieving out 0.5m of line,
 from 1980.3 to 1979.8
 
 Line's in contact with seabed
@@ -165,7 +170,7 @@ Line's in contact with seabed
 
 Os esforços verificados no gooseneck não são admissíveis
 
-Retrieving out 0.5m from the line,
+Retrieving out 0.5m of line,
 from 1979.8 to 1979.3
 
 Line's in contact with seabed
@@ -181,7 +186,7 @@ Line's in contact with seabed
 
 Os esforços verificados no gooseneck não são admissíveis
 
-Retrieving out 0.5m from the line,
+Retrieving out 0.5m of line,
 from 1979.3 to 1978.8
 
     Results
@@ -195,7 +200,7 @@ from 1979.3 to 1978.8
 
 Os esforços verificados no gooseneck não são admissíveis
 
-Retrieving out 0.2m from the line,
+Retrieving out 0.2m of line,
 from 1978.8 to 1978.6
 
     Results
@@ -209,7 +214,7 @@ from 1978.8 to 1978.6
 
 Os esforços verificados no gooseneck não são admissíveis
 
-Retrieving out 0.2m from the line,
+Retrieving out 0.2m of line,
 from 1978.6 to 1978.4
 
     Results
@@ -223,7 +228,7 @@ from 1978.6 to 1978.4
 
 Os esforços verificados no gooseneck não são admissíveis
 
-Retrieving out 0.2m from the line,
+Retrieving out 0.2m of line,
 from 1978.4 to 1978.2
 
     Results
@@ -261,7 +266,7 @@ Os esforços verificados no gooseneck não são admissíveis
 
 Os esforços verificados na vértebra são admissíveis.
 
-Paying out 0.2m from the line,
+Paying out 0.2m of line,
 from 1978.2 to 1978.4
 
     Results
@@ -282,7 +287,7 @@ Os esforços verificados no gooseneck não são admissíveis
 
 Os esforços verificados na vértebra são admissíveis.
 
-Paying out 0.2m from the line,
+Paying out 0.2m of line,
 from 1978.4 to 1978.6
 
     Results
@@ -303,7 +308,7 @@ Os esforços verificados no gooseneck não são admissíveis
 
 Os esforços verificados na vértebra são admissíveis.
 
-Paying out 0.2m from the line,
+Paying out 0.2m of line,
 from 1978.6 to 1978.8
 
     Results
@@ -348,6 +353,6 @@ Os esforços verificados no gooseneck são admissíveis.
 Os esforços verificados na vértebra são admissíveis.
 
  Static automation's end.
- Execution time: 165.90s
+ Execution time: 161.00s
 
  Starting dynamics...
