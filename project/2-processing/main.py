@@ -127,10 +127,8 @@ selection = {}
 print("\nPartially adding buoyancy")
 k = 1
 while k <= 5:
-    rl_config_fract = [rl_config[0], [round(k * x / 5, 0)
-                                      for x in rl_config[1]]]
+    rl_config_fract = [rl_config[0], [round(k * x / 5, 0) for x in rl_config[1]]]
     selection = sim_run.buoyancy(rl_config_fract, buoy_combination)
-    print(selection)
     treated_buoys = sim_run.buoyancy_treatment(rl_config_fract, selection)
     num_buoys = sim_run.number_buoys(treated_buoys)
     sim_run.input_buoyancy(model_line_type, num_buoys, treated_buoys, vessel)

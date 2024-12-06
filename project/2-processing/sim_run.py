@@ -5,6 +5,7 @@ Simulation methods for the automation.
 import OrcFxAPI
 import os
 import methods
+from collections import Counter
 
 # CONSTANTS
 n_run = 0  # Static running counter
@@ -199,10 +200,8 @@ def buoy_combination(b_set: list) -> dict:
                    if i < j < k
                    if (one_buoy[buoy1] + one_buoy[buoy2] + one_buoy[buoy3]) <= buoyancy_limit}
     combination = {**one_buoy, **two_buoys, **three_buoys}
-    combination_buoys = {key: value
-                         for key, value in combination.items()}
-    combination_buoys = dict(
-        sorted(combination_buoys.items(), key=lambda item: item[1], reverse=False))
+    combination_buoys = {key: value for key, value in combination.items()}
+    combination_buoys = dict( sorted(combination_buoys.items(), key=lambda item: item[1], reverse=False))
     return combination_buoys
 
 
@@ -215,8 +214,8 @@ def buoyancy(buoys_config: list, combination_buoys: dict) -> dict:
     """
     try:
         selection = {}
+        comb_keys = list(combination_buoys.keys())
         for k in range(len(buoys_config[1])):
-            comb_keys = list(combination_buoys.keys())
             j = 0
             while (combination_buoys[comb_keys[j]] < buoys_config[1][k] and
                 combination_buoys[comb_keys[j + 1]] < buoys_config[1][k]):
@@ -224,11 +223,13 @@ def buoyancy(buoys_config: list, combination_buoys: dict) -> dict:
             key = comb_keys[j]
             value = combination_buoys[key]
             selection[key] = value
+            comb_keys.remove(key)
         return selection
     except IndexError:
         buoys_config[1][k] = .9 * buoys_config[1][k]
+        selection = {}
+        comb_keys = list(combination_buoys.keys())
         for k in range(len(buoys_config[1])):
-            comb_keys = list(combination_buoys.keys())
             j = 0
             while (combination_buoys[comb_keys[j]] < buoys_config[1][k] and
                 combination_buoys[comb_keys[j + 1]] < buoys_config[1][k]):
@@ -236,6 +237,7 @@ def buoyancy(buoys_config: list, combination_buoys: dict) -> dict:
             key = comb_keys[j]
             value = combination_buoys[key]
             selection[key] = value
+            comb_keys.remove(key)
         return selection
 
 
@@ -421,8 +423,8 @@ def verify_br_loads(bend_restrictor_model: OrcFxAPI.OrcaFlexObject,
         moment = [bm for _, bm in enumerate(moment.Max)]
         shear = bend_restrictor_model.RangeGraph("Shear Force", period=OrcFxAPI.PeriodNum.WholeSimulation)
         shear = [sf for _, sf in enumerate(shear.Max)]
-    max_moment = round(max(moment), 3)
-    max_shear = round(max(shear), 3)
+    max_moment = round(max(abs(min(moment)), max(moment)), 3)
+    max_shear = round(max(abs(min(shear)), max(shear)), 3)
     print(
         f"\n        Shear force in bend_restrictor: {max_shear}kN (Limit: {limit_sf}kN)"
         f"\n        Bend moment in bend_restrictor: {max_moment}kN.m (Limit: {limit_bf}kN.m)"
@@ -490,6 +492,7 @@ def looping(model_line_type: OrcFxAPI.OrcaFlexObject, selection: dict, model: Or
         delta_flange = 0
         flange_loads = True
         print("\nSorry, it was not possible to converge.")
+
     number = model_line_type.NumberOfAttachments
     position = []
     k = 1
@@ -499,8 +502,8 @@ def looping(model_line_type: OrcFxAPI.OrcaFlexObject, selection: dict, model: Or
     buoys = list(selection.values())
     buoy_model = [position, buoys]
     num_positions = len(buoy_model[0])
-    unique_positions = list(set(buoy_model[0]))
-    pointer = make_pointer(len(unique_positions), unique_positions)               
+    unique_positions = list(Counter(position).keys())
+    pointer = make_pointer(len(unique_positions), unique_positions, model_line_type)
     if clearance < clearance_limit_inf or clearance > clearance_limit_sup:
         if clearance < 0:
             payout_retrieve_line(model_line_type, -payout_retrieve_pace_max, object_line, a_r)
@@ -510,11 +513,11 @@ def looping(model_line_type: OrcFxAPI.OrcaFlexObject, selection: dict, model: Or
             payout_retrieve_line(model_line_type, payout_retrieve_pace_min, object_line, a_r)
         n_run = max(n_run - 1, 0)  # não contabiliza ajustes no comprimento da linha como iteração
         call_loop(model_line_type, selection, model, bend_restrictor_model, rt_number, vessel,
-                    rl_config, buoy_set, model_vcm, object_line, object_bend_restrictor, object_vcm,
-                    winch, general, environment, file_path, structural, a_r)
+                rl_config, buoy_set, model_vcm, object_line, object_bend_restrictor, object_vcm,
+                winch, general, environment, file_path, structural, a_r)
     if vcm_rotation_inf_limit > abs(rotation) or abs(rotation) > vcm_rotation_sup_limit:
-        limits = [list(set(buoy_position_near_vcm[i] for i in range(len(unique_positions)))) if rotation > vcm_rotation_sup_limit \
-            else list(set(buoy_position_far_vcm[i] for i in range(len(unique_positions))))][0]
+        limits = [buoy_position_near_vcm[i] for i in range(len(unique_positions))] if rotation > vcm_rotation_sup_limit \
+            else [buoy_position_far_vcm[i] for i in range(len(unique_positions))]
         if unique_positions[pointer] != limits[pointer]:
             new_positions = [list(set(buoy_position - buoy_position_pace for buoy_position in unique_positions)) if rotation > vcm_rotation_sup_limit \
                 else list(set(buoy_position + buoy_position_pace for buoy_position in unique_positions))][0]
@@ -579,28 +582,39 @@ def change_position(line_model: OrcFxAPI.OrcaFlexObject, new_positions: list, po
         p += 1
 
 
-def make_pointer(num_positions: float, positions: list) -> int:
+def make_pointer(num_positions: float, positions: list, line: OrcFxAPI.OrcaFlexObject) -> int:
     """
     Creates a pointer that selects which of the buoys positions is going to be changed
     :param positions: Buoys model positions
     :param num_positions: number of attachments (buoys) in all the line
     :return: pointer
     """
-    pointer = 0
-    if num_positions == 2:
-        first_buoy_position = positions[0]
-        second_buoy_position = positions[1]
-        if second_buoy_position - first_buoy_position == min_distance_buoys:
-            pointer = 1
-    elif num_positions == 3:
-        first_buoy_position = positions[0]
-        second_buoy_position = positions[1]
-        third_buoy_position = positions[2]
-        if second_buoy_position - first_buoy_position == min_distance_buoys:
-            pointer = 1
-        if third_buoy_position - second_buoy_position == min_distance_buoys:
-            pointer = 2
-    return pointer
+    try:
+        pointer = 0
+        if num_positions == 2:
+            first_buoy_position = positions[0]
+            second_buoy_position = positions[1]
+            if second_buoy_position - first_buoy_position == min_distance_buoys:
+                pointer = 1
+        elif num_positions == 3:
+            first_buoy_position = positions[0]
+            second_buoy_position = positions[1]
+            third_buoy_position = positions[2]
+            if second_buoy_position - first_buoy_position == min_distance_buoys:
+                pointer = 1
+            elif third_buoy_position - second_buoy_position == min_distance_buoys:
+                pointer = 2
+
+        """attach = list(line.AttachmentType)
+        attach_pos = list(line.Attachmentz)
+        vert_index = attach.index('Vert')
+        attach_pos.remove(attach_pos[vert_index])
+        if rotation > vcm_rotation_sup_limit:
+            if attach_pos[pointer + 1] - attach_pos[pointer] == 3:
+                pointer += 1"""
+        return pointer
+    except IndexError:
+        return pointer
 
 
 def changing_buoyancy(position: list, rl_config: list, pointer: int) -> list:
@@ -762,22 +776,34 @@ def dyn_results(line: OrcFxAPI.OrcaFlexObject, bend_restrictor: OrcFxAPI.OrcaFle
     :return: Dynamic results
     """
     results = []
-    heaveup_loads = []
-    heaveup_loads.append(abs(round(max(line.TimeHistory("End Ez force", heave_up_period, OrcFxAPI.oeEndB)), 3)))
-    heaveup_loads.append(abs(round(max(line.TimeHistory("End Ex force", heave_up_period, OrcFxAPI.oeEndB)), 3)))
-    heaveup_loads.append(abs(round(max(line.TimeHistory("End Ey moment", heave_up_period, OrcFxAPI.oeEndB)), 3)))
-    results.append(tuple(heaveup_loads))
-    transition_loads = []
-    transition_loads.append(abs(round(max(line.TimeHistory("End Ez force", transition_period, OrcFxAPI.oeEndB)), 3)))
-    transition_loads.append(abs(round(max(line.TimeHistory("End Ex force", transition_period, OrcFxAPI.oeEndB)), 3)))
-    transition_loads.append(abs(round(max(line.TimeHistory("End Ey moment", transition_period, OrcFxAPI.oeEndB)), 3)))
-    results.append(tuple(transition_loads))
-    tdp_loads = []
-    tdp_loads.append(abs(round(max(line.TimeHistory("End Ez force", tdp_period, OrcFxAPI.oeEndB)), 3)))
-    tdp_loads.append(abs(round(max(line.TimeHistory("End Ex force", tdp_period, OrcFxAPI.oeEndB)), 3)))
-    tdp_loads.append(abs(round(max(line.TimeHistory("End Ey moment", tdp_period, OrcFxAPI.oeEndB)), 3)))
-    results.append(tuple(tdp_loads))
+    max_absolut_load(line, heave_up_period, results)
+    max_absolut_load(line, transition_period, results)
+    max_absolut_load(line, tdp_period, results)
     nc_br = verify_normalised_curvature(bend_restrictor, "Max")
     if nc_br > 1:
         verify_br_loads(bend_restrictor, bend_restrictor_obj, "Max")
     return results
+
+
+def max_absolut_load(line: OrcFxAPI.OrcaFlexObject, period: OrcFxAPI.SpecifiedPeriod, safe_list: list) -> None:
+    """
+    Get the max absolut loads of each period
+    :param line: lone model
+    :param period: period of the result
+    :param safe_list: list where the results will be appended
+    :return: nothing
+    """
+    min_normal = abs(round(min(line.TimeHistory('End Ez force', period, OrcFxAPI.oeEndB)), 3))
+    max_normal = abs(round(max(line.TimeHistory('End Ez force', period, OrcFxAPI.oeEndB)), 3))
+    normal = max(min_normal, max_normal)
+    
+    min_shear = abs(round(min(line.TimeHistory('End Ex force', period, OrcFxAPI.oeEndB)), 3))
+    max_shear = abs(round(max(line.TimeHistory('End Ex force', period, OrcFxAPI.oeEndB)), 3))
+    shear = max(min_shear, max_shear)
+    
+    min_moment = abs(round(min(line.TimeHistory('End Ey moment', period, OrcFxAPI.oeEndB)), 3))
+    max_moment = abs(round(max(line.TimeHistory('End Ey moment', period, OrcFxAPI.oeEndB)), 3))
+    moment = max(min_moment, max_moment)
+
+    loads = [normal, shear, moment]
+    safe_list.append(loads)

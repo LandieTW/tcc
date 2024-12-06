@@ -6,19 +6,14 @@ Running with bend_restrictor
 Running with buoys
 
 Partially adding buoyancy
-{'118+118+118': 354.0, '118': 118.0}
 
 Partial buoyancy: [360.0, 200.0]
-{'283+205+205': 693.0, '283+100': 383.0}
 
 Partial buoyancy: [720.0, 400.0]
-{'973+100': 1073.0, '283+205+100': 588.0}
 
 Partial buoyancy: [1080.0, 600.0]
-{'573+573+283': 1429.0, '573+118+100': 791.0}
 
 Partial buoyancy: [1440.0, 800.0]
-{'973+573+205': 1751.0, '573+205+205': 983.0}
 
 Partial buoyancy: [1800.0, 1000.0]
 
@@ -353,6 +348,6 @@ Os esforços verificados no gooseneck são admissíveis.
 Os esforços verificados na vértebra são admissíveis.
 
  Static automation's end.
- Execution time: 161.00s
+ Execution time: 166.87s
 
  Starting dynamics...

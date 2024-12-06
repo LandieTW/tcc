@@ -92,9 +92,9 @@ vcm.CentreOfVolumeX = vcm_object.cg_bx
 vcm.CentreOfVolumeZ = vcm_object.cg_az
 vcm.Name = vcm_object.name
 
-line_type.Length[0] = line_object.lda - length
+line_type.Length[0] = line_object.lda - length + 10
 if line_object.length != line_object.lda:
-    diff_lda = line_object.lda - line_object.length
+    diff_lda = line_object.lda - line_object.length + 10
     a_r.StageValue[0] = diff_lda
     line_type.EndAZ = - diff_lda
 line_type.Length[5] = bend_restrictor_object.length  #
