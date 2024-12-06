@@ -42,20 +42,6 @@ transition_period = OrcFxAPI.SpecifiedPeriod(2.15, 32.15)  # period between heav
 tdp_period = OrcFxAPI.SpecifiedPeriod(32.15, 72.15)  # period in which tdp occurs
 total_period = OrcFxAPI.SpecifiedPeriod(0, 72.15)  # all period
 
-def insert_vert(line: OrcFxAPI.OrcaFlexObject, start_pos: float):
-    """
-    Inserts Bend Restrictor
-    :param line: line model
-    :param start_pos: stiffener start position
-    :return: Nothing
-    """
-    n_attach = line.NumberOfAttachments
-    line.NumberOfAttachments = n_attach + 1
-    line.AttachmentType[n_attach] = 'Vert'
-    line.Attachmentz[n_attach] = start_pos
-    line.AttachmentzRelativeTo[n_attach] = "End B"
-    line.AttachmentName[n_attach] = "Stiffener1"
-
 def previous_run_static(model: OrcFxAPI.Model, general: OrcFxAPI.OrcaFlexObject, 
                         line_type: OrcFxAPI.OrcaFlexObject, vcm: OrcFxAPI.OrcaFlexObject) -> None:
     """
