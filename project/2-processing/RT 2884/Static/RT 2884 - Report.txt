@@ -18,9 +18,16 @@ Partial buoyancy: [1520.0, 800.0, 800.0]
 Partial buoyancy: [1900.0, 1000.0, 1000.0]
 
 Automation's start.
+UNIQUE POSITIONS: [3.0, 6.0, 9.0]
+POINTER: None
 
 Retrieving out 0.2m of A/R, 
 from 1856.0 to 1855.8
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
 
 Running 1th time.
 
@@ -34,9 +41,16 @@ Running 1th time.
         Bend moment in flange's gooseneck: 14.61kN.m (Limit: 10.72kN)
 
 Os esforços verificados no gooseneck não são admissíveis
+UNIQUE POSITIONS: [3.0, 6.0, 9.0]
+POINTER: 1
 
 Paying out 0.2m of A/R,
 from 1855.8 to 1856.0
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
 
     Results
         VCM Rotation: -1.834°.
@@ -48,9 +62,16 @@ from 1855.8 to 1856.0
         Bend moment in flange's gooseneck: 14.269kN.m (Limit: 10.72kN)
 
 Os esforços verificados no gooseneck não são admissíveis
+UNIQUE POSITIONS: [3.0, 6.0, 9.0]
+POINTER: 1
 
 Paying out 0.2m of A/R,
 from 1856.0 to 1856.2
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
 
     Results
         VCM Rotation: -1.722°.
@@ -62,9 +83,16 @@ from 1856.0 to 1856.2
         Bend moment in flange's gooseneck: 13.927kN.m (Limit: 10.72kN)
 
 Os esforços verificados no gooseneck não são admissíveis
+UNIQUE POSITIONS: [3.0, 6.0, 9.0]
+POINTER: 1
 
 Paying out 0.2m of A/R,
 from 1856.2 to 1856.4
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
 
     Results
         VCM Rotation: -1.612°.
@@ -76,9 +104,16 @@ from 1856.2 to 1856.4
         Bend moment in flange's gooseneck: 13.589kN.m (Limit: 10.72kN)
 
 Os esforços verificados no gooseneck não são admissíveis
+UNIQUE POSITIONS: [3.0, 6.0, 9.0]
+POINTER: 1
 
 Paying out 0.2m of A/R,
 from 1856.4 to 1856.6
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
 
     Results
         VCM Rotation: -1.503°.
@@ -90,9 +125,16 @@ from 1856.4 to 1856.6
         Bend moment in flange's gooseneck: 13.256kN.m (Limit: 10.72kN)
 
 Os esforços verificados no gooseneck não são admissíveis
+UNIQUE POSITIONS: [3.0, 6.0, 9.0]
+POINTER: 1
 
 Paying out 0.2m of A/R,
 from 1856.6 to 1856.8
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
 
     Results
         VCM Rotation: -1.394°.
@@ -104,9 +146,16 @@ from 1856.6 to 1856.8
         Bend moment in flange's gooseneck: 12.921kN.m (Limit: 10.72kN)
 
 Os esforços verificados no gooseneck não são admissíveis
+UNIQUE POSITIONS: [3.0, 6.0, 9.0]
+POINTER: 1
 
 Paying out 0.2m of A/R,
 from 1856.8 to 1857.0
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
 
     Results
         VCM Rotation: -1.286°.
@@ -118,9 +167,16 @@ from 1856.8 to 1857.0
         Bend moment in flange's gooseneck: 12.589kN.m (Limit: 10.72kN)
 
 Os esforços verificados no gooseneck não são admissíveis
+UNIQUE POSITIONS: [3.0, 6.0, 9.0]
+POINTER: 1
 
 Paying out 0.2m of A/R,
 from 1857.0 to 1857.2
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
 
     Results
         VCM Rotation: -1.178°.
@@ -132,9 +188,16 @@ from 1857.0 to 1857.2
         Bend moment in flange's gooseneck: 12.259kN.m (Limit: 10.72kN)
 
 Os esforços verificados no gooseneck não são admissíveis
+UNIQUE POSITIONS: [3.0, 6.0, 9.0]
+POINTER: 1
 
 Paying out 0.2m of A/R,
 from 1857.2 to 1857.4
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
 
     Results
         VCM Rotation: -1.07°.
@@ -146,9 +209,16 @@ from 1857.2 to 1857.4
         Bend moment in flange's gooseneck: 11.928kN.m (Limit: 10.72kN)
 
 Os esforços verificados no gooseneck não são admissíveis
+UNIQUE POSITIONS: [3.0, 6.0, 9.0]
+POINTER: 1
 
 Paying out 0.2m of A/R,
 from 1857.4 to 1857.6
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
 
     Results
         VCM Rotation: -0.961°.
@@ -160,9 +230,16 @@ from 1857.4 to 1857.6
         Bend moment in flange's gooseneck: 11.593kN.m (Limit: 10.72kN)
 
 Os esforços verificados no gooseneck não são admissíveis
+UNIQUE POSITIONS: [3.0, 6.0, 9.0]
+POINTER: 1
 
 Paying out 0.2m of A/R,
 from 1857.6 to 1857.8
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
 
     Results
         VCM Rotation: -0.852°.
@@ -174,9 +251,16 @@ from 1857.6 to 1857.8
         Bend moment in flange's gooseneck: 11.259kN.m (Limit: 10.72kN)
 
 Os esforços verificados no gooseneck não são admissíveis
+UNIQUE POSITIONS: [3.0, 6.0, 9.0]
+POINTER: 1
 
 Paying out 0.2m of A/R,
 from 1857.8 to 1858.0
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
 
     Results
         VCM Rotation: -0.742°.
@@ -188,292 +272,89 @@ from 1857.8 to 1858.0
         Bend moment in flange's gooseneck: 10.924kN.m (Limit: 10.72kN)
 
 Os esforços verificados no gooseneck não são admissíveis
+UNIQUE POSITIONS: [3.0, 6.0, 9.0]
+POINTER: 1
+LIMITS: [3, 6, 9]
 
-Changing buoys positionfrom 3.0 to 3.5
-
-Changing buoys positionfrom 3.0 to 3.5
-
-Changing buoys positionfrom 3.0 to 3.5
+Changing buoys
+from dict_keys(['871+647+381', '741+155+101', '741+155+100']): dict_values([1899.0, 997.0, 996.0])
+to dict_keys(['871+647+381', '741+104+101', '741+155+101']): dict_values([1899.0, 946.0, 997.0])
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
 
 Running 2th time.
 
     Results
-        VCM Rotation: -1.859°.
-        Line Clearance: 0.82m.
-        Flange Height error: -0.062m.
+        VCM Rotation: -0.12°.
+        Line Clearance: 0.541m.
+        Flange Height error: -0.008m.
 
-        Normal force in flange's gooseneck: 5.562kN (Limit: 7.62kN)
-        Shear force in flange's gooseneck: 9.957kN  (Limit: -11.3kN)
-        Bend moment in flange's gooseneck: 15.374kN.m (Limit: 10.72kN)
+        Normal force in flange's gooseneck: 5.978kN (Limit: 7.62kN)
+        Shear force in flange's gooseneck: 9.954kN  (Limit: -11.3kN)
+        Bend moment in flange's gooseneck: 9.368kN.m (Limit: 10.72kN)
 
-Os esforços verificados no gooseneck não são admissíveis
+Os esforços verificados no gooseneck são admissíveis.
+UNIQUE POSITIONS: [3.0, 6.0, 9.0]
+POINTER: 1
 
-Paying out 0.2m of A/R,
-from 1858.0 to 1858.2
+Retrieving out 0.008m from the winch,
+from 2170.5 to 2170.49
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
 
-    Results
-        VCM Rotation: -1.741°.
-        Line Clearance: 0.687m.
-        Flange Height error: -0.058m.
+Error: 
+Error code: 27
+Static calculation failed (Whole system statics: Not converged.)
 
-        Normal force in flange's gooseneck: 5.599kN (Limit: 7.62kN)
-        Shear force in flange's gooseneck: 9.978kN  (Limit: -11.3kN)
-        Bend moment in flange's gooseneck: 15.011kN.m (Limit: 10.72kN)
+Increasing a little the Static Damping Range and the Number of iterations
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
 
-Os esforços verificados no gooseneck não são admissíveis
+Error: 
+Error code: 27
+Static calculation failed (Whole system statics: Not converged.)
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
 
-Paying out 0.2m of A/R,
-from 1858.2 to 1858.4
+Error: 
+Error code: 27
+Static calculation failed (Whole system statics: Not converged.)
 
-    Results
-        VCM Rotation: -1.621°.
-        Line Clearance: 0.553m.
-        Flange Height error: -0.054m.
-
-        Normal force in flange's gooseneck: 5.637kN (Limit: 7.62kN)
-        Shear force in flange's gooseneck: 9.999kN  (Limit: -11.3kN)
-        Bend moment in flange's gooseneck: 14.639kN.m (Limit: 10.72kN)
-
-Os esforços verificados no gooseneck não são admissíveis
-
-Changing buoys positionfrom 6.0 to 6.5
-
-Changing buoys positionfrom 6.0 to 6.5
-
-Changing buoys positionfrom 6.0 to 6.5
+Displacing VCM
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
 
 Running 3th time.
 
     Results
-        VCM Rotation: -1.505°.
-        Line Clearance: 0.727m.
-        Flange Height error: -0.05m.
-
-        Normal force in flange's gooseneck: 5.772kN (Limit: 7.62kN)
-        Shear force in flange's gooseneck: 10.218kN  (Limit: -11.3kN)
-        Bend moment in flange's gooseneck: 14.69kN.m (Limit: 10.72kN)
-
-Os esforços verificados no gooseneck não são admissíveis
-
-Paying out 0.2m of A/R,
-from 1858.4 to 1858.6
-
-    Results
-        VCM Rotation: -1.392°.
-        Line Clearance: 0.591m.
-        Flange Height error: -0.047m.
-
-        Normal force in flange's gooseneck: 5.808kN (Limit: 7.62kN)
-        Shear force in flange's gooseneck: 10.237kN  (Limit: -11.3kN)
-        Bend moment in flange's gooseneck: 14.341kN.m (Limit: 10.72kN)
-
-Os esforços verificados no gooseneck não são admissíveis
-
-Changing buoys positionfrom 3.5 to 4.0
-
-Changing buoys positionfrom 3.5 to 4.0
-
-Changing buoys positionfrom 3.5 to 4.0
-
-Running 4th time.
-
-    Results
-        VCM Rotation: -2.776°.
-        Line Clearance: 0.967m.
-        Flange Height error: -0.09m.
-
-        Normal force in flange's gooseneck: 5.723kN (Limit: 7.62kN)
-        Shear force in flange's gooseneck: 10.733kN  (Limit: -11.3kN)
-        Bend moment in flange's gooseneck: 20.138kN.m (Limit: 10.72kN)
-
-Os esforços verificados no gooseneck não são admissíveis
-
- Bend Restrictor's locked
-
-        Shear force in bend_restrictor: 10.23kN (Limit: 34.0kN)
-        Bend moment in bend_restrictor: 5.033kN.m (Limit: 70.0kN.m)
-
-Os esforços verificados na vértebra são admissíveis.
-
-Paying out 0.2m of A/R,
-from 1858.6 to 1858.8
-
-    Results
-        VCM Rotation: -2.64°.
-        Line Clearance: 0.819m.
-        Flange Height error: -0.086m.
-
-        Normal force in flange's gooseneck: 5.766kN (Limit: 7.62kN)
-        Shear force in flange's gooseneck: 10.755kN  (Limit: -11.3kN)
-        Bend moment in flange's gooseneck: 19.716kN.m (Limit: 10.72kN)
-
-Os esforços verificados no gooseneck não são admissíveis
-
- Bend Restrictor's locked
-
-        Shear force in bend_restrictor: 10.183kN (Limit: 34.0kN)
-        Bend moment in bend_restrictor: 4.687kN.m (Limit: 70.0kN.m)
-
-Os esforços verificados na vértebra são admissíveis.
-
-Paying out 0.2m of A/R,
-from 1858.8 to 1859.0
-
-    Results
-        VCM Rotation: -2.507°.
-        Line Clearance: 0.677m.
-        Flange Height error: -0.081m.
-
-        Normal force in flange's gooseneck: 5.809kN (Limit: 7.62kN)
-        Shear force in flange's gooseneck: 10.777kN  (Limit: -11.3kN)
-        Bend moment in flange's gooseneck: 19.301kN.m (Limit: 10.72kN)
-
-Os esforços verificados no gooseneck não são admissíveis
-
- Bend Restrictor's locked
-
-        Shear force in bend_restrictor: 10.137kN (Limit: 34.0kN)
-        Bend moment in bend_restrictor: 4.348kN.m (Limit: 70.0kN.m)
-
-Os esforços verificados na vértebra são admissíveis.
-
-Paying out 0.2m of A/R,
-from 1859.0 to 1859.2
-
-    Results
-        VCM Rotation: -2.373°.
-        Line Clearance: 0.535m.
-        Flange Height error: -0.077m.
-
-        Normal force in flange's gooseneck: 5.852kN (Limit: 7.62kN)
-        Shear force in flange's gooseneck: 10.8kN  (Limit: -11.3kN)
-        Bend moment in flange's gooseneck: 18.885kN.m (Limit: 10.72kN)
-
-Os esforços verificados no gooseneck não são admissíveis
-
- Bend Restrictor's locked
-
-        Shear force in bend_restrictor: 10.09kN (Limit: 34.0kN)
-        Bend moment in bend_restrictor: 4.008kN.m (Limit: 70.0kN.m)
-
-Os esforços verificados na vértebra são admissíveis.
-
-Changing buoys
-from dict_keys(['871+647+381', '741+155+101', '741+155+100']): dict_values([1899.0, 997.0, 996.0])
-to dict_keys(['1323+381', '741+155+101', '741+155+100']): dict_values([1704.0, 997.0, 996.0])
-
-Running 5th time.
-
-    Results
-        VCM Rotation: -0.15°.
-        Line Clearance: 0.384m.
-        Flange Height error: -0.007m.
-
-        Normal force in flange's gooseneck: 7.147kN (Limit: 7.62kN)
-        Shear force in flange's gooseneck: 12.076kN  (Limit: -11.3kN)
-        Bend moment in flange's gooseneck: 13.847kN.m (Limit: 10.72kN)
-
-Os esforços verificados no gooseneck não são admissíveis
-
- Bend Restrictor's locked
-
-        Shear force in bend_restrictor: 7.549kN (Limit: 34.0kN)
-        Bend moment in bend_restrictor: 2.261kN.m (Limit: 70.0kN.m)
-
-Os esforços verificados na vértebra são admissíveis.
-
-Retrieving out 0.2m of A/R, 
-from 1859.2 to 1859.0
-
-    Results
-        VCM Rotation: -0.28°.
-        Line Clearance: 0.524m.
-        Flange Height error: -0.011m.
-
-        Normal force in flange's gooseneck: 7.101kN (Limit: 7.62kN)
-        Shear force in flange's gooseneck: 12.057kN  (Limit: -11.3kN)
-        Bend moment in flange's gooseneck: 14.256kN.m (Limit: 10.72kN)
-
-Os esforços verificados no gooseneck não são admissíveis
-
- Bend Restrictor's locked
-
-        Shear force in bend_restrictor: 7.593kN (Limit: 34.0kN)
-        Bend moment in bend_restrictor: 2.602kN.m (Limit: 70.0kN.m)
-
-Os esforços verificados na vértebra são admissíveis.
-
-Retrieving out 0.011m from the winch,
-from 2170.5 to 2170.49
-
-Error: 
-Error code: 27
-Static calculation failed (Whole system statics: Not converged.)
-
-Changing Line's Static policy to Catenary.
-
-Error: 
-Error code: 27
-Static calculation failed (Whole system statics: Not converged.)
-
-Displacing VCM
-
-Running 6th time.
-
-    Results
-        VCM Rotation: -0.287°.
-        Line Clearance: 0.521m.
-        Flange Height error: -0.001m.
-
-        Normal force in flange's gooseneck: 7.098kN (Limit: 7.62kN)
-        Shear force in flange's gooseneck: 12.056kN  (Limit: -11.3kN)
-        Bend moment in flange's gooseneck: 14.278kN.m (Limit: 10.72kN)
-
-Os esforços verificados no gooseneck não são admissíveis
-
- Bend Restrictor's locked
-
-        Shear force in bend_restrictor: 7.595kN (Limit: 34.0kN)
-        Bend moment in bend_restrictor: 2.62kN.m (Limit: 70.0kN.m)
-
-Os esforços verificados na vértebra são admissíveis.
-
-Retrieving out 0.001m from the winch,
-from 2170.51 to 2170.51
-
-Error: 
-Error code: 27
-Static calculation failed (Whole system statics: Not converged.)
-
-Changing Line's Static policy to Catenary.
-
-Error: 
-Error code: 27
-Static calculation failed (Whole system statics: Not converged.)
-
-Displacing VCM
-
-Running 7th time.
-
-    Results
-        VCM Rotation: -0.287°.
-        Line Clearance: 0.52m.
+        VCM Rotation: -0.124°.
+        Line Clearance: 0.538m.
         Flange Height error: 0.0m.
 
-        Normal force in flange's gooseneck: 7.098kN (Limit: 7.62kN)
-        Shear force in flange's gooseneck: 12.056kN  (Limit: -11.3kN)
-        Bend moment in flange's gooseneck: 14.28kN.m (Limit: 10.72kN)
+        Normal force in flange's gooseneck: 5.977kN (Limit: 7.62kN)
+        Shear force in flange's gooseneck: 9.953kN  (Limit: -11.3kN)
+        Bend moment in flange's gooseneck: 9.382kN.m (Limit: 10.72kN)
 
-Os esforços verificados no gooseneck não são admissíveis
-
- Bend Restrictor's locked
-
-        Shear force in bend_restrictor: 7.595kN (Limit: 34.0kN)
-        Bend moment in bend_restrictor: 2.622kN.m (Limit: 70.0kN.m)
-
-Os esforços verificados na vértebra são admissíveis.
+Os esforços verificados no gooseneck são admissíveis.
+UNIQUE POSITIONS: [3.0, 6.0, 9.0]
+POINTER: 1
 
  Static automation's end.
- Execution time: 368.38s
+ Execution time: 294.05s
 
  Starting dynamics...

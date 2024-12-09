@@ -500,7 +500,8 @@ def looping(model_line_type: OrcFxAPI.OrcaFlexObject, selection: dict, model: Or
     buoy_model = [position, buoys]
     num_positions = len(buoy_model[0])
     unique_positions = list(set(buoy_model[0]))
-    pointer = make_pointer(len(unique_positions), unique_positions)               
+    pointer = make_pointer(len(unique_positions), unique_positions)
+
     if clearance < clearance_limit_inf or clearance > clearance_limit_sup:
         if clearance < 0:
             payout_retrieve_line(model_line_type, -payout_retrieve_pace_max, object_line, a_r)
@@ -512,7 +513,9 @@ def looping(model_line_type: OrcFxAPI.OrcaFlexObject, selection: dict, model: Or
         call_loop(model_line_type, selection, model, bend_restrictor_model, rt_number, vessel,
                     rl_config, buoy_set, model_vcm, object_line, object_bend_restrictor, object_vcm,
                     winch, general, environment, file_path, structural, a_r)
+        
     if vcm_rotation_inf_limit > abs(rotation) or abs(rotation) > vcm_rotation_sup_limit:
+
         limits = [list(set(buoy_position_near_vcm[i] for i in range(len(unique_positions)))) if rotation > vcm_rotation_sup_limit \
             else list(set(buoy_position_far_vcm[i] for i in range(len(unique_positions))))][0]
         if unique_positions[pointer] != limits[pointer]:
@@ -532,6 +535,7 @@ def looping(model_line_type: OrcFxAPI.OrcaFlexObject, selection: dict, model: Or
             except Exception as error:
                 print(f"\n Error: {error}")
                 pass
+
     if delta_flange != delta_flange_error_limit:
         flange_height_correction(winch, delta_flange)
         general.StaticsMinDamping = 2 * statics_min_damping
@@ -574,7 +578,7 @@ def change_position(line_model: OrcFxAPI.OrcaFlexObject, new_positions: list, po
         if (positions[z] + buoy_position_pace == new_positions[pointer]
                 or positions[z] - buoy_position_pace == new_positions[pointer]):
             print(f"\nChanging buoys position"
-                  f"from {line_model.Attachmentz[p]} to {new_positions[pointer]}")
+                  f"\nfrom {line_model.Attachmentz[p]} to {new_positions[pointer]}")
             line_model.Attachmentz[p] = new_positions[pointer]
         p += 1
 

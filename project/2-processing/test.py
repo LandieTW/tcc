@@ -1,6 +1,5 @@
 import OrcFxAPI
 import os
-import sim_run
 
 diretorio = os.path.dirname(os.path.abspath(__file__))
 model_name = "RT 2517\\RT 2517.dat"
@@ -13,20 +12,12 @@ line = model['Line']
 attach = list(line.AttachmentType)
 print(attach)
 
-index = attach.index('Vert')
+model_environment = model["Environment"]
 
-line.AttachmentType.DeleteRow(index)
+print(model_environment.SeabedNormalStiffness)
 
-if not 'Vert' in list(line.AttachmentType):
-    print("Está funcionando")
+model_environment.SeabedNormalStiffness = 0
 
-start_pos = line.Length[6]
+print(model_environment.SeabedNormalStiffness)
 
-sim_run.insert_vert(line, start_pos)
 
-if 'Vert' in list(line.AttachmentType):
-    attach = list(line.AttachmentType)
-    print(attach)
-    index = attach.index('Vert')
-    print(index)
-    print("Está funcionando")

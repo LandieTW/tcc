@@ -249,4 +249,4 @@ Os esforços verificados no gooseneck não são admissíveis
 Para 1.8m de heave up, os esforços verificados no gooseneck não são admissíveis.
 
  Dynamic automation's end.
- Execution time: 1254.99s
+ Execution time: 1242.25s

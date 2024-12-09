@@ -18,9 +18,16 @@ Partial buoyancy: [1440.0, 800.0]
 Partial buoyancy: [1800.0, 1000.0]
 
 Automation's start.
+UNIQUE POSITIONS: [3.0, 6.0]
+POINTER: None
 
 Retrieving out 0.2m of line,
 from 1984.0 to 1983.8
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
 
 Line's in contact with seabed
 
@@ -36,9 +43,16 @@ Running 1th time.
         Bend moment in flange's gooseneck: 12.603kN.m (Limit: 13.11kN)
 
 Os esforços verificados no gooseneck são admissíveis.
+UNIQUE POSITIONS: [3.0, 6.0]
+POINTER: 1
 
 Retrieving out 0.5m of line,
 from 1983.8 to 1983.3
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
 
 Line's in contact with seabed
 
@@ -52,9 +66,16 @@ Line's in contact with seabed
         Bend moment in flange's gooseneck: 12.493kN.m (Limit: 13.11kN)
 
 Os esforços verificados no gooseneck são admissíveis.
+UNIQUE POSITIONS: [3.0, 6.0]
+POINTER: 1
 
 Retrieving out 0.5m of line,
 from 1983.3 to 1982.8
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
 
 Line's in contact with seabed
 
@@ -68,9 +89,16 @@ Line's in contact with seabed
         Bend moment in flange's gooseneck: 12.34kN.m (Limit: 13.11kN)
 
 Os esforços verificados no gooseneck são admissíveis.
+UNIQUE POSITIONS: [3.0, 6.0]
+POINTER: 1
 
 Retrieving out 0.5m of line,
 from 1982.8 to 1982.3
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
 
 Line's in contact with seabed
 
@@ -84,9 +112,16 @@ Line's in contact with seabed
         Bend moment in flange's gooseneck: 12.142kN.m (Limit: 13.11kN)
 
 Os esforços verificados no gooseneck são admissíveis.
+UNIQUE POSITIONS: [3.0, 6.0]
+POINTER: 1
 
 Retrieving out 0.5m of line,
 from 1982.3 to 1981.8
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
 
 Line's in contact with seabed
 
@@ -100,9 +135,16 @@ Line's in contact with seabed
         Bend moment in flange's gooseneck: 11.895kN.m (Limit: 13.11kN)
 
 Os esforços verificados no gooseneck são admissíveis.
+UNIQUE POSITIONS: [3.0, 6.0]
+POINTER: 1
 
 Retrieving out 0.5m of line,
 from 1981.8 to 1981.3
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
 
 Line's in contact with seabed
 
@@ -116,9 +158,16 @@ Line's in contact with seabed
         Bend moment in flange's gooseneck: 11.599kN.m (Limit: 13.11kN)
 
 Os esforços verificados no gooseneck são admissíveis.
+UNIQUE POSITIONS: [3.0, 6.0]
+POINTER: 1
 
 Retrieving out 0.5m of line,
 from 1981.3 to 1980.8
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
 
 Line's in contact with seabed
 
@@ -132,9 +181,16 @@ Line's in contact with seabed
         Bend moment in flange's gooseneck: 11.247kN.m (Limit: 13.11kN)
 
 Os esforços verificados no gooseneck são admissíveis.
+UNIQUE POSITIONS: [3.0, 6.0]
+POINTER: 1
 
 Retrieving out 0.5m of line,
 from 1980.8 to 1980.3
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
 
 Line's in contact with seabed
 
@@ -148,9 +204,16 @@ Line's in contact with seabed
         Bend moment in flange's gooseneck: 10.836kN.m (Limit: 13.11kN)
 
 Os esforços verificados no gooseneck são admissíveis.
+UNIQUE POSITIONS: [3.0, 6.0]
+POINTER: 1
 
 Retrieving out 0.5m of line,
 from 1980.3 to 1979.8
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
 
 Line's in contact with seabed
 
@@ -164,9 +227,16 @@ Line's in contact with seabed
         Bend moment in flange's gooseneck: 10.369kN.m (Limit: 13.11kN)
 
 Os esforços verificados no gooseneck não são admissíveis
+UNIQUE POSITIONS: [3.0, 6.0]
+POINTER: 1
 
 Retrieving out 0.5m of line,
 from 1979.8 to 1979.3
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
 
 Line's in contact with seabed
 
@@ -180,9 +250,16 @@ Line's in contact with seabed
         Bend moment in flange's gooseneck: 9.865kN.m (Limit: 13.11kN)
 
 Os esforços verificados no gooseneck não são admissíveis
+UNIQUE POSITIONS: [3.0, 6.0]
+POINTER: 1
 
 Retrieving out 0.5m of line,
 from 1979.3 to 1978.8
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
 
     Results
         VCM Rotation: 2.865°.
@@ -194,9 +271,16 @@ from 1979.3 to 1978.8
         Bend moment in flange's gooseneck: 10.234kN.m (Limit: 13.11kN)
 
 Os esforços verificados no gooseneck não são admissíveis
+UNIQUE POSITIONS: [3.0, 6.0]
+POINTER: 1
 
 Retrieving out 0.2m of line,
 from 1978.8 to 1978.6
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
 
     Results
         VCM Rotation: 2.627°.
@@ -208,9 +292,16 @@ from 1978.8 to 1978.6
         Bend moment in flange's gooseneck: 10.48kN.m (Limit: 13.11kN)
 
 Os esforços verificados no gooseneck não são admissíveis
+UNIQUE POSITIONS: [3.0, 6.0]
+POINTER: 1
 
 Retrieving out 0.2m of line,
 from 1978.6 to 1978.4
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
 
     Results
         VCM Rotation: 2.388°.
@@ -222,9 +313,16 @@ from 1978.6 to 1978.4
         Bend moment in flange's gooseneck: 10.726kN.m (Limit: 13.11kN)
 
 Os esforços verificados no gooseneck não são admissíveis
+UNIQUE POSITIONS: [3.0, 6.0]
+POINTER: 1
 
 Retrieving out 0.2m of line,
 from 1978.4 to 1978.2
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
 
     Results
         VCM Rotation: 2.149°.
@@ -236,54 +334,94 @@ from 1978.4 to 1978.2
         Bend moment in flange's gooseneck: 10.972kN.m (Limit: 13.11kN)
 
 Os esforços verificados no gooseneck não são admissíveis
+UNIQUE POSITIONS: [3.0, 6.0]
+POINTER: 1
+LIMITS: [4, 8]
 
 Changing buoys
 from dict_keys(['973+573+205', '573+205+205']): dict_values([1751.0, 983.0])
-to dict_keys(['973+573+205', '973+118']): dict_values([1751.0, 1091.0])
+to dict_keys(['973+573+205', '828+118+100']): dict_values([1751.0, 1046.0])
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
 
 Running 2th time.
 
     Results
-        VCM Rotation: -0.901°.
-        Line Clearance: 0.982m.
-        Flange Height error: -0.025m.
+        VCM Rotation: 0.401°.
+        Line Clearance: 0.827m.
+        Flange Height error: -0.005m.
 
-        Normal force in flange's gooseneck: 5.906kN (Limit: 6.9kN)
-        Shear force in flange's gooseneck: 10.22kN  (Limit: -10.47kN)
-        Bend moment in flange's gooseneck: 13.75kN.m (Limit: 13.11kN)
+        Normal force in flange's gooseneck: 6.302kN (Limit: 6.9kN)
+        Shear force in flange's gooseneck: 10.355kN  (Limit: -10.47kN)
+        Bend moment in flange's gooseneck: 12.569kN.m (Limit: 13.11kN)
 
-Os esforços verificados no gooseneck não são admissíveis
+Os esforços verificados no gooseneck são admissíveis.
 
  Bend Restrictor's locked
 
-        Shear force in bend_restrictor: 3.868kN (Limit: 43.0kN)
-        Bend moment in bend_restrictor: 0.785kN.m (Limit: 57.0kN.m)
+        Shear force in bend_restrictor: 0.305kN (Limit: 43.0kN)
+        Bend moment in bend_restrictor: 0.07kN.m (Limit: 57.0kN.m)
 
 Os esforços verificados na vértebra são admissíveis.
+UNIQUE POSITIONS: [3.0, 6.0]
+POINTER: 1
 
 Paying out 0.2m of line,
 from 1978.2 to 1978.4
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
 
     Results
-        VCM Rotation: -0.664°.
-        Line Clearance: 0.858m.
-        Flange Height error: -0.022m.
+        VCM Rotation: 0.637°.
+        Line Clearance: 0.702m.
+        Flange Height error: -0.001m.
 
-        Normal force in flange's gooseneck: 5.961kN (Limit: 6.9kN)
-        Shear force in flange's gooseneck: 10.221kN  (Limit: -10.47kN)
-        Bend moment in flange's gooseneck: 13.51kN.m (Limit: 13.11kN)
+        Normal force in flange's gooseneck: 6.359kN (Limit: 6.9kN)
+        Shear force in flange's gooseneck: 10.354kN  (Limit: -10.47kN)
+        Bend moment in flange's gooseneck: 12.328kN.m (Limit: 13.11kN)
 
-Os esforços verificados no gooseneck não são admissíveis
-
- Bend Restrictor's locked
-
-        Shear force in bend_restrictor: 2.88kN (Limit: 43.0kN)
-        Bend moment in bend_restrictor: 0.586kN.m (Limit: 57.0kN.m)
-
-Os esforços verificados na vértebra são admissíveis.
+Os esforços verificados no gooseneck são admissíveis.
+UNIQUE POSITIONS: [3.0, 6.0]
+POINTER: 1
 
 Paying out 0.2m of line,
 from 1978.4 to 1978.6
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+
+    Results
+        VCM Rotation: 0.872°.
+        Line Clearance: 0.577m.
+        Flange Height error: 0.002m.
+
+        Normal force in flange's gooseneck: 6.416kN (Limit: 6.9kN)
+        Shear force in flange's gooseneck: 10.353kN  (Limit: -10.47kN)
+        Bend moment in flange's gooseneck: 12.087kN.m (Limit: 13.11kN)
+
+Os esforços verificados no gooseneck são admissíveis.
+UNIQUE POSITIONS: [3.0, 6.0]
+POINTER: 1
+LIMITS: [4, 8]
+
+Changing buoys
+from dict_keys(['973+573+205', '828+118+100']): dict_values([1751.0, 1046.0])
+to dict_keys(['973+573+205', '973+118']): dict_values([1751.0, 1091.0])
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+
+Running 3th time.
 
     Results
         VCM Rotation: -0.428°.
@@ -302,9 +440,16 @@ Os esforços verificados no gooseneck não são admissíveis
         Bend moment in bend_restrictor: 0.388kN.m (Limit: 57.0kN.m)
 
 Os esforços verificados na vértebra são admissíveis.
+UNIQUE POSITIONS: [3.0, 6.0]
+POINTER: 0
 
 Paying out 0.2m of line,
 from 1978.6 to 1978.8
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
 
     Results
         VCM Rotation: -0.191°.
@@ -323,11 +468,18 @@ Os esforços verificados no gooseneck são admissíveis.
         Bend moment in bend_restrictor: 0.189kN.m (Limit: 57.0kN.m)
 
 Os esforços verificados na vértebra são admissíveis.
+UNIQUE POSITIONS: [3.0, 6.0]
+POINTER: 0
 
 Retrieving out 0.014m from the winch,
 from 2295.69 to 2295.67
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
 
-Running 3th time.
+Running 4th time.
 
     Results
         VCM Rotation: -0.207°.
@@ -346,8 +498,10 @@ Os esforços verificados no gooseneck são admissíveis.
         Bend moment in bend_restrictor: 0.203kN.m (Limit: 57.0kN.m)
 
 Os esforços verificados na vértebra são admissíveis.
+UNIQUE POSITIONS: [3.0, 6.0]
+POINTER: 0
 
  Static automation's end.
- Execution time: 166.87s
+ Execution time: 172.54s
 
  Starting dynamics...

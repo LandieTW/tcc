@@ -5,19 +5,13 @@ Error:
 Error code: 27
 Static calculation failed (Whole system statics: Not converged.)
 
-Changing Line's Static policy to Catenary.
+Increasing a little the Static Damping Range and the Number of iterations
 
 Error: 
 Error code: 27
 Static calculation failed (Whole system statics: Not converged.)
 
-Displacing VCM
-
-Error: 
-Error code: 27
-Static calculation failed (Whole system statics: Not converged.)
-
-Changing Static damping range and Increasing iterations.
+Removing interation between line and seabed
 
 Running with bend_restrictor
 
@@ -36,57 +30,78 @@ Partial buoyancy: [1200.0, 240.0]
 Partial buoyancy: [1500.0, 300.0]
 
 Automation's start.
+UNIQUE POSITIONS: [3.0, 6.0]
+POINTER: None
 
 Retrieving out 0.2m of line,
 from 1546.33 to 1546.13
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
 
 Line's in contact with seabed
 
 Running 1th time.
 
     Results
-        VCM Rotation: 6.939°.
-        Line Clearance: -0.06m.
-        Flange Height error: 0.224m.
+        VCM Rotation: 6.922°.
+        Line Clearance: -0.061m.
+        Flange Height error: 0.223m.
 
-        Normal force in flange's gooseneck: 2.804kN (Limit: 1.51kN)
-        Shear force in flange's gooseneck: 3.388kN  (Limit: -1.42kN)
-        Bend moment in flange's gooseneck: 8.169kN.m (Limit: 13.55kN)
+        Normal force in flange's gooseneck: 2.802kN (Limit: 1.51kN)
+        Shear force in flange's gooseneck: 3.386kN  (Limit: -1.42kN)
+        Bend moment in flange's gooseneck: 8.186kN.m (Limit: 13.55kN)
 
 Os esforços verificados no gooseneck não são admissíveis
 
  Bend Restrictor's locked
 
-        Shear force in bend_restrictor: 6.012kN (Limit: 23.8kN)
-        Bend moment in bend_restrictor: 4.017kN.m (Limit: 27.0kN.m)
+        Shear force in bend_restrictor: 6.016kN (Limit: 23.8kN)
+        Bend moment in bend_restrictor: 4.03kN.m (Limit: 27.0kN.m)
 
 Os esforços verificados na vértebra são admissíveis.
+UNIQUE POSITIONS: [3.0, 6.0]
+POINTER: 1
 
 Retrieving out 0.5m of line,
 from 1546.13 to 1545.63
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
 
 Line's in contact with seabed
 
     Results
-        VCM Rotation: 7.134°.
+        VCM Rotation: 7.133°.
         Line Clearance: -0.049m.
         Flange Height error: 0.229m.
 
         Normal force in flange's gooseneck: 2.862kN (Limit: 1.51kN)
         Shear force in flange's gooseneck: 3.417kN  (Limit: -1.42kN)
-        Bend moment in flange's gooseneck: 7.96kN.m (Limit: 13.55kN)
+        Bend moment in flange's gooseneck: 7.961kN.m (Limit: 13.55kN)
 
 Os esforços verificados no gooseneck não são admissíveis
 
  Bend Restrictor's locked
 
         Shear force in bend_restrictor: 5.956kN (Limit: 23.8kN)
-        Bend moment in bend_restrictor: 3.864kN.m (Limit: 27.0kN.m)
+        Bend moment in bend_restrictor: 3.865kN.m (Limit: 27.0kN.m)
 
 Os esforços verificados na vértebra são admissíveis.
+UNIQUE POSITIONS: [3.0, 6.0]
+POINTER: 1
 
 Retrieving out 0.5m of line,
 from 1545.63 to 1545.13
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
 
 Line's in contact with seabed
 
@@ -107,9 +122,16 @@ Os esforços verificados no gooseneck não são admissíveis
         Bend moment in bend_restrictor: 3.687kN.m (Limit: 27.0kN.m)
 
 Os esforços verificados na vértebra são admissíveis.
+UNIQUE POSITIONS: [3.0, 6.0]
+POINTER: 1
 
 Retrieving out 0.5m of line,
 from 1545.13 to 1544.63
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
 
     Results
         VCM Rotation: 7.599°.
@@ -128,9 +150,16 @@ Os esforços verificados no gooseneck não são admissíveis
         Bend moment in bend_restrictor: 3.52kN.m (Limit: 27.0kN.m)
 
 Os esforços verificados na vértebra são admissíveis.
+UNIQUE POSITIONS: [3.0, 6.0]
+POINTER: 1
 
 Retrieving out 0.2m of line,
 from 1544.63 to 1544.43
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
 
     Results
         VCM Rotation: 7.496°.
@@ -149,9 +178,16 @@ Os esforços verificados no gooseneck não são admissíveis
         Bend moment in bend_restrictor: 3.608kN.m (Limit: 27.0kN.m)
 
 Os esforços verificados na vértebra são admissíveis.
+UNIQUE POSITIONS: [3.0, 6.0]
+POINTER: 1
 
 Retrieving out 0.2m of line,
 from 1544.43 to 1544.23
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
 
     Results
         VCM Rotation: 7.393°.
@@ -170,9 +206,16 @@ Os esforços verificados no gooseneck não são admissíveis
         Bend moment in bend_restrictor: 3.697kN.m (Limit: 27.0kN.m)
 
 Os esforços verificados na vértebra são admissíveis.
+UNIQUE POSITIONS: [3.0, 6.0]
+POINTER: 1
 
 Retrieving out 0.2m of line,
 from 1544.23 to 1544.03
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
 
     Results
         VCM Rotation: 7.29°.
@@ -191,9 +234,16 @@ Os esforços verificados no gooseneck não são admissíveis
         Bend moment in bend_restrictor: 3.786kN.m (Limit: 27.0kN.m)
 
 Os esforços verificados na vértebra são admissíveis.
+UNIQUE POSITIONS: [3.0, 6.0]
+POINTER: 1
 
 Retrieving out 0.2m of line,
 from 1544.03 to 1543.83
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
 
     Results
         VCM Rotation: 7.184°.
@@ -212,10 +262,18 @@ Os esforços verificados no gooseneck não são admissíveis
         Bend moment in bend_restrictor: 3.879kN.m (Limit: 27.0kN.m)
 
 Os esforços verificados na vértebra são admissíveis.
+UNIQUE POSITIONS: [3.0, 6.0]
+POINTER: 1
+LIMITS: [4, 8]
 
 Changing buoys
 from dict_keys(['1213+100+100', '100+100']): dict_values([1413.0, 200.0])
 to dict_keys(['1213+100+100', '100+100+100']): dict_values([1413.0, 300.0])
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
 
 Running 2th time.
 
@@ -236,9 +294,16 @@ Os esforços verificados no gooseneck não são admissíveis
         Bend moment in bend_restrictor: 5.858kN.m (Limit: 27.0kN.m)
 
 Os esforços verificados na vértebra são admissíveis.
+UNIQUE POSITIONS: [3.0, 6.0]
+POINTER: 1
 
 Paying out 0.2m of line,
 from 1543.83 to 1544.03
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
 
     Results
         VCM Rotation: 4.516°.
@@ -257,9 +322,16 @@ Os esforços verificados no gooseneck não são admissíveis
         Bend moment in bend_restrictor: 5.771kN.m (Limit: 27.0kN.m)
 
 Os esforços verificados na vértebra são admissíveis.
+UNIQUE POSITIONS: [3.0, 6.0]
+POINTER: 1
 
 Paying out 0.2m of line,
 from 1544.03 to 1544.23
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
 
     Results
         VCM Rotation: 4.615°.
@@ -278,9 +350,16 @@ Os esforços verificados no gooseneck não são admissíveis
         Bend moment in bend_restrictor: 5.684kN.m (Limit: 27.0kN.m)
 
 Os esforços verificados na vértebra são admissíveis.
+UNIQUE POSITIONS: [3.0, 6.0]
+POINTER: 1
 
 Paying out 0.2m of line,
 from 1544.23 to 1544.43
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
 
     Results
         VCM Rotation: 4.715°.
@@ -299,36 +378,20 @@ Os esforços verificados no gooseneck não são admissíveis
         Bend moment in bend_restrictor: 5.597kN.m (Limit: 27.0kN.m)
 
 Os esforços verificados na vértebra são admissíveis.
-
-Changing buoys
-from dict_keys(['1213+100+100', '100+100+100']): dict_values([1413.0, 300.0])
-to dict_keys(['1213+100+100', '100+100+100']): dict_values([1413.0, 300.0])
-
-Running 3th time.
-
-    Results
-        VCM Rotation: 4.715°.
-        Line Clearance: 0.644m.
-        Flange Height error: 0.149m.
-
-        Normal force in flange's gooseneck: 2.36kN (Limit: 1.51kN)
-        Shear force in flange's gooseneck: 3.015kN  (Limit: -1.42kN)
-        Bend moment in flange's gooseneck: 10.442kN.m (Limit: 13.55kN)
-
-Os esforços verificados no gooseneck não são admissíveis
-
- Bend Restrictor's locked
-
-        Shear force in bend_restrictor: 7.328kN (Limit: 23.8kN)
-        Bend moment in bend_restrictor: 5.597kN.m (Limit: 27.0kN.m)
-
-Os esforços verificados na vértebra são admissíveis.
+UNIQUE POSITIONS: [3.0, 6.0]
+POINTER: 1
+LIMITS: [4, 8]
 
 Changing buoys
 from dict_keys(['1213+100+100', '100+100+100']): dict_values([1413.0, 300.0])
 to dict_keys(['1213+100+100', '381']): dict_values([1413.0, 381.0])
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
 
-Running 4th time.
+Running 3th time.
 
     Results
         VCM Rotation: 2.311°.
@@ -347,9 +410,16 @@ Os esforços verificados no gooseneck não são admissíveis
         Bend moment in bend_restrictor: 7.327kN.m (Limit: 27.0kN.m)
 
 Os esforços verificados na vértebra são admissíveis.
+UNIQUE POSITIONS: [3.0, 6.0]
+POINTER: 1
 
 Paying out 0.2m of line,
 from 1544.43 to 1544.63
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
 
     Results
         VCM Rotation: 2.409°.
@@ -368,9 +438,16 @@ Os esforços verificados no gooseneck não são admissíveis
         Bend moment in bend_restrictor: 7.242kN.m (Limit: 27.0kN.m)
 
 Os esforços verificados na vértebra são admissíveis.
+UNIQUE POSITIONS: [3.0, 6.0]
+POINTER: 1
 
 Paying out 0.2m of line,
 from 1544.63 to 1544.83
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
 
     Results
         VCM Rotation: 2.508°.
@@ -389,9 +466,16 @@ Os esforços verificados no gooseneck não são admissíveis
         Bend moment in bend_restrictor: 7.157kN.m (Limit: 27.0kN.m)
 
 Os esforços verificados na vértebra são admissíveis.
+UNIQUE POSITIONS: [3.0, 6.0]
+POINTER: 1
 
 Paying out 0.2m of line,
 from 1544.83 to 1545.03
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
 
     Results
         VCM Rotation: 2.607°.
@@ -410,9 +494,16 @@ Os esforços verificados no gooseneck não são admissíveis
         Bend moment in bend_restrictor: 7.071kN.m (Limit: 27.0kN.m)
 
 Os esforços verificados na vértebra são admissíveis.
+UNIQUE POSITIONS: [3.0, 6.0]
+POINTER: 1
 
 Paying out 0.2m of line,
 from 1545.03 to 1545.23
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
 
     Results
         VCM Rotation: 2.707°.
@@ -431,12 +522,20 @@ Os esforços verificados no gooseneck não são admissíveis
         Bend moment in bend_restrictor: 6.985kN.m (Limit: 27.0kN.m)
 
 Os esforços verificados na vértebra são admissíveis.
+UNIQUE POSITIONS: [3.0, 6.0]
+POINTER: 1
+LIMITS: [4, 8]
 
 Changing buoys
 from dict_keys(['1213+100+100', '381']): dict_values([1413.0, 381.0])
 to dict_keys(['1213+100+100', '381']): dict_values([1413.0, 381.0])
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
 
-Running 5th time.
+Running 4th time.
 
     Results
         VCM Rotation: 2.707°.
@@ -455,12 +554,20 @@ Os esforços verificados no gooseneck não são admissíveis
         Bend moment in bend_restrictor: 6.985kN.m (Limit: 27.0kN.m)
 
 Os esforços verificados na vértebra são admissíveis.
+UNIQUE POSITIONS: [3.0, 6.0]
+POINTER: 1
+LIMITS: [4, 8]
 
 Changing buoys
 from dict_keys(['1213+100+100', '381']): dict_values([1413.0, 381.0])
 to dict_keys(['1213+100+100', '381+100']): dict_values([1413.0, 481.0])
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
 
-Running 6th time.
+Running 5th time.
 
     Results
         VCM Rotation: -0.55°.
@@ -479,9 +586,16 @@ Os esforços verificados no gooseneck não são admissíveis
         Bend moment in bend_restrictor: 9.344kN.m (Limit: 27.0kN.m)
 
 Os esforços verificados na vértebra são admissíveis.
+UNIQUE POSITIONS: [3.0, 6.0]
+POINTER: 0
 
 Paying out 0.2m of line,
 from 1545.23 to 1545.43
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
 
     Results
         VCM Rotation: -0.445°.
@@ -500,9 +614,16 @@ Os esforços verificados no gooseneck não são admissíveis
         Bend moment in bend_restrictor: 9.256kN.m (Limit: 27.0kN.m)
 
 Os esforços verificados na vértebra são admissíveis.
+UNIQUE POSITIONS: [3.0, 6.0]
+POINTER: 0
 
 Paying out 0.2m of line,
 from 1545.43 to 1545.63
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
 
     Results
         VCM Rotation: -0.34°.
@@ -521,9 +642,16 @@ Os esforços verificados no gooseneck não são admissíveis
         Bend moment in bend_restrictor: 9.168kN.m (Limit: 27.0kN.m)
 
 Os esforços verificados na vértebra são admissíveis.
+UNIQUE POSITIONS: [3.0, 6.0]
+POINTER: 0
 
 Paying out 0.2m of line,
 from 1545.63 to 1545.83
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
 
     Results
         VCM Rotation: -0.234°.
@@ -542,15 +670,47 @@ Os esforços verificados no gooseneck não são admissíveis
         Bend moment in bend_restrictor: 9.079kN.m (Limit: 27.0kN.m)
 
 Os esforços verificados na vértebra são admissíveis.
+UNIQUE POSITIONS: [3.0, 6.0]
+POINTER: 0
 
 Paying out 0.2m of line,
 from 1545.83 to 1546.03
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
 
 Error: 
 Error code: 27
 Static calculation failed (Whole system statics: Not converged.)
 
-Changing Line's Static policy to Catenary.
+Increasing a little the Static Damping Range and the Number of iterations
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+
+Error: 
+Error code: 27
+Static calculation failed (Whole system statics: Not converged.)
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+
+Error: 
+Error code: 27
+Static calculation failed (Whole system statics: Not converged.)
+
+Displacing VCM
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
 
     Results
         VCM Rotation: -0.127°.
@@ -569,11 +729,18 @@ Os esforços verificados no gooseneck não são admissíveis
         Bend moment in bend_restrictor: 8.99kN.m (Limit: 27.0kN.m)
 
 Os esforços verificados na vértebra são admissíveis.
+UNIQUE POSITIONS: [3.0, 6.0]
+POINTER: 0
 
 Retrieving out 0.013m from the winch,
 from 1855.34 to 1855.33
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
+___________________________________________________________________
 
-Running 7th time.
+Running 6th time.
 
     Results
         VCM Rotation: -0.134°.
@@ -592,8 +759,10 @@ Os esforços verificados no gooseneck não são admissíveis
         Bend moment in bend_restrictor: 8.996kN.m (Limit: 27.0kN.m)
 
 Os esforços verificados na vértebra são admissíveis.
+UNIQUE POSITIONS: [3.0, 6.0]
+POINTER: 0
 
  Static automation's end.
- Execution time: 520.68s
+ Execution time: 947.40s
 
  Starting dynamics...
