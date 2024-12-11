@@ -2,6 +2,8 @@
 DVC analysis automation
 """
 
+# Libs
+
 import OrcFxAPI
 import time
 import os
@@ -11,22 +13,20 @@ from io import StringIO
 from orca import object_elements
 from methods import info
 
-statics_max_iterations = 400  # Maximum number of iterations
-statics_min_damping = 5  # Minimum damping
-statics_max_damping = 15  # Maximum damping
-vcm_delta_x = 20  # VCM's movement: 20m (helps convergence when adjusting flange height)
+# Constants
+'Maximum number of iterations'
+statics_max_iterations = 400
+'Minimum damping'
+statics_min_damping = 5
+'Maximum damping'
+statics_max_damping = 15
+'VCM displace - when trying to adjust the model convergence'
+vcm_delta_x = 20
 
 class DualOutput:
     def __init__(self, original_stdout, buffer):
         self.original_stdout = original_stdout
         self.buffer = buffer
-
-    def write(self, message):
-        self.original_stdout.write(message)
-        self.buffer.write(message)
-
-    def flush(self):
-        self.original_stdout.flush()
 
 original_stdout = sys.stdout
 buffer = StringIO()
@@ -154,7 +154,6 @@ exec_static_time = static_end_time - start_time
 
 print(f"\n Static automation's end."
       f"\n Execution time: {exec_static_time:.2f}s")
-print(f"\n Starting dynamics...")
 
 sys.stdout = original_stdout
 captured_text = buffer.getvalue()
@@ -164,6 +163,10 @@ results_path = os.path.join(file_path, txt_file)
 with open(results_path, "w", encoding="utf-8") as file:
     file.write(captured_text)
 
+# xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+print(f"\n Starting dynamics...")
+
 original_stdout = sys.stdout
 buffer = StringIO()
 sys.stdout = DualOutput(original_stdout, buffer)
@@ -171,11 +174,8 @@ sys.stdout = DualOutput(original_stdout, buffer)
 dyn_dir = "Dynamic"
 dyn_path = os.path.join(file_path, dyn_dir)
 os.makedirs(dyn_path, exist_ok=True)
-file_name = rt_number + ".sim"
-save_simulation = os.path.join(dyn_path, file_name)
 
-sim_run.dynamic_simulation(model, model_line_type, model_vcm, stiffener_type, 
-                           object_bend_restrictor, a_r, dyn_path, structural_limits, rt_number)
+sim_run.dynamic_simulation(model, model_line_type, model_vcm, stiffener_type, object_bend_restrictor, a_r, dyn_path, structural_limits, rt_number)
 
 dynamic_end_time = time.time()
 exec_dynamic_time = dynamic_end_time - static_end_time
@@ -186,6 +186,34 @@ print(f"\n Dynamic automation's end."
 sys.stdout = original_stdout
 captured_text = buffer.getvalue()
 txt_file = "Dynamic\\" + rt_number + " - Report.txt"
+results_path = os.path.join(file_path, txt_file)
+
+with open(results_path, "w", encoding="utf-8") as file:
+    file.write(captured_text)
+
+# xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+print(f"\n Starting Contingencies...")
+
+original_stdout = sys.stdout
+buffer = StringIO()
+sys.stdout = DualOutput(original_stdout, buffer)
+
+cont_dir = "Contingencies"
+cont_path = os.path.join(file_path, cont_dir)
+os.makedirs(cont_path, exist_ok=True)
+
+# sadbsadal
+
+cont_end_time = time.time()
+exec_cont_time = cont_end_time - dynamic_end_time
+
+print(f"\n Contingencies automation's end."
+      f"\n Execution time: {exec_cont_time:.2f}s")
+
+sys.stdout = original_stdout
+captured_text = buffer.getvalue()
+txt_file = "Contingencies\\" + rt_number + " - Report.txt"
 results_path = os.path.join(file_path, txt_file)
 
 with open(results_path, "w", encoding="utf-8") as file:
