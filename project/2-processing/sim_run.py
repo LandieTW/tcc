@@ -151,8 +151,7 @@ def run_static(model: OrcFxAPI.Model, rt_number: str, vcm: OrcFxAPI.OrcaFlexObje
         error_correction(general, line_type, vcm, model)
         run_static(model, rt_number, vcm, line_type, bend_restrictor_model, line_obj, bend_restrictor_object, vcm_obj, general, file_path, structural_limits)
 
-
-def error_correction(general: OrcFxAPI.OrcaFlexObject, line_type: OrcFxAPI.OrcaFlexObject, vcm: OrcFxAPI.OrcaFlexObject, model: OrcFxAPI.Model):
+def error_correction(general: OrcFxAPI.OrcaFlexObject, line_type: OrcFxAPI.OrcaFlexObject, vcm: OrcFxAPI.OrcaFlexObject, model: OrcFxAPI.Model) -> None:
     """
     Description:
         Sequence of tentatives to improove convergence when Static Simulations fails
@@ -174,7 +173,6 @@ def error_correction(general: OrcFxAPI.OrcaFlexObject, line_type: OrcFxAPI.OrcaF
         if clearance <= 0:
             print(f"\nRemoving interation between line and seabed")
             model_environment = model["Environment"]
-            # zerar a rigidez do solo p/ facilitar a convergência
             model_environment.SeabedNormalStiffness = 0
         else:
             n_run_error += 1
@@ -193,68 +191,62 @@ def error_correction(general: OrcFxAPI.OrcaFlexObject, line_type: OrcFxAPI.OrcaF
         n_run = n_run_limit + 1
     n_run_error += 1
 
-
 def user_specified(model: OrcFxAPI.Model, rt_number: str, file_path: str) -> None:
     """
     Description:
         Set calculated positions in Line's StaticStep Policy
-    :param rt_number: Analysis identification
-    :param model: Orca model
-    :return: Nothing
+    Parameters:
+        model: Orcaflex model
+        rt_number: RT identification
+        file_path: Path where static runs are saved
+    Return:
+        Nothing
     """
     model.UseCalculatedPositions(SetLinesToUserSpecifiedStartingShape=True)
     file_name = rt_number + ".dat"
     save_data = os.path.join(file_path, file_name)
     model.SaveData(save_data)
 
-
 def buoy_combination(b_set: list) -> dict:
     """
-    Make combinations with 1 to 3 buoys, below 2 tf of buoyancy
-    :param b_set: Vessel's buoys
-    :return: All possible combinations of 1 to 3 vessel's buoys
+    Description:
+        Make combinations with 1 to 3 buoys, below 2 tf of buoyancy
+    Parameters:
+        b_set: Vessel's buoys
+    Return:
+        All possible combinations of 1 to 3 vessel's buoys
+        {'buoy_1 + buoy_2 + buoy_3': total_buoyancy}
     """
-    buoys = [str(b_set[1][i])
-             for i in range(len(b_set[0]))
-             for _ in range(b_set[0][i])]
-    one_buoy = {buoy: float(buoy)
-                for buoy in buoys}
-    two_buoys = {f"{buoy1}+{buoy2}": one_buoy[buoy1] + one_buoy[buoy2]
-                 for i, buoy1 in enumerate(buoys)
-                 for j, buoy2 in enumerate(buoys)
-                 if i < j
-                 if one_buoy[buoy1] + one_buoy[buoy2] <= buoyancy_limit}
-    three_buoys = {f"{buoy1}+{buoy2}+{buoy3}": (one_buoy[buoy1] + one_buoy[buoy2] + one_buoy[buoy3])
-                   for i, buoy1 in enumerate(buoys)
-                   for j, buoy2 in enumerate(buoys)
-                   for k, buoy3 in enumerate(buoys)
-                   if i < j < k
+    buoys = [str(b_set[1][i]) for i in range(len(b_set[0])) for _ in range(b_set[0][i])]
+    one_buoy = {buoy: float(buoy) for buoy in buoys}
+    two_buoys = {f"{buoy1}+{buoy2}": one_buoy[buoy1] + one_buoy[buoy2] for i, buoy1 in enumerate(buoys) for j, buoy2 in enumerate(buoys) if i < j if one_buoy[buoy1] + one_buoy[buoy2] <= buoyancy_limit}
+    three_buoys = {f"{buoy1}+{buoy2}+{buoy3}": (one_buoy[buoy1] + one_buoy[buoy2] + one_buoy[buoy3]) for i, buoy1 in enumerate(buoys) for j, buoy2 in enumerate(buoys) for k, buoy3 in enumerate(buoys) if i < j < k 
                    if (one_buoy[buoy1] + one_buoy[buoy2] + one_buoy[buoy3]) <= buoyancy_limit}
     combination = {**one_buoy, **two_buoys, **three_buoys}
     combination_buoys = {key: value for key, value in combination.items()}
-    combination_buoys = dict( sorted(combination_buoys.items(), key=lambda item: item[1], reverse=False))
+    combination_buoys = dict(sorted(combination_buoys.items(), key=lambda item: item[1], reverse=False))
     return combination_buoys
 
 
 def buoyancy(buoys_config: list, combination_buoys: dict) -> dict:
     """
-    Gives the best combination of buoys based on the initial suggestion
-    :param combination_buoys: All possible combinations of 1 to 3 vessel's buoys
-    :param buoys_config: RL's configuration suggestion
-    :return: Better available combination, that fits with RL's configuration suggestion
+    Description:
+        Gives the best combination of buoys based on the initial suggestion
+    Parameters:
+        buoys_config: RL's configuration suggestion
+        combination_buoys: Dict result from 'buoy_combination'
+    Return:
+        Better available combination, that fits with RL's configuration suggestion
     """
     try:
         selection = {}
         comb_keys = list(combination_buoys.keys())
         for k in range(len(buoys_config[1])):
             j = 0
-            while (combination_buoys[comb_keys[j]] < buoys_config[1][k] and
-                combination_buoys[comb_keys[j + 1]] < buoys_config[1][k]):
+            while (combination_buoys[comb_keys[j]] < buoys_config[1][k] and combination_buoys[comb_keys[j + 1]] < buoys_config[1][k]):
                 j += 1
-            key = comb_keys[j]
-            value = combination_buoys[key]
-            selection[key] = value
-            comb_keys.remove(key)
+            selection[comb_keys[j]] = combination_buoys[comb_keys[j]]
+            comb_keys.remove(comb_keys[j])
         return selection
     except IndexError:
         buoys_config[1][k] = .9 * buoys_config[1][k]
@@ -262,67 +254,62 @@ def buoyancy(buoys_config: list, combination_buoys: dict) -> dict:
         comb_keys = list(combination_buoys.keys())
         for k in range(len(buoys_config[1])):
             j = 0
-            while (combination_buoys[comb_keys[j]] < buoys_config[1][k] and
-                combination_buoys[comb_keys[j + 1]] < buoys_config[1][k]):
+            while (combination_buoys[comb_keys[j]] < buoys_config[1][k] and combination_buoys[comb_keys[j + 1]] < buoys_config[1][k]):
                 j += 1
-            key = comb_keys[j]
-            value = combination_buoys[key]
-            selection[key] = value
-            comb_keys.remove(key)
+            selection[comb_keys[j]] = combination_buoys[comb_keys[j]]
+            comb_keys.remove(comb_keys[j])
         return selection
 
 
 def buoyancy_treatment(buoys_config: list, selection: dict) -> dict:
     """
-    It uses initial buoyancy and treats it to return the entry data for
-    OrcaFlex, referring the initial buoyancy
-    :param selection: Better available combination, that fits with RL's configuration suggestion
-    :param buoys_config: RL's configuration suggestion
-    :return: Orca buoys attachments
+    Description:
+        Get the Dict result (selection) from 'buoyancy' and transforms it in Orcaflex attachments
+    Parameters:
+        buoys_config: RL's configuration suggestion
+        selection: Dict result from 'buoyancy'
+    Return
+        Orcaflex attachments equivalents to selection
     """
-    position = buoys_config[0]
-    treated_buoys = {position[i]: list(selection.keys())[i].split("+")
-                     for i in range(len(list(selection.keys())))}
+    treated_buoys = {buoys_config[0][i]: list(selection.keys())[i].split("+") for i in range(len(list(selection.keys())))}
     return treated_buoys
 
 
 def number_buoys(treated_buoys: dict) -> int:
     """
-    Gives the number of attachments buoys
-    :param treated_buoys: Orca buoys attachments
-    :return: Number of attachments
+    Description:
+        Get the number of attachments in tha Dict result (treated_buoys) from 'buoyancy_treatment'
+    Parameters:
+        treated_buoys: Dict result from 'buoyancy_treatment'
+    Return:
+        Number of attachments
     """
-    packs = [buoy[i]
-             for buoy in treated_buoys.values()
-             for i in range(len(buoy))]
+    packs = [buoy[i] for buoy in treated_buoys.values() for i in range(len(buoy))]
     return len(packs)
 
 
 def input_buoyancy(line_type: OrcFxAPI.OrcaFlexObject, num_buoys: float, treated_buoys: dict, vessel: str) -> None:
     """
-    Input the attachments (buoys)
-    :param line_type: Line model
-    :param vessel: Vessel's name (to identify the vessel's buoys)
-    :param num_buoys: Number of attachments
-    :param treated_buoys: Orca buoys attachments
-    :return: Nothing
+    Description:
+        Insert the attachments from the Dict result (treated_buoys) from 'buoyancy_treatment' in the model.
+    Parameters:
+        line_type: Orcaflex line
+        num_buoys: Int result from 'number_buoys'
+        treated_buoys: Dict result from 'buoyancy_treatment'
+        vessel: Vessel name
+    Return:
+        Nothing
     """
     line_type.NumberOfAttachments = int(num_buoys + 1)
     ibs_key = tuple(treated_buoys.keys())
     ibs_val = tuple(treated_buoys.values())
-    ibs_2 = []
-    for i in range(len(ibs_val)):
-        for j in range(len(ibs_val[i])):
-            ibs_2.append(ibs_val[i][j])
+    ibs_2 = [ibs_val[i][j] for i in range(len(ibs_val)) for j in range(len(ibs_val[i]))]
     b = 1
     for m in ibs_2:
         buoy = vessel + "_" + str(m)
         line_type.AttachmentType[b] = buoy
         b += 1
-    ibs_1 = []
-    for z in range(len(ibs_val)):
-        for _ in range(len(ibs_val[z])):
-            ibs_1.append(ibs_key[z])
+    ibs_1 = [ibs_key[z] for z in range(len(ibs_val)) for _ in range(len(ibs_val[z]))]
     p = 1
     for n in ibs_1:
         line_type.Attachmentz[p] = n
@@ -331,36 +318,44 @@ def input_buoyancy(line_type: OrcFxAPI.OrcaFlexObject, num_buoys: float, treated
 
 def verify_line_clearance(line_model: OrcFxAPI.OrcaFlexObject) -> float:
     """
-    Verify which is the minimum line's clearance
-    :param line_model: Line model
-    :return: Line's clearance
+    Description:
+        Verify minimum line's clearance value
+    Parameters:
+        line_model: Orcaflex line
+    Return:
+        Minimum line's clearance value
     """
     line_clearance = line_model.RangeGraph("Seabed clearance")
-    list_vsc = [vsc
-                for _, vsc in enumerate(line_clearance.Mean)]
+    list_vsc = [vsc for _, vsc in enumerate(line_clearance.Mean)]
     vsc_min = round(min(list_vsc), 3)
-    if vsc_min < 0:
+    if vsc_min <= 0:
         print(f"\nLine's in contact with seabed")
     return vsc_min
 
 
-def verify_vcm_rotation(vcm_: OrcFxAPI.OrcaFlexObject) -> float:
+def verify_vcm_rotation(vcm: OrcFxAPI.OrcaFlexObject) -> float:
     """
-    Verify which is the VCM's rotation
-    :param vcm_: VCM model
-    :return: VCM's rotation (in transversal axis)
+    Description:
+        Verify VCM's rotation value
+    Parameters:
+        vcm: Orcaflex VCM
+    Return:
+        VCM's rotation
     """
-    vcm_rotation = round(vcm_.StaticResult("Rotation 2"), 3)
+    vcm_rotation = round(vcm.StaticResult("Rotation 2"), 3)
     return vcm_rotation
 
 
 def verify_flange_height(line_model: OrcFxAPI.OrcaFlexObject, line_obj: methods.Line, vcm_obj: methods.Vcm) -> float:
     """
-    Verify what is the flange height error/variation
-    :param vcm_obj: VCM object
-    :param line_obj: Line object
-    :param line_model: Line model
-    :return: Flange height error/variation
+    Description:
+        Verify flange's height error
+    Parameters:
+        line_model: Orcaflex model
+        line_obj: Line object in orca.py
+        vcm_obj: VCM object in orca.py
+    Return:
+        Flange's height error
     """
     correct_depth = - line_obj.lda + (vcm_obj.a / 1_000)
     depth_verified = line_model.StaticResult("Z", OrcFxAPI.oeEndB)
@@ -370,11 +365,15 @@ def verify_flange_height(line_model: OrcFxAPI.OrcaFlexObject, line_obj: methods.
 
 def verify_flange_loads(line_model: OrcFxAPI.OrcaFlexObject, structural_limits: dict, case: str, *f_loads: list) -> bool:
     """
-    Verify the loads in gooseneck of the flange
-    :param line_model: line in model
-    :param structural_limts: structural limits informed in RL
-    :param case: case of load [2, 3, 3i, 3ii]
-    :return: True if the loads are above the limits, false if not
+    Description:
+        Verify if VCM' flange loads are admissible
+    Parameters:
+        line_model: Orcaflex line
+        structural_limits: RL structural limits
+        case: load case verified
+        f_loads: flange loads for dynamic specified periods
+    Return:
+        True if loads are admissible, False if not.
     """
     load_case = structural_limits[case]
     if case == "2":
@@ -400,12 +399,7 @@ def verify_flange_loads(line_model: OrcFxAPI.OrcaFlexObject, structural_limits: 
             f"\n        Shear force in flange's gooseneck: {flange_loads[1]}kN (Limit: {load_case[1]}kN)"
             f"\n        Bend moment in flange's gooseneck: {flange_loads[2]}kN.m (Limit: {load_case[2]}kN.m)"
         )
-    load_check = []
-    for i in range(len(load_case)):
-        if flange_loads[i] < abs(round(load_case[i], 3)):
-            load_check.append(True)
-        else:
-            load_check.append(False)
+    load_check = [flange_loads[i] < abs(round(load_case[i], 3)) for i in range(len(load_case))]
     if (loads := all(load_check)) == False:
         print("\nOs esforços verificados no gooseneck não são admissíveis")
     else:
@@ -415,9 +409,13 @@ def verify_flange_loads(line_model: OrcFxAPI.OrcaFlexObject, structural_limits: 
 
 def verify_normalised_curvature(bend_restrictor_model: OrcFxAPI.OrcaFlexObject, magnitude: str) -> float:
     """
-    Verify if the bend_restrictor is locked
-    :param bend_restrictor_model: stiffener1 in model
-    :return: normalised_curvature result
+    Description:
+        Verify bend restrictor normalised curvature value
+    Parameters:
+        bend_restrictor_model: Orcaflex bend restrictor
+        magnitude: 'Mean' for static analysis and 'Max' for dynamic analysis
+    Return:
+        Bend restrictor maximum normalised curvature value
     """
     if magnitude == "Mean":
         n_curve = bend_restrictor_model.RangeGraph("Normalised curvature")

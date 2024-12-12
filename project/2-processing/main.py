@@ -27,6 +27,11 @@ class DualOutput:
     def __init__(self, original_stdout, buffer):
         self.original_stdout = original_stdout
         self.buffer = buffer
+    def write(self, message):
+        self.original_stdout.write(message)
+        self.buffer.write(message)
+    def flush(self):
+        self.original_stdout.flush()
 
 original_stdout = sys.stdout
 buffer = StringIO()
@@ -192,7 +197,7 @@ with open(results_path, "w", encoding="utf-8") as file:
     file.write(captured_text)
 
 # xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-
+'''
 print(f"\n Starting Contingencies...")
 
 original_stdout = sys.stdout
@@ -218,3 +223,4 @@ results_path = os.path.join(file_path, txt_file)
 
 with open(results_path, "w", encoding="utf-8") as file:
     file.write(captured_text)
+'''
