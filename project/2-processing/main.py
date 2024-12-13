@@ -22,6 +22,8 @@ statics_min_damping = 5
 statics_max_damping = 15
 'VCM displace - when trying to adjust the model convergence'
 vcm_delta_x = 20
+'line segmentation'
+line_segments = [4, 2, 1, .5, .2]
 
 class DualOutput:
     def __init__(self, original_stdout, buffer):
@@ -59,6 +61,8 @@ object_line = object_elements[0]
 model_line = model[object_line.name]
 model_line_type = model["Line"]
 
+n_sections = len(model_line_type.TargetSegmentLength)
+
 object_bend_restrictor = object_elements[1]
 model_bend_restrictor = model[object_bend_restrictor.name]
 stiffener_type = model["Stiffener1"]
@@ -90,6 +94,16 @@ sim_run.user_specified(model, rt_number, file_path)
 model_general.StaticsMinDamping = statics_min_damping
 model_general.StaticsMaxDamping = statics_max_damping
 model_general.StaticsMaxIterations = statics_max_iterations
+
+n = len(line_segments)
+i = 0
+while i < n_sections:
+    if model_line_type.TargetSegmentLength[i] != '~':
+        if i <= n - 1:
+            model_line_type.TargetSegmentLength[i] = line_segments[i]
+        else:
+            model_line_type.TargetSegmentLength[i] = line_segments[-1]
+    i += 1
 
 print("\nRunning with bend_restrictor")
 
@@ -124,6 +138,16 @@ model_general.StaticsMinDamping = statics_min_damping
 model_general.StaticsMaxDamping = statics_max_damping
 model_general.StaticsMaxIterations = statics_max_iterations
 
+n = len(line_segments)
+i = 0
+while i < n_sections:
+    if model_line_type.TargetSegmentLength[i] != '~':
+        if i <= n - 1:
+            model_line_type.TargetSegmentLength[i] = line_segments[i]
+        else:
+            model_line_type.TargetSegmentLength[i] = line_segments[-1]
+    i += 1
+
 print("\nRunning with buoys")
 
 buoy_combination = sim_run.buoy_combination(buoy_set)
@@ -144,6 +168,17 @@ while k <= 5:
     model_general.StaticsMinDamping = statics_min_damping
     model_general.StaticsMaxDamping = statics_max_damping
     model_general.StaticsMaxIterations = statics_max_iterations
+
+    n = len(line_segments)
+    i = 0
+    while i < n_sections:
+        if model_line_type.TargetSegmentLength[i] != '~':
+            if i <= n - 1:
+                model_line_type.TargetSegmentLength[i] = line_segments[i]
+            else:
+                model_line_type.TargetSegmentLength[i] = line_segments[-1]
+        i += 1
+        
     k += 1
 
 print("\nAutomation's start.")
