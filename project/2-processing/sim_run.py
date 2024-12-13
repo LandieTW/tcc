@@ -23,6 +23,8 @@ clearance = 0
 delta_flange = 0
 'Aproove / reproove flange loads verification'
 flange_loads = True
+'Aproove / reproove bend restrictor loads verification'
+br_loads = True
 'Verify if bend restrictor is locked'
 normalised_curvature = 0
 'Loads in bend restrictor'
@@ -429,12 +431,16 @@ def verify_normalised_curvature(bend_restrictor_model: OrcFxAPI.OrcaFlexObject, 
     return nc_max
 
 
-def verify_br_loads(bend_restrictor_model: OrcFxAPI.OrcaFlexObject, bend_restrictor_object: methods.BendRestrictor, magnitude: str) -> float:
+def verify_br_loads(bend_restrictor_model: OrcFxAPI.OrcaFlexObject, bend_restrictor_object: methods.BendRestrictor, magnitude: str) -> list:
     """
-    Verify the bend moment in bend restrictor
-    :param bend_restrictor_model: bend restrictor in model
-    :param bend_restrictor_object: bend restrictor object
-    :return: bend moment in bend restrictor
+    Description:
+        Verify if bend restrictor's loads are admissible
+    Parameters:
+        bend_restrictor_model: Orcaflex bend restrictor
+        bend_restrictor_object: Bend restrictor object in orca.py
+        magnitude: 'Mean' for static analysis and 'Max' for dynamic analysis
+    Return:
+        True if bend restrictor's loads are admissible, False if not.
     """
     limit_sf, limit_bf = bend_restrictor_object.sf, bend_restrictor_object.bm
     if magnitude == "Mean":
@@ -497,7 +503,7 @@ def looping(model_line_type: OrcFxAPI.OrcaFlexObject, selection: dict, model: Or
     :return:
     """
     global rotation, clearance, delta_flange, n_run, flange_loads, clearance_limit_sup, \
-        payout_retrieve_pace_min, vcm_rotation_inf_limit, looping_results
+        payout_retrieve_pace_min, vcm_rotation_inf_limit, looping_results, br_loads
 
     environment.SeabedOriginX = model_vcm.InitialX
     if general.StaticsMinDamping != statics_min_damping:
@@ -593,6 +599,9 @@ def looping(model_line_type: OrcFxAPI.OrcaFlexObject, selection: dict, model: Or
                       model, bend_restrictor_model, rt_number, object_bend_restrictor, object_vcm, winch, general, 
                       environment, file_path, structural, a_r, selection, buoy_model)
 
+    if not br_loads:
+        ""
+    
     if delta_flange != delta_flange_error_limit:
         flange_height_correction(winch, delta_flange)
         general.StaticsMinDamping = 2 * statics_min_damping
