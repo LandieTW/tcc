@@ -88,7 +88,7 @@ print("\nRunning without bend_restrictor")
 
 model_line_type.NumberOfAttachments = 0
 
-sim_run.previous_run_static(model, model_general, model_line_type, model_vcm)
+sim_run.previous_run_static(model, model_general, model_line_type, model_vcm, object_line, object_vcm)
 sim_run.user_specified(model, rt_number, file_path)
 
 model_general.StaticsMinDamping = statics_min_damping
@@ -131,7 +131,7 @@ else:
 model_line_type.Attachmentz[0] = bend_restrictor_ini_position
 model_line_type.AttachmentzRelativeTo[0] = "End B"
 
-sim_run.previous_run_static(model, model_general, model_line_type, model_vcm)
+sim_run.previous_run_static(model, model_general, model_line_type, model_vcm, object_line, object_vcm)
 sim_run.user_specified(model, rt_number, file_path)
 
 model_general.StaticsMinDamping = statics_min_damping
@@ -162,29 +162,31 @@ while k <= 5:
     num_buoys = sim_run.number_buoys(treated_buoys)
     sim_run.input_buoyancy(model_line_type, num_buoys, treated_buoys, vessel)
     print(f"\nPartial buoyancy: {rl_config_fract[1]}")
-    sim_run.previous_run_static(model, model_general, model_line_type, model_vcm)
+    sim_run.previous_run_static(model, model_general, model_line_type, model_vcm, object_line, object_vcm)
     sim_run.user_specified(model, rt_number, file_path)
 
-    model_general.StaticsMinDamping = statics_min_damping
-    model_general.StaticsMaxDamping = statics_max_damping
-    model_general.StaticsMaxIterations = statics_max_iterations
+    if model_general.StaticsMinDamping != statics_min_damping:
+        model_general.StaticsMinDamping = statics_min_damping
+        model_general.StaticsMaxDamping = statics_max_damping
+        model_general.StaticsMaxIterations = statics_max_iterations
 
-    n = len(line_segments)
-    i = 0
-    while i < n_sections:
-        if model_line_type.TargetSegmentLength[i] != '~':
-            if i <= n - 1:
-                model_line_type.TargetSegmentLength[i] = line_segments[i]
-            else:
-                model_line_type.TargetSegmentLength[i] = line_segments[-1]
-        i += 1
+    if model_line_type.TargetSegmentLength[0] != line_segments[0]:
+        n_sections = len(model_line_type.TargetSegmentLength)
+        n = len(line_segments)
+        i = 0
+        while i < n_sections:
+            if model_line_type.TargetSegmentLength[i] != '~':
+                if i <= n - 1:
+                    model_line_type.TargetSegmentLength[i] = line_segments[i]
+                else:
+                    model_line_type.TargetSegmentLength[i] = line_segments[-1]
+            i += 1
         
     k += 1
 
 print("\nAutomation's start.")
-sim_run.looping(model_line_type, selection, model, stiffener_type, rt_number, vessel,
-                rl_config, buoy_set, model_vcm, object_line, object_bend_restrictor, object_vcm,
-                model_winch, model_general, model_environment, file_path, structural_limits, a_r)
+sim_run.looping(model_line_type, selection, model, stiffener_type, rt_number, vessel, rl_config, buoy_set, model_vcm, object_line, object_bend_restrictor, object_vcm, model_winch, model_general, model_environment, file_path, 
+                structural_limits, a_r)
 
 # zerar a rigidez do solo p/ facilitar a convergência
 model_environment.SeabedNormalStiffness = 100
@@ -215,7 +217,7 @@ dyn_dir = "Dynamic"
 dyn_path = os.path.join(file_path, dyn_dir)
 os.makedirs(dyn_path, exist_ok=True)
 
-sim_run.dynamic_simulation(model, model_line_type, model_vcm, stiffener_type, object_bend_restrictor, a_r, dyn_path, structural_limits, rt_number)
+dyn_result = sim_run.dynamic_simulation(model, model_line_type, model_vcm, stiffener_type, object_bend_restrictor, a_r, dyn_path, structural_limits, rt_number)
 
 dynamic_end_time = time.time()
 exec_dynamic_time = dynamic_end_time - static_end_time
@@ -232,30 +234,30 @@ with open(results_path, "w", encoding="utf-8") as file:
     file.write(captured_text)
 
 # xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-'''
-print(f"\n Starting Contingencies...")
 
-original_stdout = sys.stdout
-buffer = StringIO()
-sys.stdout = DualOutput(original_stdout, buffer)
+if dyn_result:
+    print(f"\n Starting Contingencies...")
 
-cont_dir = "Contingencies"
-cont_path = os.path.join(file_path, cont_dir)
-os.makedirs(cont_path, exist_ok=True)
+    original_stdout = sys.stdout
+    buffer = StringIO()
+    sys.stdout = DualOutput(original_stdout, buffer)
 
-# sadbsadal
+    cont_dir = "Contingencies"
+    cont_path = os.path.join(file_path, cont_dir)
+    os.makedirs(cont_path, exist_ok=True)
 
-cont_end_time = time.time()
-exec_cont_time = cont_end_time - dynamic_end_time
+    sim_run.contingencies(model, model_line_type, model_vcm, stiffener_type, object_bend_restrictor, cont_path, structural_limits)
 
-print(f"\n Contingencies automation's end."
-      f"\n Execution time: {exec_cont_time:.2f}s")
+    cont_end_time = time.time()
+    exec_cont_time = cont_end_time - dynamic_end_time
 
-sys.stdout = original_stdout
-captured_text = buffer.getvalue()
-txt_file = "Contingencies\\" + rt_number + " - Report.txt"
-results_path = os.path.join(file_path, txt_file)
+    print(f"\n Contingencies automation's end."
+        f"\n Execution time: {exec_cont_time:.2f}s")
 
-with open(results_path, "w", encoding="utf-8") as file:
-    file.write(captured_text)
-'''
+    sys.stdout = original_stdout
+    captured_text = buffer.getvalue()
+    txt_file = "Contingencies\\" + rt_number + " - Report.txt"
+    results_path = os.path.join(file_path, txt_file)
+
+    with open(results_path, "w", encoding="utf-8") as file:
+        file.write(captured_text)
