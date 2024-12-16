@@ -2,7 +2,6 @@
 Running dynamics for heave up in 2.5m
 
 For heave period...
-FLANGE_LOADS: [10.95, 12.125, 33.374]
 
         Normal force in flange's gooseneck: 10.95kN (Limit: 6.68kN)
         Shear force in flange's gooseneck: 12.125kN (Limit: -10.74kN)
@@ -11,7 +10,6 @@ FLANGE_LOADS: [10.95, 12.125, 33.374]
 Flange loads reprooved!
 
 For transition period...
-FLANGE_LOADS: [10.95, 12.125, 33.374]
 
         Normal force in flange's gooseneck: 10.95kN (Limit: 3.37kN)
         Shear force in flange's gooseneck: 12.125kN (Limit: -8.02kN)
@@ -20,7 +18,6 @@ FLANGE_LOADS: [10.95, 12.125, 33.374]
 Flange loads reprooved!
 
 For TDP period...
-FLANGE_LOADS: [10.95, 12.125, 33.374]
 
         Normal force in flange's gooseneck: 10.95kN (Limit: 6.68kN)
         Shear force in flange's gooseneck: 12.125kN (Limit: -10.74kN)
@@ -42,7 +39,6 @@ For 2.5m, loads are not admissible.
 Running dynamics for heave up in 2.0m
 
 For heave period...
-FLANGE_LOADS: [8.623, 11.979, 29.646]
 
         Normal force in flange's gooseneck: 8.623kN (Limit: 6.68kN)
         Shear force in flange's gooseneck: 11.979kN (Limit: -10.74kN)
@@ -51,7 +47,6 @@ FLANGE_LOADS: [8.623, 11.979, 29.646]
 Flange loads reprooved!
 
 For transition period...
-FLANGE_LOADS: [8.623, 11.979, 29.646]
 
         Normal force in flange's gooseneck: 8.623kN (Limit: 3.37kN)
         Shear force in flange's gooseneck: 11.979kN (Limit: -8.02kN)
@@ -60,7 +55,6 @@ FLANGE_LOADS: [8.623, 11.979, 29.646]
 Flange loads reprooved!
 
 For TDP period...
-FLANGE_LOADS: [8.623, 11.979, 29.646]
 
         Normal force in flange's gooseneck: 8.623kN (Limit: 6.68kN)
         Shear force in flange's gooseneck: 11.979kN (Limit: -10.74kN)
@@ -78,4 +72,4 @@ Flange loading didn't passed! Use an abacus
 Bend restrictor loads aprooved!
 
  Dynamic automation's end.
- Execution time: 481.50s
+ Execution time: 478.68s

@@ -427,7 +427,6 @@ def verify_flange_loads(line_model: OrcFxAPI.OrcaFlexObject, structural_limits: 
         elif case == "3ii":
             print(f"\nFor TDP period...")
 
-        print(f"FLANGE_LOADS: {flange_loads}")
         print(f"\n        Normal force in flange's gooseneck: {flange_loads[0]}kN (Limit: {load_case[0]}kN)"
             f"\n        Shear force in flange's gooseneck: {flange_loads[1]}kN (Limit: {load_case[1]}kN)"
             f"\n        Bend moment in flange's gooseneck: {flange_loads[2]}kN.m (Limit: {load_case[2]}kN.m)")
@@ -945,7 +944,6 @@ def payout_retrieve_line(line_model: OrcFxAPI.OrcaFlexObject, delta: float, obje
     Description:
         Controls the way how line is payed out or retrieved
         Check if it's a normal 1st extremity DVC (payout/retieve line) or a 1st extremity DVC with jumper (payout/retrieve A&R)
-
     Parameters:
         line_model: Orcaflex line
         delta: quantity that line/A&R's gonna change
@@ -978,6 +976,27 @@ def payout_retrieve_line(line_model: OrcFxAPI.OrcaFlexObject, delta: float, obje
             print(f"\nRetrieving out {-delta}m of A/R,"
                   f"\nfrom {round(a_r.StageValue[0], 2)} to {round(a_r.StageValue[0] + delta, 2)}")
             
+        a_r.StageValue[0] = round(a_r.StageValue[0] + delta, 3)
+
+def payout_line(line_model: OrcFxAPI.OrcaFlexObject, delta: float, object_line: methods.Line, a_r: OrcFxAPI.OrcaFlexObject) -> None:
+    """
+    Description:
+        Payout line in Contingency analysis
+    Parameters:
+        line_model: Orcaflex line
+        delta: quantity that line/A&R's gonna change
+        object_line: Line object from methods.py
+        a_r: Orcaflex A&R
+    Return:
+        Nothing
+    """    
+    if object_line.length == object_line.lda:  # payout line
+        new_length = line_model.Length[0] + delta
+        new_segment = new_length / 100  # adjust segmentation of the line
+        line_model.Length[0] = round(new_length, 3)
+        line_model.TargetSegmentLength[0] = round(new_segment, 3)
+
+    else:  # payout A&R
         a_r.StageValue[0] = round(a_r.StageValue[0] + delta, 3)
 
 def flange_height_correction(winch: OrcFxAPI.OrcaFlexObject, delta: float) -> None:
@@ -1138,13 +1157,15 @@ def contingencies(model: OrcFxAPI.Model, line: OrcFxAPI.OrcaFlexObject, bend_res
 
     line.Attachmentz[n] = positions[0] + 1  # add cont 1m after the 1st buoy
 
+    print(f"\nPaying out 8m of line")
+
     while line.Length[0] < line.Length[0] + 8:  # after dynamics... 8m of line are payed out.
         try:
-            payout_retrieve_line(line, payout_retrieve_pace_max, object_line, a_r)  # payout 50cm
+            payout_line(line, payout_retrieve_pace_min, object_line, a_r)  # payout 20cm
             model.CalculateStatics()
             model.UseCalculatedPositions(SetLinesToUserSpecifiedStartingShape=True)
         except Exception:
-            payout_retrieve_line(line, -payout_retrieve_pace_min, object_line, a_r)  # retrieve 20cm
+            payout_line(line, - payout_retrieve_pace_min / 2, object_line, a_r)  # retrieve 10cm
             model.CalculateStatics()
             model.UseCalculatedPositions(SetLinesToUserSpecifiedStartingShape=True)
 
@@ -1174,11 +1195,11 @@ def contingencies(model: OrcFxAPI.Model, line: OrcFxAPI.OrcaFlexObject, bend_res
             
             while abs(line_tdp[0] - line_tdp[-1]) < 3:  # we want, at least, 3m of TDP arclength
                 try:
-                    payout_retrieve_line(line, payout_retrieve_pace_max, object_line, a_r)  # payout 50cm
+                    payout_line(line, payout_retrieve_pace_max, object_line, a_r)  # payout 50cm
                     model.CalculateStatics()
                     model.UseCalculatedPositions(SetLinesToUserSpecifiedStartingShape=True)
                 except Exception:
-                    payout_retrieve_line(line, -payout_retrieve_pace_min, object_line, a_r)  # retrieve 20cm
+                    payout_line(line, -payout_retrieve_pace_min, object_line, a_r)  # retrieve 20cm
                     model.CalculateStatics()
                     model.UseCalculatedPositions(SetLinesToUserSpecifiedStartingShape=True)
             
