@@ -49,7 +49,8 @@ structural_limits = info[4]
 
 this_path = os.path.dirname(os.path.abspath(__file__))
 file_path = os.path.join(this_path, rt_number)
-file = rt_number + ".dat"
+file = rt_number + '.dat'
+# file = 'Dynamic\\' + 'RT 2517 - heave_2.0m.sim'
 executable = os.path.join(file_path, file)
 model = OrcFxAPI.Model(executable)
 
@@ -83,6 +84,8 @@ if object_line.length != object_line.lda:
     model_general.StaticsMinDamping = 4 * statics_min_damping
     model_general.StaticsMaxDamping = 4 * statics_max_damping
     model_general.StaticsMaxIterations = 3 * statics_max_iterations
+
+# xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 print("\nRunning without bend_restrictor")
 
