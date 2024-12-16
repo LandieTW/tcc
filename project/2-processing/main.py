@@ -22,8 +22,6 @@ statics_min_damping = 5
 statics_max_damping = 15
 'VCM displace - when trying to adjust the model convergence'
 vcm_delta_x = 20
-'line segmentation'
-line_segments = [4, 2, 1, .5, .2]
 
 class DualOutput:
     def __init__(self, original_stdout, buffer):
@@ -50,7 +48,7 @@ structural_limits = info[4]
 this_path = os.path.dirname(os.path.abspath(__file__))
 file_path = os.path.join(this_path, rt_number)
 file = rt_number + '.dat'
-# file = 'Dynamic\\' + 'RT 2517 - heave_2.0m.sim'
+# file = 'Dynamic\\' + 'RT 2604 - heave_1.8m.sim'
 executable = os.path.join(file_path, file)
 model = OrcFxAPI.Model(executable)
 
@@ -98,16 +96,6 @@ model_general.StaticsMinDamping = statics_min_damping
 model_general.StaticsMaxDamping = statics_max_damping
 model_general.StaticsMaxIterations = statics_max_iterations
 
-n = len(line_segments)
-i = 0
-while i < n_sections:
-    if model_line_type.TargetSegmentLength[i] != '~':
-        if i <= n - 1:
-            model_line_type.TargetSegmentLength[i] = line_segments[i]
-        else:
-            model_line_type.TargetSegmentLength[i] = line_segments[-1]
-    i += 1
-
 print("\nRunning with bend_restrictor")
 
 model_line_type.NumberOfAttachments = 1
@@ -140,16 +128,6 @@ sim_run.user_specified(model, rt_number, file_path)
 model_general.StaticsMinDamping = statics_min_damping
 model_general.StaticsMaxDamping = statics_max_damping
 model_general.StaticsMaxIterations = statics_max_iterations
-
-n = len(line_segments)
-i = 0
-while i < n_sections:
-    if model_line_type.TargetSegmentLength[i] != '~':
-        if i <= n - 1:
-            model_line_type.TargetSegmentLength[i] = line_segments[i]
-        else:
-            model_line_type.TargetSegmentLength[i] = line_segments[-1]
-    i += 1
 
 print("\nRunning with buoys")
 
@@ -237,13 +215,13 @@ cont_path = os.path.join(file_path, cont_dir)
 os.makedirs(cont_path, exist_ok=True)
 
 sim_run.contingencies(model, model_line_type, stiffener_type, object_bend_restrictor, cont_path, structural_limits, model_vcm, object_line, a_r, model_general)
-
+'''
 cont_end_time = time.time()
 exec_cont_time = cont_end_time - dynamic_end_time
 
 print(f"\n Contingencies automation's end."
     f"\n Execution time: {exec_cont_time:.2f}s")
-
+'''
 sys.stdout = original_stdout
 captured_text = buffer.getvalue()
 txt_file = "Contingencies\\" + rt_number + " - Report.txt"
