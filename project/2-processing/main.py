@@ -169,18 +169,6 @@ while k <= 5:
         model_general.StaticsMinDamping = statics_min_damping
         model_general.StaticsMaxDamping = statics_max_damping
         model_general.StaticsMaxIterations = statics_max_iterations
-
-    if model_line_type.TargetSegmentLength[0] != line_segments[0]:
-        n_sections = len(model_line_type.TargetSegmentLength)
-        n = len(line_segments)
-        i = 0
-        while i < n_sections:
-            if model_line_type.TargetSegmentLength[i] != '~':
-                if i <= n - 1:
-                    model_line_type.TargetSegmentLength[i] = line_segments[i]
-                else:
-                    model_line_type.TargetSegmentLength[i] = line_segments[-1]
-            i += 1
         
     k += 1
 
@@ -246,7 +234,7 @@ if dyn_result:
     cont_path = os.path.join(file_path, cont_dir)
     os.makedirs(cont_path, exist_ok=True)
 
-    sim_run.contingencies(model, model_line_type, model_vcm, stiffener_type, object_bend_restrictor, cont_path, structural_limits)
+    sim_run.contingencies(model, model_line_type, stiffener_type, object_bend_restrictor, cont_path, structural_limits, model_vcm, object_line, a_r, model_general)
 
     cont_end_time = time.time()
     exec_cont_time = cont_end_time - dynamic_end_time
