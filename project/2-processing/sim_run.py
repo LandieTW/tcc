@@ -528,6 +528,8 @@ def verify_br_loads(bend_restrictor_model: OrcFxAPI.OrcaFlexObject, bend_restric
             print(f"Shear force limit not found")
         if limit_bf == 0:
             print(f"Bend moment limit not found")
+        
+        return True  # does not check
 
     else:
         if magnitude == "Mean":
@@ -542,20 +544,20 @@ def verify_br_loads(bend_restrictor_model: OrcFxAPI.OrcaFlexObject, bend_restric
             shear = bend_restrictor_model.RangeGraph("Shear Force", period=OrcFxAPI.PeriodNum.WholeSimulation)
             shear = [sf for _, sf in enumerate(shear.Max)]
 
-    max_moment = round(max(abs(min(moment)), max(moment)), 3)
-    max_shear = round(max(abs(min(shear)), max(shear)), 3)
+        max_moment = round(max(abs(min(moment)), max(moment)), 3)
+        max_shear = round(max(abs(min(shear)), max(shear)), 3)
 
-    print(f"\n      Shear force in bend_restrictor: {max_shear}kN (Limit: {limit_sf}kN)"
-          f"\n      Bend moment in bend_restrictor: {max_moment}kN.m (Limit: {limit_bf}kN.m)")
-    
-    br_loads = [max_shear, max_moment]
-    load_case = [limit_sf, limit_bf]
-    load_check = [br_loads[i] < abs(round(load_case[i], 3)) for i in range(len(load_case))]
-    if all(load_check):
-        print("\nBend restrictor loads aprooved!")
-    else:
-        print("\nBend restrictor loads reprooved!")
-    return all(load_check)
+        print(f"\n      Shear force in bend_restrictor: {max_shear}kN (Limit: {limit_sf}kN)"
+            f"\n      Bend moment in bend_restrictor: {max_moment}kN.m (Limit: {limit_bf}kN.m)")
+        
+        br_loads = [max_shear, max_moment]
+        load_case = [limit_sf, limit_bf]
+        load_check = [br_loads[i] < abs(round(load_case[i], 3)) for i in range(len(load_case))]
+        if all(load_check):
+            print("\nBend restrictor loads aprooved!")
+        else:
+            print("\nBend restrictor loads reprooved!")
+        return all(load_check)
 
 def looping(model_line_type: OrcFxAPI.OrcaFlexObject, selection: dict, model: OrcFxAPI.Model, bend_restrictor_model: OrcFxAPI.OrcaFlexObject, rt_number: str, vessel: str, rl_config: list, buoy_set: list, 
             model_vcm: OrcFxAPI.OrcaFlexObject, object_line: methods.Line, object_bend_restrictor: methods.BendRestrictor, object_vcm: methods.Vcm, winch: OrcFxAPI.OrcaFlexObject, general: OrcFxAPI.OrcaFlexObject, 
@@ -666,23 +668,33 @@ def looping(model_line_type: OrcFxAPI.OrcaFlexObject, selection: dict, model: Or
             change_position(model_line_type, new_positions, pointer, num_positions, position)
             
             call_loop(model_line_type, selection, model, bend_restrictor_model, rt_number, vessel, rl_config, buoy_set, model_vcm, object_line, object_bend_restrictor, object_vcm, winch, general, environment, file_path, 
-                        structural, a_r)
+                      structural, a_r)
                 
         else:  # change set of buoys
             call_change_buoys(unique_positions, rl_config, pointer, buoy_set, model_line_type, vessel, model_vcm, object_line, model, bend_restrictor_model, rt_number, object_bend_restrictor, object_vcm, winch, general, 
-                                environment, file_path, structural, a_r, selection, buoy_model)
+                              environment, file_path, structural, a_r, selection, buoy_model)
     
-    if not br_loads:
-        if clearance > (clearance_limit_sup + clearance_limit_inf)/2:  # verify if it is possible to retrieve a little more line
-            if rotation < vcm_rotation_sup_limit - .25:
-                payout_retrieve_line(model_line_type, payout_retrieve_pace_min / 2, object_line, a_r)
-                call_loop(model_line_type, selection, model, bend_restrictor_model, rt_number, vessel, rl_config, buoy_set, model_vcm, object_line, object_bend_restrictor, object_vcm, winch, general, environment, file_path, 
-                          structural, a_r)
-        if clearance < (clearance_limit_sup + clearance_limit_inf)/2:  # verify if it is possible to pay a little more line
-            if rotation > vcm_rotation_inf_limit + .25:
-                payout_retrieve_line(model_line_type, - payout_retrieve_pace_min / 2, object_line, a_r)
-                call_loop(model_line_type, selection, model, bend_restrictor_model, rt_number, vessel, rl_config, buoy_set, model_vcm, object_line, object_bend_restrictor, object_vcm, winch, general, environment, file_path, 
-                          structural, a_r)
+    if clearance > clearance_limit_sup - .05:  # verify if it is possible to retrieve a little more line
+        if rotation < vcm_rotation_sup_limit - .25:
+            payout_retrieve_line(model_line_type, payout_retrieve_pace_min, object_line, a_r)
+            call_loop(model_line_type, selection, model, bend_restrictor_model, rt_number, vessel, rl_config, buoy_set, model_vcm, object_line, object_bend_restrictor, object_vcm, winch, general, environment, file_path, 
+                      structural, a_r)
+            
+            n_run = max(n_run - 1, 0)  # doesn't count this kind of model changing
+            
+            call_loop(model_line_type, selection, model, bend_restrictor_model, rt_number, vessel, rl_config, buoy_set, model_vcm, object_line, object_bend_restrictor, object_vcm, winch, general, environment, file_path, 
+                      structural, a_r)
+            
+    if clearance < clearance_limit_inf + .05:  # verify if it is possible to pay a little more line
+        if rotation > vcm_rotation_inf_limit + .25:
+            payout_retrieve_line(model_line_type, - payout_retrieve_pace_min, object_line, a_r)
+            call_loop(model_line_type, selection, model, bend_restrictor_model, rt_number, vessel, rl_config, buoy_set, model_vcm, object_line, object_bend_restrictor, object_vcm, winch, general, environment, file_path, 
+                      structural, a_r)
+            
+            n_run = max(n_run - 1, 0)  # doesn't count this kind of model changing
+            
+            call_loop(model_line_type, selection, model, bend_restrictor_model, rt_number, vessel, rl_config, buoy_set, model_vcm, object_line, object_bend_restrictor, object_vcm, winch, general, environment, file_path, 
+                      structural, a_r)
     
     if delta_flange != delta_flange_error_limit:
 
