@@ -48,7 +48,7 @@ structural_limits = info[4]
 this_path = os.path.dirname(os.path.abspath(__file__))
 file_path = os.path.join(this_path, rt_number)
 file = rt_number + '.dat'
-# file = 'Dynamic\\' + 'RT 2691 - heave_2.0m.sim'
+# file = 'Dynamic\\' + 'RT 2762 - heave_1.8m.sim'
 executable = os.path.join(file_path, file)
 model = OrcFxAPI.Model(executable)
 
@@ -154,7 +154,7 @@ while k <= 5:
     k += 1
 
 print("\nAutomation's start.")
-sim_run.looping(model_line_type, selection, model, stiffener_type, rt_number, vessel, rl_config, buoy_set, model_vcm, object_line, object_bend_restrictor, object_vcm, model_winch, model_general, model_environment, file_path, 
+value = sim_run.looping(model_line_type, selection, model, stiffener_type, rt_number, vessel, rl_config, buoy_set, model_vcm, object_line, object_bend_restrictor, object_vcm, model_winch, model_general, model_environment, file_path, 
                 structural_limits, a_r)
 
 # zerar a rigidez do solo p/ facilitar a convergência
