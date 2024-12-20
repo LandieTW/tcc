@@ -6,9 +6,7 @@ import methods
 import OrcFxAPI
 import os
 
-
-def modeling_accessory(obj_model: OrcFxAPI.OrcaFlexObject,
-                       obj: methods.Accessory) -> None:
+def modeling_accessory(obj_model: OrcFxAPI.OrcaFlexObject, obj: methods.Accessory) -> None:
     """
     Model accessory: flange adapter / bend_restrictor's rigid zone
     :param obj_model: accessory in orcaflex
@@ -53,11 +51,9 @@ vcm_object = methods.new_combined_data[3]
 winch_length = methods.new_combined_data[4]
 list_bathymetric = methods.new_combined_data[5]
 rt_number = methods.new_combined_data[6]
-length = methods.new_combined_data[7]  # aqui está o length
+length = methods.new_combined_data[7]
 
-objects = [
-    line_object, bend_restrictor_object, end_fitting_object, vcm_object
-]
+objects = [line_object, bend_restrictor_object, end_fitting_object, vcm_object]
 
 line.OD = line_object.od
 line.ID = line_object.id
@@ -93,34 +89,42 @@ vcm.CentreOfVolumeZ = vcm_object.cg_az
 vcm.Name = vcm_object.name
 
 line_type.Length[0] = line_object.lda - length + 10
+
 if line_object.length != line_object.lda:
     diff_lda = line_object.lda - line_object.length + 10
     a_r.StageValue[0] = diff_lda
     line_type.EndAZ = - diff_lda
+
 line_type.Length[5] = bend_restrictor_object.length  #
 line_type.Length[6] = end_fitting_object.length  #
 
 if bend_restrictor_object.material == "Polymer":
+
     rz_object = methods.new_combined_data[8]
     modeling_accessory(zr_vert, rz_object)
     objects.append(rz_object)
+
     if len(methods.new_combined_data) == 9:
+
         line_type.NumberOfSections = 8
         line_type.Attachmentz[0] = end_fitting_object.length + rz_object.length
         line_type.Length[6] = rz_object.length
         line_type.Length[7] = end_fitting_object.length
+
     else:
+
         flange_object = methods.new_combined_data[9]
         modeling_accessory(flange, flange_object)
         objects.append(flange_object)
-        line_type.Attachmentz[0] = (end_fitting_object.length +
-                                    flange_object.length +
-                                    rz_object.length)
+        line_type.Attachmentz[0] = (end_fitting_object.length + flange_object.length + rz_object.length)
         line_type.Length[6] = rz_object.length
         line_type.Length[7] = end_fitting_object.length
         line_type.Length[8] = flange_object.length
+
 else:
+
     if len(methods.new_combined_data) == 9:
+
         flange_object = methods.new_combined_data[8]
         modeling_accessory(flange, flange_object)
         objects.append(flange_object)
@@ -130,7 +134,9 @@ else:
         line_type.LineType[7] = flange.name
         line_type.Length[6] = end_fitting_object.length
         line_type.Length[7] = flange_object.length
+
     else:
+
         line_type.NumberOfSections = 7
         line_type.Attachmentz[0] = end_fitting_object.length
         line_type.LineType[6] = end_fitting.name
@@ -146,6 +152,7 @@ winch.ConnectionZ[1] = vcm_object.olhal_cz
 winch.StageValue[0] = winch_length
 
 stiffness_1.NumberOfRows = len(line_object.curvature)
+
 for i in range(1, len(line_object.curvature)):
     stiffness_1.IndependentValue[i] = line_object.curvature[i]
     stiffness_1.DependentValue[i] = line_object.b_moment[i]
@@ -153,12 +160,13 @@ for i in range(1, len(line_object.curvature)):
 environment.SeabedType = "Profile"
 environment.SeabedProfileDepth[0] = line_object.lda
 environment.SeabedProfileNumberOfPoints = len(list_bathymetric[0])
+
 for i in range(len(list_bathymetric[1])):
-    environment.SeabedProfileDistanceFromSeabedOrigin[i] = \
-        list_bathymetric[0][i]
+    environment.SeabedProfileDistanceFromSeabedOrigin[i] = list_bathymetric[0][i]
     environment.SeabedProfileDepth[i] = list_bathymetric[2][i]
 
 stiffness_2.NumberOfRows = len(bend_restrictor_object.curvature)
+
 for i in range(1, len(bend_restrictor_object.curvature)):
     stiffness_2.IndependentValue[i] = bend_restrictor_object.curvature[i]
     stiffness_2.DependentValue[i] = bend_restrictor_object.b_moment[i]

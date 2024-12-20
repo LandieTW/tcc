@@ -162,7 +162,7 @@ def run_static(model: OrcFxAPI.Model, rt_number: str, vcm: OrcFxAPI.OrcaFlexObje
 
         static_dir = os.path.join(file_path, "Static")
         os.makedirs(static_dir, exist_ok=True)
-        file_name = str(n_run) + "-" + rt_number + ".sim"
+        file_name = str(n_run + 1) + "-" + rt_number + ".sim"
         save_simulation = os.path.join(static_dir, file_name)
         model.SaveSimulation(save_simulation)
 
@@ -1250,8 +1250,6 @@ def dynamic_simulation(model: OrcFxAPI.Model, line: OrcFxAPI.OrcaFlexObject, vcm
     Return:
         Nothing
     """
-    vcm.Connection = "Fixed"
-
     i = 0
     while i < len(heave_up):
         print(f"\nRunning dynamics for heave up in {heave_up[i]}m")
@@ -1261,64 +1259,40 @@ def dynamic_simulation(model: OrcFxAPI.Model, line: OrcFxAPI.OrcaFlexObject, vcm
         file_name = rt_number + " - heave_" + str(heave_up[i]) + "m.sim"
         simulation = os.path.join(save_simulation, file_name)
 
-        result = run_dynamic(model, line, bend_restrictor, bend_restrictor_obj, structural_limits, simulation)
+        vcm.Connection = "Fixed"
+
+        model.RunSimulation()
+        model.SaveSimulation(simulation)
+
+        min_normal = abs(round(min(line.TimeHistory('End Ez force', total_period, OrcFxAPI.oeEndB)), 3))
+        max_normal = abs(round(max(line.TimeHistory('End Ez force', total_period, OrcFxAPI.oeEndB)), 3))
+        
+        min_shear = abs(round(min(line.TimeHistory('End Ex force', total_period, OrcFxAPI.oeEndB)), 3))
+        max_shear = abs(round(max(line.TimeHistory('End Ex force', total_period, OrcFxAPI.oeEndB)), 3))
+        
+        min_moment = abs(round(min(line.TimeHistory('End Ey moment', total_period, OrcFxAPI.oeEndB)), 3))
+        max_moment = abs(round(max(line.TimeHistory('End Ey moment', total_period, OrcFxAPI.oeEndB)), 3))
+
+        flange_results = [max(min_normal, max_normal), max(min_shear, max_shear), max(min_moment, max_moment)]
+
+        flange_loads = any([verify_flange_loads(line, structural_limits, '3', flange_results), verify_flange_loads(line, structural_limits, '3i', flange_results), verify_flange_loads(line, structural_limits, '3ii', flange_results)])
+
+        nc_br = verify_normalised_curvature(bend_restrictor, "Max")
+        if nc_br >= 1:
+            br_results = verify_br_loads(bend_restrictor, bend_restrictor_obj, "Max")
+
+            result = all([flange_loads, br_results])
+        
+        result = flange_loads
 
         if result:
             i = len(heave_up)
         else:
             print(f"\nFor {heave_up[i]}m, loads are not admissible.")
-
+        
         i += 1
+
     return result
-
-def run_dynamic(model: OrcFxAPI.Model, line: OrcFxAPI.OrcaFlexObject, bend_restrictor: OrcFxAPI.OrcaFlexObject, bend_restrictor_obj: methods.BendRestrictor, structural_limits: dict, simulation: str) -> bool:
-    """
-    Description:
-        Run simulation and call its loads verification
-    Parameters:
-        model: Orcaflex model
-        line: Orcaflex line
-        bend_restrictor: Orcaflex bend restrictor
-        bend_restrictor_obj: Bend restrictor object from methods.py
-        structural_limits: RL structural limits for loading in VCM's flange
-        simulation: Path where static runs are saved
-    Return:
-        True if checked loads are admissible, False if not
-    """
-    model.RunSimulation()
-    model.SaveSimulation(simulation)
-
-    flange_results = max_absolut_load(line, total_period)
-    flange_loads = any([verify_flange_loads(line, structural_limits, '3', flange_results), verify_flange_loads(line, structural_limits, '3i', flange_results), verify_flange_loads(line, structural_limits, '3ii', flange_results)])
-
-    nc_br = verify_normalised_curvature(bend_restrictor, "Max")
-    if nc_br >= 1:
-        br_results = verify_br_loads(bend_restrictor, bend_restrictor_obj, "Max")
-
-        return all([flange_loads, br_results])
-    
-    return flange_loads
-
-def max_absolut_load(line: OrcFxAPI.OrcaFlexObject, period: OrcFxAPI.SpecifiedPeriod) -> list:
-    """
-    Description:
-        Get the max absolut load of heave up period
-    Parameters:
-        line: Orcaflex line
-        period: Analysis period
-    Return:
-        Nothing
-    """
-    min_normal = abs(round(min(line.TimeHistory('End Ez force', period, OrcFxAPI.oeEndB)), 3))
-    max_normal = abs(round(max(line.TimeHistory('End Ez force', period, OrcFxAPI.oeEndB)), 3))
-    
-    min_shear = abs(round(min(line.TimeHistory('End Ex force', period, OrcFxAPI.oeEndB)), 3))
-    max_shear = abs(round(max(line.TimeHistory('End Ex force', period, OrcFxAPI.oeEndB)), 3))
-    
-    min_moment = abs(round(min(line.TimeHistory('End Ey moment', period, OrcFxAPI.oeEndB)), 3))
-    max_moment = abs(round(max(line.TimeHistory('End Ey moment', period, OrcFxAPI.oeEndB)), 3))
-
-    return [max(min_normal, max_normal), max(min_shear, max_shear), max(min_moment, max_moment)]
 
 def contingencies(model: OrcFxAPI.Model, line: OrcFxAPI.OrcaFlexObject, bend_restrictor: OrcFxAPI.OrcaFlexObject, bend_restrictor_obj: methods.BendRestrictor, save_simulation: str, structural_limits: dict,
                   vcm: OrcFxAPI.OrcaFlexObject, object_line: methods.Line, a_r: OrcFxAPI.OrcaFlexObject, general: OrcFxAPI.OrcaFlexObject, environment: OrcFxAPI.OrcaFlexObject) -> None:
