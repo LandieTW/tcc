@@ -3,32 +3,32 @@ Running dynamics for heave up in 2.5m
 
 For heave period...
 
-        Normal force in flange's gooseneck: 10.873kN (Limit: 6.68kN)
-        Shear force in flange's gooseneck: 14.164kN (Limit: -10.74kN)
-        Bend moment in flange's gooseneck: 32.608kN.m (Limit: 11.84kN.m)
+        Normal force in flange's gooseneck: 10.846kN (Limit: 6.68kN)
+        Shear force in flange's gooseneck: 12.259kN (Limit: -10.74kN)
+        Bend moment in flange's gooseneck: 32.333kN.m (Limit: 11.84kN.m)
 
 Flange loads reprooved!
 
 For transition period...
 
-        Normal force in flange's gooseneck: 10.873kN (Limit: 3.37kN)
-        Shear force in flange's gooseneck: 14.164kN (Limit: -8.02kN)
-        Bend moment in flange's gooseneck: 32.608kN.m (Limit: 30.67kN.m)
+        Normal force in flange's gooseneck: 10.846kN (Limit: 3.37kN)
+        Shear force in flange's gooseneck: 12.259kN (Limit: -8.02kN)
+        Bend moment in flange's gooseneck: 32.333kN.m (Limit: 30.67kN.m)
 
 Flange loads reprooved!
 
 For TDP period...
 
-        Normal force in flange's gooseneck: 10.873kN (Limit: 6.68kN)
-        Shear force in flange's gooseneck: 14.164kN (Limit: -10.74kN)
-        Bend moment in flange's gooseneck: 32.608kN.m (Limit: 11.84kN.m)
+        Normal force in flange's gooseneck: 10.846kN (Limit: 6.68kN)
+        Shear force in flange's gooseneck: 12.259kN (Limit: -10.74kN)
+        Bend moment in flange's gooseneck: 32.333kN.m (Limit: 11.84kN.m)
 
 Flange loads reprooved!
 
  Bend Restrictor's locked
 
-      Shear force in bend_restrictor: 16.837kN (Limit: 43.0kN)
-      Bend moment in bend_restrictor: 15.349kN.m (Limit: 57.0kN.m)
+      Shear force in bend_restrictor: 16.283kN (Limit: 43.0kN)
+      Bend moment in bend_restrictor: 15.1kN.m (Limit: 57.0kN.m)
 
 Bend restrictor loads aprooved!
 
@@ -38,32 +38,32 @@ Running dynamics for heave up in 2.0m
 
 For heave period...
 
-        Normal force in flange's gooseneck: 9.051kN (Limit: 6.68kN)
-        Shear force in flange's gooseneck: 13.546kN (Limit: -10.74kN)
-        Bend moment in flange's gooseneck: 29.517kN.m (Limit: 11.84kN.m)
+        Normal force in flange's gooseneck: 8.711kN (Limit: 6.68kN)
+        Shear force in flange's gooseneck: 12.129kN (Limit: -10.74kN)
+        Bend moment in flange's gooseneck: 28.8kN.m (Limit: 11.84kN.m)
 
 Flange loads reprooved!
 
 For transition period...
 
-        Normal force in flange's gooseneck: 9.051kN (Limit: 3.37kN)
-        Shear force in flange's gooseneck: 13.546kN (Limit: -8.02kN)
-        Bend moment in flange's gooseneck: 29.517kN.m (Limit: 30.67kN.m)
+        Normal force in flange's gooseneck: 8.711kN (Limit: 3.37kN)
+        Shear force in flange's gooseneck: 12.129kN (Limit: -8.02kN)
+        Bend moment in flange's gooseneck: 28.8kN.m (Limit: 30.67kN.m)
 
 Flange loads reprooved!
 
 For TDP period...
 
-        Normal force in flange's gooseneck: 9.051kN (Limit: 6.68kN)
-        Shear force in flange's gooseneck: 13.546kN (Limit: -10.74kN)
-        Bend moment in flange's gooseneck: 29.517kN.m (Limit: 11.84kN.m)
+        Normal force in flange's gooseneck: 8.711kN (Limit: 6.68kN)
+        Shear force in flange's gooseneck: 12.129kN (Limit: -10.74kN)
+        Bend moment in flange's gooseneck: 28.8kN.m (Limit: 11.84kN.m)
 
 Flange loads reprooved!
 
  Bend Restrictor's locked
 
-      Shear force in bend_restrictor: 14.977kN (Limit: 43.0kN)
-      Bend moment in bend_restrictor: 12.056kN.m (Limit: 57.0kN.m)
+      Shear force in bend_restrictor: 15.399kN (Limit: 43.0kN)
+      Bend moment in bend_restrictor: 11.642kN.m (Limit: 57.0kN.m)
 
 Bend restrictor loads aprooved!
 
@@ -73,32 +73,32 @@ Running dynamics for heave up in 1.8m
 
 For heave period...
 
-        Normal force in flange's gooseneck: 8.481kN (Limit: 6.68kN)
-        Shear force in flange's gooseneck: 13.27kN (Limit: -10.74kN)
-        Bend moment in flange's gooseneck: 27.398kN.m (Limit: 11.84kN.m)
+        Normal force in flange's gooseneck: 8.217kN (Limit: 6.68kN)
+        Shear force in flange's gooseneck: 12.051kN (Limit: -10.74kN)
+        Bend moment in flange's gooseneck: 26.176kN.m (Limit: 11.84kN.m)
 
 Flange loads reprooved!
 
 For transition period...
 
-        Normal force in flange's gooseneck: 8.481kN (Limit: 3.37kN)
-        Shear force in flange's gooseneck: 13.27kN (Limit: -8.02kN)
-        Bend moment in flange's gooseneck: 27.398kN.m (Limit: 30.67kN.m)
+        Normal force in flange's gooseneck: 8.217kN (Limit: 3.37kN)
+        Shear force in flange's gooseneck: 12.051kN (Limit: -8.02kN)
+        Bend moment in flange's gooseneck: 26.176kN.m (Limit: 30.67kN.m)
 
 Flange loads reprooved!
 
 For TDP period...
 
-        Normal force in flange's gooseneck: 8.481kN (Limit: 6.68kN)
-        Shear force in flange's gooseneck: 13.27kN (Limit: -10.74kN)
-        Bend moment in flange's gooseneck: 27.398kN.m (Limit: 11.84kN.m)
+        Normal force in flange's gooseneck: 8.217kN (Limit: 6.68kN)
+        Shear force in flange's gooseneck: 12.051kN (Limit: -10.74kN)
+        Bend moment in flange's gooseneck: 26.176kN.m (Limit: 11.84kN.m)
 
 Flange loads reprooved!
 
  Bend Restrictor's locked
 
-      Shear force in bend_restrictor: 14.636kN (Limit: 43.0kN)
-      Bend moment in bend_restrictor: 11.172kN.m (Limit: 57.0kN.m)
+      Shear force in bend_restrictor: 14.292kN (Limit: 43.0kN)
+      Bend moment in bend_restrictor: 10.252kN.m (Limit: 57.0kN.m)
 
 Bend restrictor loads aprooved!
 
@@ -108,36 +108,36 @@ Running dynamics for heave up in 1.5m
 
 For heave period...
 
-        Normal force in flange's gooseneck: 7.883kN (Limit: 6.68kN)
-        Shear force in flange's gooseneck: 12.843kN (Limit: -10.74kN)
-        Bend moment in flange's gooseneck: 24.766kN.m (Limit: 11.84kN.m)
+        Normal force in flange's gooseneck: 7.651kN (Limit: 6.68kN)
+        Shear force in flange's gooseneck: 11.899kN (Limit: -10.74kN)
+        Bend moment in flange's gooseneck: 24.214kN.m (Limit: 11.84kN.m)
 
 Flange loads reprooved!
 
 For transition period...
 
-        Normal force in flange's gooseneck: 7.883kN (Limit: 3.37kN)
-        Shear force in flange's gooseneck: 12.843kN (Limit: -8.02kN)
-        Bend moment in flange's gooseneck: 24.766kN.m (Limit: 30.67kN.m)
+        Normal force in flange's gooseneck: 7.651kN (Limit: 3.37kN)
+        Shear force in flange's gooseneck: 11.899kN (Limit: -8.02kN)
+        Bend moment in flange's gooseneck: 24.214kN.m (Limit: 30.67kN.m)
 
 Flange loads reprooved!
 
 For TDP period...
 
-        Normal force in flange's gooseneck: 7.883kN (Limit: 6.68kN)
-        Shear force in flange's gooseneck: 12.843kN (Limit: -10.74kN)
-        Bend moment in flange's gooseneck: 24.766kN.m (Limit: 11.84kN.m)
+        Normal force in flange's gooseneck: 7.651kN (Limit: 6.68kN)
+        Shear force in flange's gooseneck: 11.899kN (Limit: -10.74kN)
+        Bend moment in flange's gooseneck: 24.214kN.m (Limit: 11.84kN.m)
 
 Flange loads reprooved!
 
  Bend Restrictor's locked
 
-      Shear force in bend_restrictor: 13.29kN (Limit: 43.0kN)
-      Bend moment in bend_restrictor: 9.355kN.m (Limit: 57.0kN.m)
+      Shear force in bend_restrictor: 13.296kN (Limit: 43.0kN)
+      Bend moment in bend_restrictor: 8.608kN.m (Limit: 57.0kN.m)
 
 Bend restrictor loads aprooved!
 
 For 1.5m, loads are not admissible.
 
  Dynamic automation's end.
- Execution time: 988.34s
+ Execution time: 932.85s

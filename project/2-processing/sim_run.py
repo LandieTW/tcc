@@ -189,12 +189,18 @@ def pos_run_static(model: OrcFxAPI.Model, vcm: OrcFxAPI.OrcaFlexObject, vcm_posi
         model.UseCalculatedPositions(SetLinesToUserSpecifiedStartingShape=True)
         if vcm.InitialX != vcm_position:  # restart configurations
             vcm.InitialX = vcm_position
+            model.CalculateStatics()
+            model.UseCalculatedPositions(SetLinesToUserSpecifiedStartingShape=True)
         if general.StaticsMaxIterations != statics_max_iterations:
             general.StaticsMinDamping = statics_min_damping
             general.StaticsMaxDamping = statics_max_damping
             general.StaticsMaxIterations = statics_max_iterations
+            model.CalculateStatics()
+            model.UseCalculatedPositions(SetLinesToUserSpecifiedStartingShape=True)
         if environment.SeabedNormalStiffness != 100:
             environment.SeabedNormalStiffness = 100
+            model.CalculateStatics()
+            model.UseCalculatedPositions(SetLinesToUserSpecifiedStartingShape=True)
         n_run_error = 0
     except Exception:
 
@@ -877,25 +883,49 @@ def call_change_buoys(unique_positions: list, rl_config: dict, buoy_set: list, m
             
     except Exception:  # something goes wrong... (next buoyancy tentative > 2Tf)
 
-        if len(selection) == 2:  # 2 positions
-            if n_buoys == 2:  # 2 buoys / position
-                n_buoys += 1  # try 2 positions with 3 buoys / position
-                selection = changing_buoys(selection, buoy_set, initial_rl_config, model_line_type, vessel)
-                call_loop(model_line_type, selection, model, bend_restrictor_model, rt_number, vessel, rl_config, buoy_set, model_vcm, object_line, object_bend_restrictor, object_vcm, winch, general, 
+        if method == 'method1':
+            if n_buoys == 2:  
+                if len(selection) < 3:  # if I have 2 positions with 2 buoys/position (4)
+                    new_rl_config = more_buoys(initial_rl_config)  # try 3 positions with 2 buoys/position
+                    selection = changing_buoys(selection, buoy_set, new_rl_config, model_line_type, vessel)
+                    call_loop(model_line_type, selection, model, bend_restrictor_model, rt_number, vessel, rl_config, buoy_set, model_vcm, object_line, object_bend_restrictor, object_vcm, winch, general, 
+                            environment, file_path, structural, a_r)
+                else:  # If I have 3 positions with 2 buoys/position
+                    n_buoys += 1  # try 3 positions with 3 buoys/position
+                    selection = changing_buoys(selection, buoy_set, initial_rl_config, model_line_type, vessel)
+                    call_loop(model_line_type, selection, model, bend_restrictor_model, rt_number, vessel, rl_config, buoy_set, model_vcm, object_line, object_bend_restrictor, object_vcm, winch, general, 
                             environment, file_path, structural, a_r)
             elif n_buoys == 3:
-                new_rl_config = more_buoys(initial_rl_config)  # try 3 positions with 2 buoys / position
-                selection = changing_buoys(selection, buoy_set, new_rl_config, model_line_type, vessel)
-                call_loop(model_line_type, selection, model, bend_restrictor_model, rt_number, vessel, rl_config, buoy_set, model_vcm, object_line, object_bend_restrictor, object_vcm, winch, general, 
+                if len(selection) < 3:
+                    n_buoys -= 1   # If I have 2 positions with 3 buoys/position
+                    new_rl_config = more_buoys(initial_rl_config)  # try 3 positions with 2 buoys / position
+                    selection = changing_buoys(selection, buoy_set, new_rl_config, model_line_type, vessel)
+                    call_loop(model_line_type, selection, model, bend_restrictor_model, rt_number, vessel, rl_config, buoy_set, model_vcm, object_line, object_bend_restrictor, object_vcm, winch, general, 
                             environment, file_path, structural, a_r)
-        elif len(selection) == 3:  # 3 positions
-            if n_buoys == 2:  # 2 buoys / position
-                n_buoys += 1  # try 3 positions with 3 buoys / position
-                selection = changing_buoys(selection, buoy_set, initial_rl_config, model_line_type, vessel)
-                call_loop(model_line_type, selection, model, bend_restrictor_model, rt_number, vessel, rl_config, buoy_set, model_vcm, object_line, object_bend_restrictor, object_vcm, winch, general, 
+                else:
+                    n_run = 50
+
+        if method == 'method2':
+            if len(selection) < 3:
+                if n_buoys == 2:  # if I have 2 positions with 2 buoys/position (4)
+                    n_buoys += 1  # try 2 positions with 3 buoys/position (6)
+                    selection = changing_buoys(selection, buoy_set, initial_rl_config, model_line_type, vessel)
+                    call_loop(model_line_type, selection, model, bend_restrictor_model, rt_number, vessel, rl_config, buoy_set, model_vcm, object_line, object_bend_restrictor, object_vcm, winch, general, 
                             environment, file_path, structural, a_r)
-            else:
-                n_run = 50
+                elif n_buoys == 3:
+                    n_buoys -= 1   # If I have 2 positions with 3 buoys/position (6)
+                    new_rl_config = more_buoys(initial_rl_config)  # try 3 positions with 2 buoys / position (6)
+                    selection = changing_buoys(selection, buoy_set, new_rl_config, model_line_type, vessel)
+                    call_loop(model_line_type, selection, model, bend_restrictor_model, rt_number, vessel, rl_config, buoy_set, model_vcm, object_line, object_bend_restrictor, object_vcm, winch, general, 
+                            environment, file_path, structural, a_r)
+            elif len(selection) == 3:
+                if n_buoys == 2:   # If I have 3 positions with 2 buoys/position (6)
+                    n_buoys += 1  # try 3 positions with 3 buoys/position (9)
+                    selection = changing_buoys(selection, buoy_set, initial_rl_config, model_line_type, vessel)
+                    call_loop(model_line_type, selection, model, bend_restrictor_model, rt_number, vessel, rl_config, buoy_set, model_vcm, object_line, object_bend_restrictor, object_vcm, winch, general, 
+                            environment, file_path, structural, a_r)
+                elif n_buoys == 3:
+                    n_run = 50
 
 def make_pointer(num_positions: float, positions: list) -> int:
     """
@@ -1384,6 +1414,14 @@ def contingencies(model: OrcFxAPI.Model, line: OrcFxAPI.OrcaFlexObject, bend_res
             
             while len(line_tdp) < 3/.2:  # we want, at least, 3m of TDP arclength (in a line region where segmentation is equal 20cm)
                 payout_line(line, payout_retrieve_pace_max, object_line, a_r)  # payout 50cm
+                pos_run_static(model, vcm, vcm_position, general, line, environment)
+
+                model.CalculateStatics()
+                line_clearance = enumerate(line.RangeGraph("Seabed clearance").Mean)
+                line_tdp = [arc_length for arc_length, clearance in line_clearance if clearance < 0]  # line TDP arclength
+            
+            while len(line_tdp) > 5/ .2: # we want, at maximum, 5m of TDP arclength (in a line region where segmentation is equal 20cm)
+                payout_line(line, - payout_retrieve_pace_max, object_line, a_r)  # retrieve 50cm
                 pos_run_static(model, vcm, vcm_position, general, line, environment)
 
                 model.CalculateStatics()
