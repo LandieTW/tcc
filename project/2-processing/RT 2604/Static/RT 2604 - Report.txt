@@ -47,123 +47,205 @@ Retrieving out 0.5m of line,
 from 1546.33 to 1545.83
 
 Increasing 5 times the Static Damping Range
+
+ Bend Restrictor's locked
+
+Removing interation between line and seabed
 __________________________________________________________________
 _________________________RUNNING..._______________________________
 __________________________________________________________________
+
+Line's in contact with seabed
 
  Running 1th time.
 
  Results
-    VCM Rotation: 11.238°.
-    Line Clearance: 1.76m.
-    Flange Height error: 0.282m.
+    VCM Rotation: 10.657°.
+    Line Clearance: -0.881m.
+    Flange Height error: 0.336m.
 
-        Normal force in flange's gooseneck: 5.201kN (Limit: 1.51kN)
-        Shear force in flange's gooseneck: 4.963kN  (Limit: -1.42kN)
-        Bend moment in flange's gooseneck: 5.749kN.m (Limit: 13.55kN)
-
-Flange loads reprooved!
-
- Bend Restrictor's locked
-
-      Shear force in bend_restrictor: 4.743kN (Limit: 23.8kN)
-      Bend moment in bend_restrictor: 4.183kN.m (Limit: 27.0kN.m)
-
-Bend restrictor loads aprooved!
-
-Paying out 0.2m of line,
-from 1545.83 to 1546.03
-__________________________________________________________________
-_________________________RUNNING..._______________________________
-__________________________________________________________________
-
- Results
-    VCM Rotation: 11.225°.
-    Line Clearance: 0.965m.
-    Flange Height error: 0.282m.
-
-        Normal force in flange's gooseneck: 5.208kN (Limit: 1.51kN)
-        Shear force in flange's gooseneck: 4.973kN  (Limit: -1.42kN)
-        Bend moment in flange's gooseneck: 5.79kN.m (Limit: 13.55kN)
+        Normal force in flange's gooseneck: 3.883kN (Limit: 1.51kN)
+        Shear force in flange's gooseneck: 4.132kN  (Limit: -1.42kN)
+        Bend moment in flange's gooseneck: 4.646kN.m (Limit: 13.55kN)
 
 Flange loads reprooved!
 
  Bend Restrictor's locked
 
-      Shear force in bend_restrictor: 4.732kN (Limit: 23.8kN)
-      Bend moment in bend_restrictor: 4.237kN.m (Limit: 27.0kN.m)
+      Shear force in bend_restrictor: 4.09kN (Limit: 23.8kN)
+      Bend moment in bend_restrictor: 1.843kN.m (Limit: 27.0kN.m)
 
 Bend restrictor loads aprooved!
 
-Paying out 0.2m of line,
-from 1546.03 to 1546.23
+Retrieving out 0.5m of line,
+from 1545.83 to 1545.33
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+
+Line's in contact with seabed
+
+ Results
+    VCM Rotation: 9.59°.
+    Line Clearance: -0.047m.
+    Flange Height error: 0.306m.
+
+        Normal force in flange's gooseneck: 3.595kN (Limit: 1.51kN)
+        Shear force in flange's gooseneck: 3.987kN  (Limit: -1.42kN)
+        Bend moment in flange's gooseneck: 5.815kN.m (Limit: 13.55kN)
+
+Flange loads reprooved!
+
+ Bend Restrictor's locked
+
+      Shear force in bend_restrictor: 5.037kN (Limit: 23.8kN)
+      Bend moment in bend_restrictor: 2.721kN.m (Limit: 27.0kN.m)
+
+Bend restrictor loads aprooved!
+
+Retrieving out 0.5m of line,
+from 1545.33 to 1544.83
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+
+Line's in contact with seabed
+
+ Results
+    VCM Rotation: 9.819°.
+    Line Clearance: -0.028m.
+    Flange Height error: 0.311m.
+
+        Normal force in flange's gooseneck: 3.669kN (Limit: 1.51kN)
+        Shear force in flange's gooseneck: 4.022kN  (Limit: -1.42kN)
+        Bend moment in flange's gooseneck: 5.572kN.m (Limit: 13.55kN)
+
+Flange loads reprooved!
+
+ Bend Restrictor's locked
+
+      Shear force in bend_restrictor: 4.573kN (Limit: 23.8kN)
+      Bend moment in bend_restrictor: 2.546kN.m (Limit: 27.0kN.m)
+
+Bend restrictor loads aprooved!
+
+Retrieving out 0.5m of line,
+from 1544.83 to 1544.33
 __________________________________________________________________
 _________________________RUNNING..._______________________________
 __________________________________________________________________
 
  Results
-    VCM Rotation: 11.219°.
-    Line Clearance: 0.827m.
-    Flange Height error: 0.282m.
+    VCM Rotation: 9.933°.
+    Line Clearance: 0.076m.
+    Flange Height error: 0.314m.
 
-        Normal force in flange's gooseneck: 5.217kN (Limit: 1.51kN)
-        Shear force in flange's gooseneck: 4.983kN  (Limit: -1.42kN)
+        Normal force in flange's gooseneck: 3.714kN (Limit: 1.51kN)
+        Shear force in flange's gooseneck: 4.043kN  (Limit: -1.42kN)
+        Bend moment in flange's gooseneck: 5.461kN.m (Limit: 13.55kN)
+
+Flange loads reprooved!
+
+ Bend Restrictor's locked
+
+      Shear force in bend_restrictor: 4.295kN (Limit: 23.8kN)
+      Bend moment in bend_restrictor: 2.475kN.m (Limit: 27.0kN.m)
+
+Bend restrictor loads aprooved!
+
+Retrieving out 0.2m of line,
+from 1544.33 to 1544.13
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+
+ Results
+    VCM Rotation: 9.833°.
+    Line Clearance: 0.201m.
+    Flange Height error: 0.311m.
+
+        Normal force in flange's gooseneck: 3.692kN (Limit: 1.51kN)
+        Shear force in flange's gooseneck: 4.032kN  (Limit: -1.42kN)
+        Bend moment in flange's gooseneck: 5.576kN.m (Limit: 13.55kN)
+
+Flange loads reprooved!
+
+ Bend Restrictor's locked
+
+      Shear force in bend_restrictor: 4.696kN (Limit: 23.8kN)
+      Bend moment in bend_restrictor: 2.566kN.m (Limit: 27.0kN.m)
+
+Bend restrictor loads aprooved!
+
+Retrieving out 0.2m of line,
+from 1544.13 to 1543.93
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+
+ Results
+    VCM Rotation: 9.73°.
+    Line Clearance: 0.328m.
+    Flange Height error: 0.308m.
+
+        Normal force in flange's gooseneck: 3.669kN (Limit: 1.51kN)
+        Shear force in flange's gooseneck: 4.021kN  (Limit: -1.42kN)
+        Bend moment in flange's gooseneck: 5.694kN.m (Limit: 13.55kN)
+
+Flange loads reprooved!
+
+ Bend Restrictor's locked
+
+      Shear force in bend_restrictor: 4.976kN (Limit: 23.8kN)
+      Bend moment in bend_restrictor: 2.66kN.m (Limit: 27.0kN.m)
+
+Bend restrictor loads aprooved!
+
+Retrieving out 0.2m of line,
+from 1543.93 to 1543.73
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+
+ Results
+    VCM Rotation: 9.62°.
+    Line Clearance: 0.454m.
+    Flange Height error: 0.304m.
+
+        Normal force in flange's gooseneck: 3.646kN (Limit: 1.51kN)
+        Shear force in flange's gooseneck: 4.009kN  (Limit: -1.42kN)
         Bend moment in flange's gooseneck: 5.823kN.m (Limit: 13.55kN)
 
 Flange loads reprooved!
 
  Bend Restrictor's locked
 
-      Shear force in bend_restrictor: 4.72kN (Limit: 23.8kN)
-      Bend moment in bend_restrictor: 4.285kN.m (Limit: 27.0kN.m)
+      Shear force in bend_restrictor: 5.002kN (Limit: 23.8kN)
+      Bend moment in bend_restrictor: 2.763kN.m (Limit: 27.0kN.m)
 
 Bend restrictor loads aprooved!
 
-Paying out 0.2m of line,
-from 1546.23 to 1546.43
+Retrieving out 0.1m of line,
+from 1543.73 to 1543.63
 __________________________________________________________________
 _________________________RUNNING..._______________________________
 __________________________________________________________________
 
  Results
-    VCM Rotation: 11.217°.
-    Line Clearance: 0.689m.
-    Flange Height error: 0.282m.
+    VCM Rotation: 9.564°.
+    Line Clearance: 0.516m.
+    Flange Height error: 0.302m.
 
-        Normal force in flange's gooseneck: 5.226kN (Limit: 1.51kN)
-        Shear force in flange's gooseneck: 4.994kN  (Limit: -1.42kN)
-        Bend moment in flange's gooseneck: 5.85kN.m (Limit: 13.55kN)
-
-Flange loads reprooved!
-
- Bend Restrictor's locked
-
-      Shear force in bend_restrictor: 4.706kN (Limit: 23.8kN)
-      Bend moment in bend_restrictor: 4.326kN.m (Limit: 27.0kN.m)
-
-Bend restrictor loads aprooved!
-
-Paying out 0.1m of line,
-from 1546.43 to 1546.53
-__________________________________________________________________
-_________________________RUNNING..._______________________________
-__________________________________________________________________
-
- Results
-    VCM Rotation: 11.219°.
-    Line Clearance: 0.622m.
-    Flange Height error: 0.282m.
-
-        Normal force in flange's gooseneck: 5.231kN (Limit: 1.51kN)
-        Shear force in flange's gooseneck: 4.999kN  (Limit: -1.42kN)
-        Bend moment in flange's gooseneck: 5.86kN.m (Limit: 13.55kN)
+        Normal force in flange's gooseneck: 3.635kN (Limit: 1.51kN)
+        Shear force in flange's gooseneck: 4.003kN  (Limit: -1.42kN)
+        Bend moment in flange's gooseneck: 5.888kN.m (Limit: 13.55kN)
 
 Flange loads reprooved!
 
  Bend Restrictor's locked
 
-      Shear force in bend_restrictor: 4.699kN (Limit: 23.8kN)
-      Bend moment in bend_restrictor: 4.344kN.m (Limit: 27.0kN.m)
+      Shear force in bend_restrictor: 5.015kN (Limit: 23.8kN)
+      Bend moment in bend_restrictor: 2.815kN.m (Limit: 27.0kN.m)
 
 Bend restrictor loads aprooved!
 Changing 2st buoyancy reference, 300.0kg, in 100kg
@@ -176,44 +258,188 @@ _________________________RUNNING..._______________________________
 __________________________________________________________________
 
  Results
-    VCM Rotation: 4.157°.
-    Line Clearance: 0.82m.
-    Flange Height error: 0.055m.
+    VCM Rotation: 4.736°.
+    Line Clearance: 1.512m.
+    Flange Height error: 0.151m.
 
-        Normal force in flange's gooseneck: 3.579kN (Limit: 1.51kN)
-        Shear force in flange's gooseneck: 4.154kN  (Limit: -1.42kN)
-        Bend moment in flange's gooseneck: 13.863kN.m (Limit: 13.55kN)
+        Normal force in flange's gooseneck: 2.502kN (Limit: 1.51kN)
+        Shear force in flange's gooseneck: 3.235kN  (Limit: -1.42kN)
+        Bend moment in flange's gooseneck: 10.922kN.m (Limit: 13.55kN)
 
 Flange loads reprooved!
 
  Bend Restrictor's locked
 
-      Shear force in bend_restrictor: 8.032kN (Limit: 23.8kN)
-      Bend moment in bend_restrictor: 10.611kN.m (Limit: 27.0kN.m)
+      Shear force in bend_restrictor: 7.415kN (Limit: 23.8kN)
+      Bend moment in bend_restrictor: 6.394kN.m (Limit: 27.0kN.m)
 
 Bend restrictor loads aprooved!
 
 Paying out 0.2m of line,
-from 1546.53 to 1546.73
+from 1543.63 to 1543.83
 __________________________________________________________________
 _________________________RUNNING..._______________________________
 __________________________________________________________________
 
  Results
-    VCM Rotation: 4.208°.
-    Line Clearance: 0.632m.
-    Flange Height error: 0.056m.
+    VCM Rotation: 4.838°.
+    Line Clearance: 1.383m.
+    Flange Height error: 0.154m.
 
-        Normal force in flange's gooseneck: 3.595kN (Limit: 1.51kN)
-        Shear force in flange's gooseneck: 4.169kN  (Limit: -1.42kN)
-        Bend moment in flange's gooseneck: 13.824kN.m (Limit: 13.55kN)
+        Normal force in flange's gooseneck: 2.519kN (Limit: 1.51kN)
+        Shear force in flange's gooseneck: 3.246kN  (Limit: -1.42kN)
+        Bend moment in flange's gooseneck: 10.803kN.m (Limit: 13.55kN)
 
 Flange loads reprooved!
 
  Bend Restrictor's locked
 
-      Shear force in bend_restrictor: 8.012kN (Limit: 23.8kN)
-      Bend moment in bend_restrictor: 10.596kN.m (Limit: 27.0kN.m)
+      Shear force in bend_restrictor: 7.053kN (Limit: 23.8kN)
+      Bend moment in bend_restrictor: 6.298kN.m (Limit: 27.0kN.m)
+
+Bend restrictor loads aprooved!
+
+Paying out 0.2m of line,
+from 1543.83 to 1544.03
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+
+ Results
+    VCM Rotation: 4.941°.
+    Line Clearance: 1.247m.
+    Flange Height error: 0.158m.
+
+        Normal force in flange's gooseneck: 2.535kN (Limit: 1.51kN)
+        Shear force in flange's gooseneck: 3.257kN  (Limit: -1.42kN)
+        Bend moment in flange's gooseneck: 10.684kN.m (Limit: 13.55kN)
+
+Flange loads reprooved!
+
+ Bend Restrictor's locked
+
+      Shear force in bend_restrictor: 7.031kN (Limit: 23.8kN)
+      Bend moment in bend_restrictor: 6.202kN.m (Limit: 27.0kN.m)
+
+Bend restrictor loads aprooved!
+
+Paying out 0.2m of line,
+from 1544.03 to 1544.23
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+
+ Results
+    VCM Rotation: 5.039°.
+    Line Clearance: 1.111m.
+    Flange Height error: 0.161m.
+
+        Normal force in flange's gooseneck: 2.552kN (Limit: 1.51kN)
+        Shear force in flange's gooseneck: 3.268kN  (Limit: -1.42kN)
+        Bend moment in flange's gooseneck: 10.571kN.m (Limit: 13.55kN)
+
+Flange loads reprooved!
+
+ Bend Restrictor's locked
+
+      Shear force in bend_restrictor: 7.01kN (Limit: 23.8kN)
+      Bend moment in bend_restrictor: 6.111kN.m (Limit: 27.0kN.m)
+
+Bend restrictor loads aprooved!
+
+Paying out 0.2m of line,
+from 1544.23 to 1544.43
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+
+ Results
+    VCM Rotation: 5.133°.
+    Line Clearance: 0.972m.
+    Flange Height error: 0.164m.
+
+        Normal force in flange's gooseneck: 2.567kN (Limit: 1.51kN)
+        Shear force in flange's gooseneck: 3.279kN  (Limit: -1.42kN)
+        Bend moment in flange's gooseneck: 10.463kN.m (Limit: 13.55kN)
+
+Flange loads reprooved!
+
+ Bend Restrictor's locked
+
+      Shear force in bend_restrictor: 6.989kN (Limit: 23.8kN)
+      Bend moment in bend_restrictor: 6.026kN.m (Limit: 27.0kN.m)
+
+Bend restrictor loads aprooved!
+
+Paying out 0.2m of line,
+from 1544.43 to 1544.63
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+
+ Results
+    VCM Rotation: 5.227°.
+    Line Clearance: 0.834m.
+    Flange Height error: 0.167m.
+
+        Normal force in flange's gooseneck: 2.584kN (Limit: 1.51kN)
+        Shear force in flange's gooseneck: 3.29kN  (Limit: -1.42kN)
+        Bend moment in flange's gooseneck: 10.355kN.m (Limit: 13.55kN)
+
+Flange loads reprooved!
+
+ Bend Restrictor's locked
+
+      Shear force in bend_restrictor: 6.968kN (Limit: 23.8kN)
+      Bend moment in bend_restrictor: 5.94kN.m (Limit: 27.0kN.m)
+
+Bend restrictor loads aprooved!
+
+Paying out 0.2m of line,
+from 1544.63 to 1544.83
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+
+ Results
+    VCM Rotation: 5.322°.
+    Line Clearance: 0.697m.
+    Flange Height error: 0.17m.
+
+        Normal force in flange's gooseneck: 2.6kN (Limit: 1.51kN)
+        Shear force in flange's gooseneck: 3.301kN  (Limit: -1.42kN)
+        Bend moment in flange's gooseneck: 10.247kN.m (Limit: 13.55kN)
+
+Flange loads reprooved!
+
+ Bend Restrictor's locked
+
+      Shear force in bend_restrictor: 6.947kN (Limit: 23.8kN)
+      Bend moment in bend_restrictor: 5.855kN.m (Limit: 27.0kN.m)
+
+Bend restrictor loads aprooved!
+
+Paying out 0.1m of line,
+from 1544.83 to 1544.93
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+
+ Results
+    VCM Rotation: 5.37°.
+    Line Clearance: 0.627m.
+    Flange Height error: 0.172m.
+
+        Normal force in flange's gooseneck: 2.608kN (Limit: 1.51kN)
+        Shear force in flange's gooseneck: 3.306kN  (Limit: -1.42kN)
+        Bend moment in flange's gooseneck: 10.193kN.m (Limit: 13.55kN)
+
+Flange loads reprooved!
+
+ Bend Restrictor's locked
+
+      Shear force in bend_restrictor: 6.936kN (Limit: 23.8kN)
+      Bend moment in bend_restrictor: 5.812kN.m (Limit: 27.0kN.m)
 
 Bend restrictor loads aprooved!
 Changing 2st buoyancy reference, 400.0kg, in 100kg
@@ -226,49 +452,293 @@ _________________________RUNNING..._______________________________
 __________________________________________________________________
 
  Results
-    VCM Rotation: 0.424°.
-    Line Clearance: 0.786m.
-    Flange Height error: -0.073m.
+    VCM Rotation: 2.244°.
+    Line Clearance: 1.187m.
+    Flange Height error: 0.069m.
 
-        Normal force in flange's gooseneck: 2.828kN (Limit: 1.51kN)
-        Shear force in flange's gooseneck: 3.588kN  (Limit: -1.42kN)
-        Bend moment in flange's gooseneck: 17.799kN.m (Limit: 13.55kN)
+        Normal force in flange's gooseneck: 2.01kN (Limit: 1.51kN)
+        Shear force in flange's gooseneck: 2.821kN  (Limit: -1.42kN)
+        Bend moment in flange's gooseneck: 13.471kN.m (Limit: 13.55kN)
 
 Flange loads reprooved!
 
  Bend Restrictor's locked
 
-      Shear force in bend_restrictor: 8.861kN (Limit: 23.8kN)
-      Bend moment in bend_restrictor: 13.492kN.m (Limit: 27.0kN.m)
+      Shear force in bend_restrictor: 8.401kN (Limit: 23.8kN)
+      Bend moment in bend_restrictor: 8.182kN.m (Limit: 27.0kN.m)
 
 Bend restrictor loads aprooved!
 
 Paying out 0.2m of line,
-from 1546.73 to 1546.93
+from 1544.93 to 1545.13
 __________________________________________________________________
 _________________________RUNNING..._______________________________
 __________________________________________________________________
 
  Results
-    VCM Rotation: 0.488°.
-    Line Clearance: 0.633m.
-    Flange Height error: -0.07m.
+    VCM Rotation: 2.352°.
+    Line Clearance: 1.048m.
+    Flange Height error: 0.072m.
 
-        Normal force in flange's gooseneck: 2.843kN (Limit: 1.51kN)
-        Shear force in flange's gooseneck: 3.605kN  (Limit: -1.42kN)
-        Bend moment in flange's gooseneck: 17.748kN.m (Limit: 13.55kN)
+        Normal force in flange's gooseneck: 2.026kN (Limit: 1.51kN)
+        Shear force in flange's gooseneck: 2.834kN  (Limit: -1.42kN)
+        Bend moment in flange's gooseneck: 13.348kN.m (Limit: 13.55kN)
 
 Flange loads reprooved!
 
  Bend Restrictor's locked
 
-      Shear force in bend_restrictor: 8.84kN (Limit: 23.8kN)
-      Bend moment in bend_restrictor: 13.47kN.m (Limit: 27.0kN.m)
+      Shear force in bend_restrictor: 8.379kN (Limit: 23.8kN)
+      Bend moment in bend_restrictor: 8.084kN.m (Limit: 27.0kN.m)
 
 Bend restrictor loads aprooved!
 
-Retrieving out 0.07m from the winch,
-from 1855.34 to 1855.27
+Paying out 0.2m of line,
+from 1545.13 to 1545.33
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+
+ Results
+    VCM Rotation: 2.459°.
+    Line Clearance: 0.91m.
+    Flange Height error: 0.076m.
+
+        Normal force in flange's gooseneck: 2.042kN (Limit: 1.51kN)
+        Shear force in flange's gooseneck: 2.846kN  (Limit: -1.42kN)
+        Bend moment in flange's gooseneck: 13.228kN.m (Limit: 13.55kN)
+
+Flange loads reprooved!
+
+ Bend Restrictor's locked
+
+      Shear force in bend_restrictor: 8.358kN (Limit: 23.8kN)
+      Bend moment in bend_restrictor: 7.989kN.m (Limit: 27.0kN.m)
+
+Bend restrictor loads aprooved!
+
+Paying out 0.2m of line,
+from 1545.33 to 1545.53
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+
+ Results
+    VCM Rotation: 2.566°.
+    Line Clearance: 0.771m.
+    Flange Height error: 0.08m.
+
+        Normal force in flange's gooseneck: 2.058kN (Limit: 1.51kN)
+        Shear force in flange's gooseneck: 2.859kN  (Limit: -1.42kN)
+        Bend moment in flange's gooseneck: 13.107kN.m (Limit: 13.55kN)
+
+Flange loads reprooved!
+
+ Bend Restrictor's locked
+
+      Shear force in bend_restrictor: 8.336kN (Limit: 23.8kN)
+      Bend moment in bend_restrictor: 7.894kN.m (Limit: 27.0kN.m)
+
+Bend restrictor loads aprooved!
+
+Paying out 0.2m of line,
+from 1545.53 to 1545.73
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+
+ Results
+    VCM Rotation: 2.673°.
+    Line Clearance: 0.632m.
+    Flange Height error: 0.083m.
+
+        Normal force in flange's gooseneck: 2.074kN (Limit: 1.51kN)
+        Shear force in flange's gooseneck: 2.872kN  (Limit: -1.42kN)
+        Bend moment in flange's gooseneck: 12.987kN.m (Limit: 13.55kN)
+
+Flange loads reprooved!
+
+ Bend Restrictor's locked
+
+      Shear force in bend_restrictor: 8.314kN (Limit: 23.8kN)
+      Bend moment in bend_restrictor: 7.798kN.m (Limit: 27.0kN.m)
+
+Bend restrictor loads aprooved!
+Changing 2st buoyancy reference, 500.0kg, in 50kg
+
+Changing the selection of buoys
+Old selection: ['1213+100', '381+100'] = Total buoyancy: [1313.0, 481.0]
+New selection: ['1213+100', '381+100'] = Total buoyancy: [1313.0, 481.0]
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+
+ Results
+    VCM Rotation: 2.673°.
+    Line Clearance: 0.632m.
+    Flange Height error: 0.083m.
+
+        Normal force in flange's gooseneck: 2.074kN (Limit: 1.51kN)
+        Shear force in flange's gooseneck: 2.872kN  (Limit: -1.42kN)
+        Bend moment in flange's gooseneck: 12.987kN.m (Limit: 13.55kN)
+
+Flange loads reprooved!
+
+ Bend Restrictor's locked
+
+      Shear force in bend_restrictor: 8.314kN (Limit: 23.8kN)
+      Bend moment in bend_restrictor: 7.798kN.m (Limit: 27.0kN.m)
+
+Bend restrictor loads aprooved!
+Changing 2st buoyancy reference, 550.0kg, in 50kg
+
+Changing the selection of buoys
+Old selection: ['1213+100', '381+100'] = Total buoyancy: [1313.0, 481.0]
+New selection: ['1213+100', '576'] = Total buoyancy: [1313.0, 576.0]
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+
+ Results
+    VCM Rotation: -0.595°.
+    Line Clearance: 1.135m.
+    Flange Height error: -0.029m.
+
+        Normal force in flange's gooseneck: 1.537kN (Limit: 1.51kN)
+        Shear force in flange's gooseneck: 2.356kN  (Limit: -1.42kN)
+        Bend moment in flange's gooseneck: 16.377kN.m (Limit: 13.55kN)
+
+Flange loads reprooved!
+
+ Bend Restrictor's locked
+
+      Shear force in bend_restrictor: 9.668kN (Limit: 23.8kN)
+      Bend moment in bend_restrictor: 10.244kN.m (Limit: 27.0kN.m)
+
+Bend restrictor loads aprooved!
+
+Paying out 0.2m of line,
+from 1545.73 to 1545.93
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+
+ Results
+    VCM Rotation: -0.48°.
+    Line Clearance: 0.997m.
+    Flange Height error: -0.025m.
+
+        Normal force in flange's gooseneck: 1.552kN (Limit: 1.51kN)
+        Shear force in flange's gooseneck: 2.371kN  (Limit: -1.42kN)
+        Bend moment in flange's gooseneck: 16.251kN.m (Limit: 13.55kN)
+
+Flange loads reprooved!
+
+ Bend Restrictor's locked
+
+      Shear force in bend_restrictor: 9.647kN (Limit: 23.8kN)
+      Bend moment in bend_restrictor: 10.146kN.m (Limit: 27.0kN.m)
+
+Bend restrictor loads aprooved!
+
+Paying out 0.2m of line,
+from 1545.93 to 1546.13
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+
+ Results
+    VCM Rotation: -0.362°.
+    Line Clearance: 0.861m.
+    Flange Height error: -0.021m.
+
+        Normal force in flange's gooseneck: 1.568kN (Limit: 1.51kN)
+        Shear force in flange's gooseneck: 2.387kN  (Limit: -1.42kN)
+        Bend moment in flange's gooseneck: 16.121kN.m (Limit: 13.55kN)
+
+Flange loads reprooved!
+
+ Bend Restrictor's locked
+
+      Shear force in bend_restrictor: 9.625kN (Limit: 23.8kN)
+      Bend moment in bend_restrictor: 10.045kN.m (Limit: 27.0kN.m)
+
+Bend restrictor loads aprooved!
+
+Paying out 0.2m of line,
+from 1546.13 to 1546.33
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+
+ Results
+    VCM Rotation: -0.242°.
+    Line Clearance: 0.724m.
+    Flange Height error: -0.016m.
+
+        Normal force in flange's gooseneck: 1.584kN (Limit: 1.51kN)
+        Shear force in flange's gooseneck: 2.402kN  (Limit: -1.42kN)
+        Bend moment in flange's gooseneck: 15.989kN.m (Limit: 13.55kN)
+
+Flange loads reprooved!
+
+ Bend Restrictor's locked
+
+      Shear force in bend_restrictor: 9.603kN (Limit: 23.8kN)
+      Bend moment in bend_restrictor: 9.943kN.m (Limit: 27.0kN.m)
+
+Bend restrictor loads aprooved!
+
+Paying out 0.1m of line,
+from 1546.33 to 1546.43
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+
+ Results
+    VCM Rotation: -0.181°.
+    Line Clearance: 0.655m.
+    Flange Height error: -0.014m.
+
+        Normal force in flange's gooseneck: 1.592kN (Limit: 1.51kN)
+        Shear force in flange's gooseneck: 2.41kN  (Limit: -1.42kN)
+        Bend moment in flange's gooseneck: 15.922kN.m (Limit: 13.55kN)
+
+Flange loads reprooved!
+
+ Bend Restrictor's locked
+
+      Shear force in bend_restrictor: 9.592kN (Limit: 23.8kN)
+      Bend moment in bend_restrictor: 9.891kN.m (Limit: 27.0kN.m)
+
+Bend restrictor loads aprooved!
+
+Paying out 0.1m of line,
+from 1546.43 to 1546.53
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+
+ Results
+    VCM Rotation: -0.118°.
+    Line Clearance: 0.587m.
+    Flange Height error: -0.012m.
+
+        Normal force in flange's gooseneck: 1.6kN (Limit: 1.51kN)
+        Shear force in flange's gooseneck: 2.418kN  (Limit: -1.42kN)
+        Bend moment in flange's gooseneck: 15.853kN.m (Limit: 13.55kN)
+
+Flange loads reprooved!
+
+ Bend Restrictor's locked
+
+      Shear force in bend_restrictor: 9.58kN (Limit: 23.8kN)
+      Bend moment in bend_restrictor: 9.837kN.m (Limit: 27.0kN.m)
+
+Bend restrictor loads aprooved!
+
+Retrieving out 0.012m from the winch,
+from 1855.34 to 1855.33
 __________________________________________________________________
 _________________________RUNNING..._______________________________
 __________________________________________________________________
@@ -276,48 +746,22 @@ __________________________________________________________________
  Running 2th time.
 
  Results
-    VCM Rotation: 0.465°.
-    Line Clearance: 0.61m.
-    Flange Height error: -0.001m.
-
-        Normal force in flange's gooseneck: 2.838kN (Limit: 1.51kN)
-        Shear force in flange's gooseneck: 3.599kN  (Limit: -1.42kN)
-        Bend moment in flange's gooseneck: 17.766kN.m (Limit: 13.55kN)
-
-Flange loads reprooved!
-
- Bend Restrictor's locked
-
-      Shear force in bend_restrictor: 8.847kN (Limit: 23.8kN)
-      Bend moment in bend_restrictor: 13.478kN.m (Limit: 27.0kN.m)
-
-Bend restrictor loads aprooved!
-
-Retrieving out 0.001m from the winch,
-from 1855.41 to 1855.41
-__________________________________________________________________
-_________________________RUNNING..._______________________________
-__________________________________________________________________
-
- Running 3th time.
-
- Results
-    VCM Rotation: 0.465°.
-    Line Clearance: 0.609m.
+    VCM Rotation: -0.126°.
+    Line Clearance: 0.583m.
     Flange Height error: -0.0m.
 
-        Normal force in flange's gooseneck: 2.838kN (Limit: 1.51kN)
-        Shear force in flange's gooseneck: 3.599kN  (Limit: -1.42kN)
-        Bend moment in flange's gooseneck: 17.766kN.m (Limit: 13.55kN)
+        Normal force in flange's gooseneck: 1.599kN (Limit: 1.51kN)
+        Shear force in flange's gooseneck: 2.417kN  (Limit: -1.42kN)
+        Bend moment in flange's gooseneck: 15.861kN.m (Limit: 13.55kN)
 
 Flange loads reprooved!
 
  Bend Restrictor's locked
 
-      Shear force in bend_restrictor: 8.848kN (Limit: 23.8kN)
-      Bend moment in bend_restrictor: 13.478kN.m (Limit: 27.0kN.m)
+      Shear force in bend_restrictor: 9.581kN (Limit: 23.8kN)
+      Bend moment in bend_restrictor: 9.843kN.m (Limit: 27.0kN.m)
 
 Bend restrictor loads aprooved!
 
  Static automation's end.
- Execution time: 603.58s
+ Execution time: 896.55s

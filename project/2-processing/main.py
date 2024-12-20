@@ -42,16 +42,13 @@ start_time = time.time()
 rt_number = info[0]
 vessel = info[1]
 buoy_set = info[2]
-
-print(buoy_set)
-
 rl_config = info[3]
 structural_limits = info[4]
 
 this_path = os.path.dirname(os.path.abspath(__file__))
 file_path = os.path.join(this_path, rt_number)
-# file = rt_number + '.dat'
-file = 'Dynamic\\' + 'RT 2604 - heave_1.5m.sim'
+file = rt_number + '.dat'
+# file = 'Dynamic\\' + 'RT 2604 - heave_1.5m.sim'
 executable = os.path.join(file_path, file)
 model = OrcFxAPI.Model(executable)
 
@@ -87,7 +84,7 @@ if object_line.length != object_line.lda:
     model_general.StaticsMaxIterations = 3 * statics_max_iterations
 
 # xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-'''
+
 print("\nRunning without bend_restrictor")
 
 model_line_type.NumberOfAttachments = 0
@@ -209,7 +206,7 @@ with open(results_path, "w", encoding="utf-8") as file:
     file.write(captured_text)
 
 # xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-'''
+
 print(f"\n Starting Contingencies...")
 
 original_stdout = sys.stdout
@@ -221,13 +218,13 @@ cont_path = os.path.join(file_path, cont_dir)
 os.makedirs(cont_path, exist_ok=True)
 
 sim_run.contingencies(model, model_line_type, stiffener_type, object_bend_restrictor, cont_path, structural_limits, model_vcm, object_line, a_r, model_general, model_environment)
-'''
+
 cont_end_time = time.time()
 exec_cont_time = cont_end_time - dynamic_end_time
 
 print(f"\n Contingencies automation's end."
     f"\n Execution time: {exec_cont_time:.2f}s")
-'''
+
 sys.stdout = original_stdout
 captured_text = buffer.getvalue()
 txt_file = "Contingencies\\" + rt_number + " - Report.txt"
