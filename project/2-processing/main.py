@@ -153,6 +153,9 @@ while k <= 5:
         
     k += 1
 
+if rl_config != rl_config_fract:
+    rl_config = rl_config_fract
+
 print("\nAutomation's start.")
 value = sim_run.looping(model_line_type, selection, model, stiffener_type, rt_number, vessel, rl_config, buoy_set, model_vcm, object_line, object_bend_restrictor, object_vcm, model_winch, model_general, model_environment, file_path, 
                 structural_limits, a_r)
