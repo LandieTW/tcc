@@ -48,7 +48,8 @@ clearance_limit_inf = .5
 clearance_limit_sup = .65
 'Error in flange height to the seabed criteria'
 delta_flange_error_limit = 0
-'Buoyancy limit in each point'
+'Buoyancy limits in each point'
+small_buoy_buoyancy_limit = 100
 buoyancy_limit = 2_000
 'Buoy movement - when position changes'
 buoy_position_pace = .5
@@ -301,13 +302,21 @@ def buoy_combination(b_set: list) -> dict:
         All possible combinations of 1 to 3 vessel's buoys
         {'buoy_1 + buoy_2 + buoy_3': total_buoyancy}
     """
-    buoys = [str(b_set[1][i]) for i in range(len(b_set[0])) for _ in range(b_set[0][i])]
+    buoys = [str(b_set[1][i]) for i in range(len(b_set[0])) for _ in range(b_set[0][i])]  # small_buoy_buoyancy_limit
+    small_buoys = [b for b in buoys if float(b) <= small_buoy_buoyancy_limit]
 
+    one_buoy = {buoy: float(buoy) for buoy in buoys}
+    small_one_buoy = {buoy: float(buoy) for buoy in small_buoys}
+    two_buoys = {f"{buoy1}+{buoy2}": one_buoy[buoy1] + one_buoy[buoy2] for i, buoy1 in enumerate(buoys) for j, buoy2 in enumerate(buoys) if i < j if one_buoy[buoy1] + one_buoy[buoy2] <= buoyancy_limit}
+    three_buoys = {f"{buoy1}+{buoy2}+{buoy3}": one_buoy[buoy1] + one_buoy[buoy2] + small_one_buoy[buoy3] for i, buoy1 in enumerate(buoys) for j, buoy2 in enumerate(buoys) for k, buoy3 in enumerate(small_buoys)
+                   if i >= j >= k if one_buoy[buoy1] + one_buoy[buoy2] + small_one_buoy[buoy3] <= buoyancy_limit}
+    '''
     one_buoy = {buoy: float(buoy) for buoy in buoys}
     two_buoys = {f"{buoy1}+{buoy2}": one_buoy[buoy1] + one_buoy[buoy2] for i, buoy1 in enumerate(buoys) for j, buoy2 in enumerate(buoys) if i < j if one_buoy[buoy1] + one_buoy[buoy2] <= buoyancy_limit}
     three_buoys = {f"{buoy1}+{buoy2}+{buoy3}": (one_buoy[buoy1] + one_buoy[buoy2] + one_buoy[buoy3]) for i, buoy1 in enumerate(buoys) for j, buoy2 in enumerate(buoys) for k, buoy3 in enumerate(buoys) if i < j < k 
                    if (one_buoy[buoy1] + one_buoy[buoy2] + one_buoy[buoy3]) <= buoyancy_limit}
-    
+    '''
+
     combination = {}
     if n_buoys == 1:
         combination = {**one_buoy}
@@ -318,7 +327,6 @@ def buoy_combination(b_set: list) -> dict:
     combination_buoys = {key: value for key, value in combination.items()}
     combination_buoys = dict(sorted(combination_buoys.items(), key=lambda item: item[1], reverse=False))
     return combination_buoys
-
 
 def buoyancy(buoys_config: list, combination_buoys: dict) -> dict:
     """

@@ -42,6 +42,9 @@ start_time = time.time()
 rt_number = info[0]
 vessel = info[1]
 buoy_set = info[2]
+
+print(buoy_set)
+
 rl_config = info[3]
 structural_limits = info[4]
 
