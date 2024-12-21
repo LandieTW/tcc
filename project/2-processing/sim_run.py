@@ -185,60 +185,6 @@ def run_static(model: OrcFxAPI.Model, rt_number: str, vcm: OrcFxAPI.OrcaFlexObje
         error_correction(general, line_type, vcm, model)
         run_static(model, rt_number, vcm, line_type, bend_restrictor_model, line_obj, bend_restrictor_object, vcm_obj, general, file_path, structural_limits)
 
-def pos_run_static(model: OrcFxAPI.Model, vcm: OrcFxAPI.OrcaFlexObject, vcm_position: float, general: OrcFxAPI.OrcaFlexObject, line: OrcFxAPI.OrcaFlexObject, environment: OrcFxAPI.OrcaFlexObject) -> None:
-    """
-    Description
-        Contingency analysis running static calculation
-    Parameters
-        model: Orcaflex model
-        vcm: Orcaflex VCM
-        general: Orcaflex general
-    Return
-        Nothing
-    """
-    global n_run_error
-    try:
-        model.CalculateStatics()
-        model.UseCalculatedPositions(SetLinesToUserSpecifiedStartingShape=True)
-        if vcm.InitialX != vcm_position:  # restart configurations
-            vcm.InitialX = vcm_position
-            model.CalculateStatics()
-            model.UseCalculatedPositions(SetLinesToUserSpecifiedStartingShape=True)
-        if general.StaticsMaxIterations != statics_max_iterations:
-            general.StaticsMinDamping = statics_min_damping
-            general.StaticsMaxDamping = statics_max_damping
-            general.StaticsMaxIterations = statics_max_iterations
-            model.CalculateStatics()
-            model.UseCalculatedPositions(SetLinesToUserSpecifiedStartingShape=True)
-        if environment.SeabedNormalStiffness != 100:
-            environment.SeabedNormalStiffness = 100
-            model.CalculateStatics()
-            model.UseCalculatedPositions(SetLinesToUserSpecifiedStartingShape=True)
-        n_run_error = 0
-    except Exception:
-
-        if n_run_error == 0:
-            print(f"\nIncreasing seabed stiffness, to avoid bury the pipeline")
-            environment.SeabedNormalStiffness = 10_000
-        
-        if n_run_error == 1:
-            print(f"\nIncreasing 5 times the Static Damping Range.")
-            general.StaticsMinDamping = 5 * statics_min_damping
-            general.StaticsMaxDamping = 5 * statics_max_damping
-            general.StaticsMaxIterations = 3 * statics_max_iterations
-
-        if n_run_error >= 2:
-            print(f"\nDisplacing VCM")
-            vcm.InitialX -= 1
-
-        if n_run_error == 3:
-            print(f"\nChanging Line's Static policy to Catenary.")
-            line.StaticsStep1 = "Catenary"
-        
-        n_run_error += 1
-
-        pos_run_static(model, vcm, vcm_position, general, line, environment)
-
 def error_correction(general: OrcFxAPI.OrcaFlexObject, line_type: OrcFxAPI.OrcaFlexObject, vcm: OrcFxAPI.OrcaFlexObject, model: OrcFxAPI.Model) -> None:
     """
     Description:
@@ -1325,32 +1271,6 @@ def contingencies(model: OrcFxAPI.Model, line: OrcFxAPI.OrcaFlexObject, bend_res
     line.AttachmentType[n] = 'Cont'  # select contingency
     line.Attachmentz[n] = positions[0] + 1  # add cont 1m after the 1st buoy
 
-    '''
-    if object_line.length == object_line.lda:
-        initial_length = line.Length[0]  # saves line's length
-    else:
-        initial_length = a_r.StageValue[0]  # saves A&R length
-    vcm_position = vcm.InitialX  # get VCM position
-    '''
-    
-    '''
-    print(f"\nPaying out 8m of line")
-
-    if object_line.length == object_line.lda:
-        while line.Length[0] < initial_length + 8:  # after dynamics... 8m of line are payed out.
-            payout_line(line, payout_retrieve_pace_max, object_line, a_r)  # payout 50cm
-            pos_run_static(model, vcm, vcm_position, general, line, environment)
-        
-        second_length = line.Length[0]
-
-    else:
-        while a_r.StageValue[0] < initial_length + 8:  # after dynamics... 8m of A&R are payed out.
-            payout_line(line, payout_retrieve_pace_max, object_line, a_r)  # payout 50cm
-            pos_run_static(model, vcm, vcm_position, general, line, environment)
-        
-        second_length = a_r.StageValue[0]
-    '''
-
     model.CalculateStatics()
     model.UseCalculatedPositions(SetLinesToUserSpecifiedStartingShape=True)
 
@@ -1390,13 +1310,6 @@ def contingencies(model: OrcFxAPI.Model, line: OrcFxAPI.OrcaFlexObject, bend_res
         print(f"________{k + 1}st tentative for {k_pass + 1}st Contingency_______")
         print("__________________________________________________________________")
 
-        '''
-        if object_line.length == object_line.lda:
-            line.Length[0] = second_length  # restart line lengths in each tentative
-        else:
-            a_r.StageValue[0] = second_length
-        '''
-
         file_name = 'Cont_' + str(k_pass + 1) + '.sim'
         path = os.path.join(save_simulation, file_name)
 
@@ -1410,21 +1323,13 @@ def contingencies(model: OrcFxAPI.Model, line: OrcFxAPI.OrcaFlexObject, bend_res
                         model.CalculateStatics()
                     except Exception:
                         work = False
-
+                        
             if not work:
                 continue
 
             model.UseCalculatedPositions(SetLinesToUserSpecifiedStartingShape=True)
             if not work:
                 work = True
-            
-            '''
-            if n_run_error < 2:
-                pos_run_static(model, vcm, vcm_position, general, line, environment)  # try to run
-            else:
-                print(f"\nFor {m}kg, didn't passed")
-                continue
-            '''
             
             model.CalculateStatics()
 
@@ -1444,10 +1349,6 @@ def contingencies(model: OrcFxAPI.Model, line: OrcFxAPI.OrcaFlexObject, bend_res
                 if not work:
                     work = True
 
-                '''
-                pos_run_static(model, vcm, vcm_position, general, line, environment)
-                '''
-
                 model.CalculateStatics()
                 line_clearance = enumerate(line.RangeGraph("Seabed clearance").Mean)
                 line_tdp = [arc_length for arc_length, clearance in line_clearance if clearance < 0]  # line TDP arclength
@@ -1464,10 +1365,6 @@ def contingencies(model: OrcFxAPI.Model, line: OrcFxAPI.OrcaFlexObject, bend_res
                 model.UseCalculatedPositions(SetLinesToUserSpecifiedStartingShape=True)
                 if not work:
                     work = True
-
-                '''
-                pos_run_static(model, vcm, vcm_position, general, line, environment)
-                '''
 
                 model.CalculateStatics()
                 line_clearance = enumerate(line.RangeGraph("Seabed clearance").Mean)
