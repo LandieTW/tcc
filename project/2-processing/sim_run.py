@@ -670,15 +670,8 @@ def looping(model_line_type: OrcFxAPI.OrcaFlexObject, selection: dict, model: Or
     num_positions = len(buoy_model[0])
     unique_positions = list(Counter(position).keys())
     pointer = make_pointer(len(unique_positions), unique_positions)
-    '''
-    if not br_loads:
-        line_nc = verify_normalised_curvature(model_line_type, 'Mean')
-        if line_nc > 1:
-            print("_______________________")
-            print("_______Displacing VCM_______")
-            model_line_type.StaticsStep1 = "Catenary"
-            model_vcm.InitialX -= 30
-    '''
+    
+
     if clearance < clearance_limit_inf or clearance > clearance_limit_sup:
 
         if clearance < 0:  # line touching seabed
@@ -744,8 +737,11 @@ def looping(model_line_type: OrcFxAPI.OrcaFlexObject, selection: dict, model: Or
         general.StaticsMaxIterations = 5 * statics_max_iterations
 
         call_loop(model_line_type, selection, model, bend_restrictor_model, rt_number, vessel, rl_config, buoy_set, model_vcm, object_line, object_bend_restrictor, object_vcm, winch, general, environment, file_path, structural, a_r)
-    
-    return None
+
+
+def vcm_data_extract(vcm):
+    return [vcm.InitialX, vcm.InitialY, vcm.InitialZ, vcm.InitialRotation1, vcm.InitialRotation2, vcm.InitialRotation3]
+
 
 def more_buoys(rl_config) -> list:
     """
@@ -1162,10 +1158,7 @@ def payout_retrieve_line(line_model: OrcFxAPI.OrcaFlexObject, delta: float, obje
         a_r: Orcaflex A&R
     Return:
         Nothing
-    """
-    if clearance > .4 and clearance < .75:  # reduce line's adjustment when it's getting closer the range (.5, .65)
-        delta = delta / 2
-    
+    """    
     if object_line.length == object_line.lda:  # payout/retrieve line
         if delta > 0:
             print(f"\nPaying out {delta}m of line,"
@@ -1231,66 +1224,66 @@ def flange_height_correction(winch: OrcFxAPI.OrcaFlexObject, delta: float) -> No
         
     winch.StageValue[0] = round(winch.StageValue[0] - delta, 3)
 
-def dynamic_simulation(model: OrcFxAPI.Model, line: OrcFxAPI.OrcaFlexObject, vcm: OrcFxAPI.OrcaFlexObject, bend_restrictor: OrcFxAPI.OrcaFlexObject, bend_restrictor_obj: methods.BendRestrictor,
-                       a_r: OrcFxAPI.OrcaFlexObject, save_simulation: str, structural_limits: dict, rt_number: str) -> bool:
+def dynamic_simulation(model: OrcFxAPI.Model, line: OrcFxAPI.OrcaFlexObject, bend_restrictor: OrcFxAPI.OrcaFlexObject, bend_restrictor_obj: methods.BendRestrictor, a_r: OrcFxAPI.OrcaFlexObject, 
+                       save_simulation: str, structural_limits: dict, rt_number: str, heave: float, vcm: OrcFxAPI.OrcaFlexObject) -> bool:
     """
     Description:
         Run simulation (dynamic) for heave up options: (2.5, 2.0, 1.8)
         When check loads and aprooves it, stop
     Parameters:
         model: Orcaflex model
-        line: Orcaflex line
-        vcm: Orcaflex VCM
+        line: orcaflex line
         bend_restrictor: Orcaflex bend restrictor
-        bend_restrictor_obj: Bend restrictor object from methods.py
+        bend_restrictor_obj: bend restrictor object from methods.py
         a_r: Orcaflex A&R
-        save_simulation: Path where static runs are saved
+        save_simulation: path to save file
         structural_limits: RL structural limits for loading in VCM's flange
         rt_number: RT identification
+        heave: heave up movement
+        vcm: Orcaflex VCM
     Return:
         Nothing
     """
-    i = 0
-    while i < len(heave_up):
-        print(f"\nRunning dynamics for heave up in {heave_up[i]}m")
+    model.CalculateStatics()
+    model.UseCalculatedPositions(SetLinesToUserSpecifiedStartingShape=True)
+    vcm.Connection = "Fixed"
 
-        a_r.StageValue[2] = - heave_up[i]
+    print(f"\nRunning dynamics for heave up in {heave}m")
 
-        file_name = rt_number + " - heave_" + str(heave_up[i]) + "m.sim"
-        simulation = os.path.join(save_simulation, file_name)
+    a_r.StageValue[2] = - heave
 
-        vcm.Connection = "Fixed"
+    file_name = rt_number + " - heave_" + str(heave) + "m.sim"
+    simulation = os.path.join(save_simulation, file_name)
 
-        model.RunSimulation()
-        model.SaveSimulation(simulation)
+    model.RunSimulation()
+    model.SaveSimulation(simulation)
 
-        min_normal = abs(round(min(line.TimeHistory('End Ez force', total_period, OrcFxAPI.oeEndB)), 3))
-        max_normal = abs(round(max(line.TimeHistory('End Ez force', total_period, OrcFxAPI.oeEndB)), 3))
-        
-        min_shear = abs(round(min(line.TimeHistory('End Ex force', total_period, OrcFxAPI.oeEndB)), 3))
-        max_shear = abs(round(max(line.TimeHistory('End Ex force', total_period, OrcFxAPI.oeEndB)), 3))
-        
-        min_moment = abs(round(min(line.TimeHistory('End Ey moment', total_period, OrcFxAPI.oeEndB)), 3))
-        max_moment = abs(round(max(line.TimeHistory('End Ey moment', total_period, OrcFxAPI.oeEndB)), 3))
+    min_normal = abs(round(min(line.TimeHistory('End Ez force', total_period, OrcFxAPI.oeEndB)), 3))
+    max_normal = abs(round(max(line.TimeHistory('End Ez force', total_period, OrcFxAPI.oeEndB)), 3))
+    
+    min_shear = abs(round(min(line.TimeHistory('End Ex force', total_period, OrcFxAPI.oeEndB)), 3))
+    max_shear = abs(round(max(line.TimeHistory('End Ex force', total_period, OrcFxAPI.oeEndB)), 3))
+    
+    min_moment = abs(round(min(line.TimeHistory('End Ey moment', total_period, OrcFxAPI.oeEndB)), 3))
+    max_moment = abs(round(max(line.TimeHistory('End Ey moment', total_period, OrcFxAPI.oeEndB)), 3))
 
-        flange_results = [max(min_normal, max_normal), max(min_shear, max_shear), max(min_moment, max_moment)]
+    flange_results = [max(min_normal, max_normal), max(min_shear, max_shear), max(min_moment, max_moment)]
 
-        flange_loads = any([verify_flange_loads(line, structural_limits, '3', flange_results), verify_flange_loads(line, structural_limits, '3i', flange_results), verify_flange_loads(line, structural_limits, '3ii', flange_results)])
+    flange_loads = any([verify_flange_loads(line, structural_limits, '3', flange_results), verify_flange_loads(line, structural_limits, '3i', flange_results), 
+                        verify_flange_loads(line, structural_limits, '3ii', flange_results)])
 
-        nc_br = verify_normalised_curvature(bend_restrictor, "Max")
-        if nc_br >= 1:
-            br_results = verify_br_loads(bend_restrictor, bend_restrictor_obj, "Max")
+    nc_br = verify_normalised_curvature(bend_restrictor, "Max")
+    if nc_br >= 1:
+        br_results = verify_br_loads(bend_restrictor, bend_restrictor_obj, "Max")
 
-            result = all([flange_loads, br_results])
-        
+        result = all([flange_loads, br_results])
+    else:
         result = flange_loads
 
-        if result:
-            i = len(heave_up)
-        else:
-            print(f"\nFor {heave_up[i]}m, loads are not admissible.")
-        
-        i += 1
+    if result:
+        print(f"\nFor {heave}m, loads are admissible.")
+    else:
+        print(f"\nFor {heave}m, loads are not admissible.")
 
     return result
 
@@ -1444,10 +1437,10 @@ def contingencies(model: OrcFxAPI.Model, line: OrcFxAPI.OrcaFlexObject, bend_res
                 if work:
                     try:
                         model.CalculateStatics()
+                        model.UseCalculatedPositions(SetLinesToUserSpecifiedStartingShape=True)
                     except Exception:
                         work = False
 
-                model.UseCalculatedPositions(SetLinesToUserSpecifiedStartingShape=True)
                 if not work:
                     work = True
 
