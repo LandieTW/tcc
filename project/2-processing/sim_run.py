@@ -180,11 +180,11 @@ def run_static(model: OrcFxAPI.Model, rt_number: str, vcm: OrcFxAPI.OrcaFlexObje
         clearance = verify_line_clearance(line_type)
         delta_flange = verify_flange_height(line_type, line_obj, vcm_obj)
 
+        n_run += 1
+
         file_name = str(n_run + 1) + "-" + rt_number + ".sim"
         save_simulation = os.path.join(static_dir, file_name)
         model.SaveSimulation(save_simulation)
-
-        n_run += 1
 
         if n_run != prev_n_run:
             print(f"\n Running {n_run}th time.")
@@ -201,7 +201,7 @@ def run_static(model: OrcFxAPI.Model, rt_number: str, vcm: OrcFxAPI.OrcaFlexObje
 
     except Exception:
         error_correction(general, line_type, vcm, model)
-        run_static(model, rt_number, vcm, line_type, bend_restrictor_model, line_obj, bend_restrictor_object, vcm_obj, general, file_path, structural_limits)
+        run_static(model, rt_number, vcm, line_type, bend_restrictor_model, line_obj, bend_restrictor_object, vcm_obj, general, file_path, structural_limits, static_dir)
 
 def error_correction(general: OrcFxAPI.OrcaFlexObject, line_type: OrcFxAPI.OrcaFlexObject, vcm: OrcFxAPI.OrcaFlexObject, model: OrcFxAPI.Model) -> None:
     """
@@ -855,11 +855,15 @@ def call_change_buoys(unique_positions: list, rl_config: dict, buoy_set: list, m
                             n_run = 50
                 
         else:  # it's  equal the last tentative
-
-            n_run = max(n_run - 1, 0)  # doesn't count this kind of model changing
+            
+            old_selection = selection
 
             new_rl_config = changing_buoyancy(unique_positions, rl_config)
             selection = changing_buoys(selection, buoy_set, new_rl_config, model_line_type, vessel)
+
+            if old_selection == selection:
+                n_run = max(n_run - 1, 0)
+
             call_loop(model_line_type, selection, model, bend_restrictor_model, rt_number, vessel, rl_config, buoy_set, model_vcm, object_line, object_bend_restrictor, object_vcm, winch, general, environment, file_path, 
                     structural, a_r, static_dir)
             
@@ -1204,32 +1208,7 @@ def dynamic_simulation(model: OrcFxAPI.Model, line: OrcFxAPI.OrcaFlexObject, ben
     Return:
         Nothing
     """
-    '''
-    ini_time = time.time()
-
-    work = False
-    while not work:
-        try:
-            vcm.DegreesOfFreedomInStatics = 'X,Y,Z'
-            model.CalculateStatics()
-            model.UseCalculatedPositions(SetLinesToUserSpecifiedStartingShape=True)
-            vcm.DegreesOfFreedomInStatics = 'All'
-            model.CalculateStatics()
-        
-            line_nc = verify_normalised_curvature(line, 'Mean')
-            if line_nc >= .75:
-                model.UseCalculatedPositions(SetLinesToUserSpecifiedStartingShape=True)
-                line.StaticsStep1 = "Catenary"
-                model.CalculateStatics()
-
-            work = True
-
-        except Exception:
-            error_correction(general, line, vcm, model)
-
-    end_time = time.time()
-    print(f"\nTime: {end_time - ini_time}s.")
-    '''
+    
     model.UseCalculatedPositions(SetLinesToUserSpecifiedStartingShape=True)
     vcm.Connection = "Fixed"
 
@@ -1315,7 +1294,7 @@ def contingencies(model: OrcFxAPI.Model, line: OrcFxAPI.OrcaFlexObject, bend_res
 
     k = 0
     k_pass = 0  # controls the number of contingencies
-    for _ in range(5):  # try 5 times
+    while k_pass < 2:  # try untill obtain 2 contigencies
 
         if len(positions) == 1:  # define contingency positions
             if k == 0:
