@@ -158,9 +158,12 @@ while k <= 5:
 if rl_config != rl_config_fract:
     rl_config = rl_config_fract
 
+static_dir = os.path.join(file_path, "Static")
+os.makedirs(static_dir, exist_ok=True)
+
 print("\nAutomation's start.")
-vcm_data = sim_run.looping(model_line_type, selection, model, stiffener_type, rt_number, vessel, rl_config, buoy_set, model_vcm, object_line, object_bend_restrictor, object_vcm, model_winch, model_general, 
-                        model_environment, file_path, structural_limits, a_r)
+sim_run.looping(model_line_type, selection, model, stiffener_type, rt_number, vessel, rl_config, buoy_set, model_vcm, object_line, object_bend_restrictor, object_vcm, model_winch, model_general, 
+                model_environment, file_path, structural_limits, a_r, static_dir)
 
 static_end_time = time.time()
 exec_static_time = static_end_time - start_time
@@ -189,7 +192,7 @@ dyn_path = os.path.join(file_path, dyn_dir)
 os.makedirs(dyn_path, exist_ok=True)
 
 for heave in heave_up:
-    dyn_result = sim_run.dynamic_simulation(model, model_line_type, stiffener_type, object_bend_restrictor, a_r, dyn_path, structural_limits, rt_number, heave, model_vcm)
+    dyn_result = sim_run.dynamic_simulation(model, model_line_type, stiffener_type, object_bend_restrictor, a_r, dyn_path, structural_limits, rt_number, heave, model_vcm, model_general)
     
     if dyn_result:
         break

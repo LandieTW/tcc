@@ -7,6 +7,7 @@ Simulation methods for the automation.
 import OrcFxAPI
 import os
 import methods
+import time
 from collections import Counter
 
 # CONSTANTS
@@ -15,6 +16,10 @@ from collections import Counter
 'method1: 2pos (2buoys/pos) -> 3pos (2buoys/pos) -> 2pos (3buoys/pos) -> 3pos (3buoys/pos)'
 'method2: 2pos (2buoys/pos) -> 2pos (3buoys/pos) -> 3pos (2buoys/pos) -> 3pos (3buoys/pos)'
 method = 'method2'
+'b_1/b_2 - rotation > 0'  # reason between one buoyancy and next
+b_factor_1 = 1.5
+'b_1/b_2 - rotation < 0'  # reason between one buoyancy and before
+b_factor_2 = 2
 'Initial RL configuration (reference)'
 initial_rl_config = []
 'How many buoys / position'
@@ -89,6 +94,8 @@ def previous_run_static(model: OrcFxAPI.Model, general: OrcFxAPI.OrcaFlexObject,
     Return:
         Nothing
     """
+    ini_time = time.time()
+
     try:
         global n_run_error, rotation, clearance, delta_flange
         
@@ -98,6 +105,9 @@ def previous_run_static(model: OrcFxAPI.Model, general: OrcFxAPI.OrcaFlexObject,
         vcm.DegreesOfFreedomInStatics = 'All'
         model.CalculateStatics()
         
+        end_time = time.time()
+        print(f"\nTime: {end_time - ini_time}s")
+
         line_nc = verify_normalised_curvature(line_type, 'Mean')
         if line_nc > .75:
             model.UseCalculatedPositions(SetLinesToUserSpecifiedStartingShape=True)
@@ -115,7 +125,7 @@ def previous_run_static(model: OrcFxAPI.Model, general: OrcFxAPI.OrcaFlexObject,
         previous_run_static(model, general, line_type, vcm, object_line, object_vcm)
 
 def run_static(model: OrcFxAPI.Model, rt_number: str, vcm: OrcFxAPI.OrcaFlexObject, line_type: OrcFxAPI.OrcaFlexObject, bend_restrictor_model: OrcFxAPI.OrcaFlexObject, line_obj: methods.Line, 
-               bend_restrictor_object: methods.BendRestrictor, vcm_obj: methods.Vcm, general: OrcFxAPI.OrcaFlexObject, file_path: str, structural_limits: dict) -> None:
+               bend_restrictor_object: methods.BendRestrictor, vcm_obj: methods.Vcm, general: OrcFxAPI.OrcaFlexObject, file_path: str, structural_limits: dict, static_dir: str, *final: str) -> None:
     """
     Description
         Runs static simulation in looping
@@ -132,12 +142,16 @@ def run_static(model: OrcFxAPI.Model, rt_number: str, vcm: OrcFxAPI.OrcaFlexObje
         general: Orcaflex general to be passed for error correction
         file_path: Path where static runs are saved
         structural_limits: structural limits informed in RL
+        static_dir: path to save files
+        final: last run_static command to get VCM fixed, and runs dynamics
     Return:
         Nothing
     """
+    ini_time = time.time()
+
     try:
         global n_run, rotation, clearance, delta_flange, shear_force, bend_moment, n_run_error, prev_n_run, normalised_curvature, flange_loads, br_loads
-        
+
         vcm.DegreesOfFreedomInStatics = 'X,Y,Z'
         model.CalculateStatics()
         model.UseCalculatedPositions(SetLinesToUserSpecifiedStartingShape=True)
@@ -145,14 +159,20 @@ def run_static(model: OrcFxAPI.Model, rt_number: str, vcm: OrcFxAPI.OrcaFlexObje
         model.CalculateStatics()
         
         line_nc = verify_normalised_curvature(line_type, 'Mean')
-        if line_nc >= .75:
+        if line_nc >= 1:
             model.UseCalculatedPositions(SetLinesToUserSpecifiedStartingShape=True)
             line_type.StaticsStep1 = "Catenary"
             model.CalculateStatics()
 
         n_run_error = 0
 
-        print("__________________________________________________________________")
+        if final:
+            return
+        
+        end_time = time.time()
+        print(f"\nTime: {end_time - ini_time}s.")
+
+        print("\n__________________________________________________________________")
         print("_________________________RUNNING..._______________________________")
         print("__________________________________________________________________")
 
@@ -160,8 +180,6 @@ def run_static(model: OrcFxAPI.Model, rt_number: str, vcm: OrcFxAPI.OrcaFlexObje
         clearance = verify_line_clearance(line_type)
         delta_flange = verify_flange_height(line_type, line_obj, vcm_obj)
 
-        static_dir = os.path.join(file_path, "Static")
-        os.makedirs(static_dir, exist_ok=True)
         file_name = str(n_run + 1) + "-" + rt_number + ".sim"
         save_simulation = os.path.join(static_dir, file_name)
         model.SaveSimulation(save_simulation)
@@ -268,12 +286,6 @@ def buoy_combination(b_set: list) -> dict:
     two_buoys = {f"{buoy1}+{buoy2}": one_buoy[buoy1] + one_buoy[buoy2] for i, buoy1 in enumerate(buoys) for j, buoy2 in enumerate(buoys) if i < j if one_buoy[buoy1] + one_buoy[buoy2] <= buoyancy_limit}
     three_buoys = {f"{buoy1}+{buoy2}+{buoy3}": one_buoy[buoy1] + one_buoy[buoy2] + small_one_buoy[buoy3] for i, buoy1 in enumerate(buoys) for j, buoy2 in enumerate(buoys) for k, buoy3 in enumerate(small_buoys)
                    if i >= j >= k if one_buoy[buoy1] + one_buoy[buoy2] + small_one_buoy[buoy3] <= buoyancy_limit}
-    '''
-    one_buoy = {buoy: float(buoy) for buoy in buoys}
-    two_buoys = {f"{buoy1}+{buoy2}": one_buoy[buoy1] + one_buoy[buoy2] for i, buoy1 in enumerate(buoys) for j, buoy2 in enumerate(buoys) if i < j if one_buoy[buoy1] + one_buoy[buoy2] <= buoyancy_limit}
-    three_buoys = {f"{buoy1}+{buoy2}+{buoy3}": (one_buoy[buoy1] + one_buoy[buoy2] + one_buoy[buoy3]) for i, buoy1 in enumerate(buoys) for j, buoy2 in enumerate(buoys) for k, buoy3 in enumerate(buoys) if i < j < k 
-                   if (one_buoy[buoy1] + one_buoy[buoy2] + one_buoy[buoy3]) <= buoyancy_limit}
-    '''
 
     combination = {}
     if n_buoys == 1:
@@ -547,7 +559,7 @@ def verify_br_loads(bend_restrictor_model: OrcFxAPI.OrcaFlexObject, bend_restric
 
 def looping(model_line_type: OrcFxAPI.OrcaFlexObject, selection: dict, model: OrcFxAPI.Model, bend_restrictor_model: OrcFxAPI.OrcaFlexObject, rt_number: str, vessel: str, rl_config: list, buoy_set: list, 
             model_vcm: OrcFxAPI.OrcaFlexObject, object_line: methods.Line, object_bend_restrictor: methods.BendRestrictor, object_vcm: methods.Vcm, winch: OrcFxAPI.OrcaFlexObject, general: OrcFxAPI.OrcaFlexObject, 
-            environment: OrcFxAPI.OrcaFlexObject, file_path: str, structural: dict, a_r: OrcFxAPI.OrcaFlexObject) -> None:
+            environment: OrcFxAPI.OrcaFlexObject, file_path: str, structural: dict, a_r: OrcFxAPI.OrcaFlexObject, static_dir: str) -> None:
     """
     Description:
         This is a loop that controls all the changes in model, in each 'iteration', calling the commands in reason of the last obtained results values.
@@ -575,6 +587,7 @@ def looping(model_line_type: OrcFxAPI.OrcaFlexObject, selection: dict, model: Or
         file_path: Path where static runs are saved
         structural: RL structural limits for loading in VCM's flange
         a_r: Orcaflex A&R cable
+        static_dir: path to save files
     Return:
         Nothing
     """
@@ -631,7 +644,8 @@ def looping(model_line_type: OrcFxAPI.OrcaFlexObject, selection: dict, model: Or
 
         n_run = max(n_run - 1, 0)  # doesn't count this kind of model changing
 
-        call_loop(model_line_type, selection, model, bend_restrictor_model, rt_number, vessel, rl_config, buoy_set, model_vcm, object_line, object_bend_restrictor, object_vcm, winch, general, environment, file_path, structural, a_r)
+        call_loop(model_line_type, selection, model, bend_restrictor_model, rt_number, vessel, rl_config, buoy_set, model_vcm, object_line, object_bend_restrictor, object_vcm, winch, general, environment, 
+                  file_path, structural, a_r, static_dir)
 
 
     if rotation > vcm_rotation_sup_limit:  # VCM inclined in line's direction
@@ -645,13 +659,13 @@ def looping(model_line_type: OrcFxAPI.OrcaFlexObject, selection: dict, model: Or
 
             n_run = max(n_run - 1, 0)  # doesn't count this kind of model changing
             
-            call_loop(model_line_type, selection, model, bend_restrictor_model, rt_number, vessel, rl_config, buoy_set, model_vcm, object_line, object_bend_restrictor, object_vcm, winch, general, environment, file_path, 
-                        structural, a_r)
+            call_loop(model_line_type, selection, model, bend_restrictor_model, rt_number, vessel, rl_config, buoy_set, model_vcm, object_line, object_bend_restrictor, object_vcm, winch, general, environment, 
+                      file_path, structural, a_r, static_dir)
                 
         else:  # change set of buoys
 
             call_change_buoys(unique_positions, rl_config, buoy_set, model_line_type, vessel, model_vcm, object_line, model, bend_restrictor_model, rt_number, object_bend_restrictor, object_vcm, winch, general, 
-                                environment, file_path, structural, a_r, selection, buoy_model, initial_rl_config)
+                                environment, file_path, structural, a_r, selection, buoy_model, initial_rl_config, static_dir)
 
 
     elif rotation < vcm_rotation_inf_limit:  # VCM inclined away of line's direction
@@ -665,13 +679,13 @@ def looping(model_line_type: OrcFxAPI.OrcaFlexObject, selection: dict, model: Or
 
             n_run = max(n_run - 1, 0)  # doesn't count this kind of model changing
             
-            call_loop(model_line_type, selection, model, bend_restrictor_model, rt_number, vessel, rl_config, buoy_set, model_vcm, object_line, object_bend_restrictor, object_vcm, winch, general, environment, file_path, 
-                      structural, a_r)
+            call_loop(model_line_type, selection, model, bend_restrictor_model, rt_number, vessel, rl_config, buoy_set, model_vcm, object_line, object_bend_restrictor, object_vcm, winch, general, environment, 
+                      file_path, structural, a_r, static_dir)
                 
         else:  # change set of buoys
 
             call_change_buoys(unique_positions, rl_config, buoy_set, model_line_type, vessel, model_vcm, object_line, model, bend_restrictor_model, rt_number, object_bend_restrictor, object_vcm, winch, general, 
-                              environment, file_path, structural, a_r, selection, buoy_model, initial_rl_config)
+                              environment, file_path, structural, a_r, selection, buoy_model, initial_rl_config, static_dir)
 
 
     if delta_flange != delta_flange_error_limit:
@@ -682,12 +696,10 @@ def looping(model_line_type: OrcFxAPI.OrcaFlexObject, selection: dict, model: Or
         general.StaticsMaxDamping = 5 * statics_max_damping
         general.StaticsMaxIterations = 5 * statics_max_iterations
 
-        call_loop(model_line_type, selection, model, bend_restrictor_model, rt_number, vessel, rl_config, buoy_set, model_vcm, object_line, object_bend_restrictor, object_vcm, winch, general, environment, file_path, structural, a_r)
+        call_loop(model_line_type, selection, model, bend_restrictor_model, rt_number, vessel, rl_config, buoy_set, model_vcm, object_line, object_bend_restrictor, object_vcm, winch, general, environment, 
+                  file_path, structural, a_r, static_dir)
 
-
-def vcm_data_extract(vcm):
-    return [vcm.InitialX, vcm.InitialY, vcm.InitialZ, vcm.InitialRotation1, vcm.InitialRotation2, vcm.InitialRotation3]
-
+    run_static(model, rt_number, model_vcm, model_line_type, bend_restrictor_model, object_line, object_bend_restrictor, object_vcm, general, file_path, structural, static_dir, 'final')
 
 def more_buoys(rl_config) -> list:
     """
@@ -712,7 +724,7 @@ def more_buoys(rl_config) -> list:
     
 def call_loop(model_line_type: OrcFxAPI.OrcaFlexObject, selection: dict, model: OrcFxAPI.Model, bend_restrictor_model: OrcFxAPI.OrcaFlexObject, rt_number: str, vessel: str, rl_config: list, buoy_set: list, 
               model_vcm: OrcFxAPI.OrcaFlexObject, object_line: methods.Line, object_bend_restrictor: methods.BendRestrictor, object_vcm: methods.Vcm, winch: OrcFxAPI.OrcaFlexObject, general: OrcFxAPI.OrcaFlexObject, 
-              environment: OrcFxAPI.OrcaFlexObject, file_path: str, structural: dict, a_r: OrcFxAPI.OrcaFlexObject):
+              environment: OrcFxAPI.OrcaFlexObject, file_path: str, structural: dict, a_r: OrcFxAPI.OrcaFlexObject, static_dir: str):
     """
     Description
         Resume methods: Run 'calculate statics' -> Save positions -> Run 'looping' again
@@ -735,16 +747,17 @@ def call_loop(model_line_type: OrcFxAPI.OrcaFlexObject, selection: dict, model: 
         file_path: Path where static runs are saved
         structural: RL structural limits for loading in VCM's flange
         a_r: Orcaflex A&R cable
+        static_dir: path to save file
     Return
         Nothing
     """
-    run_static(model, rt_number, model_vcm, model_line_type, bend_restrictor_model, object_line, object_bend_restrictor, object_vcm, general, file_path, structural)
-    # user_specified(model, rt_number, file_path)
-    looping(model_line_type, selection, model, bend_restrictor_model, rt_number, vessel, rl_config, buoy_set, model_vcm, object_line, object_bend_restrictor, object_vcm, winch, general, environment, file_path, structural, a_r)
+    run_static(model, rt_number, model_vcm, model_line_type, bend_restrictor_model, object_line, object_bend_restrictor, object_vcm, general, file_path, structural, static_dir)
+    user_specified(model, rt_number, file_path)
+    looping(model_line_type, selection, model, bend_restrictor_model, rt_number, vessel, rl_config, buoy_set, model_vcm, object_line, object_bend_restrictor, object_vcm, winch, general, environment, file_path, structural, a_r, static_dir)
 
 def call_change_buoys(unique_positions: list, rl_config: dict, buoy_set: list, model_line_type: OrcFxAPI.OrcaFlexObject, vessel: str, model_vcm: OrcFxAPI.OrcaFlexObject, object_line: methods.Line, model: OrcFxAPI.Model,
                       bend_restrictor_model: OrcFxAPI.OrcaFlexObject, rt_number: str, object_bend_restrictor: methods.BendRestrictor, object_vcm: methods.Vcm, winch: OrcFxAPI.OrcaFlexObject, general: OrcFxAPI.OrcaFlexObject, 
-                      environment: OrcFxAPI.OrcaFlexObject, file_path: str, structural: dict, a_r: OrcFxAPI.OrcaFlexObject, selection: dict, buoy_model: list, initial_rl: list):
+                      environment: OrcFxAPI.OrcaFlexObject, file_path: str, structural: dict, a_r: OrcFxAPI.OrcaFlexObject, selection: dict, buoy_model: list, initial_rl: list, static_dir: str):
     """
     Description
         Controls how buoy's set will changes...
@@ -793,29 +806,29 @@ def call_change_buoys(unique_positions: list, rl_config: dict, buoy_set: list, m
                 new_rl_config = changing_buoyancy(unique_positions, rl_config)
                 selection = changing_buoys(selection, buoy_set, new_rl_config, model_line_type, vessel)
                 call_loop(model_line_type, selection, model, bend_restrictor_model, rt_number, vessel, rl_config, buoy_set, model_vcm, object_line, object_bend_restrictor, object_vcm, winch, general, environment, 
-                          file_path, structural, a_r)
+                          file_path, structural, a_r, static_dir)
             
             else:  # it's different of the last, but not a new tentative
 
                 if method == 'method1':
                     if n_buoys == 2:  
                         if len(selection) < 3:  # if I have 2 positions with 2 buoys/position (4)
-                            new_rl_config = more_buoys(initial_rl_config)  # try 3 positions with 2 buoys/position
+                            new_rl_config = more_buoys(initial_rl)  # try 3 positions with 2 buoys/position
                             selection = changing_buoys(selection, buoy_set, new_rl_config, model_line_type, vessel)
                             call_loop(model_line_type, selection, model, bend_restrictor_model, rt_number, vessel, rl_config, buoy_set, model_vcm, object_line, object_bend_restrictor, object_vcm, winch, general, 
-                                    environment, file_path, structural, a_r)
+                                    environment, file_path, structural, a_r, static_dir)
                         else:  # If I have 3 positions with 2 buoys/position
                             n_buoys += 1  # try 3 positions with 3 buoys/position
-                            selection = changing_buoys(selection, buoy_set, initial_rl_config, model_line_type, vessel)
+                            selection = changing_buoys(selection, buoy_set, initial_rl, model_line_type, vessel)
                             call_loop(model_line_type, selection, model, bend_restrictor_model, rt_number, vessel, rl_config, buoy_set, model_vcm, object_line, object_bend_restrictor, object_vcm, winch, general, 
-                                    environment, file_path, structural, a_r)
+                                    environment, file_path, structural, a_r,static_dir)
                     elif n_buoys == 3:
                         if len(selection) < 3:
                             n_buoys -= 1   # If I have 2 positions with 3 buoys/position
-                            new_rl_config = more_buoys(initial_rl_config)  # try 3 positions with 2 buoys / position
+                            new_rl_config = more_buoys(initial_rl)  # try 3 positions with 2 buoys / position
                             selection = changing_buoys(selection, buoy_set, new_rl_config, model_line_type, vessel)
                             call_loop(model_line_type, selection, model, bend_restrictor_model, rt_number, vessel, rl_config, buoy_set, model_vcm, object_line, object_bend_restrictor, object_vcm, winch, general, 
-                                    environment, file_path, structural, a_r)
+                                    environment, file_path, structural, a_r, static_dir)
                         else:
                             n_run = 50
 
@@ -823,21 +836,21 @@ def call_change_buoys(unique_positions: list, rl_config: dict, buoy_set: list, m
                     if len(selection) < 3:
                         if n_buoys == 2:  # if I have 2 positions with 2 buoys/position (4)
                             n_buoys += 1  # try 2 positions with 3 buoys/position (6)
-                            selection = changing_buoys(selection, buoy_set, initial_rl_config, model_line_type, vessel)
+                            selection = changing_buoys(selection, buoy_set, initial_rl, model_line_type, vessel)
                             call_loop(model_line_type, selection, model, bend_restrictor_model, rt_number, vessel, rl_config, buoy_set, model_vcm, object_line, object_bend_restrictor, object_vcm, winch, general, 
-                                    environment, file_path, structural, a_r)
+                                    environment, file_path, structural, a_r, static_dir)
                         elif n_buoys == 3:
                             n_buoys -= 1   # If I have 2 positions with 3 buoys/position (6)
-                            new_rl_config = more_buoys(initial_rl_config)  # try 3 positions with 2 buoys / position (6)
+                            new_rl_config = more_buoys(initial_rl)  # try 3 positions with 2 buoys / position (6)
                             selection = changing_buoys(selection, buoy_set, new_rl_config, model_line_type, vessel)
                             call_loop(model_line_type, selection, model, bend_restrictor_model, rt_number, vessel, rl_config, buoy_set, model_vcm, object_line, object_bend_restrictor, object_vcm, winch, general, 
-                                    environment, file_path, structural, a_r)
+                                    environment, file_path, structural, a_r, static_dir)
                     elif len(selection) == 3:
                         if n_buoys == 2:   # If I have 3 positions with 2 buoys/position (6)
                             n_buoys += 1  # try 3 positions with 3 buoys/position (9)
-                            selection = changing_buoys(selection, buoy_set, initial_rl_config, model_line_type, vessel)
+                            selection = changing_buoys(selection, buoy_set, initial_rl, model_line_type, vessel)
                             call_loop(model_line_type, selection, model, bend_restrictor_model, rt_number, vessel, rl_config, buoy_set, model_vcm, object_line, object_bend_restrictor, object_vcm, winch, general, 
-                                    environment, file_path, structural, a_r)
+                                    environment, file_path, structural, a_r, static_dir)
                         elif n_buoys == 3:
                             n_run = 50
                 
@@ -848,7 +861,7 @@ def call_change_buoys(unique_positions: list, rl_config: dict, buoy_set: list, m
             new_rl_config = changing_buoyancy(unique_positions, rl_config)
             selection = changing_buoys(selection, buoy_set, new_rl_config, model_line_type, vessel)
             call_loop(model_line_type, selection, model, bend_restrictor_model, rt_number, vessel, rl_config, buoy_set, model_vcm, object_line, object_bend_restrictor, object_vcm, winch, general, environment, file_path, 
-                    structural, a_r)
+                    structural, a_r, static_dir)
             
     except Exception:  # something goes wrong... (next buoyancy tentative > 2Tf)
 
@@ -1003,7 +1016,7 @@ def changing_buoyancy(position: list, rl_config: list) -> list:
                 total_buoyancy[0] = total
 
         elif len(total_buoyancy) == 2:  # case when there's 2 position to insert buoyancy
-            if total_buoyancy[0] >= 1.5 * total_buoyancy[1]:  # try to make it in a way that 1st position always have, at least, 150% greater of buoyancy of the 2st position
+            if total_buoyancy[0] >= b_factor_1 * total_buoyancy[1]:  # try to make it in a way that 1st position always have, at least, 150% greater of buoyancy of the 2st position
                 if (total := buoy_var + total_buoyancy[1]) < buoyancy_limit:  # consideer add 50kg of buoyancy in 2st buoy position
                     print(f"Changing 2st buoyancy reference, {total_buoyancy[1]}kg, in {buoy_var}kg")
                     total_buoyancy[1] = total
@@ -1013,8 +1026,8 @@ def changing_buoyancy(position: list, rl_config: list) -> list:
                     total_buoyancy[0] = total  
 
         elif len(total_buoyancy) == 3:  # case when there's 3 position to insert buoyancy
-            if total_buoyancy[0] >= 1.5 * total_buoyancy[1]:  # try to make it in a way that 1st position always have, at least, 150% greater of buoyancy of the 2st position
-                if total_buoyancy[1] >= 1.5 * total_buoyancy[2]:  # try to make it in a way that 2st position always have, at least, 150% greater of buoyancy of the 3st position
+            if total_buoyancy[0] >= b_factor_1 * total_buoyancy[1]:  # try to make it in a way that 1st position always have, at least, 150% greater of buoyancy of the 2st position
+                if total_buoyancy[1] >= b_factor_1 * total_buoyancy[2]:  # try to make it in a way that 2st position always have, at least, 150% greater of buoyancy of the 3st position
                     if (total := buoy_var + total_buoyancy[2]) < buoyancy_limit:  # consideer add 50kg of buoyancy in 3st buoy position
                         print(f"Changing 3st buoyancy reference, {total_buoyancy[2]}kg, in {buoy_var}kg")
                         total_buoyancy[2] = total
@@ -1035,7 +1048,7 @@ def changing_buoyancy(position: list, rl_config: list) -> list:
                 total_buoyancy[0] = total
 
         elif len(total_buoyancy) == 2:  # case when there's 2 position to insert buoyancy
-            if total_buoyancy[0] >= 1.5 * total_buoyancy[1]:  # try to make it in a way that 2st always have, in maximum, the half of buoyancy of the 1st position
+            if total_buoyancy[0] >= b_factor_2 * total_buoyancy[1]:  # try to make it in a way that 2st always have, in maximum, the half of buoyancy of the 1st position
                 if (total := total_buoyancy[0] - buoy_var) > 0:  # consideer reduce 50kg of buoyancy in 1st buoy position
                     print(f"Changing 1st buoyancy reference, {total_buoyancy[0]}kg, in {-buoy_var}kg")
                     total_buoyancy[0] = total
@@ -1045,8 +1058,8 @@ def changing_buoyancy(position: list, rl_config: list) -> list:
                     total_buoyancy[1] = total
 
         elif len(total_buoyancy) == 3:  # case when there's 3 position to insert buoyancy
-            if total_buoyancy[1] >= 1.5 * total_buoyancy[2]:  # try to make it in a way that 3st always have, in maximum, the half of buoyancy of the 2st position
-                if total_buoyancy[0] >= 1.5 * total_buoyancy[1]:  # try to make it in a way that 2st always have, in maximum, the half of buoyancy of the 1st position
+            if total_buoyancy[1] >= b_factor_2 * total_buoyancy[2]:  # try to make it in a way that 3st always have, in maximum, the half of buoyancy of the 2st position
+                if total_buoyancy[0] >= b_factor_2 * total_buoyancy[1]:  # try to make it in a way that 2st always have, in maximum, the half of buoyancy of the 1st position
                     if (total := total_buoyancy[0] - buoy_var) > 0:  # consideer reduce 50kg of buoyancy in 1st buoy position
                         print(f"Changing 1st buoyancy reference, {total_buoyancy[0]}kg, in {-buoy_var}kg")
                         total_buoyancy[0] = total
@@ -1171,7 +1184,7 @@ def flange_height_correction(winch: OrcFxAPI.OrcaFlexObject, delta: float) -> No
     winch.StageValue[0] = round(winch.StageValue[0] - delta, 3)
 
 def dynamic_simulation(model: OrcFxAPI.Model, line: OrcFxAPI.OrcaFlexObject, bend_restrictor: OrcFxAPI.OrcaFlexObject, bend_restrictor_obj: methods.BendRestrictor, a_r: OrcFxAPI.OrcaFlexObject, 
-                       save_simulation: str, structural_limits: dict, rt_number: str, heave: float, vcm: OrcFxAPI.OrcaFlexObject) -> bool:
+                       save_simulation: str, structural_limits: dict, rt_number: str, heave: float, vcm: OrcFxAPI.OrcaFlexObject, general: OrcFxAPI.OrcaFlexObject) -> bool:
     """
     Description:
         Run simulation (dynamic) for heave up options: (2.5, 2.0, 1.8)
@@ -1187,10 +1200,36 @@ def dynamic_simulation(model: OrcFxAPI.Model, line: OrcFxAPI.OrcaFlexObject, ben
         rt_number: RT identification
         heave: heave up movement
         vcm: Orcaflex VCM
+        general: Orcaflex general
     Return:
         Nothing
     """
-    model.CalculateStatics()
+    '''
+    ini_time = time.time()
+
+    work = False
+    while not work:
+        try:
+            vcm.DegreesOfFreedomInStatics = 'X,Y,Z'
+            model.CalculateStatics()
+            model.UseCalculatedPositions(SetLinesToUserSpecifiedStartingShape=True)
+            vcm.DegreesOfFreedomInStatics = 'All'
+            model.CalculateStatics()
+        
+            line_nc = verify_normalised_curvature(line, 'Mean')
+            if line_nc >= .75:
+                model.UseCalculatedPositions(SetLinesToUserSpecifiedStartingShape=True)
+                line.StaticsStep1 = "Catenary"
+                model.CalculateStatics()
+
+            work = True
+
+        except Exception:
+            error_correction(general, line, vcm, model)
+
+    end_time = time.time()
+    print(f"\nTime: {end_time - ini_time}s.")
+    '''
     model.UseCalculatedPositions(SetLinesToUserSpecifiedStartingShape=True)
     vcm.Connection = "Fixed"
 
