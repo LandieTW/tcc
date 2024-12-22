@@ -50,7 +50,6 @@ structural_limits = info[4]
 this_path = os.path.dirname(os.path.abspath(__file__))
 file_path = os.path.join(this_path, rt_number)
 file = rt_number + '.dat'
-# file = 'Dynamic\\' + 'RT 2604 - heave_1.5m.sim'
 executable = os.path.join(file_path, file)
 model = OrcFxAPI.Model(executable)
 
@@ -80,14 +79,10 @@ model_stiffness_line = model["Stiffness1"]
 model_stiffness_bend_restrictor = model["Stiffness2"]
 
 a_r = model['A/R']
-if object_line.length != object_line.lda:
-    model_general.StaticsMinDamping = 4 * statics_min_damping
-    model_general.StaticsMaxDamping = 4 * statics_max_damping
-    model_general.StaticsMaxIterations = 3 * statics_max_iterations
 
 # xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
-print("\nRunning without bend_restrictor")
+print("\n>>>>>>>>\nRunning without bend_restrictor")
 
 model_line_type.NumberOfAttachments = 0
 
@@ -95,11 +90,14 @@ ini_time = time.time()
 sim_run.previous_run_static(model, model_general, model_line_type, model_vcm, object_line, object_vcm, ini_time)
 sim_run.user_specified(model, rt_number, file_path)
 
-model_general.StaticsMinDamping = statics_min_damping
-model_general.StaticsMaxDamping = statics_max_damping
-model_general.StaticsMaxIterations = statics_max_iterations
+if model_general.StaticsMinDamping != statics_min_damping:
+    model_general.StaticsMinDamping = statics_min_damping
+    model_general.StaticsMaxDamping = statics_max_damping
+    model_general.StaticsMaxIterations = statics_max_iterations
+if model_environment.SeabedNormalStiffness != 100:
+    model_environment.SeabedNormalStiffness = 100
 
-print("\nRunning with bend_restrictor")
+print("\n>>>>>>>>\nRunning with bend_restrictor")
 
 model_line_type.NumberOfAttachments = 1
 model_line_type.AttachmentType[0] = "Vert"
@@ -129,16 +127,19 @@ ini_time = time.time()
 sim_run.previous_run_static(model, model_general, model_line_type, model_vcm, object_line, object_vcm, ini_time)
 sim_run.user_specified(model, rt_number, file_path)
 
-model_general.StaticsMinDamping = statics_min_damping
-model_general.StaticsMaxDamping = statics_max_damping
-model_general.StaticsMaxIterations = statics_max_iterations
+if model_general.StaticsMinDamping != statics_min_damping:
+    model_general.StaticsMinDamping = statics_min_damping
+    model_general.StaticsMaxDamping = statics_max_damping
+    model_general.StaticsMaxIterations = statics_max_iterations
+if model_environment.SeabedNormalStiffness != 100:
+    model_environment.SeabedNormalStiffness = 100
 
-print("\nRunning with buoys")
+print("\n>>>>>>>>\nRunning with buoys")
 
 buoy_combination = sim_run.buoy_combination(buoy_set)
 selection = {}
 
-print("\nPartially adding buoyancy")
+print("\n>>>>>>>>\nPartially adding buoyancy")
 k = 1
 while k <= 5:
     rl_config_fract = [rl_config[0], [round(k * x / 5, 0) for x in rl_config[1]]]
@@ -146,7 +147,7 @@ while k <= 5:
     treated_buoys = sim_run.buoyancy_treatment(rl_config_fract, selection)
     num_buoys = sim_run.number_buoys(treated_buoys)
     sim_run.input_buoyancy(model_line_type, num_buoys, treated_buoys, vessel)
-    print(f"\nPartial buoyancy: {rl_config_fract[1]}")
+    print(f"\n>>>>>>>>\nPartial buoyancy: {rl_config_fract[1]}")
     ini_time = time.time()
     sim_run.previous_run_static(model, model_general, model_line_type, model_vcm, object_line, object_vcm, ini_time)
     sim_run.user_specified(model, rt_number, file_path)
@@ -155,6 +156,8 @@ while k <= 5:
         model_general.StaticsMinDamping = statics_min_damping
         model_general.StaticsMaxDamping = statics_max_damping
         model_general.StaticsMaxIterations = statics_max_iterations
+    if model_environment.SeabedNormalStiffness != 100:
+        model_environment.SeabedNormalStiffness = 100
         
     k += 1
 
@@ -164,15 +167,15 @@ if rl_config != rl_config_fract:
 static_dir = os.path.join(file_path, "Static")
 os.makedirs(static_dir, exist_ok=True)
 
-print("\nAutomation's start.")
+print("\n>>>>>>>>\nAutomation's start.")
 sim_run.looping(model_line_type, selection, model, stiffener_type, rt_number, vessel, rl_config, buoy_set, model_vcm, object_line, object_bend_restrictor, object_vcm, model_winch, model_general, 
                 model_environment, file_path, structural_limits, a_r, static_dir)
 
 static_end_time = time.time()
 exec_static_time = static_end_time - start_time
 
-print(f"\n Static automation's end."
-      f"\n Execution time: {exec_static_time:.2f}s")
+print(f"\n>>>>>>>>\nStatic automation's end."
+      f"\n>>>>>>>>\nExecution time: {exec_static_time:.2f}s")
 
 sys.stdout = original_stdout
 captured_text = buffer.getvalue()
@@ -184,7 +187,7 @@ with open(results_path, "w", encoding="utf-8") as file:
 
 # xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
-print(f"\n Starting dynamics...")
+print(f"\n>>>>>>>>\nStarting dynamics...")
 
 original_stdout = sys.stdout
 buffer = StringIO()
@@ -203,8 +206,8 @@ for heave in heave_up:
 dynamic_end_time = time.time()
 exec_dynamic_time = dynamic_end_time - static_end_time
 
-print(f"\n Dynamic automation's end."
-      f"\n Execution time: {exec_dynamic_time:.2f}s")
+print(f"\n>>>>>>>>\nDynamic automation's end."
+      f"\n>>>>>>>>\nExecution time: {exec_dynamic_time:.2f}s")
 
 sys.stdout = original_stdout
 captured_text = buffer.getvalue()
@@ -216,7 +219,7 @@ with open(results_path, "w", encoding="utf-8") as file:
 
 # xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
-print(f"\n Starting Contingencies...")
+print(f"\n>>>>>>>>\nStarting Contingencies...")
 
 original_stdout = sys.stdout
 buffer = StringIO()
@@ -231,8 +234,8 @@ sim_run.contingencies(model, model_line_type, stiffener_type, object_bend_restri
 cont_end_time = time.time()
 exec_cont_time = cont_end_time - dynamic_end_time
 
-print(f"\n Contingencies automation's end."
-    f"\n Execution time: {exec_cont_time:.2f}s")
+print(f"\n>>>>>>>>\nContingencies automation's end."
+      f"\n>>>>>>>>\nExecution time: {exec_cont_time:.2f}s")
 
 sys.stdout = original_stdout
 captured_text = buffer.getvalue()
