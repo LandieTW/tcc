@@ -91,7 +91,8 @@ print("\nRunning without bend_restrictor")
 
 model_line_type.NumberOfAttachments = 0
 
-sim_run.previous_run_static(model, model_general, model_line_type, model_vcm, object_line, object_vcm)
+ini_time = time.time()
+sim_run.previous_run_static(model, model_general, model_line_type, model_vcm, object_line, object_vcm, ini_time)
 sim_run.user_specified(model, rt_number, file_path)
 
 model_general.StaticsMinDamping = statics_min_damping
@@ -124,7 +125,8 @@ else:
 model_line_type.Attachmentz[0] = bend_restrictor_ini_position
 model_line_type.AttachmentzRelativeTo[0] = "End B"
 
-sim_run.previous_run_static(model, model_general, model_line_type, model_vcm, object_line, object_vcm)
+ini_time = time.time()
+sim_run.previous_run_static(model, model_general, model_line_type, model_vcm, object_line, object_vcm, ini_time)
 sim_run.user_specified(model, rt_number, file_path)
 
 model_general.StaticsMinDamping = statics_min_damping
@@ -145,7 +147,8 @@ while k <= 5:
     num_buoys = sim_run.number_buoys(treated_buoys)
     sim_run.input_buoyancy(model_line_type, num_buoys, treated_buoys, vessel)
     print(f"\nPartial buoyancy: {rl_config_fract[1]}")
-    sim_run.previous_run_static(model, model_general, model_line_type, model_vcm, object_line, object_vcm)
+    ini_time = time.time()
+    sim_run.previous_run_static(model, model_general, model_line_type, model_vcm, object_line, object_vcm, ini_time)
     sim_run.user_specified(model, rt_number, file_path)
 
     if model_general.StaticsMinDamping != statics_min_damping:
