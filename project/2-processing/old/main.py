@@ -22,6 +22,8 @@ statics_min_damping = 5
 statics_max_damping = 15
 'VCM displace - when trying to adjust the model convergence'
 vcm_delta_x = 20
+'Heave up heights'
+heave_up = [2.5, 2.0, 1.8, 1.5]
 
 class DualOutput:
     def __init__(self, original_stdout, buffer):
@@ -89,7 +91,8 @@ print("\nRunning without bend_restrictor")
 
 model_line_type.NumberOfAttachments = 0
 
-sim_run.previous_run_static(model, model_general, model_line_type, model_vcm, object_line, object_vcm)
+ini_time = time.time()
+sim_run.previous_run_static(model, model_general, model_line_type, model_vcm, object_line, object_vcm, ini_time)
 sim_run.user_specified(model, rt_number, file_path)
 
 model_general.StaticsMinDamping = statics_min_damping
@@ -122,7 +125,8 @@ else:
 model_line_type.Attachmentz[0] = bend_restrictor_ini_position
 model_line_type.AttachmentzRelativeTo[0] = "End B"
 
-sim_run.previous_run_static(model, model_general, model_line_type, model_vcm, object_line, object_vcm)
+ini_time = time.time()
+sim_run.previous_run_static(model, model_general, model_line_type, model_vcm, object_line, object_vcm, ini_time)
 sim_run.user_specified(model, rt_number, file_path)
 
 model_general.StaticsMinDamping = statics_min_damping
@@ -143,7 +147,8 @@ while k <= 5:
     num_buoys = sim_run.number_buoys(treated_buoys)
     sim_run.input_buoyancy(model_line_type, num_buoys, treated_buoys, vessel)
     print(f"\nPartial buoyancy: {rl_config_fract[1]}")
-    sim_run.previous_run_static(model, model_general, model_line_type, model_vcm, object_line, object_vcm)
+    ini_time = time.time()
+    sim_run.previous_run_static(model, model_general, model_line_type, model_vcm, object_line, object_vcm, ini_time)
     sim_run.user_specified(model, rt_number, file_path)
 
     if model_general.StaticsMinDamping != statics_min_damping:
@@ -156,12 +161,12 @@ while k <= 5:
 if rl_config != rl_config_fract:
     rl_config = rl_config_fract
 
-print("\nAutomation's start.")
-value = sim_run.looping(model_line_type, selection, model, stiffener_type, rt_number, vessel, rl_config, buoy_set, model_vcm, object_line, object_bend_restrictor, object_vcm, model_winch, model_general, model_environment, file_path, 
-                structural_limits, a_r)
+static_dir = os.path.join(file_path, "Static")
+os.makedirs(static_dir, exist_ok=True)
 
-# zerar a rigidez do solo p/ facilitar a convergência
-model_environment.SeabedNormalStiffness = 100
+print("\nAutomation's start.")
+sim_run.looping(model_line_type, selection, model, stiffener_type, rt_number, vessel, rl_config, buoy_set, model_vcm, object_line, object_bend_restrictor, object_vcm, model_winch, model_general, 
+                model_environment, file_path, structural_limits, a_r, static_dir)
 
 static_end_time = time.time()
 exec_static_time = static_end_time - start_time
@@ -189,7 +194,11 @@ dyn_dir = "Dynamic"
 dyn_path = os.path.join(file_path, dyn_dir)
 os.makedirs(dyn_path, exist_ok=True)
 
-dyn_result = sim_run.dynamic_simulation(model, model_line_type, model_vcm, stiffener_type, object_bend_restrictor, a_r, dyn_path, structural_limits, rt_number)
+for heave in heave_up:
+    dyn_result = sim_run.dynamic_simulation(model, model_line_type, stiffener_type, object_bend_restrictor, a_r, dyn_path, structural_limits, rt_number, heave, model_vcm, model_general)
+    
+    if dyn_result:
+        break
 
 dynamic_end_time = time.time()
 exec_dynamic_time = dynamic_end_time - static_end_time

@@ -1,0 +1,115 @@
+
+Running dynamics for heave up in 2.5m
+
+For heave period...
+
+        Normal force in flange's gooseneck: 7.228kN (Limit: 5.7kN)
+        Shear force in flange's gooseneck: 14.376kN (Limit: -8.16kN)
+        Bend moment in flange's gooseneck: 39.869kN.m (Limit: 8.96kN.m)
+
+Flange loads reprooved!
+
+For transition period...
+
+        Normal force in flange's gooseneck: 7.228kN (Limit: 5.66kN)
+        Shear force in flange's gooseneck: 14.376kN (Limit: -4.1kN)
+        Bend moment in flange's gooseneck: 39.869kN.m (Limit: 31.43kN.m)
+
+Flange loads reprooved!
+
+For TDP period...
+
+        Normal force in flange's gooseneck: 7.228kN (Limit: 6.59kN)
+        Shear force in flange's gooseneck: 14.376kN (Limit: -11.66kN)
+        Bend moment in flange's gooseneck: 39.869kN.m (Limit: -44.93kN.m)
+
+Flange loads reprooved!
+
+For 2.5m, loads are not admissible.
+
+Running dynamics for heave up in 2.0m
+
+For heave period...
+
+        Normal force in flange's gooseneck: 6.605kN (Limit: 5.7kN)
+        Shear force in flange's gooseneck: 12.795kN (Limit: -8.16kN)
+        Bend moment in flange's gooseneck: 38.854kN.m (Limit: 8.96kN.m)
+
+Flange loads reprooved!
+
+For transition period...
+
+        Normal force in flange's gooseneck: 6.605kN (Limit: 5.66kN)
+        Shear force in flange's gooseneck: 12.795kN (Limit: -4.1kN)
+        Bend moment in flange's gooseneck: 38.854kN.m (Limit: 31.43kN.m)
+
+Flange loads reprooved!
+
+For TDP period...
+
+        Normal force in flange's gooseneck: 6.605kN (Limit: 6.59kN)
+        Shear force in flange's gooseneck: 12.795kN (Limit: -11.66kN)
+        Bend moment in flange's gooseneck: 38.854kN.m (Limit: -44.93kN.m)
+
+Flange loads reprooved!
+
+For 2.0m, loads are not admissible.
+
+Running dynamics for heave up in 1.8m
+
+For heave period...
+
+        Normal force in flange's gooseneck: 6.377kN (Limit: 5.7kN)
+        Shear force in flange's gooseneck: 12.181kN (Limit: -8.16kN)
+        Bend moment in flange's gooseneck: 38.079kN.m (Limit: 8.96kN.m)
+
+Flange loads reprooved!
+
+For transition period...
+
+        Normal force in flange's gooseneck: 6.377kN (Limit: 5.66kN)
+        Shear force in flange's gooseneck: 12.181kN (Limit: -4.1kN)
+        Bend moment in flange's gooseneck: 38.079kN.m (Limit: 31.43kN.m)
+
+Flange loads reprooved!
+
+For TDP period...
+
+        Normal force in flange's gooseneck: 6.377kN (Limit: 6.59kN)
+        Shear force in flange's gooseneck: 12.181kN (Limit: -11.66kN)
+        Bend moment in flange's gooseneck: 38.079kN.m (Limit: -44.93kN.m)
+
+Flange loads reprooved!
+
+For 1.8m, loads are not admissible.
+
+Running dynamics for heave up in 1.5m
+
+For heave period...
+
+        Normal force in flange's gooseneck: 6.047kN (Limit: 5.7kN)
+        Shear force in flange's gooseneck: 11.245kN (Limit: -8.16kN)
+        Bend moment in flange's gooseneck: 35.947kN.m (Limit: 8.96kN.m)
+
+Flange loads reprooved!
+
+For transition period...
+
+        Normal force in flange's gooseneck: 6.047kN (Limit: 5.66kN)
+        Shear force in flange's gooseneck: 11.245kN (Limit: -4.1kN)
+        Bend moment in flange's gooseneck: 35.947kN.m (Limit: 31.43kN.m)
+
+Flange loads reprooved!
+
+For TDP period...
+
+        Normal force in flange's gooseneck: 6.047kN (Limit: 6.59kN)
+        Shear force in flange's gooseneck: 11.245kN (Limit: -11.66kN)
+        Bend moment in flange's gooseneck: 35.947kN.m (Limit: -44.93kN.m)
+
+Flange loads aprooved!
+
+For 1.5m, loads are admissible.
+
+ Dynamic automation's end.
+ Execution time: 973.80s
