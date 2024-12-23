@@ -1,0 +1,32 @@
+1
+	Englobar CVD com umbilicais
+
+2
+	No script  sim_run.py...
+	No método buoyancy, ajustar para que, a cada escolha de conjunto de boias, se exclua as boias
+	da formação do dict comb_keys... assim, é garantido que serão respeitadas as quantidades de boias
+	que cada embarcação possui.
+
+3
+	No script main_run.py...
+	Ajustar as adições incrementais iniciais de empuxo (linhas 142 a 162), para considerar a colocação 
+	de 1 boias por vez. (Ainda que parcelando em 5x a quantidade de empuxo, a colocação de mais de 1 
+	boia de uma só vez já representa um incremento muito grande de empuxo. Sendo necessário parcelar o 
+	empuxo, mas também a quantidade de boias por vez)
+
+4
+	No script sim_run.py...
+	No método error correction, estudar formas de ou selecionar melhor a solução que da falha do método
+	CalculateStatics() ou novas formas a serem adotadas para solucionar a falha.
+
+5
+	Verificar a possibilidade/necessidade de ajuste no código para criar uma zona ao redor do final da
+	vértebra para não colocação de flutuadores
+
+6
+	Verificar uma forma de contornar problemas como esforços inadimissíveis na vértebra na solução encontrada
+	pelo método looping(), do script sim_run.py
+
+7
+	Englobar a instalação de Pesos mortos e anodos
+	(Englobando CVD sem vértebra)
