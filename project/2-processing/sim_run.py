@@ -686,6 +686,9 @@ def looping(model_line_type: OrcFxAPI.OrcaFlexObject, selection: dict, model: Or
 
     if delta_flange != delta_flange_error_limit:
 
+        if delta_flange > .1:
+            looping_results.clear()
+
         flange_height_correction(winch, delta_flange)  # correct VCM's height
 
         general.StaticsMinDamping = 5 * statics_min_damping
@@ -1299,7 +1302,7 @@ def contingencies(model: OrcFxAPI.Model, line: OrcFxAPI.OrcaFlexObject, bend_res
             else:
                 line.Attachmentz[n] = positions[0] + k + 1
             
-            if positions[0] + k + 1 > 6:
+            if positions[0] + k + 1 > 7:
                 print(f"\nWasn't possible to find a solution.")
                 break  # loops give up
 
@@ -1314,7 +1317,7 @@ def contingencies(model: OrcFxAPI.Model, line: OrcFxAPI.OrcaFlexObject, bend_res
             else:
                 line.Attachmentz[n] = positions[1] + k - 1
             
-            if positions[1] + k - 1 > 9:
+            if positions[1] + k - 1 > 10:
                 print(f"\nWasn't possible to find a solution.")
                 break  # loops give up
 
@@ -1331,7 +1334,7 @@ def contingencies(model: OrcFxAPI.Model, line: OrcFxAPI.OrcaFlexObject, bend_res
             else:
                 line.Attachmentz[n] = positions[2] + k - 3
             
-            if positions[2] + k - 3 > 12:
+            if positions[2] + k - 3 > 13:
                 print(f"\nWasn't possible to find a solution.")
                 break  # loops give up
 
@@ -1365,8 +1368,13 @@ def contingencies(model: OrcFxAPI.Model, line: OrcFxAPI.OrcaFlexObject, bend_res
             line_clearance = enumerate(line.RangeGraph("Seabed clearance").Mean)
             line_tdp = [arc_length for arc_length, clearance in line_clearance if clearance < 0]  # line TDP arclength
             
-            while len(line_tdp) < 3/.2 and work:  # we want, at least, 3m of TDP arclength (in a line region where segmentation is equal 20cm)
-                payout_line(line, payout_retrieve_pace_max, object_line, a_r)  # payout 50cm
+            # we want, at least, 3m and, at maximum, 5m of TDP arclength (in a line region where segmentation is equal 20cm)
+            while len(line_tdp) < 3/.2 and len(line_tdp) > 5/ .2 and work:
+
+                if len(line_tdp) < 3/.2:
+                    payout_line(line, payout_retrieve_pace_max, object_line, a_r)  # payout 50cm
+                elif len(line_tdp) > 5/ .2:
+                    payout_line(line, - payout_retrieve_pace_max, object_line, a_r)  # retrieve 50cm
                 
                 if work:
                     try:
@@ -1375,23 +1383,6 @@ def contingencies(model: OrcFxAPI.Model, line: OrcFxAPI.OrcaFlexObject, bend_res
                     except Exception:
                         work = False
 
-                if not work:
-                    work = True
-
-                model.CalculateStatics()
-                line_clearance = enumerate(line.RangeGraph("Seabed clearance").Mean)
-                line_tdp = [arc_length for arc_length, clearance in line_clearance if clearance < 0]  # line TDP arclength
-            
-            while len(line_tdp) > 5/ .2 and work: # we want, at maximum, 5m of TDP arclength (in a line region where segmentation is equal 20cm)
-                payout_line(line, - payout_retrieve_pace_max, object_line, a_r)  # retrieve 50cm
-                
-                if work:
-                    try:
-                        model.CalculateStatics()
-                    except Exception:
-                        work = False
-
-                model.UseCalculatedPositions(SetLinesToUserSpecifiedStartingShape=True)
                 if not work:
                     work = True
 
