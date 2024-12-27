@@ -484,7 +484,22 @@ with tab6:
     col1, col2, col3, col4, col5, col6 = st.columns(6)
     with col1:
         rt_number = st.text_input("RT+Number")
-        vessel = st.selectbox("67. Vessel", ["CDA", "SKA", "SKB", "SKN", "SKR", "SKO", "SKV"])
+        vessel_list = ["CDA", "SKA", "SKB", "SKN", "SKR", "SKO", "SKV"]
+        vessel = st.selectbox("67. Vessel", ["Vessel_1", "Vessel_2", "Vessel_3", "Vessel_4", "Vessel_5", "Vessel_6", "Vessel_7"])
+        if vessel == 'Vessel_1':
+            vessel = vessel_list[0]
+        elif vessel == "Vessel_2":
+            vessel = vessel_list[1]
+        elif vessel == "Vessel_3":
+            vessel = vessel_list[2]
+        elif vessel == "Vessel_4":
+            vessel = vessel_list[3]
+        elif vessel == "Vessel_5":
+            vessel = vessel_list[4]
+        elif vessel == "Vessel_6":
+            vessel = vessel_list[5]
+        elif vessel == "Vessel_7":
+            vessel = vessel_list[6]
         if vessel:
             data4 = buoys_set(vessel)
             grid_options4 = creating_table(data4, "Quantity", "Buoy [kg]")
@@ -498,20 +513,15 @@ with tab6:
         shear_2 = st_number_input("69. Shear [kN]")
         bend_moment_2 = st_number_input("70. Bend Moment [kN.m]")
     with col4:
-        st.write("Case 3 - Connection (VCM x HUB)")
-        normal_3 = st_number_input("71. Normal [kN]")
-        shear_3 = st_number_input("72. Shear [kN]")
-        bend_moment_3 = st_number_input("73. Bend Moment [kN.m]")
-    with col5:
         st.write("Case 3(i) - Heave up")
-        normal_3i = st_number_input("74. Normal [kN]")
-        shear_3i = st_number_input("75. Shear [kN]")
-        bend_moment_3i = st_number_input("76. Bend Moment [kN.m]")
+        normal_3i = st_number_input("71. Normal [kN]")
+        shear_3i = st_number_input("72. Shear [kN]")
+        bend_moment_3i = st_number_input("73. Bend Moment [kN.m]")
     with col5:
         st.write("Case 3(ii) - Touch Down Point")
-        normal_3ii = st_number_input("77. Normal [kN]")
-        shear_3ii = st_number_input("78. Shear [kN]")
-        bend_moment_3ii = st_number_input("79. Bend Moment [kN.m]")
+        normal_3ii = st_number_input("74. Normal [kN]")
+        shear_3ii = st_number_input("75. Shear [kN]")
+        bend_moment_3ii = st_number_input("76. Bend Moment [kN.m]")
 
 
 with tab7:
@@ -652,7 +662,6 @@ with tab7:
                 st.write("Report's Structural Limits")
                 structural_limits = {
                     "2": [normal_2, shear_2, bend_moment_2],
-                    "3": [normal_3, shear_3, bend_moment_3],
                     "3i": [normal_3i, shear_3i, bend_moment_3i],
                     "3ii": [normal_3ii, shear_3ii, bend_moment_3ii]
                 }
