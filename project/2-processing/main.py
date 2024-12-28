@@ -61,8 +61,6 @@ object_line = object_elements[0]
 model_line = model[object_line.name]
 model_line_type = model["Line"]
 
-n_sections = len(model_line_type.TargetSegmentLength)
-
 object_bend_restrictor = object_elements[1]
 model_bend_restrictor = model[object_bend_restrictor.name]
 stiffener_type = model["Stiffener1"]

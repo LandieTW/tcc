@@ -140,8 +140,8 @@ def cg_olhal_flange(cote_1, cote_2):
     return round(cote_1 / 1_000 + cote_2 / 1_000, 3)
 
 class Line:
-    def __init__(self, name, length, empty_air_weight, filled_air_weight, empty_water_weight, filled_water_weight, water_depth, contact_diameter, nominal_diameter, mbr_storage,
-                 mbr_installation, b_stiffness, t_stiffness, a_stiffness, relative_elongation, s_curve):
+    def __init__(self, name, length, empty_air_weight, filled_air_weight, empty_water_weight, filled_water_weight, water_depth, contact_diameter, nominal_diameter, mbr_storage, mbr_installation, b_stiffness, 
+                 t_stiffness, a_stiffness, relative_elongation, s_curve):
         self.name = name  #
         self.length = length
         self.eaw = round(empty_air_weight / 1_000, 3)  #
@@ -227,25 +227,24 @@ class Vcm:
         self.flange_fx = cg_olhal_flange(.0, self.g)
         self.hts = - round((lda - ((self.a - self.f) / 1_000)), 3)
 
-line = Line( data[0]["ident_line"], data[0]["line_length"], data[0]["wt_air_line"], data[0]["sw_filled_air_line"], data[0]["air_filled_sw_line"], data[0]["sw_filled_sw_line"],
-            data[0]["water_depth"], data[0]["contact_diameter_line"], data[0]["nominal_diameter_line"], data[0]["mbr_storage_line [m]"], data[0]["mbr_installation_line"],
-            data[0]["bending_stiffness_line"], data[0]["torsional_stiffness_line"], data[0]["axial_stiffness_line"], data[0]["rel_elong_line"], data[1])
+line = Line(data[0]["ident_line"], data[0]["line_length"], data[0]["wt_air_line"], data[0]["sw_filled_air_line"], data[0]["air_filled_sw_line"], data[0]["sw_filled_sw_line"], data[0]["water_depth"], 
+            data[0]["contact_diameter_line"], data[0]["nominal_diameter_line"], data[0]["mbr_storage_line [m]"], data[0]["mbr_installation_line"], data[0]["bending_stiffness_line"], 
+            data[0]["torsional_stiffness_line"], data[0]["axial_stiffness_line"], data[0]["rel_elong_line"], data[1])
 
 stiffness_curve_bend_restrictor = [[.0, round(1 / data[2]["locking_mbr_bend_restrictor"], 4), round(1 + 1 / data[2]["locking_mbr_bend_restrictor"], 4)],
                                    [.0, .01, bend_moment_limit(data[2]["type_bend_restrictor"], data[2]["od_bend_restrictor"], data[2]["id_bend_restrictor"])]]
 
-bend_restrictor = BendRestrictor(data[2]["ident_bend_restrictor"], data[2]["version_bend_restrictor"], data[2]["type_bend_restrictor"], data[2]["length_bend_restrictor"],
-                                 data[2]["wt_air_bend_restrictor"], data[2]["wt_sw_bend_restrictor"], data[2]["od_bend_restrictor"], data[2]["id_bend_restrictor"], 
-                                 data[2]["contact_diameter_bend_restrictor"], data[2]["locking_mbr_bend_restrictor"], data[2]["bend_moment_bend_restrictor"], 
-                                 data[2]["shear_stress_bend_restrictor"], stiffness_curve_bend_restrictor)
+bend_restrictor = BendRestrictor(data[2]["ident_bend_restrictor"], data[2]["version_bend_restrictor"], data[2]["type_bend_restrictor"], data[2]["length_bend_restrictor"], data[2]["wt_air_bend_restrictor"], 
+                                 data[2]["wt_sw_bend_restrictor"], data[2]["od_bend_restrictor"], data[2]["id_bend_restrictor"], data[2]["contact_diameter_bend_restrictor"], data[2]["locking_mbr_bend_restrictor"], 
+                                 data[2]["bend_moment_bend_restrictor"], data[2]["shear_stress_bend_restrictor"], stiffness_curve_bend_restrictor)
 
-end_fitting = Accessory(data[3]["ident_end_fitting"], data[3]["version_end_fitting"], data[3]["wt_air_end_fitting"], data[3]["wt_sw_end_fitting"], data[3]["length_end_fitting"], 
-                        data[3]["od_end_fitting"], data[3]["id_end_fitting"], data[3]["contact_diameter_end_fitting"], data[2]["locking_mbr_bend_restrictor"])
+end_fitting = Accessory(data[3]["ident_end_fitting"], data[3]["version_end_fitting"], data[3]["wt_air_end_fitting"], data[3]["wt_sw_end_fitting"], data[3]["length_end_fitting"], data[3]["od_end_fitting"], 
+                        data[3]["id_end_fitting"], data[3]["contact_diameter_end_fitting"], data[2]["locking_mbr_bend_restrictor"])
 
 vcm_geometry = [data[5]["a_vcm"], data[5]["b_vcm"], data[5]["c_vcm"], data[5]["d_vcm"], data[5]["e_vcm"], data[5]["f_vcm"], data[5]["g_vcm"], data[5]["h_vcm"]]
 
-vcm = Vcm(data[5]["subsea_equipment"], data[5]["version_vcm"], data[5]["supplier_vcm"], data[5]["drawing_vcm"], data[5]["subsea_equipment_type"], data[5]["wt_sw_vcm"], 
-          data[5]["declination"], vcm_geometry, data[0]["water_depth"])
+vcm = Vcm(data[5]["subsea_equipment"], data[5]["version_vcm"], data[5]["supplier_vcm"], data[5]["drawing_vcm"], data[5]["subsea_equipment_type"], data[5]["wt_sw_vcm"], data[5]["declination"], 
+          vcm_geometry, data[0]["water_depth"])
 
 olhal_height = (data[5]["b_vcm"] + data[5]["a_vcm"]) / 1_000
 
