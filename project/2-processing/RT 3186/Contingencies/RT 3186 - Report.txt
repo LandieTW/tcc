@@ -1,0 +1,47 @@
+__________________________________________________________________
+________1st tentative for 1st Contingency_______
+__________________________________________________________________
+
+For transition period...
+
+        Normal force in flange's gooseneck: 5.009kN (Limit: 8.5kN)
+        Shear force in flange's gooseneck: 8.983kN (Limit: -11.35kN)
+        Bend moment in flange's gooseneck: 110.922kN.m (Limit: 126.14kN.m)
+
+Flange loads aprooved!
+
+For TDP period...
+
+        Normal force in flange's gooseneck: 5.009kN (Limit: 15.15kN)
+        Shear force in flange's gooseneck: 8.983kN (Limit: -29.45kN)
+        Bend moment in flange's gooseneck: 110.922kN.m (Limit: -149.18kN.m)
+
+Flange loads aprooved!
+
+Case 1: Contingency - 2000.0kg in 4.0m to the VCM
+__________________________________________________________________
+________2st tentative for 2st Contingency_______
+__________________________________________________________________
+
+For transition period...
+
+        Normal force in flange's gooseneck: 5.57kN (Limit: 8.5kN)
+        Shear force in flange's gooseneck: 10.264kN (Limit: -11.35kN)
+        Bend moment in flange's gooseneck: 138.118kN.m (Limit: 126.14kN.m)
+
+Flange loads reprooved!
+
+For TDP period...
+
+        Normal force in flange's gooseneck: 5.57kN (Limit: 15.15kN)
+        Shear force in flange's gooseneck: 10.264kN (Limit: -29.45kN)
+        Bend moment in flange's gooseneck: 138.118kN.m (Limit: -149.18kN.m)
+
+Flange loads aprooved!
+
+Case 2: Contingency - 2000.0kg in 7.0m to the VCM
+
+>>>>>>>>
+Contingencies automation's end.
+>>>>>>>>
+Execution time: 5.53s

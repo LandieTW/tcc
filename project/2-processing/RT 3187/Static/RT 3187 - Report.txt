@@ -1,0 +1,1417 @@
+
+>>>>>>>>
+Running without bend_restrictor
+
+ERROR
+Increasing 5 times the Static Damping Range
+
+ERROR
+Removing interation between line and seabed
+
+ERROR
+Changing Line's Static policy to Catenary.
+
+ERROR
+Displacing VCM
+
+Time: 265.4642970561981s
+
+>>>>>>>>
+Running with bend_restrictor
+
+Time: 4.070673942565918s
+
+>>>>>>>>
+Line's in contact with seabed
+
+>>>>>>>>
+Running with buoys
+
+>>>>>>>>
+Partially adding buoyancy
+
+>>>>>>>>
+Partial buoyancy: [400.0, 140.0]
+
+Time: 6.069471120834351s
+
+>>>>>>>>
+Partial buoyancy: [800.0, 280.0]
+
+Time: 3.562439203262329s
+
+>>>>>>>>
+Partial buoyancy: [1200.0, 420.0]
+
+Time: 4.3598692417144775s
+
+>>>>>>>>
+Partial buoyancy: [1600.0, 560.0]
+
+Time: 4.3125128746032715s
+
+>>>>>>>>
+Partial buoyancy: [2000.0, 700.0]
+
+Time: 4.453371524810791s
+
+>>>>>>>>
+Automation's start.
+
+>>>>>>>>
+Paying out 0.5m of A/R,
+from 1252.0 to 1252.5
+
+>>>>>>>>
+Time: 4.198184013366699s.
+
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+
+>>>>>>>>
+Running 1th time.
+Results
+    VCM Rotation: -1.368°.
+    Line Clearance: 0.344m.
+    Flange Height error: 0.358m.
+
+        Normal force in flange's gooseneck: 12.4kN (Limit: 12.34kN)
+        Shear force in flange's gooseneck: 23.064kN  (Limit: -21.6kN)
+        Bend moment in flange's gooseneck: 44.881kN.m (Limit: 40.47kN)
+
+Flange loads reprooved!
+
+>>>>>>>>
+Retrieving out 0.2m of A/R,
+from 1252.5 to 1252.3
+
+>>>>>>>>
+Time: 3.903444290161133s.
+
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+Results
+    VCM Rotation: -1.739°.
+    Line Clearance: 0.403m.
+    Flange Height error: 0.347m.
+
+        Normal force in flange's gooseneck: 12.217kN (Limit: 12.34kN)
+        Shear force in flange's gooseneck: 23.077kN  (Limit: -21.6kN)
+        Bend moment in flange's gooseneck: 45.427kN.m (Limit: 40.47kN)
+
+Flange loads reprooved!
+
+>>>>>>>>
+Retrieving out 0.2m of A/R,
+from 1252.3 to 1252.1
+
+>>>>>>>>
+Time: 3.7029576301574707s.
+
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+Results
+    VCM Rotation: -2.113°.
+    Line Clearance: 0.523m.
+    Flange Height error: 0.336m.
+
+        Normal force in flange's gooseneck: 12.033kN (Limit: 12.34kN)
+        Shear force in flange's gooseneck: 23.09kN  (Limit: -21.6kN)
+        Bend moment in flange's gooseneck: 45.975kN.m (Limit: 40.47kN)
+
+Flange loads reprooved!
+Changing 1st buoyancy reference, 2000.0kg, in -50kg
+
+>>>>>>>>
+Changing the selection of buoys
+Old selection: ['1508+385', '385'] = Total buoyancy: [1893.0, 385.0]
+New selection: ['1508+385', '385'] = Total buoyancy: [1893.0, 385.0]
+
+>>>>>>>>
+Time: 0.2653656005859375s.
+
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+Results
+    VCM Rotation: -2.113°.
+    Line Clearance: 0.542m.
+    Flange Height error: 0.336m.
+
+        Normal force in flange's gooseneck: 12.033kN (Limit: 12.34kN)
+        Shear force in flange's gooseneck: 23.09kN  (Limit: -21.6kN)
+        Bend moment in flange's gooseneck: 45.975kN.m (Limit: 40.47kN)
+
+Flange loads reprooved!
+Changing 1st buoyancy reference, 1950.0kg, in -50kg
+
+>>>>>>>>
+Changing the selection of buoys
+Old selection: ['1508+385', '385'] = Total buoyancy: [1893.0, 385.0]
+New selection: ['1508+385', '385'] = Total buoyancy: [1893.0, 385.0]
+
+>>>>>>>>
+Time: 0.24984431266784668s.
+
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+Results
+    VCM Rotation: -2.113°.
+    Line Clearance: 0.542m.
+    Flange Height error: 0.336m.
+
+        Normal force in flange's gooseneck: 12.033kN (Limit: 12.34kN)
+        Shear force in flange's gooseneck: 23.09kN  (Limit: -21.6kN)
+        Bend moment in flange's gooseneck: 45.975kN.m (Limit: 40.47kN)
+
+Flange loads reprooved!
+Changing 1st buoyancy reference, 1900.0kg, in -50kg
+
+>>>>>>>>
+Changing the selection of buoys
+Old selection: ['1508+385', '385'] = Total buoyancy: [1893.0, 385.0]
+New selection: ['1451+385', '385'] = Total buoyancy: [1836.0, 385.0]
+
+>>>>>>>>
+Time: 3.588440179824829s.
+
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+
+>>>>>>>>
+Running 2th time.
+Results
+    VCM Rotation: -1.77°.
+    Line Clearance: 0.497m.
+    Flange Height error: 0.348m.
+
+        Normal force in flange's gooseneck: 12.399kN (Limit: 12.34kN)
+        Shear force in flange's gooseneck: 23.439kN  (Limit: -21.6kN)
+        Bend moment in flange's gooseneck: 46.148kN.m (Limit: 40.47kN)
+
+Flange loads reprooved!
+
+>>>>>>>>
+Retrieving out 0.2m of A/R,
+from 1252.1 to 1251.9
+
+>>>>>>>>
+Time: 3.985813617706299s.
+
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+Results
+    VCM Rotation: -2.144°.
+    Line Clearance: 0.612m.
+    Flange Height error: 0.337m.
+
+        Normal force in flange's gooseneck: 12.213kN (Limit: 12.34kN)
+        Shear force in flange's gooseneck: 23.452kN  (Limit: -21.6kN)
+        Bend moment in flange's gooseneck: 46.697kN.m (Limit: 40.47kN)
+
+Flange loads reprooved!
+Changing 1st buoyancy reference, 1850.0kg, in -50kg
+
+>>>>>>>>
+Changing the selection of buoys
+Old selection: ['1451+385', '385'] = Total buoyancy: [1836.0, 385.0]
+New selection: ['1320+385', '385'] = Total buoyancy: [1705.0, 385.0]
+
+>>>>>>>>
+Time: 3.603712320327759s.
+
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+
+>>>>>>>>
+Running 3th time.
+Results
+    VCM Rotation: -1.353°.
+    Line Clearance: 0.529m.
+    Flange Height error: 0.365m.
+
+        Normal force in flange's gooseneck: 13.068kN (Limit: 12.34kN)
+        Shear force in flange's gooseneck: 24.248kN  (Limit: -21.6kN)
+        Bend moment in flange's gooseneck: 47.075kN.m (Limit: 40.47kN)
+
+Flange loads reprooved!
+Changing 1st buoyancy reference, 1800.0kg, in -50kg
+
+>>>>>>>>
+Changing the selection of buoys
+Old selection: ['1320+385', '385'] = Total buoyancy: [1705.0, 385.0]
+New selection: ['1320+385', '385'] = Total buoyancy: [1705.0, 385.0]
+
+>>>>>>>>
+Time: 0.28719544410705566s.
+
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+Results
+    VCM Rotation: -1.353°.
+    Line Clearance: 0.561m.
+    Flange Height error: 0.365m.
+
+        Normal force in flange's gooseneck: 13.068kN (Limit: 12.34kN)
+        Shear force in flange's gooseneck: 24.248kN  (Limit: -21.6kN)
+        Bend moment in flange's gooseneck: 47.075kN.m (Limit: 40.47kN)
+
+Flange loads reprooved!
+Changing 1st buoyancy reference, 1750.0kg, in -50kg
+
+>>>>>>>>
+Changing the selection of buoys
+Old selection: ['1320+385', '385'] = Total buoyancy: [1705.0, 385.0]
+New selection: ['1508', '385'] = Total buoyancy: [1508.0, 385.0]
+
+>>>>>>>>
+Time: 3.7393622398376465s.
+
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+
+>>>>>>>>
+Running 4th time.
+Results
+    VCM Rotation: -0.175°.
+    Line Clearance: 0.412m.
+    Flange Height error: 0.407m.
+
+        Normal force in flange's gooseneck: 14.397kN (Limit: 12.34kN)
+        Shear force in flange's gooseneck: 25.415kN  (Limit: -21.6kN)
+        Bend moment in flange's gooseneck: 47.601kN.m (Limit: 40.47kN)
+
+Flange loads reprooved!
+
+>>>>>>>>
+Retrieving out 0.2m of A/R,
+from 1251.9 to 1251.7
+
+>>>>>>>>
+Time: 3.9635860919952393s.
+
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+Results
+    VCM Rotation: -0.544°.
+    Line Clearance: 0.56m.
+    Flange Height error: 0.396m.
+
+        Normal force in flange's gooseneck: 14.196kN (Limit: 12.34kN)
+        Shear force in flange's gooseneck: 25.437kN  (Limit: -21.6kN)
+        Bend moment in flange's gooseneck: 48.16kN.m (Limit: 40.47kN)
+
+Flange loads reprooved!
+Changing 1st buoyancy reference, 1700.0kg, in -50kg
+
+>>>>>>>>
+Changing the selection of buoys
+Old selection: ['1508', '385'] = Total buoyancy: [1508.0, 385.0]
+New selection: ['1508', '385'] = Total buoyancy: [1508.0, 385.0]
+
+>>>>>>>>
+Time: 0.22905588150024414s.
+
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+Results
+    VCM Rotation: -0.544°.
+    Line Clearance: 0.58m.
+    Flange Height error: 0.396m.
+
+        Normal force in flange's gooseneck: 14.196kN (Limit: 12.34kN)
+        Shear force in flange's gooseneck: 25.437kN  (Limit: -21.6kN)
+        Bend moment in flange's gooseneck: 48.16kN.m (Limit: 40.47kN)
+
+Flange loads reprooved!
+Changing 1st buoyancy reference, 1650.0kg, in -50kg
+
+>>>>>>>>
+Changing the selection of buoys
+Old selection: ['1508', '385'] = Total buoyancy: [1508.0, 385.0]
+New selection: ['1508', '385'] = Total buoyancy: [1508.0, 385.0]
+
+>>>>>>>>
+Time: 0.21293878555297852s.
+
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+Results
+    VCM Rotation: -0.544°.
+    Line Clearance: 0.58m.
+    Flange Height error: 0.396m.
+
+        Normal force in flange's gooseneck: 14.196kN (Limit: 12.34kN)
+        Shear force in flange's gooseneck: 25.437kN  (Limit: -21.6kN)
+        Bend moment in flange's gooseneck: 48.16kN.m (Limit: 40.47kN)
+
+Flange loads reprooved!
+Changing 1st buoyancy reference, 1600.0kg, in -50kg
+
+>>>>>>>>
+Changing the selection of buoys
+Old selection: ['1508', '385'] = Total buoyancy: [1508.0, 385.0]
+New selection: ['1508', '385'] = Total buoyancy: [1508.0, 385.0]
+
+>>>>>>>>
+Time: 0.21806931495666504s.
+
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+Results
+    VCM Rotation: -0.544°.
+    Line Clearance: 0.58m.
+    Flange Height error: 0.396m.
+
+        Normal force in flange's gooseneck: 14.196kN (Limit: 12.34kN)
+        Shear force in flange's gooseneck: 25.437kN  (Limit: -21.6kN)
+        Bend moment in flange's gooseneck: 48.16kN.m (Limit: 40.47kN)
+
+Flange loads reprooved!
+Changing 1st buoyancy reference, 1550.0kg, in -50kg
+
+>>>>>>>>
+Changing the selection of buoys
+Old selection: ['1508', '385'] = Total buoyancy: [1508.0, 385.0]
+New selection: ['760+726', '385'] = Total buoyancy: [1486.0, 385.0]
+
+>>>>>>>>
+Time: 2.9480040073394775s.
+
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+
+>>>>>>>>
+Running 5th time.
+Results
+    VCM Rotation: -0.412°.
+    Line Clearance: 0.564m.
+    Flange Height error: 0.401m.
+
+        Normal force in flange's gooseneck: 14.347kN (Limit: 12.34kN)
+        Shear force in flange's gooseneck: 25.566kN  (Limit: -21.6kN)
+        Bend moment in flange's gooseneck: 48.216kN.m (Limit: 40.47kN)
+
+Flange loads reprooved!
+
+>>>>>>>>
+Paying out 0.401m from the winch,
+from 2226.66 to 2227.06
+
+>>>>>>>>
+Time: 25.671732664108276s.
+
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+
+>>>>>>>>
+Running 6th time.
+Results
+    VCM Rotation: 0.321°.
+    Line Clearance: 0.751m.
+    Flange Height error: 0.021m.
+
+        Normal force in flange's gooseneck: 14.75kN (Limit: 12.34kN)
+        Shear force in flange's gooseneck: 25.52kN  (Limit: -21.6kN)
+        Bend moment in flange's gooseneck: 47.101kN.m (Limit: 40.47kN)
+
+Flange loads reprooved!
+
+>>>>>>>>
+Paying out 0.2m of A/R,
+from 1251.7 to 1251.9
+
+>>>>>>>>
+Time: 3.812124490737915s.
+
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+Results
+    VCM Rotation: 0.685°.
+    Line Clearance: 0.612m.
+    Flange Height error: 0.031m.
+
+        Normal force in flange's gooseneck: 14.951kN (Limit: 12.34kN)
+        Shear force in flange's gooseneck: 25.496kN  (Limit: -21.6kN)
+        Bend moment in flange's gooseneck: 46.545kN.m (Limit: 40.47kN)
+
+Flange loads reprooved!
+Changing 2st buoyancy reference, 700.0kg, in 50kg
+
+>>>>>>>>
+Changing the selection of buoys
+Old selection: ['760+726', '385'] = Total buoyancy: [1486.0, 385.0]
+New selection: ['760+726', '726'] = Total buoyancy: [1486.0, 726.0]
+
+>>>>>>>>
+Time: 4.692458152770996s.
+
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+
+>>>>>>>>
+Running 7th time.
+Results
+    VCM Rotation: -2.32°.
+    Line Clearance: 1.012m.
+    Flange Height error: -0.067m.
+
+        Normal force in flange's gooseneck: 12.381kN (Limit: 12.34kN)
+        Shear force in flange's gooseneck: 23.978kN  (Limit: -21.6kN)
+        Bend moment in flange's gooseneck: 47.925kN.m (Limit: 40.47kN)
+
+Flange loads reprooved!
+
+>>>>>>>>
+Paying out 0.5m of A/R,
+from 1251.9 to 1252.4
+
+>>>>>>>>
+Time: 4.108961820602417s.
+
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+Results
+    VCM Rotation: -1.4°.
+    Line Clearance: 0.625m.
+    Flange Height error: -0.04m.
+
+        Normal force in flange's gooseneck: 12.846kN (Limit: 12.34kN)
+        Shear force in flange's gooseneck: 23.936kN  (Limit: -21.6kN)
+        Bend moment in flange's gooseneck: 46.557kN.m (Limit: 40.47kN)
+
+Flange loads reprooved!
+Changing 1st buoyancy reference, 1500.0kg, in -50kg
+
+>>>>>>>>
+Changing the selection of buoys
+Old selection: ['760+726', '726'] = Total buoyancy: [1486.0, 726.0]
+New selection: ['726+708', '726'] = Total buoyancy: [1434.0, 726.0]
+
+>>>>>>>>
+Time: 3.07834792137146s.
+
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+
+>>>>>>>>
+Running 8th time.
+Results
+    VCM Rotation: -1.087°.
+    Line Clearance: 0.54m.
+    Flange Height error: -0.029m.
+
+        Normal force in flange's gooseneck: 13.191kN (Limit: 12.34kN)
+        Shear force in flange's gooseneck: 24.25kN  (Limit: -21.6kN)
+        Bend moment in flange's gooseneck: 46.704kN.m (Limit: 40.47kN)
+
+Flange loads reprooved!
+Changing 2st buoyancy reference, 750.0kg, in -50kg
+
+>>>>>>>>
+Changing the selection of buoys
+Old selection: ['726+708', '726'] = Total buoyancy: [1434.0, 726.0]
+New selection: ['726+708', '385'] = Total buoyancy: [1434.0, 385.0]
+
+>>>>>>>>
+Time: 4.874682188034058s.
+
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+
+>>>>>>>>
+Running 9th time.
+Results
+    VCM Rotation: 1.884°.
+    Line Clearance: 0.145m.
+    Flange Height error: 0.067m.
+
+        Normal force in flange's gooseneck: 15.818kN (Limit: 12.34kN)
+        Shear force in flange's gooseneck: 25.726kN  (Limit: -21.6kN)
+        Bend moment in flange's gooseneck: 45.292kN.m (Limit: 40.47kN)
+
+Flange loads reprooved!
+
+>>>>>>>>
+Retrieving out 0.5m of A/R,
+from 1252.4 to 1251.9
+
+>>>>>>>>
+Time: 4.499854564666748s.
+
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+Results
+    VCM Rotation: 0.99°.
+    Line Clearance: 0.519m.
+    Flange Height error: 0.042m.
+
+        Normal force in flange's gooseneck: 15.315kN (Limit: 12.34kN)
+        Shear force in flange's gooseneck: 25.794kN  (Limit: -21.6kN)
+        Bend moment in flange's gooseneck: 46.675kN.m (Limit: 40.47kN)
+
+Flange loads reprooved!
+Changing 2st buoyancy reference, 700.0kg, in 50kg
+
+>>>>>>>>
+Changing the selection of buoys
+Old selection: ['726+708', '385'] = Total buoyancy: [1434.0, 385.0]
+New selection: ['726+708', '726'] = Total buoyancy: [1434.0, 726.0]
+
+>>>>>>>>
+Time: 4.619499444961548s.
+
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+
+>>>>>>>>
+Running 10th time.
+Results
+    VCM Rotation: -2.002°.
+    Line Clearance: 0.983m.
+    Flange Height error: -0.056m.
+
+        Normal force in flange's gooseneck: 12.721kN (Limit: 12.34kN)
+        Shear force in flange's gooseneck: 24.295kN  (Limit: -21.6kN)
+        Bend moment in flange's gooseneck: 48.072kN.m (Limit: 40.47kN)
+
+Flange loads reprooved!
+
+>>>>>>>>
+Paying out 0.5m of A/R,
+from 1251.9 to 1252.4
+
+>>>>>>>>
+Time: 4.109416961669922s.
+
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+Results
+    VCM Rotation: -1.087°.
+    Line Clearance: 0.595m.
+    Flange Height error: -0.029m.
+
+        Normal force in flange's gooseneck: 13.191kN (Limit: 12.34kN)
+        Shear force in flange's gooseneck: 24.25kN  (Limit: -21.6kN)
+        Bend moment in flange's gooseneck: 46.704kN.m (Limit: 40.47kN)
+
+Flange loads reprooved!
+
+>>>>>>>>
+Changing the selection of buoys
+Old selection: ['726+708', '726'] = Total buoyancy: [1434.0, 726.0]
+New selection: ['726+708', '726'] = Total buoyancy: [1434.0, 726.0]
+
+>>>>>>>>
+Time: 0.21859121322631836s.
+
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+
+>>>>>>>>
+Running 11th time.
+Results
+    VCM Rotation: -1.087°.
+    Line Clearance: 0.55m.
+    Flange Height error: -0.029m.
+
+        Normal force in flange's gooseneck: 13.191kN (Limit: 12.34kN)
+        Shear force in flange's gooseneck: 24.25kN  (Limit: -21.6kN)
+        Bend moment in flange's gooseneck: 46.704kN.m (Limit: 40.47kN)
+
+Flange loads reprooved!
+
+Probably the suggestion of buoys was not that good. 
+Gonna change it a little to see if it works...
+
+>>>>>>>>
+Changing the selection of buoys
+Old selection: ['726+708', '726'] = Total buoyancy: [1434.0, 726.0]
+New selection: ['726+708', '726', '385'] = Total buoyancy: [1434.0, 726.0, 385.0]
+
+>>>>>>>>
+Time: 5.104025602340698s.
+
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+
+>>>>>>>>
+Running 12th time.
+Results
+    VCM Rotation: -5.169°.
+    Line Clearance: 1.264m.
+    Flange Height error: -0.161m.
+
+        Normal force in flange's gooseneck: 10.367kN (Limit: 12.34kN)
+        Shear force in flange's gooseneck: 22.908kN  (Limit: -21.6kN)
+        Bend moment in flange's gooseneck: 49.916kN.m (Limit: 40.47kN)
+
+Flange loads reprooved!
+
+>>>>>>>>
+Paying out 0.5m of A/R,
+from 1252.4 to 1252.9
+
+>>>>>>>>
+Time: 4.161956071853638s.
+
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+Results
+    VCM Rotation: -4.254°.
+    Line Clearance: 0.816m.
+    Flange Height error: -0.133m.
+
+        Normal force in flange's gooseneck: 10.794kN (Limit: 12.34kN)
+        Shear force in flange's gooseneck: 22.879kN  (Limit: -21.6kN)
+        Bend moment in flange's gooseneck: 48.582kN.m (Limit: 40.47kN)
+
+Flange loads reprooved!
+
+>>>>>>>>
+Paying out 0.2m of A/R,
+from 1252.9 to 1253.1
+
+>>>>>>>>
+Time: 3.7088959217071533s.
+
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+Results
+    VCM Rotation: -3.891°.
+    Line Clearance: 0.675m.
+    Flange Height error: -0.122m.
+
+        Normal force in flange's gooseneck: 10.964kN (Limit: 12.34kN)
+        Shear force in flange's gooseneck: 22.866kN  (Limit: -21.6kN)
+        Bend moment in flange's gooseneck: 48.05kN.m (Limit: 40.47kN)
+
+Flange loads reprooved!
+
+>>>>>>>>
+Paying out 0.2m of A/R,
+from 1253.1 to 1253.3
+
+>>>>>>>>
+Time: 3.7864489555358887s.
+
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+Results
+    VCM Rotation: -3.531°.
+    Line Clearance: 0.558m.
+    Flange Height error: -0.112m.
+
+        Normal force in flange's gooseneck: 11.133kN (Limit: 12.34kN)
+        Shear force in flange's gooseneck: 22.852kN  (Limit: -21.6kN)
+        Bend moment in flange's gooseneck: 47.519kN.m (Limit: 40.47kN)
+
+Flange loads reprooved!
+Changing 2st buoyancy reference, 750.0kg, in -50kg
+
+>>>>>>>>
+Changing the selection of buoys
+Old selection: ['726+708', '726', '385'] = Total buoyancy: [1434.0, 726.0, 385.0]
+New selection: ['726+708', '385', '708'] = Total buoyancy: [1434.0, 385.0, 708.0]
+
+>>>>>>>>
+Time: 3.8749475479125977s.
+
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+
+>>>>>>>>
+Running 13th time.
+Results
+    VCM Rotation: -3.936°.
+    Line Clearance: 0.696m.
+    Flange Height error: -0.122m.
+
+        Normal force in flange's gooseneck: 11.175kN (Limit: 12.34kN)
+        Shear force in flange's gooseneck: 23.366kN  (Limit: -21.6kN)
+        Bend moment in flange's gooseneck: 49.047kN.m (Limit: 40.47kN)
+
+Flange loads reprooved!
+
+>>>>>>>>
+Paying out 0.2m of A/R,
+from 1253.3 to 1253.5
+
+>>>>>>>>
+Time: 3.766495943069458s.
+
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+Results
+    VCM Rotation: -3.584°.
+    Line Clearance: 0.553m.
+    Flange Height error: -0.111m.
+
+        Normal force in flange's gooseneck: 11.343kN (Limit: 12.34kN)
+        Shear force in flange's gooseneck: 23.351kN  (Limit: -21.6kN)
+        Bend moment in flange's gooseneck: 48.526kN.m (Limit: 40.47kN)
+
+Flange loads reprooved!
+Changing 1st buoyancy reference, 1450.0kg, in -50kg
+
+>>>>>>>>
+Changing the selection of buoys
+Old selection: ['726+708', '385', '708'] = Total buoyancy: [1434.0, 385.0, 708.0]
+New selection: ['1320', '385', '708'] = Total buoyancy: [1320.0, 385.0, 708.0]
+
+>>>>>>>>
+Time: 3.4687023162841797s.
+
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+
+>>>>>>>>
+Running 14th time.
+Results
+    VCM Rotation: -2.852°.
+    Line Clearance: 0.451m.
+    Flange Height error: -0.085m.
+
+        Normal force in flange's gooseneck: 12.085kN (Limit: 12.34kN)
+        Shear force in flange's gooseneck: 24.065kN  (Limit: -21.6kN)
+        Bend moment in flange's gooseneck: 48.835kN.m (Limit: 40.47kN)
+
+Flange loads reprooved!
+
+>>>>>>>>
+Retrieving out 0.2m of A/R,
+from 1253.5 to 1253.3
+
+>>>>>>>>
+Time: 4.062312364578247s.
+
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+Results
+    VCM Rotation: -3.2°.
+    Line Clearance: 0.574m.
+    Flange Height error: -0.096m.
+
+        Normal force in flange's gooseneck: 11.914kN (Limit: 12.34kN)
+        Shear force in flange's gooseneck: 24.084kN  (Limit: -21.6kN)
+        Bend moment in flange's gooseneck: 49.356kN.m (Limit: 40.47kN)
+
+Flange loads reprooved!
+Changing 1st buoyancy reference, 1400.0kg, in -50kg
+
+>>>>>>>>
+Changing the selection of buoys
+Old selection: ['1320', '385', '708'] = Total buoyancy: [1320.0, 385.0, 708.0]
+New selection: ['1320', '385', '708'] = Total buoyancy: [1320.0, 385.0, 708.0]
+
+>>>>>>>>
+Time: 0.21303391456604004s.
+
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+Results
+    VCM Rotation: -3.2°.
+    Line Clearance: 0.579m.
+    Flange Height error: -0.096m.
+
+        Normal force in flange's gooseneck: 11.914kN (Limit: 12.34kN)
+        Shear force in flange's gooseneck: 24.084kN  (Limit: -21.6kN)
+        Bend moment in flange's gooseneck: 49.356kN.m (Limit: 40.47kN)
+
+Flange loads reprooved!
+Changing 2st buoyancy reference, 700.0kg, in -50kg
+
+>>>>>>>>
+Changing the selection of buoys
+Old selection: ['1320', '385', '708'] = Total buoyancy: [1320.0, 385.0, 708.0]
+New selection: ['1320', '385', '708'] = Total buoyancy: [1320.0, 385.0, 708.0]
+
+>>>>>>>>
+Time: 0.2187199592590332s.
+
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+Results
+    VCM Rotation: -3.2°.
+    Line Clearance: 0.579m.
+    Flange Height error: -0.096m.
+
+        Normal force in flange's gooseneck: 11.914kN (Limit: 12.34kN)
+        Shear force in flange's gooseneck: 24.084kN  (Limit: -21.6kN)
+        Bend moment in flange's gooseneck: 49.356kN.m (Limit: 40.47kN)
+
+Flange loads reprooved!
+Changing 1st buoyancy reference, 1350.0kg, in -50kg
+
+>>>>>>>>
+Changing the selection of buoys
+Old selection: ['1320', '385', '708'] = Total buoyancy: [1320.0, 385.0, 708.0]
+New selection: ['760+385', '385', '708'] = Total buoyancy: [1145.0, 385.0, 708.0]
+
+>>>>>>>>
+Time: 3.765585422515869s.
+
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+
+>>>>>>>>
+Running 15th time.
+Results
+    VCM Rotation: -2.064°.
+    Line Clearance: 0.434m.
+    Flange Height error: -0.056m.
+
+        Normal force in flange's gooseneck: 13.092kN (Limit: 12.34kN)
+        Shear force in flange's gooseneck: 25.158kN  (Limit: -21.6kN)
+        Bend moment in flange's gooseneck: 49.773kN.m (Limit: 40.47kN)
+
+Flange loads reprooved!
+
+>>>>>>>>
+Retrieving out 0.2m of A/R,
+from 1253.3 to 1253.1
+
+>>>>>>>>
+Time: 4.227050542831421s.
+
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+Results
+    VCM Rotation: -2.407°.
+    Line Clearance: 0.573m.
+    Flange Height error: -0.066m.
+
+        Normal force in flange's gooseneck: 12.914kN (Limit: 12.34kN)
+        Shear force in flange's gooseneck: 25.181kN  (Limit: -21.6kN)
+        Bend moment in flange's gooseneck: 50.295kN.m (Limit: 40.47kN)
+
+Flange loads reprooved!
+Changing 1st buoyancy reference, 1300.0kg, in -50kg
+
+>>>>>>>>
+Changing the selection of buoys
+Old selection: ['760+385', '385', '708'] = Total buoyancy: [1145.0, 385.0, 708.0]
+New selection: ['760+385', '385', '708'] = Total buoyancy: [1145.0, 385.0, 708.0]
+
+>>>>>>>>
+Time: 0.23464632034301758s.
+
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+Results
+    VCM Rotation: -2.407°.
+    Line Clearance: 0.578m.
+    Flange Height error: -0.066m.
+
+        Normal force in flange's gooseneck: 12.914kN (Limit: 12.34kN)
+        Shear force in flange's gooseneck: 25.181kN  (Limit: -21.6kN)
+        Bend moment in flange's gooseneck: 50.295kN.m (Limit: 40.47kN)
+
+Flange loads reprooved!
+Changing 2st buoyancy reference, 650.0kg, in -50kg
+
+>>>>>>>>
+Changing the selection of buoys
+Old selection: ['760+385', '385', '708'] = Total buoyancy: [1145.0, 385.0, 708.0]
+New selection: ['760+385', '385', '708'] = Total buoyancy: [1145.0, 385.0, 708.0]
+
+>>>>>>>>
+Time: 0.23458242416381836s.
+
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+Results
+    VCM Rotation: -2.407°.
+    Line Clearance: 0.578m.
+    Flange Height error: -0.066m.
+
+        Normal force in flange's gooseneck: 12.914kN (Limit: 12.34kN)
+        Shear force in flange's gooseneck: 25.181kN  (Limit: -21.6kN)
+        Bend moment in flange's gooseneck: 50.295kN.m (Limit: 40.47kN)
+
+Flange loads reprooved!
+Changing 1st buoyancy reference, 1250.0kg, in -50kg
+
+>>>>>>>>
+Changing the selection of buoys
+Old selection: ['760+385', '385', '708'] = Total buoyancy: [1145.0, 385.0, 708.0]
+New selection: ['760+385', '385', '708'] = Total buoyancy: [1145.0, 385.0, 708.0]
+
+>>>>>>>>
+Time: 0.21408915519714355s.
+
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+Results
+    VCM Rotation: -2.407°.
+    Line Clearance: 0.578m.
+    Flange Height error: -0.066m.
+
+        Normal force in flange's gooseneck: 12.914kN (Limit: 12.34kN)
+        Shear force in flange's gooseneck: 25.181kN  (Limit: -21.6kN)
+        Bend moment in flange's gooseneck: 50.295kN.m (Limit: 40.47kN)
+
+Flange loads reprooved!
+Changing 1st buoyancy reference, 1200.0kg, in -50kg
+
+>>>>>>>>
+Changing the selection of buoys
+Old selection: ['760+385', '385', '708'] = Total buoyancy: [1145.0, 385.0, 708.0]
+New selection: ['760+385', '385', '708'] = Total buoyancy: [1145.0, 385.0, 708.0]
+
+>>>>>>>>
+Time: 0.2571597099304199s.
+
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+Results
+    VCM Rotation: -2.407°.
+    Line Clearance: 0.578m.
+    Flange Height error: -0.066m.
+
+        Normal force in flange's gooseneck: 12.914kN (Limit: 12.34kN)
+        Shear force in flange's gooseneck: 25.181kN  (Limit: -21.6kN)
+        Bend moment in flange's gooseneck: 50.295kN.m (Limit: 40.47kN)
+
+Flange loads reprooved!
+Changing 2st buoyancy reference, 600.0kg, in -50kg
+
+>>>>>>>>
+Changing the selection of buoys
+Old selection: ['760+385', '385', '708'] = Total buoyancy: [1145.0, 385.0, 708.0]
+New selection: ['760+385', '385', '708'] = Total buoyancy: [1145.0, 385.0, 708.0]
+
+>>>>>>>>
+Time: 0.2431483268737793s.
+
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+Results
+    VCM Rotation: -2.407°.
+    Line Clearance: 0.578m.
+    Flange Height error: -0.066m.
+
+        Normal force in flange's gooseneck: 12.914kN (Limit: 12.34kN)
+        Shear force in flange's gooseneck: 25.181kN  (Limit: -21.6kN)
+        Bend moment in flange's gooseneck: 50.295kN.m (Limit: 40.47kN)
+
+Flange loads reprooved!
+Changing 1st buoyancy reference, 1150.0kg, in -50kg
+
+>>>>>>>>
+Changing the selection of buoys
+Old selection: ['760+385', '385', '708'] = Total buoyancy: [1145.0, 385.0, 708.0]
+New selection: ['708+385', '385', '708'] = Total buoyancy: [1093.0, 385.0, 708.0]
+
+>>>>>>>>
+Time: 3.3456056118011475s.
+
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+
+>>>>>>>>
+Running 16th time.
+Results
+    VCM Rotation: -2.069°.
+    Line Clearance: 0.538m.
+    Flange Height error: -0.054m.
+
+        Normal force in flange's gooseneck: 13.272kN (Limit: 12.34kN)
+        Shear force in flange's gooseneck: 25.495kN  (Limit: -21.6kN)
+        Bend moment in flange's gooseneck: 50.408kN.m (Limit: 40.47kN)
+
+Flange loads reprooved!
+Changing 1st buoyancy reference, 1100.0kg, in -50kg
+
+>>>>>>>>
+Changing the selection of buoys
+Old selection: ['708+385', '385', '708'] = Total buoyancy: [1093.0, 385.0, 708.0]
+New selection: ['760', '385', '708'] = Total buoyancy: [760.0, 385.0, 708.0]
+
+>>>>>>>>
+Time: 4.392705678939819s.
+
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+
+>>>>>>>>
+Running 17th time.
+Results
+    VCM Rotation: 0.068°.
+    Line Clearance: 0.275m.
+    Flange Height error: 0.021m.
+
+        Normal force in flange's gooseneck: 15.651kN (Limit: 12.34kN)
+        Shear force in flange's gooseneck: 27.447kN  (Limit: -21.6kN)
+        Bend moment in flange's gooseneck: 51.057kN.m (Limit: 40.47kN)
+
+Flange loads reprooved!
+
+>>>>>>>>
+Retrieving out 0.2m of A/R,
+from 1253.1 to 1252.9
+
+>>>>>>>>
+Time: 3.9378135204315186s.
+
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+Results
+    VCM Rotation: -0.266°.
+    Line Clearance: 0.442m.
+    Flange Height error: 0.011m.
+
+        Normal force in flange's gooseneck: 15.459kN (Limit: 12.34kN)
+        Shear force in flange's gooseneck: 27.479kN  (Limit: -21.6kN)
+        Bend moment in flange's gooseneck: 51.586kN.m (Limit: 40.47kN)
+
+Flange loads reprooved!
+
+>>>>>>>>
+Retrieving out 0.2m of A/R,
+from 1252.9 to 1252.7
+
+>>>>>>>>
+Time: 3.93739914894104s.
+
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+Results
+    VCM Rotation: -0.603°.
+    Line Clearance: 0.562m.
+    Flange Height error: 0.001m.
+
+        Normal force in flange's gooseneck: 15.267kN (Limit: 12.34kN)
+        Shear force in flange's gooseneck: 27.511kN  (Limit: -21.6kN)
+        Bend moment in flange's gooseneck: 52.117kN.m (Limit: 40.47kN)
+
+Flange loads reprooved!
+Changing 2st buoyancy reference, 550.0kg, in -50kg
+
+>>>>>>>>
+Changing the selection of buoys
+Old selection: ['760', '385', '708'] = Total buoyancy: [760.0, 385.0, 708.0]
+New selection: ['760', '385', '708'] = Total buoyancy: [760.0, 385.0, 708.0]
+
+>>>>>>>>
+Time: 0.22420597076416016s.
+
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+Results
+    VCM Rotation: -0.603°.
+    Line Clearance: 0.573m.
+    Flange Height error: 0.001m.
+
+        Normal force in flange's gooseneck: 15.267kN (Limit: 12.34kN)
+        Shear force in flange's gooseneck: 27.511kN  (Limit: -21.6kN)
+        Bend moment in flange's gooseneck: 52.117kN.m (Limit: 40.47kN)
+
+Flange loads reprooved!
+Changing 1st buoyancy reference, 1050.0kg, in -50kg
+
+>>>>>>>>
+Changing the selection of buoys
+Old selection: ['760', '385', '708'] = Total buoyancy: [760.0, 385.0, 708.0]
+New selection: ['760', '385', '708'] = Total buoyancy: [760.0, 385.0, 708.0]
+
+>>>>>>>>
+Time: 0.2866368293762207s.
+
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+Results
+    VCM Rotation: -0.603°.
+    Line Clearance: 0.573m.
+    Flange Height error: 0.001m.
+
+        Normal force in flange's gooseneck: 15.267kN (Limit: 12.34kN)
+        Shear force in flange's gooseneck: 27.511kN  (Limit: -21.6kN)
+        Bend moment in flange's gooseneck: 52.117kN.m (Limit: 40.47kN)
+
+Flange loads reprooved!
+Changing 1st buoyancy reference, 1000.0kg, in -50kg
+
+>>>>>>>>
+Changing the selection of buoys
+Old selection: ['760', '385', '708'] = Total buoyancy: [760.0, 385.0, 708.0]
+New selection: ['760', '385', '708'] = Total buoyancy: [760.0, 385.0, 708.0]
+
+>>>>>>>>
+Time: 0.2051706314086914s.
+
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+Results
+    VCM Rotation: -0.603°.
+    Line Clearance: 0.573m.
+    Flange Height error: 0.001m.
+
+        Normal force in flange's gooseneck: 15.267kN (Limit: 12.34kN)
+        Shear force in flange's gooseneck: 27.511kN  (Limit: -21.6kN)
+        Bend moment in flange's gooseneck: 52.117kN.m (Limit: 40.47kN)
+
+Flange loads reprooved!
+Changing 2st buoyancy reference, 500.0kg, in -50kg
+
+>>>>>>>>
+Changing the selection of buoys
+Old selection: ['760', '385', '708'] = Total buoyancy: [760.0, 385.0, 708.0]
+New selection: ['760', '385', '708'] = Total buoyancy: [760.0, 385.0, 708.0]
+
+>>>>>>>>
+Time: 0.2969057559967041s.
+
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+Results
+    VCM Rotation: -0.603°.
+    Line Clearance: 0.573m.
+    Flange Height error: 0.001m.
+
+        Normal force in flange's gooseneck: 15.267kN (Limit: 12.34kN)
+        Shear force in flange's gooseneck: 27.511kN  (Limit: -21.6kN)
+        Bend moment in flange's gooseneck: 52.117kN.m (Limit: 40.47kN)
+
+Flange loads reprooved!
+Changing 1st buoyancy reference, 950.0kg, in -50kg
+
+>>>>>>>>
+Changing the selection of buoys
+Old selection: ['760', '385', '708'] = Total buoyancy: [760.0, 385.0, 708.0]
+New selection: ['760', '385', '708'] = Total buoyancy: [760.0, 385.0, 708.0]
+
+>>>>>>>>
+Time: 0.22873377799987793s.
+
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+Results
+    VCM Rotation: -0.603°.
+    Line Clearance: 0.573m.
+    Flange Height error: 0.001m.
+
+        Normal force in flange's gooseneck: 15.267kN (Limit: 12.34kN)
+        Shear force in flange's gooseneck: 27.511kN  (Limit: -21.6kN)
+        Bend moment in flange's gooseneck: 52.117kN.m (Limit: 40.47kN)
+
+Flange loads reprooved!
+Changing 1st buoyancy reference, 900.0kg, in -50kg
+
+>>>>>>>>
+Changing the selection of buoys
+Old selection: ['760', '385', '708'] = Total buoyancy: [760.0, 385.0, 708.0]
+New selection: ['760', '385', '708'] = Total buoyancy: [760.0, 385.0, 708.0]
+
+>>>>>>>>
+Time: 0.20294785499572754s.
+
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+Results
+    VCM Rotation: -0.603°.
+    Line Clearance: 0.573m.
+    Flange Height error: 0.001m.
+
+        Normal force in flange's gooseneck: 15.267kN (Limit: 12.34kN)
+        Shear force in flange's gooseneck: 27.511kN  (Limit: -21.6kN)
+        Bend moment in flange's gooseneck: 52.117kN.m (Limit: 40.47kN)
+
+Flange loads reprooved!
+Changing 2st buoyancy reference, 450.0kg, in -50kg
+
+>>>>>>>>
+Changing the selection of buoys
+Old selection: ['760', '385', '708'] = Total buoyancy: [760.0, 385.0, 708.0]
+New selection: ['760', '385', '708'] = Total buoyancy: [760.0, 385.0, 708.0]
+
+>>>>>>>>
+Time: 0.20325255393981934s.
+
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+Results
+    VCM Rotation: -0.603°.
+    Line Clearance: 0.573m.
+    Flange Height error: 0.001m.
+
+        Normal force in flange's gooseneck: 15.267kN (Limit: 12.34kN)
+        Shear force in flange's gooseneck: 27.511kN  (Limit: -21.6kN)
+        Bend moment in flange's gooseneck: 52.117kN.m (Limit: 40.47kN)
+
+Flange loads reprooved!
+Changing 1st buoyancy reference, 850.0kg, in -50kg
+
+>>>>>>>>
+Changing the selection of buoys
+Old selection: ['760', '385', '708'] = Total buoyancy: [760.0, 385.0, 708.0]
+New selection: ['760', '385', '708'] = Total buoyancy: [760.0, 385.0, 708.0]
+
+>>>>>>>>
+Time: 0.23987412452697754s.
+
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+Results
+    VCM Rotation: -0.603°.
+    Line Clearance: 0.573m.
+    Flange Height error: 0.001m.
+
+        Normal force in flange's gooseneck: 15.267kN (Limit: 12.34kN)
+        Shear force in flange's gooseneck: 27.511kN  (Limit: -21.6kN)
+        Bend moment in flange's gooseneck: 52.117kN.m (Limit: 40.47kN)
+
+Flange loads reprooved!
+Changing 1st buoyancy reference, 800.0kg, in -50kg
+
+>>>>>>>>
+Changing the selection of buoys
+Old selection: ['760', '385', '708'] = Total buoyancy: [760.0, 385.0, 708.0]
+New selection: ['726', '385', '708'] = Total buoyancy: [726.0, 385.0, 708.0]
+
+>>>>>>>>
+Time: 3.265841245651245s.
+
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+
+>>>>>>>>
+Running 18th time.
+Results
+    VCM Rotation: -0.387°.
+    Line Clearance: 0.548m.
+    Flange Height error: 0.009m.
+
+        Normal force in flange's gooseneck: 15.516kN (Limit: 12.34kN)
+        Shear force in flange's gooseneck: 27.706kN  (Limit: -21.6kN)
+        Bend moment in flange's gooseneck: 52.178kN.m (Limit: 40.47kN)
+
+Flange loads reprooved!
+
+>>>>>>>>
+Paying out 0.009m from the winch,
+from 2226.26 to 2226.27
+
+>>>>>>>>
+Time: 7.07802677154541s.
+
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+
+>>>>>>>>
+Running 19th time.
+Results
+    VCM Rotation: -0.372°.
+    Line Clearance: 0.556m.
+    Flange Height error: 0.0m.
+
+        Normal force in flange's gooseneck: 15.524kN (Limit: 12.34kN)
+        Shear force in flange's gooseneck: 27.704kN  (Limit: -21.6kN)
+        Bend moment in flange's gooseneck: 52.154kN.m (Limit: 40.47kN)
+
+Flange loads reprooved!
+
+>>>>>>>>
+Paying out 0.04m of A/R,
+from 1252.7 to 1252.74
+
+>>>>>>>>
+Time: 3.3279006481170654s.
+
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+Results
+    VCM Rotation: -0.304°.
+    Line Clearance: 0.533m.
+    Flange Height error: 0.002m.
+
+        Normal force in flange's gooseneck: 15.563kN (Limit: 12.34kN)
+        Shear force in flange's gooseneck: 27.698kN  (Limit: -21.6kN)
+        Bend moment in flange's gooseneck: 52.047kN.m (Limit: 40.47kN)
+
+Flange loads reprooved!
+
+>>>>>>>>
+Paying out 0.002m from the winch,
+from 2226.25 to 2226.26
+
+>>>>>>>>
+Time: 4.92192530632019s.
+
+__________________________________________________________________
+_________________________RUNNING..._______________________________
+__________________________________________________________________
+
+>>>>>>>>
+Running 20th time.
+Results
+    VCM Rotation: -0.301°.
+    Line Clearance: 0.532m.
+    Flange Height error: 0.0m.
+
+        Normal force in flange's gooseneck: 15.565kN (Limit: 12.34kN)
+        Shear force in flange's gooseneck: 27.697kN  (Limit: -21.6kN)
+        Bend moment in flange's gooseneck: 52.042kN.m (Limit: 40.47kN)
+
+Flange loads reprooved!
+
+>>>>>>>>
+Static automation's end.
+>>>>>>>>
+Execution time: 520.01s

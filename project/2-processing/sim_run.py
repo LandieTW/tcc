@@ -1224,52 +1224,55 @@ def dynamic_simulation(model: OrcFxAPI.Model, line: OrcFxAPI.OrcaFlexObject, ben
     Return:
         Nothing
     """
+    try:
+        ini_time = time.time()
+        
+        model.UseCalculatedPositions(SetLinesToUserSpecifiedStartingShape=True)
+        vcm.Connection = "Fixed"
 
-    ini_time = time.time()
+        print(f"\nRunning dynamics for heave up in {heave}m")
+
+        a_r.StageValue[2] = - heave
+
+        file_name = rt_number + " - heave_" + str(heave) + "m.sim"
+        simulation = os.path.join(save_simulation, file_name)
+
+        model.RunSimulation()
+        model.SaveSimulation(simulation)
+
+        min_normal = abs(round(min(line.TimeHistory('End Ez force', total_period, OrcFxAPI.oeEndB)), 3))
+        max_normal = abs(round(max(line.TimeHistory('End Ez force', total_period, OrcFxAPI.oeEndB)), 3))
+        
+        min_shear = abs(round(min(line.TimeHistory('End Ex force', total_period, OrcFxAPI.oeEndB)), 3))
+        max_shear = abs(round(max(line.TimeHistory('End Ex force', total_period, OrcFxAPI.oeEndB)), 3))
+        
+        min_moment = abs(round(min(line.TimeHistory('End Ey moment', total_period, OrcFxAPI.oeEndB)), 3))
+        max_moment = abs(round(max(line.TimeHistory('End Ey moment', total_period, OrcFxAPI.oeEndB)), 3))
+
+        flange_results = [max(min_normal, max_normal), max(min_shear, max_shear), max(min_moment, max_moment)]
+
+        flange_loads = any([verify_flange_loads(line, structural_limits, '3i', flange_results), verify_flange_loads(line, structural_limits, '3ii', flange_results)])
+
+        nc_br = verify_normalised_curvature(bend_restrictor, "Max")
+        if nc_br >= 1:
+            br_results = verify_br_loads(bend_restrictor, bend_restrictor_obj, "Max")
+
+            result = all([flange_loads, br_results])
+        else:
+            result = flange_loads
+
+        if result:
+            print(f"\nFor {heave}m, loads are admissible.")
+        else:
+            print(f"\nFor {heave}m, loads are not admissible.")
+
+        end_time = time.time()
+        print(f"Time: {end_time - ini_time}")
+
+        return result
     
-    model.UseCalculatedPositions(SetLinesToUserSpecifiedStartingShape=True)
-    vcm.Connection = "Fixed"
-
-    print(f"\nRunning dynamics for heave up in {heave}m")
-
-    a_r.StageValue[2] = - heave
-
-    file_name = rt_number + " - heave_" + str(heave) + "m.sim"
-    simulation = os.path.join(save_simulation, file_name)
-
-    model.RunSimulation()
-    model.SaveSimulation(simulation)
-
-    min_normal = abs(round(min(line.TimeHistory('End Ez force', total_period, OrcFxAPI.oeEndB)), 3))
-    max_normal = abs(round(max(line.TimeHistory('End Ez force', total_period, OrcFxAPI.oeEndB)), 3))
-    
-    min_shear = abs(round(min(line.TimeHistory('End Ex force', total_period, OrcFxAPI.oeEndB)), 3))
-    max_shear = abs(round(max(line.TimeHistory('End Ex force', total_period, OrcFxAPI.oeEndB)), 3))
-    
-    min_moment = abs(round(min(line.TimeHistory('End Ey moment', total_period, OrcFxAPI.oeEndB)), 3))
-    max_moment = abs(round(max(line.TimeHistory('End Ey moment', total_period, OrcFxAPI.oeEndB)), 3))
-
-    flange_results = [max(min_normal, max_normal), max(min_shear, max_shear), max(min_moment, max_moment)]
-
-    flange_loads = any([verify_flange_loads(line, structural_limits, '3i', flange_results), verify_flange_loads(line, structural_limits, '3ii', flange_results)])
-
-    nc_br = verify_normalised_curvature(bend_restrictor, "Max")
-    if nc_br >= 1:
-        br_results = verify_br_loads(bend_restrictor, bend_restrictor_obj, "Max")
-
-        result = all([flange_loads, br_results])
-    else:
-        result = flange_loads
-
-    if result:
-        print(f"\nFor {heave}m, loads are admissible.")
-    else:
-        print(f"\nFor {heave}m, loads are not admissible.")
-
-    end_time = time.time()
-    print(f"Time: {end_time - ini_time}")
-
-    return result
+    except Exception:
+        return False
 
 def contingencies(model: OrcFxAPI.Model, line: OrcFxAPI.OrcaFlexObject, bend_restrictor: OrcFxAPI.OrcaFlexObject, bend_restrictor_obj: methods.BendRestrictor, save_simulation: str, structural_limits: dict,
                   vcm: OrcFxAPI.OrcaFlexObject, object_line: methods.Line, a_r: OrcFxAPI.OrcaFlexObject, general: OrcFxAPI.OrcaFlexObject, environment: OrcFxAPI.OrcaFlexObject) -> None:
