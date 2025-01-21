@@ -1392,7 +1392,7 @@ def contingencies(model: OrcFxAPI.Model, line: OrcFxAPI.OrcaFlexObject, bend_res
             line_tdp = [arc_length for arc_length, clearance in line_clearance if clearance < 0]  # line TDP arclength
             
             # we want, at least, 3m and, at maximum, 5m of TDP arclength (in a line region where segmentation is equal 20cm)
-            while len(line_tdp) < 3/.2 and len(line_tdp) > 5/ .2 and work:
+            while len(line_tdp) < 3/.2 or len(line_tdp) > 5/ .2 and work:
 
                 if len(line_tdp) < 3/.2:
                     payout_line(line, payout_retrieve_pace_max, object_line, a_r)  # payout 50cm
