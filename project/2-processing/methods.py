@@ -140,7 +140,8 @@ def cg_olhal_flange(cote_1, cote_2):
     return round(cote_1 / 1_000 + cote_2 / 1_000, 3)
 
 class Line:
-    def __init__(self, name, length, empty_air_weight, filled_air_weight, empty_water_weight, filled_water_weight, water_depth, contact_diameter, nominal_diameter, mbr_storage, mbr_installation, b_stiffness, 
+    def __init__(self, name, length, empty_air_weight, filled_air_weight, empty_water_weight, filled_water_weight, 
+                 water_depth, contact_diameter, nominal_diameter, mbr_storage, mbr_installation, b_stiffness, 
                  t_stiffness, a_stiffness, relative_elongation, s_curve):
         self.name = name  #
         self.length = length
@@ -163,7 +164,8 @@ class Line:
         self.b_moment = [round(b_moment / 1_000, 3) for b_moment in s_curve[1]]
 
 class BendRestrictor:
-    def __init__(self, name, revision, material, length_mm, air_weight, water_weight, outside_diameter, inner_diameter, contact_diameter, mbr, bend_moment, shear_force, s_curve):
+    def __init__(self, name, revision, material, length_mm, air_weight, water_weight, outside_diameter, 
+                 inner_diameter, contact_diameter, mbr, bend_moment, shear_force, s_curve):
         self.name = name
         self.revision = revision
         self.material = material

@@ -78,7 +78,15 @@ looping_results = []
 
 # METHODS
 
-def previous_run_static(model: OrcFxAPI.Model, general: OrcFxAPI.OrcaFlexObject, line_type: OrcFxAPI.OrcaFlexObject, vcm: OrcFxAPI.OrcaFlexObject, object_line: methods.Line, object_vcm: methods.Vcm, ini_time: float) -> None:
+def previous_run_static(
+        model: OrcFxAPI.Model, 
+        general: OrcFxAPI.OrcaFlexObject, 
+        line_type: OrcFxAPI.OrcaFlexObject, 
+        vcm: OrcFxAPI.OrcaFlexObject,
+        object_line: methods.Line, 
+        object_vcm: methods.Vcm, 
+        ini_time: float
+        ) -> None:
     """
     Description
         Runs static simulation before its in looping
@@ -434,7 +442,10 @@ def verify_vcm_rotation(vcm: OrcFxAPI.OrcaFlexObject) -> float:
     return vcm_rotation
 
 
-def verify_flange_height(line_model: OrcFxAPI.OrcaFlexObject, line_obj: methods.Line, vcm_obj: methods.Vcm) -> float:
+def verify_flange_height(
+        line_model: OrcFxAPI.OrcaFlexObject, 
+        line_obj: methods.Line, 
+        vcm_obj: methods.Vcm) -> float:
     """
     Description:
         Verify flange's height error

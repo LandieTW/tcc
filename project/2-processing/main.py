@@ -175,8 +175,8 @@ exec_static_time = static_end_time - start_time
 print(f"\n>>>>>>>>\nStatic automation's end."
       f"\n>>>>>>>>\nExecution time: {exec_static_time:.2f}s")
 
-sys.stdout = original_stdout
-captured_text = buffer.getvalue()
+sys.stdout = original_stdout            # resets stdout
+captured_text = buffer.getvalue()       # 
 txt_file = "Static\\" + rt_number + " - Report.txt"
 results_path = os.path.join(file_path, txt_file)
 
