@@ -49,7 +49,7 @@ import OrcFxAPI as orca
 warnings.simplefilter("ignore", UserWarning)
 
 'Vessels set of buoys'
-CDA_BUOYS = [1252, 1252, 1252, 973, 828, 573, 573, 573, 283, 283, 283, 205, 205, 205, 205, 118, 118, 118, 118, 118, 118, 100]
+CDA_BUOYS = [1252, 1252, 1252, 973, 828, 573, 573, 573, 283, 283, 283, 205, 205, 205, 205, 118, 118, 118, 118, 118, 118]
 SKA_BUOYS = [1416, 1376, 1345, 1323, 1320, 871, 741, 741, 660, 647, 381, 377, 155, 104, 101, 100]
 SKB_BUOYS = [1508, 1451, 1428, 1425, 1416, 1320, 760, 726, 708, 385]
 SKN_BUOYS = [1000, 1000, 1000, 1000, 1000, 500, 500, 500, 343, 100, 100, 100, 100, 100]
@@ -72,7 +72,7 @@ VESSEL_INITIALISM = {
         'Skandi Vitória': 'SKV',
         'Skandi Recife': 'SKR',
         'Skandi Olinda': 'SKO',
-        'Coral do Atlântico': 'CDA'
+        'Coral do Atlântico': 'TOP'
         }
 
 'Static calculation counter'
@@ -106,6 +106,10 @@ DISPLACING_X = 25
 'MCV flange height error, in metters'
 DELTA_FLANGE = 0
 
+'Line pace - when line changes (paying or retrieving line)'
+PAY_RET_MIN = .2
+PAY_RET_MAX = .5
+
 'Submerged mass limit, in kg, for a combination of buoys'
 BUOYANCY_LIMIT = 2_000
 
@@ -116,7 +120,7 @@ SMALL_BUOY = 100
 N_INCREMENT = 5
 
 'Maximum number of buoys for each position'
-N_BUOYS = 2     # automation changes it to 3, if doesn't find a solution
+N_BUOYS_POS = 2     # automation changes it to 3, if doesn't find a solution
 
 'Heave up magnitudes, in metters'
 HEAVE_UP = [2.5, 2.0, 1.8, 1.5]
@@ -181,7 +185,6 @@ class DualOutput:
 def run_static_before_looping(
         model: orca.Model,
         general: orca.OrcaFlexObject,
-        env: orca.OrcaFlexObject,
         line: orca.OrcaFlexObject,
         vcm: orca.OrcaFlexObject,
         water_depth: float,
@@ -194,7 +197,6 @@ def run_static_before_looping(
     Parameters:
         model: OrcaFlex model
         general: OrcaFlex general
-        env: OrcaFlex environmental conditions
         line: Flexible pipe
         vcm: Vertical connection module
         water_depth: Water depth
@@ -204,18 +206,28 @@ def run_static_before_looping(
     try:
         global N_RUN_ERROR, ROTATION, CLEARANCE, DELTA_FLANGE
 
+        print(f"\nRunning 3 degrees of freedom")
         vcm.DegreesOfFreedomInStatics = 'X,Y,Z'
         model.CalculateStatics()
 
-        model.UseCalculatedPositions(SetLinesToUserSpecifiedStartingShape=True)
+        CLEARANCE = verify_clearance(line)
 
+        if CLEARANCE < 0:
+            environment = model["Environment"]
+            environment.SeabedNormalStiffness = 0
+            model.CalculateStatics()
+
+        user_specified(model, "Estatico", RT_STATIC_PATH)
+
+        print(f"\nRunning 6 degrees of freedom")
         vcm.DegreesOfFreedomInStatics = 'All'
         model.CalculateStatics()
 
         # necessary verification to avoid crazy convergences...
         line_nc = verify_normalised_curvature(line, 'Mean')
         if line_nc > .75:
-            model.UseCalculatedPositions(SetLinesToUserSpecifiedStartingShape=True)
+            print(f"Crazy convergence. Need to redefine")
+            user_specified(model, "Estatico", RT_STATIC_PATH)
             line.StaticsStep1 = "Catenary"
             model.CalculateStatics()
         
@@ -227,20 +239,27 @@ def run_static_before_looping(
         CLEARANCE = verify_clearance(line)
         DELTA_FLANGE = verify_flange_height(line, water_depth, vcm_height)
 
+        user_specified(model, "Estatico", RT_STATIC_PATH)
+
         print(f"Rotation: {ROTATION}")
         print(f"Clearance: {CLEARANCE}")
 
-        # default error count
+        # default
         N_RUN_ERROR = 0
-
-        # Saving simularion
-        model.SaveSimulation(RT_STATIC_PATH)
+        if environment.SeabedNormalStiffness != 100:
+            environment.SeabedNormalStiffness = 100
+        if general.StaticsMinDamping != STATICS_MIN_DAMPING:
+            general.StaticsMinDamping = STATICS_MIN_DAMPING
+            general.StaticsMaxDamping = STATICS_MAX_DAMPING
+            general.StaticsMaxIterations = STATICS_MAX_ITERATIONS
     
-    except Exception:
+    except Exception as e:
 
-        error_treatment(general, env, line, vcm)
+        print(e)
 
-        run_static_before_looping(model, general, env, line, vcm, water_depth, vcm_height, ini_time)
+        error_treatment(general, line, vcm)
+
+        run_static_before_looping(model, general, line, vcm, water_depth, vcm_height, ini_time)
 
 def verify_normalised_curvature(
         element: orca.OrcaFlexObject,
@@ -302,7 +321,6 @@ def verify_flange_height(
 
 def error_treatment(
         general: orca.OrcaFlexObject,
-        env: orca.OrcaFlexObject,
         line: orca.OrcaFlexObject,
         vcm: orca.OrcaFlexObject,
         ):
@@ -310,6 +328,7 @@ def error_treatment(
     Description:
         Tentatives to get convergence in static calculation, after it fails 
     Parameters:
+        model: OrcaFlex model.
         general: OrcaFlex general config.
         env: OrcaFlex environmental conditions
         line: Flexible pipe
@@ -323,19 +342,18 @@ def error_treatment(
         general.StaticsMaxDamping = 10 * STATICS_MAX_DAMPING
 
     if N_RUN_ERROR == 1:
-        if CLEARANCE <= 0:
-            print(f"\nERROR\nRemoving interation between line and seabed")
-            env.SeabedNormalStiffness = 0
-        else:
-            N_RUN_ERROR += 1
+        print(f"\nTrying line in spline configuration")
+        line.StaticsStep1 = "Spline"
+        line.SplineControlPointX[1] = line.SplineControlPointX[1] + DISPLACING_X
+        line.SplineControlPointX[2] = line.SplineControlPointX[2] + DISPLACING_X
 
     if N_RUN_ERROR == 2:
-        print(f"\nERROR\nChanging Line's Static policy to Catenary.")
-        line.StaticsStep1 = "Catenary"
-
-    if N_RUN_ERROR == 3:
         print(f"\nERROR\nDisplacing VCM")
         vcm.InitialX -= DISPLACING_X
+    
+    if N_RUN_ERROR == 3:
+        print(f"\nERROR\nChanging Line's Static policy to Catenary.")
+        line.StaticsStep1 = "Catenary"
 
     if N_RUN_ERROR == 4:
         print(f"\nERROR\nIncreasing 5 times the Number of iterations")
@@ -404,10 +422,10 @@ def buoy_combination(b_set: list) -> dict:
 
     # Combine all based on n_buoys
     combination = {}
-    if n_buoys == 2:
+    if N_BUOYS_POS == 2:
         combination.update(one_buoy)
         combination.update(two_buoys)
-    elif n_buoys == 3:
+    elif N_BUOYS_POS == 3:
         combination.update(one_buoy)
         combination.update(two_buoys)
         combination.update(three_buoys)
@@ -555,15 +573,16 @@ start_time = time.time()
 # Modeling orcaflex elements
 model = orca.Model(STATIC_PATH)
 general = model['General']
-environment = model['Environment']
 line = model['Line']
 bend_restrictor = model['Stiffener1']
-mcv_name = MCV_SHEET['B3'].value
-vcm = model[mcv_name]
+for object in model.objects:
+    if object.type == orca.ObjectType.Buoy6D:
+        vcm = object
 winch = model['Guindaste']
 a_r = model['A/R']
 
 # Removing bend restrictor
+initial_position = line.Attachmentz[0]  # saving initial position
 line.NumberOfAttachments = 0
 
 # Calculating statics - 1st time without bend restrictor
@@ -572,53 +591,20 @@ lda = VALUES_SHEET['C3'].value
 vcm_coord_a = MCV_SHEET['B8'].value
 
 print(f"\nRUNNING WITHOUT BEND RESTRICTOR")
-run_static_before_looping(model, general, environment, line, vcm, lda, vcm_coord_a, ini_time)
-user_specified(model, RT_NUMBER, RT_STATIC_PATH)
 
-# Reset default damping range and number of iterations
-if general.StaticsMinDamping != STATICS_MIN_DAMPING:
-    general.StaticsMinDamping = STATICS_MIN_DAMPING
-    general.StaticsMaxDamping = STATICS_MAX_DAMPING
-    general.StaticsMaxIterations = STATICS_MAX_ITERATIONS
-
-# Recover line x soil interation
-if environment.SeabedNormalStiffness != 100:
-    environment.SeabedNormalStiffness = 100
-
-# Need to define bend restrictor initial position in line for putting it back
-bend_restrictor_initial_position = VALUES_SHEET['C38'].value / 1_000       # end fitting length, in metters
-
-if VALUES_SHEET['A24'].value == "PU":
-    bend_restrictor_initial_position += VALUES_SHEET['C64'].value / 1_000       # rigid zone length, in metters
-
-if VALUES_SHEET['A53'].value:
-    bend_restrictor_initial_position += VALUES_SHEET['C51'].value / 1_000     # flange adapter length, in metters
+run_static_before_looping(model, general, line, vcm, lda, vcm_coord_a, ini_time)
 
 # Putting back bend restrictor
-print("Bend restrictor initial position")
-print(bend_restrictor_initial_position)
-
 line.NumberOfAttachments = 1
 line.AttachmentType[0] = "Vert"
-line.Attachmentz[0] = bend_restrictor_initial_position
+line.Attachmentz[0] = initial_position
 line.AttachmentzRelativeTo[0] = "End B"
 
 # Calculatin statics - 2st time with bend restrictor
 ini_time = time.time()
 
 print(f"\nRUNNING WITH BEND RESTRICTOR")
-run_static_before_looping(model, general, environment, line, vcm, lda, vcm_coord_a, ini_time)
-user_specified(model, RT_NUMBER, RT_STATIC_PATH)
-
-# Reset default damping range and number of iterations
-if general.StaticsMinDamping != STATICS_MIN_DAMPING:
-    general.StaticsMinDamping = STATICS_MIN_DAMPING
-    general.StaticsMaxDamping = STATICS_MAX_DAMPING
-    general.StaticsMaxIterations = STATICS_MAX_ITERATIONS
-
-# Recover line x soil interation
-if environment.SeabedNormalStiffness != 100:
-    environment.SeabedNormalStiffness = 100
+run_static_before_looping(model, general, line, vcm, lda, vcm_coord_a, ini_time)
 
 # define set of buoys
 vessel_name = RESULTS_SHEET['C6'].value
@@ -643,23 +629,12 @@ while k <= N_INCREMENT:
     n_buoys = number_of_buoys(treated_selection)
 
     # putting buoys in model
-    putting_buoys_in_model(line, n_buoys, treated_selection, vessel_name)
+    putting_buoys_in_model(line, n_buoys, treated_selection)
 
     # Calculatin statics - Inserting suggested buoys
     ini_time = time.time()
 
     print(f"\nRUNNNIG AND INPUTING BUOYANCY")
-    run_static_before_looping(model, general, environment, line, vcm, lda, vcm_coord_a, ini_time)
-    user_specified(model, RT_NUMBER, RT_STATIC_PATH)
-
-    # Reset default damping range and number of iterations
-if general.StaticsMinDamping != STATICS_MIN_DAMPING:
-    general.StaticsMinDamping = STATICS_MIN_DAMPING
-    general.StaticsMaxDamping = STATICS_MAX_DAMPING
-    general.StaticsMaxIterations = STATICS_MAX_ITERATIONS
-
-    # Recover line x soil interation
-    if environment.SeabedNormalStiffness != 100:
-        environment.SeabedNormalStiffness = 100
+    run_static_before_looping(model, general, line, vcm, lda, vcm_coord_a, ini_time)
     
     k += 1
