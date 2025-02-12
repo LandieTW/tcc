@@ -1,0 +1,280 @@
+RUNNING WITHOUT BEND RESTRICTOR
+
+Running 3 DoF
+Full statics for Line: 0 (latest error = 848e-9 at Line, node 837, Z)
+Converged with error = 824e-9 at P7000048060_/_'DU700154300_Rev._C, Z (tolerance = 1e-6)
+
+ERROR
+Increasing 5 times the Static Damping Range
+
+Running 3 DoF
+Full statics for Line: 0 (latest error = 848e-9 at Line, node 837, Z)
+Converged with error = 938e-9 at P7000048060_/_'DU700154300_Rev._C, Z (tolerance = 1e-6)
+
+Trying line in spline configuration
+
+Running 3 DoF
+Exception ignored on calling ctypes callback function: <function Model._stringProgressHandler.<locals>.callback at 0x0000023973088310>
+Traceback (most recent call last):
+  File "C:\Users\dwanderley\AppData\Roaming\Python\Python310\site-packages\OrcFxAPI.py", line 6011, in callback
+    cancel[0] = HelperMethods.ProgressCallbackCancel(handler(self, progress))
+  File "c:\Users\dwanderley\Digicorner\Installation Analysis Subsea - Daniel Wanderley\tcc\fleet_dvc\fleet_dvc.py", line 218, in StaticProgHandler
+    def run_static(
+UnboundLocalError: local variable 'index' referenced before assignment
+Exception ignored on calling ctypes callback function: <function Model._stringProgressHandler.<locals>.callback at 0x0000023973088310>
+Traceback (most recent call last):
+  File "C:\Users\dwanderley\AppData\Roaming\Python\Python310\site-packages\OrcFxAPI.py", line 6011, in callback
+    cancel[0] = HelperMethods.ProgressCallbackCancel(handler(self, progress))
+  File "c:\Users\dwanderley\Digicorner\Installation Analysis Subsea - Daniel Wanderley\tcc\fleet_dvc\fleet_dvc.py", line 218, in StaticProgHandler
+    def run_static(
+UnboundLocalError: local variable 'index' referenced before assignment
+Exception ignored on calling ctypes callback function: <function Model._stringProgressHandler.<locals>.callback at 0x0000023973088310>
+Traceback (most recent call last):
+  File "C:\Users\dwanderley\AppData\Roaming\Python\Python310\site-packages\OrcFxAPI.py", line 6011, in callback
+    cancel[0] = HelperMethods.ProgressCallbackCancel(handler(self, progress))
+  File "c:\Users\dwanderley\Digicorner\Installation Analysis Subsea - Daniel Wanderley\tcc\fleet_dvc\fleet_dvc.py", line 218, in StaticProgHandler
+    def run_static(
+UnboundLocalError: local variable 'index' referenced before assignment
+Exception ignored on calling ctypes callback function: <function Model._stringProgressHandler.<locals>.callback at 0x0000023973088310>
+Traceback (most recent call last):
+  File "C:\Users\dwanderley\AppData\Roaming\Python\Python310\site-packages\OrcFxAPI.py", line 6011, in callback
+    cancel[0] = HelperMethods.ProgressCallbackCancel(handler(self, progress))
+  File "c:\Users\dwanderley\Digicorner\Installation Analysis Subsea - Daniel Wanderley\tcc\fleet_dvc\fleet_dvc.py", line 218, in StaticProgHandler
+    def run_static(
+UnboundLocalError: local variable 'index' referenced before assignment
+Exception ignored on calling ctypes callback function: <function Model._stringProgressHandler.<locals>.callback at 0x0000023973088310>
+Traceback (most recent call last):
+  File "C:\Users\dwanderley\AppData\Roaming\Python\Python310\site-packages\OrcFxAPI.py", line 6011, in callback
+    cancel[0] = HelperMethods.ProgressCallbackCancel(handler(self, progress))
+  File "c:\Users\dwanderley\Digicorner\Installation Analysis Subsea - Daniel Wanderley\tcc\fleet_dvc\fleet_dvc.py", line 218, in StaticProgHandler
+    def run_static(
+UnboundLocalError: local variable 'index' referenced before assignment
+Exception ignored on calling ctypes callback function: <function Model._stringProgressHandler.<locals>.callback at 0x0000023973088310>
+Traceback (most recent call last):
+  File "C:\Users\dwanderley\AppData\Roaming\Python\Python310\site-packages\OrcFxAPI.py", line 6011, in callback
+    cancel[0] = HelperMethods.ProgressCallbackCancel(handler(self, progress))
+  File "c:\Users\dwanderley\Digicorner\Installation Analysis Subsea - Daniel Wanderley\tcc\fleet_dvc\fleet_dvc.py", line 218, in StaticProgHandler
+    def run_static(
+UnboundLocalError: local variable 'index' referenced before assignment
+Exception ignored on calling ctypes callback function: <function Model._stringProgressHandler.<locals>.callback at 0x0000023973088310>
+Traceback (most recent call last):
+  File "C:\Users\dwanderley\AppData\Roaming\Python\Python310\site-packages\OrcFxAPI.py", line 6011, in callback
+    cancel[0] = HelperMethods.ProgressCallbackCancel(handler(self, progress))
+  File "c:\Users\dwanderley\Digicorner\Installation Analysis Subsea - Daniel Wanderley\tcc\fleet_dvc\fleet_dvc.py", line 218, in StaticProgHandler
+    def run_static(
+UnboundLocalError: local variable 'index' referenced before assignment
+Exception ignored on calling ctypes callback function: <function Model._stringProgressHandler.<locals>.callback at 0x0000023973088310>
+Traceback (most recent call last):
+  File "C:\Users\dwanderley\AppData\Roaming\Python\Python310\site-packages\OrcFxAPI.py", line 6011, in callback
+    cancel[0] = HelperMethods.ProgressCallbackCancel(handler(self, progress))
+  File "c:\Users\dwanderley\Digicorner\Installation Analysis Subsea - Daniel Wanderley\tcc\fleet_dvc\fleet_dvc.py", line 218, in StaticProgHandler
+    def run_static(
+UnboundLocalError: local variable 'index' referenced before assignment
+Full statics for Line: 1 (latest error = 15,1624 at Line, node 938, X)
+Full statics for Line: 2 (latest error = 240e3 at Line, node 1, X)
+
+Error code: 29
+Operation was cancelled
+
+ERROR
+Displacing VCM
+
+Running 3 DoF
+Exception ignored on calling ctypes callback function: <function Model._stringProgressHandler.<locals>.callback at 0x0000023973088310>
+Traceback (most recent call last):
+  File "C:\Users\dwanderley\AppData\Roaming\Python\Python310\site-packages\OrcFxAPI.py", line 6011, in callback
+    cancel[0] = HelperMethods.ProgressCallbackCancel(handler(self, progress))
+  File "c:\Users\dwanderley\Digicorner\Installation Analysis Subsea - Daniel Wanderley\tcc\fleet_dvc\fleet_dvc.py", line 218, in StaticProgHandler
+    def run_static(
+UnboundLocalError: local variable 'index' referenced before assignment
+Exception ignored on calling ctypes callback function: <function Model._stringProgressHandler.<locals>.callback at 0x0000023973088310>
+Traceback (most recent call last):
+  File "C:\Users\dwanderley\AppData\Roaming\Python\Python310\site-packages\OrcFxAPI.py", line 6011, in callback
+    cancel[0] = HelperMethods.ProgressCallbackCancel(handler(self, progress))
+  File "c:\Users\dwanderley\Digicorner\Installation Analysis Subsea - Daniel Wanderley\tcc\fleet_dvc\fleet_dvc.py", line 218, in StaticProgHandler
+    def run_static(
+UnboundLocalError: local variable 'index' referenced before assignment
+Exception ignored on calling ctypes callback function: <function Model._stringProgressHandler.<locals>.callback at 0x0000023973088310>
+Traceback (most recent call last):
+  File "C:\Users\dwanderley\AppData\Roaming\Python\Python310\site-packages\OrcFxAPI.py", line 6011, in callback
+    cancel[0] = HelperMethods.ProgressCallbackCancel(handler(self, progress))
+  File "c:\Users\dwanderley\Digicorner\Installation Analysis Subsea - Daniel Wanderley\tcc\fleet_dvc\fleet_dvc.py", line 218, in StaticProgHandler
+    def run_static(
+UnboundLocalError: local variable 'index' referenced before assignment
+Exception ignored on calling ctypes callback function: <function Model._stringProgressHandler.<locals>.callback at 0x0000023973088310>
+Traceback (most recent call last):
+  File "C:\Users\dwanderley\AppData\Roaming\Python\Python310\site-packages\OrcFxAPI.py", line 6011, in callback
+    cancel[0] = HelperMethods.ProgressCallbackCancel(handler(self, progress))
+  File "c:\Users\dwanderley\Digicorner\Installation Analysis Subsea - Daniel Wanderley\tcc\fleet_dvc\fleet_dvc.py", line 218, in StaticProgHandler
+    def run_static(
+UnboundLocalError: local variable 'index' referenced before assignment
+Exception ignored on calling ctypes callback function: <function Model._stringProgressHandler.<locals>.callback at 0x0000023973088310>
+Traceback (most recent call last):
+  File "C:\Users\dwanderley\AppData\Roaming\Python\Python310\site-packages\OrcFxAPI.py", line 6011, in callback
+    cancel[0] = HelperMethods.ProgressCallbackCancel(handler(self, progress))
+  File "c:\Users\dwanderley\Digicorner\Installation Analysis Subsea - Daniel Wanderley\tcc\fleet_dvc\fleet_dvc.py", line 218, in StaticProgHandler
+    def run_static(
+UnboundLocalError: local variable 'index' referenced before assignment
+Exception ignored on calling ctypes callback function: <function Model._stringProgressHandler.<locals>.callback at 0x0000023973088310>
+Traceback (most recent call last):
+  File "C:\Users\dwanderley\AppData\Roaming\Python\Python310\site-packages\OrcFxAPI.py", line 6011, in callback
+    cancel[0] = HelperMethods.ProgressCallbackCancel(handler(self, progress))
+  File "c:\Users\dwanderley\Digicorner\Installation Analysis Subsea - Daniel Wanderley\tcc\fleet_dvc\fleet_dvc.py", line 218, in StaticProgHandler
+    def run_static(
+UnboundLocalError: local variable 'index' referenced before assignment
+Exception ignored on calling ctypes callback function: <function Model._stringProgressHandler.<locals>.callback at 0x0000023973088310>
+Traceback (most recent call last):
+  File "C:\Users\dwanderley\AppData\Roaming\Python\Python310\site-packages\OrcFxAPI.py", line 6011, in callback
+    cancel[0] = HelperMethods.ProgressCallbackCancel(handler(self, progress))
+  File "c:\Users\dwanderley\Digicorner\Installation Analysis Subsea - Daniel Wanderley\tcc\fleet_dvc\fleet_dvc.py", line 218, in StaticProgHandler
+    def run_static(
+UnboundLocalError: local variable 'index' referenced before assignment
+Exception ignored on calling ctypes callback function: <function Model._stringProgressHandler.<locals>.callback at 0x0000023973088310>
+Traceback (most recent call last):
+  File "C:\Users\dwanderley\AppData\Roaming\Python\Python310\site-packages\OrcFxAPI.py", line 6011, in callback
+    cancel[0] = HelperMethods.ProgressCallbackCancel(handler(self, progress))
+  File "c:\Users\dwanderley\Digicorner\Installation Analysis Subsea - Daniel Wanderley\tcc\fleet_dvc\fleet_dvc.py", line 218, in StaticProgHandler
+    def run_static(
+UnboundLocalError: local variable 'index' referenced before assignment
+Full statics for Line: 1 (latest error = 15,0728 at Line, node 938, X)
+Full statics for Line: 2 (latest error = 251,1e3 at Line, node 1, X)
+
+Error code: 29
+Operation was cancelled
+
+ERROR
+Changing Line's Static policy to Catenary.
+
+Running 3 DoF
+Full statics for Line: 0 (latest error = 881e-9 at Line, node 840, Z)
+Converged with error = 995e-9 at P7000048060_/_'DU700154300_Rev._C, Z (tolerance = 1e-6)
+
+ERROR
+Increasing 5 times the Number of iterations
+
+Error code: 33
+Invalid data access (StaticsMaxIterations: Cannot reduce max iterations when a calculation is active)
+
+ERROR
+Increasing 5 times the Number of iterations
+
+Error code: 33
+Invalid data access (StaticsMaxIterations: Cannot reduce max iterations when a calculation is active)
+
+ERROR
+Increasing 5 times the Number of iterations
+
+Error code: 33
+Invalid data access (StaticsMaxIterations: Cannot reduce max iterations when a calculation is active)
+
+ERROR
+Increasing 5 times the Number of iterations
+Traceback (most recent call last):
+  File "c:\Users\dwanderley\Digicorner\Installation Analysis Subsea - Daniel Wanderley\tcc\fleet_dvc\fleet_dvc.py", line 255, in run_static
+
+  File "C:\Users\dwanderley\AppData\Roaming\Python\Python310\site-packages\OrcFxAPI.py", line 6428, in CalculateStatics
+    _CheckStatus(status)
+  File "C:\Users\dwanderley\AppData\Roaming\Python\Python310\site-packages\OrcFxAPI.py", line 1228, in _CheckStatus
+    raise DLLError(StatusCode(status.value))
+OrcFxAPI.DLLError:
+Error code: 29
+Operation was cancelled
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "c:\Users\dwanderley\Digicorner\Installation Analysis Subsea - Daniel Wanderley\tcc\fleet_dvc\fleet_dvc.py", line 255, in run_static
+
+  File "C:\Users\dwanderley\AppData\Roaming\Python\Python310\site-packages\OrcFxAPI.py", line 6428, in CalculateStatics
+    _CheckStatus(status)
+  File "C:\Users\dwanderley\AppData\Roaming\Python\Python310\site-packages\OrcFxAPI.py", line 1228, in _CheckStatus
+    raise DLLError(StatusCode(status.value))
+OrcFxAPI.DLLError:
+Error code: 29
+Operation was cancelled
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "c:\Users\dwanderley\Digicorner\Installation Analysis Subsea - Daniel Wanderley\tcc\fleet_dvc\fleet_dvc.py", line 258, in run_static
+    environment.SeabedNormalStiffness = 0       # remove line x soil interation
+  File "c:\Users\dwanderley\Digicorner\Installation Analysis Subsea - Daniel Wanderley\tcc\fleet_dvc\fleet_dvc.py", line 426, in error_treatment
+    def verify_flange_loads(
+  File "C:\Users\dwanderley\AppData\Roaming\Python\Python310\site-packages\OrcFxAPI.py", line 6795, in __setattr__
+    self.SetData(name, -1, value)
+  File "C:\Users\dwanderley\AppData\Roaming\Python\Python310\site-packages\OrcFxAPI.py", line 6971, in SetData
+    SetSingleDataItem(dataNames, index, values)
+  File "C:\Users\dwanderley\AppData\Roaming\Python\Python310\site-packages\OrcFxAPI.py", line 6956, in SetSingleDataItem
+    _CheckStatus(status)
+  File "C:\Users\dwanderley\AppData\Roaming\Python\Python310\site-packages\OrcFxAPI.py", line 1228, in _CheckStatus
+    raise DLLError(StatusCode(status.value))
+OrcFxAPI.DLLError:
+Error code: 33
+Invalid data access (StaticsMaxIterations: Cannot reduce max iterations when a calculation is active)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "c:\Users\dwanderley\Digicorner\Installation Analysis Subsea - Daniel Wanderley\tcc\fleet_dvc\fleet_dvc.py", line 259, in run_static
+    model.CalculateStatics()
+  File "c:\Users\dwanderley\Digicorner\Installation Analysis Subsea - Daniel Wanderley\tcc\fleet_dvc\fleet_dvc.py", line 328, in run_static
+    Description:
+  File "c:\Users\dwanderley\Digicorner\Installation Analysis Subsea - Daniel Wanderley\tcc\fleet_dvc\fleet_dvc.py", line 328, in run_static
+    Description:
+  File "c:\Users\dwanderley\Digicorner\Installation Analysis Subsea - Daniel Wanderley\tcc\fleet_dvc\fleet_dvc.py", line 327, in run_static
+    """
+  File "c:\Users\dwanderley\Digicorner\Installation Analysis Subsea - Daniel Wanderley\tcc\fleet_dvc\fleet_dvc.py", line 426, in error_treatment
+    def verify_flange_loads(
+  File "C:\Users\dwanderley\AppData\Roaming\Python\Python310\site-packages\OrcFxAPI.py", line 6795, in __setattr__
+    self.SetData(name, -1, value)
+  File "C:\Users\dwanderley\AppData\Roaming\Python\Python310\site-packages\OrcFxAPI.py", line 6971, in SetData
+    SetSingleDataItem(dataNames, index, values)
+  File "C:\Users\dwanderley\AppData\Roaming\Python\Python310\site-packages\OrcFxAPI.py", line 6956, in SetSingleDataItem
+    _CheckStatus(status)
+  File "C:\Users\dwanderley\AppData\Roaming\Python\Python310\site-packages\OrcFxAPI.py", line 1228, in _CheckStatus
+    raise DLLError(StatusCode(status.value))
+OrcFxAPI.DLLError:
+Error code: 33
+Invalid data access (StaticsMaxIterations: Cannot reduce max iterations when a calculation is active)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "c:\Users\dwanderley\Digicorner\Installation Analysis Subsea - Daniel Wanderley\tcc\fleet_dvc\fleet_dvc.py", line 259, in run_static
+    model.CalculateStatics()
+  File "c:\Users\dwanderley\Digicorner\Installation Analysis Subsea - Daniel Wanderley\tcc\fleet_dvc\fleet_dvc.py", line 327, in run_static
+    """
+  File "c:\Users\dwanderley\Digicorner\Installation Analysis Subsea - Daniel Wanderley\tcc\fleet_dvc\fleet_dvc.py", line 426, in error_treatment
+    def verify_flange_loads(
+  File "C:\Users\dwanderley\AppData\Roaming\Python\Python310\site-packages\OrcFxAPI.py", line 6795, in __setattr__
+    self.SetData(name, -1, value)
+  File "C:\Users\dwanderley\AppData\Roaming\Python\Python310\site-packages\OrcFxAPI.py", line 6971, in SetData
+    SetSingleDataItem(dataNames, index, values)
+  File "C:\Users\dwanderley\AppData\Roaming\Python\Python310\site-packages\OrcFxAPI.py", line 6956, in SetSingleDataItem
+    _CheckStatus(status)
+  File "C:\Users\dwanderley\AppData\Roaming\Python\Python310\site-packages\OrcFxAPI.py", line 1228, in _CheckStatus
+    raise DLLError(StatusCode(status.value))
+OrcFxAPI.DLLError:
+Error code: 33
+Invalid data access (StaticsMaxIterations: Cannot reduce max iterations when a calculation is active)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "c:\Users\dwanderley\Digicorner\Installation Analysis Subsea - Daniel Wanderley\tcc\fleet_dvc\fleet_dvc.py", line 766, in <module>
+
+  File "c:\Users\dwanderley\Digicorner\Installation Analysis Subsea - Daniel Wanderley\tcc\fleet_dvc\fleet_dvc.py", line 327, in run_static
+    """
+  File "c:\Users\dwanderley\Digicorner\Installation Analysis Subsea - Daniel Wanderley\tcc\fleet_dvc\fleet_dvc.py", line 426, in error_treatment
+    def verify_flange_loads(
+  File "C:\Users\dwanderley\AppData\Roaming\Python\Python310\site-packages\OrcFxAPI.py", line 6795, in __setattr__
+    self.SetData(name, -1, value)
+  File "C:\Users\dwanderley\AppData\Roaming\Python\Python310\site-packages\OrcFxAPI.py", line 6971, in SetData
+    SetSingleDataItem(dataNames, index, values)
+  File "C:\Users\dwanderley\AppData\Roaming\Python\Python310\site-packages\OrcFxAPI.py", line 6956, in SetSingleDataItem
+    _CheckStatus(status)
+  File "C:\Users\dwanderley\AppData\Roaming\Python\Python310\site-packages\OrcFxAPI.py", line 1228, in _CheckStatus
+    raise DLLError(StatusCode(status.value))
+OrcFxAPI.DLLError:
+Error code: 33
+Invalid data access (StaticsMaxIterations: Cannot reduce max iterations when a calculation is active)

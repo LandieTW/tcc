@@ -33,9 +33,9 @@ rl_config = [
 
 'Structural limits for each analysis case'
 structural_limits = {
-    "2": [1.51, -1.42, 13.55],      # Normal, Shear force, Bend moment
-    "3i": [0.59, -0.64, 18.14],
-    "3ii": [1.59, -1.61, 12.47]
+    "2": [6.90, -10.47, 13.11],      # Normal, Shear force, Bend moment
+    "3i": [3.37, -8.02, 30.67],
+    "3ii": [6.68, -10.74, 11.84]
     }
 
 # LIBRARIES ---------------------------------------------------------------
@@ -43,16 +43,19 @@ structural_limits = {
 import time
 import os
 import sys
-import warnings
+
 from collections import Counter
 from io import StringIO
+from warnings import simplefilter
 from openpyxl import load_workbook
+
 import OrcFxAPI as orca
+import numpy as np
 
 # CONSTANTS ---------------------------------------------------------------
 
 'Ignoring openpyxl user_warning'
-warnings.simplefilter("ignore", UserWarning)
+simplefilter("ignore", UserWarning)
 
 'Vessels set of buoys'
 CDA_BUOYS = [1252, 1252, 1252, 973, 828, 573, 573, 573, 283, 283, 283, 205, 205, 205, 205, 118, 118, 118, 118, 118, 118]
@@ -90,6 +93,9 @@ N_RUN_ERROR = 0
 
 'Number of decimal places'
 DECIMAL = 3
+
+'Maximum admissible error in numerical analysis'
+MAX_ERROR = 10_000
 
 'Maximum number of iterations'
 STATICS_MAX_ITERATIONS = 400
@@ -183,10 +189,36 @@ class DualOutput:
 
 # METHODS -----------------------------------------------------------------
 
-def StaticProgHandler():
-    """Method to handle statics calculations"""
-    
-    return False
+def StaticProgHandler(model, progress):
+    """
+    Description:
+        Method to handle statics calculations
+    Parameters:
+        model: OrcaFlex model
+        progress: convergence error, for each iteration
+    Return:
+        True for stop CalculateStatics, False for not
+    """
+
+    static_error = progress.split()
+
+    if progress.startswith('Full statics for Line (no torsion)'):
+        index = 10
+    elif progress.startswith('Full statics for Line'):
+        print(progress)
+        index = 8
+    elif progress.startswith('Whole system statics'):
+        index = 7
+    elif progress.startswith('Converged with error'):
+        print(progress)
+        index = 4
+
+    error = static_error[index].replace(',', '.')
+
+    if round(float(error), DECIMAL) > MAX_ERROR:
+        return True
+    else:
+        return False
 
 def run_static(
         model: orca.Model,
@@ -216,16 +248,28 @@ def run_static(
     try:
         global N_RUN, N_RUN_ERROR, ROTATION, CLEARANCE, DELTA_FLANGE
 
+        if N_RUN > N_RUN_LIMIT:
+            print(f"\nSorry, wasn't possible to find a solution.")
+            return
+
         print(f"\nRunning 3 DoF")
         vcm.DegreesOfFreedomInStatics = 'X,Y,Z'
         model.CalculateStatics()
 
+        if model.staticsProgressHandler:
+            error_treatment(model, general, line, vcm)
+            run_static(model, general, line, vert, vcm, lda, vcm_coord_a, ini_time, False)
+
         CLEARANCE = verify_clearance(line)
 
         if CLEARANCE < 0:
-            environment = model["Environment"]
-            environment.SeabedNormalStiffness = 0       # remove line x soil interation
-            model.CalculateStatics()
+            model["Environment"].SeabedNormalStiffness = 0       # remove line x soil interation
+            line.Length[0] -= PAY_RET_MAX
+            model.CalculateStatics()        
+
+        if model.staticsProgressHandler:
+            error_treatment(model, general, line, vcm)
+            run_static(model, general, line, vert, vcm, lda, vcm_coord_a, ini_time, False)
 
         model.UseCalculatedPositions(SetLinesToUserSpecifiedStartingShape=True)
 
@@ -239,8 +283,13 @@ def run_static(
             model.UseCalculatedPositions(SetLinesToUserSpecifiedStartingShape=True)
             line.StaticsStep1 = "Catenary"
             model.CalculateStatics()
+
+            if model.staticsProgressHandler:
+                error_treatment(model, general, line, vcm)
+                run_static(model, general, line, vert, vcm, lda, vcm_coord_a, ini_time, False)
         
         if final:
+            print(f"\nProcess finished.")
             return
         
         end_time = time.time()
@@ -261,25 +310,22 @@ def run_static(
 
         model.UseCalculatedPositions(SetLinesToUserSpecifiedStartingShape=True)
 
-        print(f"Rotation: {ROTATION}")
+        print(f"\nRotation: {ROTATION}")
         print(f"Clearance: {CLEARANCE}")
 
-        # default
+        # default parameters
         N_RUN_ERROR = 0
-        if environment.SeabedNormalStiffness != 100:
-            environment.SeabedNormalStiffness = 100
-        if general.StaticsMinDamping != STATICS_MIN_DAMPING:
-            general.StaticsMinDamping = STATICS_MIN_DAMPING
-            general.StaticsMaxDamping = STATICS_MAX_DAMPING
-            general.StaticsMaxIterations = STATICS_MAX_ITERATIONS
+        model["Environment"].SeabedNormalStiffness = 100
+        general.StaticsMinDamping = STATICS_MIN_DAMPING
+        general.StaticsMaxDamping = STATICS_MAX_DAMPING
+        general.StaticsMaxIterations = STATICS_MAX_ITERATIONS
     
     except Exception as e:
 
         print(e)
 
-        error_treatment(general, line, vcm)
-
-        run_static(model, general, line, vcm, water_depth, vcm_height, ini_time)
+        error_treatment(model, general, line, vcm)
+        run_static(model, general, line, vert, vcm, lda, vcm_coord_a, ini_time, False)
 
 def verify_normalised_curvature(
         element: orca.OrcaFlexObject,
@@ -295,14 +341,12 @@ def verify_normalised_curvature(
         Element's normalised curvature value
     """
     if magnitude == 'Mean':
-        n_curve = element.RangeGraph('Normalised curvature')
-        nc = [nc for _, nc in enumerate(n_curve.Mean)]      # Static calculation
+        n_curve = element.RangeGraph('Normalised curvature').Mean
     
     elif magnitude == 'Max':
-        n_curve = element.RangeGraph('Normalised curvature', period=orca.PeriodNum.WholeSimulation)
-        nc = [nc for _, nc in enumerate(n_curve.Max)]       # Simulation
+        n_curve = element.RangeGraph('Normalised curvature', period=orca.PeriodNum.WholeSimulation).Max
     
-    return round(max(nc), DECIMAL)
+    return round(max(n_curve), DECIMAL)
 
 def verify_clearance(
         element: orca.OrcaFlexObject
@@ -315,10 +359,9 @@ def verify_clearance(
     Returns
         Element's clearance value
     """
-    clearance = element.RangeGraph('Seabed clearance')
-    seabed_clearance = [sc for _, sc in enumerate(clearance.Mean)]
+    clearance = element.RangeGraph('Seabed clearance').Mean
 
-    return round(min(seabed_clearance), DECIMAL)
+    return round(min(clearance), DECIMAL)
 
 def verify_flange_height(
         element: orca.OrcaFlexObject,
@@ -340,6 +383,7 @@ def verify_flange_height(
     return round(correct_depth - depth_verified, DECIMAL)
 
 def error_treatment(
+        model: orca.OrcaFlexObject,
         general: orca.OrcaFlexObject,
         line: orca.OrcaFlexObject,
         vcm: orca.OrcaFlexObject,
@@ -350,7 +394,6 @@ def error_treatment(
     Parameters:
         model: OrcaFlex model.
         general: OrcaFlex general config.
-        env: OrcaFlex environmental conditions
         line: Flexible pipe
         vcm: Vertical connection module
     """
@@ -358,11 +401,11 @@ def error_treatment(
 
     if N_RUN_ERROR == 0:
         print(f"\nERROR\nIncreasing 5 times the Static Damping Range")
-        general.StaticsMinDamping = 10 * STATICS_MIN_DAMPING
-        general.StaticsMaxDamping = 10 * STATICS_MAX_DAMPING
+        general.StaticsMinDamping = 5 * STATICS_MIN_DAMPING
+        general.StaticsMaxDamping = 5 * STATICS_MAX_DAMPING
 
     if N_RUN_ERROR == 1:
-        print(f"\nTrying line in spline configuration")
+        print(f"\nERROR\nTrying line in spline configuration")
         line.StaticsStep1 = "Spline"
         line.SplineControlPointX[1] = line.SplineControlPointX[1] + DISPLACING_X
         line.SplineControlPointX[2] = line.SplineControlPointX[2] + DISPLACING_X
@@ -377,12 +420,13 @@ def error_treatment(
 
     if N_RUN_ERROR == 4:
         print(f"\nERROR\nIncreasing 5 times the Number of iterations")
-        general.StaticsMaxIterations = 10 * STATICS_MAX_ITERATIONS
+        general.StaticsMaxIterations = 5 * STATICS_MAX_ITERATIONS
 
     if N_RUN_ERROR == 5:
         N_RUN = N_RUN_LIMIT + 1
 
     N_RUN_ERROR += 1
+    model.staticsProgressHandler = False
 
 def verify_flange_loads(
         line: orca.OrcaFlexObject,
@@ -423,20 +467,19 @@ def verify_flange_loads(
             ]
 
     print(f"""
-          \nNormal force: {loads[0]}kN;
-          \nShear force: {loads[1]}kN;
-          \nBend moment: {loads[2]}kN.m;
+          Normal force: {loads[0]}kN;
+          Shear force: {loads[1]}kN;
+          Bend moment: {loads[2]}kN.m;
           """)
 
     structural_limits = limits[case]
 
-    check = [loads[i] < abs(round(structural_limits[i], DECIMAL))
-             for i in range(len(structural_limits))]
+    check = np.array(loads) < np.abs(np.round(structural_limits, DECIMAL))
     
     if (result := all(check)) == False:
-        print("\nFlange's loads reprooved!")
+        print("Flange's loads reprooved!")
     else:
-        print("\nFlange's loads aprooved!")
+        print("Flange's loads aprooved!")
     
     return result
 
@@ -695,7 +738,7 @@ start_time = time.time()
 
 # Modeling orcaflex elements
 model = orca.Model(STATIC_PATH)
-model.staticsProgressHandler = StaticProgHandler()
+model.staticsProgressHandler = StaticProgHandler
 
 general = model['General']
 line = model['Line']
@@ -706,15 +749,15 @@ for object in model.objects:
 winch = model['Guindaste']
 a_r = model['A/R']
 
+ini_time = time.time()
+lda = VALUES_SHEET['C3'].value
+vcm_coord_a = MCV_SHEET['B8'].value
+'''
 # Removing bend restrictor
 initial_position = line.Attachmentz[0]  # saving initial position
 line.NumberOfAttachments = 0
 
 # Calculating statics - 1st time without bend restrictor
-ini_time = time.time()
-lda = VALUES_SHEET['C3'].value
-vcm_coord_a = MCV_SHEET['B8'].value
-
 print(f"\nRUNNING WITHOUT BEND RESTRICTOR")
 
 run_static(model, general, line, bend_restrictor, vcm, lda, vcm_coord_a, ini_time, False)
@@ -724,7 +767,7 @@ line.NumberOfAttachments = 1
 line.AttachmentType[0] = "Vert"
 line.Attachmentz[0] = initial_position
 line.AttachmentzRelativeTo[0] = "End B"
-
+'''
 # Calculatin statics - 2st time with bend restrictor
 ini_time = time.time()
 
@@ -733,7 +776,6 @@ run_static(model, general, line, bend_restrictor, vcm, lda, vcm_coord_a, ini_tim
 
 # define set of buoys
 vessel_name = RESULTS_SHEET['C6'].value
-buoy_set = VESSEL_BUOYS[vessel_name]
 
 # putting buoys in line (partially)
 k = 1
@@ -761,5 +803,5 @@ while k <= N_INCREMENT:
 
     print(f"\nRUNNNIG AND INPUTING BUOYANCY")
     run_static(model, general, line, bend_restrictor, vcm, lda, vcm_coord_a, ini_time, False)
-    
+
     k += 1
