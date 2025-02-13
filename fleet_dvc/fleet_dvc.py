@@ -28,7 +28,7 @@ UPDATE IDEAS
 'Suggestion for initial configuration'
 rl_config = [
     [3, 6],         # Positions [m]
-    [800, 400]      # Submerged mass [kg]
+    [1800, 1000]      # Submerged mass [kg]
     ]
 
 'Structural limits for each analysis case'
@@ -46,6 +46,7 @@ import sys
 
 from collections import Counter
 from io import StringIO
+from glob import glob
 from warnings import simplefilter
 from openpyxl import load_workbook
 
@@ -136,9 +137,7 @@ TOTAL_PERIOD = orca.SpecifiedPeriod(0, 112.15)
 THIS_PATH = os.path.dirname(os.path.abspath(__file__))
 
 'Excel sheets'
-SHEET_PATH = os.path.join(THIS_PATH, [sheet 
-                                      for sheet in os.listdir(THIS_PATH) 
-                                      if sheet.endswith(".xlsm")][0])
+SHEET_PATH = os.path.join(THIS_PATH, glob(os.path.join(THIS_PATH, "*.xlsm"))[0])
 
 EXCEL = load_workbook(filename=SHEET_PATH, data_only=True)
 VALUES_SHEET = EXCEL['Values']
@@ -511,11 +510,9 @@ def verify_br_loads(
             if i == 0:      # shear force limit case
                 
                 if magnitude == 'Mean':
-                    shear = vert.RangeGraph("Shear Force")
-                    shear = [sf for _, sf in enumerate(shear.Mean)]
+                    shear = vert.RangeGraph("Shear Force").Mean
                 else:
-                    shear = vert.RangeGraph("Shear Force", period=orca.PeriodNum.WholeSimulation)
-                    shear = [sf for _, sf in enumerate(shear.Max)]
+                    shear = vert.RangeGraph("Shear Force", period=orca.PeriodNum.WholeSimulation).Max
 
                 shear = round(max(abs(min(shear)), max(shear)), DECIMAL)
 
@@ -524,11 +521,9 @@ def verify_br_loads(
             if i == 1:      # bend moment limit case
 
                 if magnitude == 'Max':
-                    moment = vert.RangeGraph("Bend moment")
-                    moment = [bm for _, bm in enumerate(moment.Mean)]
+                    moment = vert.RangeGraph("Bend moment").Mean
                 else:
-                    moment = vert.RangeGraph("Bend moment", period=orca.PeriodNum.WholeSimulation)
-                    moment = [bm for _, bm in enumerate(moment.Max)]
+                    moment = vert.RangeGraph("Bend moment", period=orca.PeriodNum.WholeSimulation).Max
                 
                 moment = round(max(abs(min(moment)), max(moment)), DECIMAL)
 
