@@ -68,12 +68,12 @@ SKR_BUOYS = [1000, 1000, 1000, 1000, 1000, 500, 500, 500, 250, 250, 100, 100, 10
 SKV_BUOYS = [1000, 1000, 1000, 1000, 1000, 500, 500, 500, 300, 100, 100, 100, 100, 100]
 
 VESSEL_BUOYS = {
-    'Skandi Niterói': [list(Counter(SKN_BUOYS).keys()), list(Counter(SKN_BUOYS).values())], 
-    'Skandi Búzios': [list(Counter(SKB_BUOYS).keys()), list(Counter(SKB_BUOYS).values())], 
-    'Skandi Açu': [list(Counter(SKA_BUOYS).keys()), list(Counter(SKA_BUOYS).values())], 
-    'Skandi Vitória': [list(Counter(SKV_BUOYS).keys()), list(Counter(SKV_BUOYS).values())], 
-    'Skandi Recife': [list(Counter(SKR_BUOYS).keys()), list(Counter(SKR_BUOYS).values())], 
-    'Skandi Olinda': [list(Counter(SKO_BUOYS).keys()), list(Counter(SKO_BUOYS).values())], 
+    'Skandi Niterói': [list(Counter(SKN_BUOYS).keys()), list(Counter(SKN_BUOYS).values())],
+    'Skandi Búzios': [list(Counter(SKB_BUOYS).keys()), list(Counter(SKB_BUOYS).values())],
+    'Skandi Açu': [list(Counter(SKA_BUOYS).keys()), list(Counter(SKA_BUOYS).values())],
+    'Skandi Vitória': [list(Counter(SKV_BUOYS).keys()), list(Counter(SKV_BUOYS).values())],
+    'Skandi Recife': [list(Counter(SKR_BUOYS).keys()), list(Counter(SKR_BUOYS).values())],
+    'Skandi Olinda': [list(Counter(SKO_BUOYS).keys()), list(Counter(SKO_BUOYS).values())],
     'Coral do Atlântico': [list(Counter(CDA_BUOYS).keys()), list(Counter(CDA_BUOYS).values())]
     }
     
@@ -113,19 +113,44 @@ HEIGTH_ERROR = 0
 'Elements displacing, in metters'
 DISPLACING_X = 25
 
+'Clearance range, in metters'
+CLEARANCE_SUP = .65
+CLEARANCE_INF = .5
+
+'Rotation range, in degrees'
+ROTATION_INF = -.5
+ROTATION_SUP = .5
+
 'Line pace - when line changes (paying or retrieving line)'
 PAY_RET_MIN = .2
 PAY_RET_MAX = .5
 
 'Submerged mass limit, in kg, for buoys'
 BUOYANCY_LIMIT = 2_000
-SMALL_BUOY = 100
+SMALL_BUOY = 150
 
 'Number of buoyancy increments for 1st addition of buoys in the model'
-N_INCREMENT = 5
+N_INCREMENT = 5     # see the loop while before looping
 
 'Maximum number of buoys for each position'
 N_BUOYS_POS = 2     # automation changes it to 3, if doesn't find a solution
+
+'Looping method results - saved configurations already tryed'
+LOOPING_RESULTS = []        # that helps avoid infinite loops created by the alternation of only two configurations
+
+'Buoys positions'
+NEAR_VCM_POSITIONS = [3, 6, 9]
+FAR_VCM_POSITIONS = [4, 8, 12]
+
+'Buoyancy factors'
+BUOYANCY_FACTOR_1 = 1.5     # Reason between one buoyancy and next
+BUOYANCY_FACTOR_2 = 2       # Reason between one buoyancy and previous
+
+'Buoyancy changing in each iteration, in kg'
+BUOY_VARIATION = 50
+
+'Pace for buoys position changes'
+BUOY_PACE = .5
 
 'Heave up magnitudes, in metters'
 HEAVE_UP = [2.5, 2.0, 1.8, 1.5]
@@ -162,6 +187,7 @@ RT_CONTINGENCY_DIR = os.makedirs(RT_CONTINGENCY_PATH, exist_ok=True)
 # CLASSES -----------------------------------------------------------------
 
 class DualOutput:
+
     """
     Description:
         This class is used to print in console and save in a buffer at the same time.
@@ -188,7 +214,11 @@ class DualOutput:
 
 # METHODS -----------------------------------------------------------------
 
-def StaticProgHandler(model, progress):
+def StaticProgHandler(
+        model,
+        progress
+        ):
+
     """
     Description:
         Method to handle statics calculations
@@ -230,6 +260,7 @@ def run_static(
         ini_time: float,
         final: bool,
         ) -> None:
+    
     """
     Description:
         Runs static simulation before the 'looping'.
@@ -244,6 +275,7 @@ def run_static(
         ini_time: Static calculation start time, in seconds
         final: If true, define last static calculation
     """
+
     try:
         global N_RUN, N_RUN_ERROR, ROTATION, CLEARANCE, DELTA_FLANGE
 
@@ -330,6 +362,7 @@ def verify_normalised_curvature(
         element: orca.OrcaFlexObject,
         magnitude: str,
         ) -> float:
+    
     """
     Description:
         Verify element's normalised curvature value
@@ -339,6 +372,7 @@ def verify_normalised_curvature(
     Returns:
         Element's normalised curvature value
     """
+
     if magnitude == 'Mean':
         n_curve = element.RangeGraph('Normalised curvature').Mean
     
@@ -350,6 +384,7 @@ def verify_normalised_curvature(
 def verify_clearance(
         element: orca.OrcaFlexObject
         ) -> float:
+    
     """
     Description:
         Verify element's clearance value, in metters
@@ -358,6 +393,7 @@ def verify_clearance(
     Returns
         Element's clearance value
     """
+
     clearance = element.RangeGraph('Seabed clearance').Mean
 
     return round(min(clearance), DECIMAL)
@@ -367,6 +403,7 @@ def verify_flange_height(
         water_depth: float,
         vcm_height: float,
         ) -> float:
+    
     """
     Description:
         Verify flange's height error, in metters.
@@ -377,6 +414,7 @@ def verify_flange_height(
     Returns:
         Flange's height error
     """
+
     correct_depth = - water_depth + vcm_height / 1_000
     depth_verified = element.StaticResult('Z', orca.oeEndB)
     return round(correct_depth - depth_verified, DECIMAL)
@@ -387,6 +425,7 @@ def error_treatment(
         line: orca.OrcaFlexObject,
         vcm: orca.OrcaFlexObject,
         ):
+    
     """
     Description:
         Tentatives to get convergence in static calculation, after it fails 
@@ -396,6 +435,7 @@ def error_treatment(
         line: Flexible pipe
         vcm: Vertical connection module
     """
+
     global N_RUN_ERROR, N_RUN, N_RUN_LIMIT
 
     if N_RUN_ERROR == 0:
@@ -432,6 +472,7 @@ def verify_flange_loads(
         limits: dict,
         case: str,
         ) -> bool:
+    
     """
     Description:
         Verify if flange's loads are admissible
@@ -486,6 +527,7 @@ def verify_br_loads(
     vert: orca.OrcaFlexObject,
     magnitude: str,
     ) -> bool:
+
     """
     Description:
         Verify if vert's loads are admissible
@@ -496,6 +538,7 @@ def verify_br_loads(
     Return:
         True if loads < limits, False if loads > limtis.
     """
+
     structural_limits = [
         VALUES_SHEET['C29'].value,      # Shear force limit
         VALUES_SHEET['C28'].value       # Bend moment limit
@@ -544,7 +587,10 @@ def verify_br_loads(
     return result
                 
 
-def buoy_combination(b_set: list) -> dict:
+def buoy_combination(
+        b_set: list
+        ) -> dict:
+
     """
     Description:
         Generate all possible buoy's combination, considering:
@@ -556,6 +602,7 @@ def buoy_combination(b_set: list) -> dict:
     Returns:
         dict: A dictionary with all possible buoy combinations.
     """
+
     # Creating a list of buoys with repeated elements based on their frequency
     buoys = [str(b_set[0][i]) for i in range(len(b_set[0])) for _ in range(b_set[1][i])]
     
@@ -593,19 +640,22 @@ def buoy_combination(b_set: list) -> dict:
     
     return dict(sorted(combination.items(), key=lambda item: item[1], reverse=False))
 
-def buoyancy(buoy_config: list, vessel_name: str) -> dict:
+def buoyancy(
+        buoy_config: list, 
+        set_of_buoys: list
+        ) -> dict:
+
     """
     Description:
         Select the best set of buoys from the available vessel stock that fits buoy_config,
         while ensuring the selection does not exceed the available quantity.
     Parameters:
         buoy_config: Suggestion for buoy configuration.
-        vessel_name: Name of the vessel whose buoys will be used.
+        set_of_buoys: buoys in the vessel
     Return:
         selection: Group of buoys that fits buoy_config within the vessel's available stock.
     """
     
-    set_of_buoys = VESSEL_BUOYS[vessel_name]
     available_buoys = dict(zip(set_of_buoys[0], set_of_buoys[1]))
     selection = {}
     
@@ -653,6 +703,7 @@ def buoys_treatment(
         selected_buoys: dict,
         name: str,
         ) -> dict:
+    
     """
     Description:
         Get the Dict result (selection) from 'buoyancy' and transforms it in Orcaflex attachments
@@ -663,6 +714,7 @@ def buoys_treatment(
     Return:
         Orcaflex attachments equivalents to selection
     """
+
     initialism = VESSEL_INITIALISM[name]
 
     keys = [[f"{initialism}_{subkey}" 
@@ -677,6 +729,7 @@ def buoys_treatment(
 def number_of_buoys(
         buoys_attachment: dict
         ) -> int:
+    
     """
     Description:
         Get the number of attachments in tha Dict result (treated_buoys) from 'buoyancy_treatment'
@@ -685,6 +738,7 @@ def number_of_buoys(
     Return:
         Number of attachments
     """
+
     return len([buoy[i] for buoy in buoys_attachment.values() for i in range(len(buoy))])
 
 def putting_buoys_in_model(
@@ -692,6 +746,7 @@ def putting_buoys_in_model(
         n_buoys: int,
         attachments: dict,
         ):
+    
     """
     Description:
         Insert the attachments from the Dict result (treated_buoys) from 'buoyancy_treatment' in the model.
@@ -700,6 +755,7 @@ def putting_buoys_in_model(
         n_buoys: number of attachments
         attachments: attachment to insert in model
     """
+
     element.NumberOfAttachments = int(n_buoys + 1)
     ibs_key = tuple(attachments.keys())
     ibs_val = tuple(attachments.values())
@@ -720,6 +776,528 @@ def putting_buoys_in_model(
     for n in ibs_1:
         element.Attachmentz[p] = n          # insert attachment's position
         p += 1
+
+def looping(
+        model: orca.Model,
+        general: orca.OrcaFlexObject,
+        line: orca.OrcaFlexObject,
+        vert: orca.OrcaFlexObject,
+        vcm: orca.OrcaFlexObject,
+        winch: orca.OrcaFlexObject,
+        a_r: orca.OrcaFlexObject,
+        lda: float,
+        vcm_coord_a: float,
+        selection: dict,
+        buoy_set: list,
+        rl_config: list,
+        vessel: str,
+        ):
+    
+    """
+    Description:
+        This is a loop that controls changes in model, in each iteration, calling commands in reason of last obtained results
+        1 - Payout / Retrieve line or A/R everytime clearance (soil to line minimum distance) is out of range [50; 65]cm
+        2 - Changes buoy's position of set of buoys everytime VCM's inclination is out of range [-0.5; 0.5]°
+            2.1 - First tries to change buoy's position;
+            2.2 - Then, changes buoys
+        3 - Adjust flange height, changing winch length
+    Parameters:
+        model: OrcaFlex model
+        general: General data of OrcaFlex
+        line: Flexible pipe
+        vert: Bend Restrictor
+        vcm: Vertical Connection Module
+        winch: Winch cable
+        a_r: A/R cable
+        lda: Water depth
+        vcm_coord_a: Flange's height
+        selection: Dict with selected buoys
+        buoy_set: Available buoys in the vessel
+        vessel: Vessel's name
+    """
+
+    global ROTATION, CLEARANCE, HEIGTH_ERROR, N_RUN, N_BUOYS_POS, LOOPING_RESULTS, PAY_RET_MIN, PAY_RET_MAX, ROTATION_INF, ROTATION_SUP
+
+    if N_RUN > N_RUN_LIMIT:
+        return
+    
+    number = line.NumberOfAttachments
+
+    position = []
+    k = 1
+    for _ in range(1, number):
+        position.append(line.Attachmentz[k])
+        k += 1
+    buoys = list(selection.values())
+    
+    buoy_model = [position, buoys]
+
+    if buoy_model not in LOOPING_RESULTS:
+        LOOPING_RESULTS.append(buoy_model)
+    
+    n_positions = len(buoy_model[0])
+
+    unique_positions = list(Counter(position).keys())
+
+    pointer = make_pointer(len(unique_positions), unique_positions)
+
+    # 1st criteria - Clearance between line and soil controlled between [.5; .65]m
+    if CLEARANCE < CLEARANCE_INF or CLEARANCE > CLEARANCE_SUP:
+
+        if CLEARANCE < 0:       # line touching seabed
+            delta = - PAY_RET_MAX
+        elif CLEARANCE < CLEARANCE_INF:     # line too close to soil
+            delta = - PAY_RET_MIN
+        elif CLEARANCE > CLEARANCE_SUP:     # line so far from soil
+            delta = PAY_RET_MIN
+
+        payout_retrieve_line(line, a_r, delta)
+
+        N_RUN -= 1       # Doesn't count this iterations
+    
+        ini_time = time.time()
+
+        run_static(model, general, line, vert, vcm, lda, vcm_coord_a, ini_time, False)
+
+        looping(model, general, line, vert, vcm, winch, a_r, lda, vcm_coord_a, selection, buoy_set, rl_config, vessel)
+    
+    # 2st criteria - VCM rotation controlled between [-.5; .5]°
+    if ROTATION > ROTATION_SUP or ROTATION < ROTATION_INF:
+
+        if ROTATION > ROTATION_SUP:     # VCM inclined in line's direction
+
+            limits_position = [FAR_VCM_POSITIONS[i]
+                               for i in range(len(unique_positions))]
+            
+            if unique_positions[pointer] > limits_position[pointer]:        # condition for change buoys position
+
+                new_positions = [buoy_position - BUOY_PACE
+                                 for buoy_position in unique_positions]     # new_positions are far from VCM
+                
+                change_buoy_position(line, new_positions, pointer, n_positions, position)
+
+                N_RUN -= 1       # Doesn't count this iterations
+    
+                ini_time = time.time()
+
+                run_static(model, general, line, vert, vcm, lda, vcm_coord_a, ini_time, False)
+
+                looping(model, general, line, vert, vcm, winch, a_r, lda, vcm_coord_a, selection, buoy_set, rl_config, vessel)
+            
+            else:       # Condition for change the buoy's set
+
+                call_changing_buoys(line, unique_positions, buoy_set, buoy_model, rl_config, vessel)
+    
+                ini_time = time.time()
+
+                run_static(model, general, line, vert, vcm, lda, vcm_coord_a, ini_time, False)
+
+                looping(model, general, line, vert, vcm, winch, a_r, lda, vcm_coord_a, selection, buoy_set, rl_config, vessel)
+
+        elif ROTATION < ROTATION_INF:       # VCM inclined away of line's direction
+
+            limits_position = [NEAR_VCM_POSITIONS[i]
+                               for i in range(len(unique_positions))]
+            
+            if unique_positions[pointer] < limits_position[pointer]:        # condition for change buoys position
+
+                new_positions = [buoy_position + BUOY_PACE
+                                 for buoy_position in unique_positions]     # new_positions are near from VCM
+
+                change_buoy_position(line, new_positions, pointer, n_positions, position)
+
+                N_RUN -= 1      # Doesn't count this iterations
+
+                ini_time = time.time()
+
+                run_static(model, general, line, vert, vcm, lda, vcm_coord_a, ini_time, False)
+
+                looping(model, general, line, vert, vcm, winch, a_r, lda, vcm_coord_a, selection, buoy_set, rl_config, vessel)
+            
+            else:       # Condition for change the buoy's set
+                
+                call_changing_buoys(line, unique_positions, buoy_set, buoy_model, rl_config, vessel)
+
+                ini_time = time.time()
+
+                run_static(model, general, line, vert, vcm, lda, vcm_coord_a, ini_time, False)
+
+                looping(model, general, line, vert, vcm, winch, a_r, lda, vcm_coord_a, selection, buoy_set, rl_config, vessel)
+    
+    # 3st criteria - Perfect adjustment of flange's height
+    if DELTA_FLANGE != 0:
+
+        if DELTA_FLANGE > .1:
+            LOOPING_RESULTS.clear()     # This case, sometimes, demands retry some tentatives
+        
+        if DELTA_FLANGE > 0:
+            print(f"\nPaying out {DELTA_FLANGE}m from the winch,"
+                  f"from {round(winch.StageValue[0], DECIMAL)} to {round(winch.StageValue[0] + DELTA_FLANGE, DECIMAL)}.")
+        else:
+            print(f"\nRetrieving {DELTA_FLANGE}m from the winch,"
+                  f"from {round(winch.StageValue[0], DECIMAL)} to {round(winch.StageValue[0] + DELTA_FLANGE, DECIMAL)}.")
+        
+        winch.StageValue[0] = round(winch.StageValue[0] - DELTA_FLANGE, DECIMAL)
+
+        general.StaticsMinDamping = 5 * STATICS_MIN_DAMPING
+        general.StaticsMaxDamping = 5 * STATICS_MAX_DAMPING
+        general.StaticsMaxIterations = 5 * STATICS_MAX_ITERATIONS
+
+        ini_time = time.time()
+
+        run_static(model, general, line, vert, vcm, lda, vcm_coord_a, ini_time, False)
+
+        looping(model, general, line, vert, vcm, winch, a_r, lda, vcm_coord_a, selection, buoy_set, rl_config, vessel)
+
+def make_pointer(
+        n: int,
+        positions: list,
+        ) -> int:
+    
+    """
+    Description:
+        Creates a pointer for buoy_set's position, when it's being prioritized to change some position in a set of buoys
+        If we need to add (+) buoyancy...
+            See how many buoys we have in the position that gonna be changed
+                Then, choose to change buoyancy in nearest to VCM position, moving it away from VCM 
+                (without infringe minimum distance between positions)
+        If we need to reduce (-) buoyancy...
+            See how many buoys we have in the position that gonna be changed
+                Then, choose to change buoyancy in far from VCM position, moving it near to the VCM
+                (without infringe minimum distance between positions)
+    Parameters:
+        n: Number of positions with buoys
+        positions: actual positions in line, where we have buoys
+    Return:
+        Selected index-position for change buoyancy
+    """
+
+    if ROTATION > 0:
+
+        pointer = 0
+
+        if n == 2:      # there are 2 positions with buoys
+            if positions[pointer] <= NEAR_VCM_POSITIONS[pointer]:
+                pointer = 1
+        
+        if n == 3:      # there are 3 positions with buoys
+            if positions[pointer] <= NEAR_VCM_POSITIONS[pointer]:
+                pointer = 1
+                if positions[pointer] <= NEAR_VCM_POSITIONS[pointer]:
+                    pointer = 2
+    
+    elif ROTATION < 0:
+
+        pointer = n - 1
+
+        if n == 2:      # there are 2 positions with buoys
+            if positions[pointer] >= FAR_VCM_POSITIONS[pointer]:
+                pointer = 0
+        
+        elif n == 3:        # there are 3 positions with buoys
+            if positions[pointer] >= FAR_VCM_POSITIONS[pointer]:
+                pointer = 1
+                if positions[pointer] >= FAR_VCM_POSITIONS[pointer]:
+                    pointer = 0
+
+    return pointer
+
+def payout_retrieve_line(
+        line: orca.OrcaFlexObject,
+        a_r: orca.OrcaFlexObject,
+        delta: float,
+        ):
+
+    """
+    Description:
+        Controls the way how line is payed or retrieved
+    Parameters:
+        line: Flexible pipe
+        a_r: A/R cable
+        delta: payout or retrieve quantity of line or A/R
+    """
+
+    if a_r.StageValue[0] > 10:
+
+        if delta > 0:
+            print(f"\nPaying out {delta}m of line,"
+                  f"\nfrom {round(line.CumulativeLength[-1], DECIMAL)}m to {round(line.CumulativeLength[-1] + delta, DECIMAL)}m")
+        else:
+            print(f"\nRetrieving out {-delta}m of line,"
+                  f"\nfrom {round(line.CumulativeLength[-1], DECIMAL)}m to {round(line.CumulativeLength[-1] + delta, DECIMAL)}m")
+        
+        new_length = line.Length[0] + delta
+        new_segment = new_length / 100
+
+        line.Length[0] = round(new_length, DECIMAL)
+        line.TargetSegmentLength[0] = round(new_segment, DECIMAL)
+    
+    else:
+
+        new_length = a_r.StageValue[0]  + delta
+
+        if delta > 0:
+            print(f"\nPaying out {delta}m of A/R cable,"
+                  f"\nfrom {round(a_r.StageValue[0], DECIMAL)}m to {round(new_length, DECIMAL)}m")
+        else:
+            print(f"\nRetrieving out {-delta}m of A/R cable,"
+                  f"\nfrom {round(a_r.StageValue[0], DECIMAL)}m to {round(new_length, DECIMAL)}m")
+
+        a_r.StageValue[0] = round(new_length, DECIMAL)
+
+def change_buoy_position(
+        line: orca.OrcaFlexObject,
+        new_positions: list,
+        i: int,
+        n: int,
+        actual_positions: list
+        ):
+    
+    """
+    Description:
+        Changes position of buoys in pointer position
+    Parameters:
+        line: Flexible pipe
+        new_positions: the new positions for buoys
+        i: index of the position to be changed
+        n: number of buoys in model
+        actual_positions: actual buoy's set's position in model
+    """
+
+    temp = []
+
+    for z in range(0, n):
+
+        # Condition that satisfies at least 3m of distance between buoys
+        if actual_positions[z] + BUOY_PACE == new_positions[i] or actual_positions[z] - BUOY_PACE == new_positions[i]:
+
+            if new_positions[i] not in temp:        # Avoid reppeated positions (because there's more than 1 buoy in the same postion)
+
+                temp.append(new_positions[i])
+                print(f"\nChanging buoys positioned at {line.Attachmentz[z]}m"
+                      f"\nPositioning them at {new_positions[i]}m")
+            
+            line.Attachmentz[z] = new_positions[i]
+
+def call_changing_buoys(
+        line: orca.OrcaFlexObject,
+        positions: list,
+        buoy_set: list,
+        buoy_model: list,
+        rl_config: dict,
+        vessel: str,
+        ):
+    """
+    Description:
+        Controls how buoy's set changes...
+        Obs.: Remember each tentative (configuration) is saved in LOOPING_RESULTS
+        1st - Check if actual buoy_set is equal last tentative (buoy_model == LOOPING_RESULTS[-1])
+            If yes... That means it's equal some last tentative, what occurs as a consequence of the possible reppeated combination of buoys
+            2st - So, just try changing buoyancy reference (new_rl_config = changing_buoyancy(positions, rl_config))
+                If it works... we have new_buoys
+                If not (buoyancy > 2Tf), them...
+            If not (buoyancy > 2Tf), them...
+                3st - Check what to do consideering the two next options:
+                    3.1 - Try configurations with 3 buoys in each position (default: N_BUOYS = 2)
+                    3.2 - Try configurations with 3 positions for buoys (default: N_BUOYS = 2)
+    Parameters:
+        line: Flexible pipe
+        positions: Positions where buoys are in the model
+        buoy_set: Actual set of buoys in model
+        buoy_model: Actual configuration in model
+        rl_config: Actual (old) reference for buoy's configuration
+        vessel: Vessel's name
+    """
+
+    global N_RUN, N_BUOYS_POS
+
+    if buoy_model == LOOPING_RESULTS[-1]:       # 1st
+
+        new_rl_config = changing_buoyancy(positions, rl_config)     # 2st
+
+        if type(new_rl_config) == list:     # changing_buoyancy worked
+
+            old_selection = selection
+            selection = changing_buoys(selection, buoy_set, new_rl_config, line, vessel)
+
+            if old_selection == selection:
+                N_RUN -= 1      # do not count this iteration
+            
+    elif buoy_model != LOOPING_RESULTS[-1] or type(new_rl_config) == str:      # 3st (changing_buoyancy failed)
+
+        if len(selection) < 3:
+
+            if N_BUOYS_POS == 2:
+                
+                N_BUOYS_POS += 1        # try config. with 3 buoys / position
+
+                selection = changing_buoys(selection, buoy_set, new_rl_config, line, vessel)
+            
+            elif N_BUOYS_POS == 3:      
+                
+                N_BUOYS_POS -= 1        # try config. with 2 buoys / position
+
+                rl_config[0].append(rl_config[0][-1] + 3)
+                rl_config[1].append(100)
+                new_rl_config = rl_config       # adding one position for buoys
+
+                selection = changing_buoys(selection, buoy_set, new_rl_config, line, vessel)
+        
+        if len(selection) == 3:
+
+            if N_BUOYS_POS == 2:
+
+                N_BUOYS_POS += 1        # try config. with 3 buoys / position
+
+                selection = changing_buoys(selection, buoy_set, new_rl_config, line, vessel)
+            
+            elif N_BUOYS_POS == 3:
+
+                N_RUN = N_RUN_LIMIT + 1     # failed to find a solution
+    
+def changing_buoyancy(
+        position: list,
+        reference: list,
+        ) -> list:
+    """
+    Description:
+        Controlls how buoyancy reference changes
+        1st - Check if we need to add / reduce buoyancy
+        2st - See how many buoys, in a position, we have to add / reduce buoyancy
+        3st - Consideer add / reduce 50kg in submerged mass in the 'pointed' position
+        Obs.:   Try to make it in a way that respect the 1st and 2st buoyancy factors
+                Each buoyancy factor consideer the reason buoyancy in the pointer position and its next or previous
+                When we want to add buoyancy: BUOYANCY_FACTOR_1 - Reason between one buoy and its next
+                When we want to reduce buoyancy: BUOYANCY_FACTOR_2 - Reason between one buoy and its previous
+    Parameters:
+        position: Positions where we have buoys installed
+        reference: RL_configuration suggestion
+    """
+
+    total_buoyancy = reference[1]
+
+    if ROTATION > 0:        # we gonna add buoyancy
+
+        if len(total_buoyancy) == 1:
+            if (total := total_buoyancy[0] + BUOY_VARIATION) < BUOYANCY_LIMIT:
+                print(f"\nChanging buoyancy reference: {total_buoyancy[0]}kg, in {BUOY_VARIATION}kg")
+                total_buoyancy[0] = total
+            else: 
+                return 'fail'
+        
+        elif len(total_buoyancy) == 2:
+            if total_buoyancy[0] >= BUOYANCY_FACTOR_1 * total_buoyancy[1]:
+                if (total := total_buoyancy[1] + BUOY_VARIATION) < BUOYANCY_LIMIT:
+                    print(f"\nChanging 2st buoyancy reference: {total_buoyancy[1]}kg, in {BUOY_VARIATION}kg")
+                    total_buoyancy[1] = total
+                else:
+                    return 'fail'
+            else:
+                if (total := total_buoyancy[0] + BUOY_VARIATION) < BUOYANCY_LIMIT:
+                    print(f"\nChanging 1st buoyancy reference: {total_buoyancy[0]}kg, in {BUOY_VARIATION}kg")
+                else:
+                    return 'fail'
+        
+        elif len(total_buoyancy) == 3:
+            if total_buoyancy[0] >= BUOYANCY_FACTOR_1 * total_buoyancy[1]:
+                if total_buoyancy[1] >= BUOYANCY_FACTOR_1 * total_buoyancy[2]:
+                    if (total := total_buoyancy[2] + BUOY_VARIATION) < BUOYANCY_LIMIT:
+                        print(f"\nChanging 3st buoyancy reference: {total_buoyancy[2]}kg, in {BUOY_VARIATION}kg")
+                        total_buoyancy[2] = total
+                    else:
+                        return 'fail'
+                else:
+                    if (total := total_buoyancy[1] + BUOY_VARIATION) < BUOYANCY_LIMIT:
+                        print(f"\nChanging 2st buoyancy reference: {total_buoyancy[1]}kg, in {BUOY_VARIATION}kg")
+                        total_buoyancy[1] = total
+                    else:
+                        return 'fail'
+            else:
+                if (total := total_buoyancy[0] + BUOY_VARIATION) < BUOYANCY_LIMIT:
+                    print(f"\nChanging 1st buoyancy reference: {total_buoyancy[0]}kg, in {BUOY_VARIATION}kg")
+                    total_buoyancy[0] = total
+                else:
+                    return 'fail'
+    
+    elif ROTATION < 0:      # we gonna reduce buoyancy
+
+        if len(total_buoyancy) == 1:
+            if (total := total_buoyancy[0] - BUOY_VARIATION) > 0:
+                print(f"\nChanging buoyancy reference: {total_buoyancy[0]}kg, in {-BUOY_VARIATION}kg")
+                total_buoyancy[0] = total
+            else:
+                return 'fail'
+        
+        elif len(total_buoyancy) == 2:
+            if total_buoyancy[0] >= BUOYANCY_FACTOR_2 * total_buoyancy[1]:
+                if (total := total_buoyancy[0] - BUOY_VARIATION) > 0:
+                    print(f"\nChanging 1st buoyancy reference: {total_buoyancy[0]}kg, in {-BUOY_VARIATION}kg")
+                    total_buoyancy[0] = total
+                else:
+                    return 'fail'
+            else:
+                if (total := total_buoyancy[1] - BUOY_VARIATION) > 0:
+                    print(f"\nChanging 2st buoyancy reference: {total_buoyancy[1]}kg, in {-BUOY_VARIATION}kg")
+                    total_buoyancy[1] = total
+                else:
+                    return 'fail'
+        
+        elif len(total_buoyancy) == 3:
+            if total_buoyancy[1] >= BUOYANCY_FACTOR_2 * total_buoyancy[2]:
+                if total_buoyancy[0] >= BUOYANCY_FACTOR_2 * total_buoyancy[1]:
+                    if (total := total_buoyancy[0] - BUOY_VARIATION) > 0:
+                        print(f"\nChanging 1st buoyancy reference: {total_buoyancy[0]}kg, in {-BUOY_VARIATION}kg")
+                        total_buoyancy[0] = total
+                    else:
+                        return 'fail'
+                else:
+                    if (total := total_buoyancy[1] - BUOY_VARIATION) > 0:
+                        print(f"\nChanging 2st buoyancy reference: {total_buoyancy[1]}kg, in {-BUOY_VARIATION}kg")
+                        total_buoyancy[1] = total
+                    else:
+                        return 'fail'
+            else:
+                if (total := total_buoyancy[2] - BUOY_VARIATION) > 0:
+                    print(f"\nChangin 3st buoyancy reference: {total_buoyancy[2]}kg, in {-BUOY_VARIATION}kg")
+                    total_buoyancy[2] = total
+                else:
+                    return 'fail'
+    
+    return [position, total_buoyancy]
+
+def changing_buoys(
+        selection: dict,
+        buoy_set: list,
+        new_rl_config: list,
+        line: orca.OrcaFlexObject,
+        vessel: str,
+        ) -> dict:
+    """
+    Description:
+        Resume the work of changing buoys in model
+    Parameters:
+        selection: Old reference for changing buoys
+        buoy_set: Actual model's configuration
+        new_rl_config: New reference for configuration
+        line: Flexible pipe
+        vessel: Vessel name
+    Return
+        New selection (reference) based on new_rl_config
+    """
+
+    print(f"\nChanging selection of buoys"
+          f"\nOld selection: {list(selection.keys())} = Total buoyancy: {list(selection.values())}")
+    
+    combination_buoys = buoy_combination(buoy_set)
+    selection = buoyancy(new_rl_config, combination_buoys)
+
+    print(f"\nNew selection: {list(selection.keys())} = Total buoyancy: {list(selection.values())}")
+
+    treated_buoys = buoys_treatment(new_rl_config, selection, vessel)
+    num_buoys = number_of_buoys(treated_buoys)
+    putting_buoys_in_model(line, num_buoys, treated_buoys)
+
+    return selection
 
 # CODING ------------------------------------------------------------------
 
@@ -766,11 +1344,12 @@ line.AttachmentzRelativeTo[0] = "End B"
 # Calculatin statics - 2st time with bend restrictor
 ini_time = time.time()
 
-print(f"\nRUNNING WITH BEND RESTRICTOR")
+print(f"\nRUNNING 1st AUTOMATION'S PART")
 run_static(model, general, line, bend_restrictor, vcm, lda, vcm_coord_a, ini_time, False)
 
 # define set of buoys
 vessel_name = RESULTS_SHEET['C6'].value
+buoy_set = VESSEL_BUOYS[vessel_name]
 
 # putting buoys in line (partially)
 k = 1
@@ -783,7 +1362,7 @@ while k <= N_INCREMENT:
     ]
 
     # select the best set of buoys of combined_buoys that fits the rl_config_partial
-    selection = buoyancy(rl_config_partial, vessel_name)
+    selection = buoyancy(rl_config_partial, buoy_set)
 
     # treats selection for putting it in Orca
     treated_selection = buoys_treatment(rl_config_partial, selection, vessel_name)
@@ -796,7 +1375,26 @@ while k <= N_INCREMENT:
     # Calculatin statics - Inserting suggested buoys
     ini_time = time.time()
 
-    print(f"\nRUNNNIG AND INPUTING BUOYANCY")
+    print(f"\nINSTALLING SUGGESTED BUOY'S CONFIGURATION...")
     run_static(model, general, line, bend_restrictor, vcm, lda, vcm_coord_a, ini_time, False)
 
     k += 1
+
+if rl_config != rl_config_partial:
+    rl_config = rl_config_partial
+
+print(f"\nRUNNING 2ST AUTOMATION'S PART")
+looping(model, general, line, bend_restrictor, vcm, winch, a_r, lda, vcm_coord_a, selection, buoy_set, rl_config, vessel_name)
+
+static_end_time = time.time()
+exec_static_time = static_end_time - start_time
+
+print(f"\nAUTOMATION'S END."
+      f"\nTotal execution time: {exec_static_time:.2f}s")
+
+sys.stdout = original_stdout
+
+captured_text = buffer.getvalue()
+
+with open(RT_STATIC_PATH, 'w', encoding='utf-8') as file:
+    file.write(captured_text)

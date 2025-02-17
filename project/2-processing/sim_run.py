@@ -582,16 +582,38 @@ def verify_br_loads(bend_restrictor_model: OrcFxAPI.OrcaFlexObject, bend_restric
             print("\nBend restrictor loads reprooved!")
         return all(load_check)
 
-def looping(model_line_type: OrcFxAPI.OrcaFlexObject, selection: dict, model: OrcFxAPI.Model, bend_restrictor_model: OrcFxAPI.OrcaFlexObject, rt_number: str, vessel: str, rl_config: list, buoy_set: list, 
-            model_vcm: OrcFxAPI.OrcaFlexObject, object_line: methods.Line, object_bend_restrictor: methods.BendRestrictor, object_vcm: methods.Vcm, winch: OrcFxAPI.OrcaFlexObject, general: OrcFxAPI.OrcaFlexObject, 
-            environment: OrcFxAPI.OrcaFlexObject, file_path: str, structural: dict, a_r: OrcFxAPI.OrcaFlexObject, static_dir: str) -> None:
+def looping(
+        model_line_type: OrcFxAPI.OrcaFlexObject, 
+        selection: dict, 
+        model: OrcFxAPI.Model, 
+        bend_restrictor_model: OrcFxAPI.OrcaFlexObject, 
+        rt_number: str, 
+        vessel: str, 
+        rl_config: list, 
+        buoy_set: list, 
+        model_vcm: OrcFxAPI.OrcaFlexObject, 
+        object_line: methods.Line, 
+        object_bend_restrictor: methods.BendRestrictor, 
+        object_vcm: methods.Vcm,
+        winch: OrcFxAPI.OrcaFlexObject, 
+        general: OrcFxAPI.OrcaFlexObject, 
+        environment: OrcFxAPI.OrcaFlexObject, 
+        file_path: str, 
+        structural: dict, 
+        a_r: OrcFxAPI.OrcaFlexObject, 
+        static_dir: str) -> None:
     """
     Description:
-        This is a loop that controls all the changes in model, in each 'iteration', calling the commands in reason of the last obtained results values.
-        1st - payout/retrieve line/A&R everytime clearance (between line and seabed) is out of the range: (.5, .65)
-        2st - changes buoy positions or set of buoys everytime VCM's rotation is out of the range: (-.5, .5)
+        This is a loop that controls all the changes in model,
+        in each 'iteration', calling the commands in reason of the 
+        last obtained results values.
+        1st - payout/retrieve line/A&R everytime clearance (between 
+        line and seabed) is out of the range: (.5, .65)
+        2st - changes buoy positions or set of buoys everytime VCM's 
+        rotation is out of the range: (-.5, .5)
             The priority is to change buoys position.
-        3st - changes buoys positions or set of buoys everytime bend restrictor's loads are not available
+        3st - changes buoys positions or set of buoys everytime bend 
+        restrictor's loads are not available
         4st - adjust VCM height changing the winch length
     Parameters:
         model_line_type: Orcaflex line
@@ -686,9 +708,27 @@ def looping(model_line_type: OrcFxAPI.OrcaFlexObject, selection: dict, model: Or
                 
         else:  # change set of buoys
 
-            call_change_buoys(unique_positions, rl_config, buoy_set, model_line_type, vessel, model_vcm, object_line, model, bend_restrictor_model, 
-                              rt_number, object_bend_restrictor, object_vcm, winch, general, environment, file_path, structural, a_r, selection, 
-                              buoy_model, static_dir)
+            call_change_buoys(
+                unique_positions, 
+                rl_config, 
+                buoy_set, 
+                model_line_type, 
+                vessel, 
+                model_vcm, 
+                object_line, 
+                model, 
+                bend_restrictor_model, 
+                rt_number, 
+                object_bend_restrictor, 
+                object_vcm, 
+                winch, 
+                general, 
+                environment, 
+                file_path, 
+                structural, 
+                a_r, selection, 
+                buoy_model, 
+                static_dir)
 
 
     elif rotation < vcm_rotation_inf_limit:  # VCM inclined away of line's direction
@@ -794,9 +834,29 @@ def call_loop(model_line_type: OrcFxAPI.OrcaFlexObject, selection: dict, model: 
     user_specified(model, rt_number, file_path)
     looping(model_line_type, selection, model, bend_restrictor_model, rt_number, vessel, rl_config, buoy_set, model_vcm, object_line, object_bend_restrictor, object_vcm, winch, general, environment, file_path, structural, a_r, static_dir)
 
-def call_change_buoys(unique_positions: list, rl_config: dict, buoy_set: list, model_line_type: OrcFxAPI.OrcaFlexObject, vessel: str, model_vcm: OrcFxAPI.OrcaFlexObject, object_line: methods.Line, model: OrcFxAPI.Model,
-                      bend_restrictor_model: OrcFxAPI.OrcaFlexObject, rt_number: str, object_bend_restrictor: methods.BendRestrictor, object_vcm: methods.Vcm, winch: OrcFxAPI.OrcaFlexObject, general: OrcFxAPI.OrcaFlexObject, 
-                      environment: OrcFxAPI.OrcaFlexObject, file_path: str, structural: dict, a_r: OrcFxAPI.OrcaFlexObject, selection: dict, buoy_model: list, static_dir: str):
+def call_change_buoys(
+        unique_positions: list, 
+        rl_config: dict, 
+        buoy_set: list, 
+        model_line_type: OrcFxAPI.OrcaFlexObject, 
+        vessel: str, 
+        model_vcm: OrcFxAPI.OrcaFlexObject, 
+        object_line: methods.Line, 
+        model: OrcFxAPI.Model,
+        bend_restrictor_model: OrcFxAPI.OrcaFlexObject, 
+        rt_number: str, 
+        object_bend_restrictor: methods.BendRestrictor, 
+        object_vcm: methods.Vcm, 
+        winch: OrcFxAPI.OrcaFlexObject, 
+        general: OrcFxAPI.OrcaFlexObject, 
+        environment: OrcFxAPI.OrcaFlexObject, 
+        file_path: str, 
+        structural: dict, 
+        a_r: OrcFxAPI.OrcaFlexObject, 
+        selection: dict, 
+        buoy_model: list, 
+        static_dir: str
+        ):
     """
     Description
         Controls how buoy's set will changes...
@@ -847,7 +907,8 @@ def call_change_buoys(unique_positions: list, rl_config: dict, buoy_set: list, m
         if type(new_rl_config) == list:  # changing buoyancy worked
 
             old_selection = selection
-            selection = changing_buoys(selection, buoy_set, new_rl_config, model_line_type, vessel)
+            selection = changing_buoys(
+                selection, buoy_set, new_rl_config, model_line_type, vessel)
 
             if old_selection == selection:
                 n_run = max(n_run - 1, 0)
@@ -964,7 +1025,13 @@ def make_pointer(num_positions: float, positions: list) -> int:
     
     return pointer
 
-def change_position(line_model: OrcFxAPI.OrcaFlexObject, new_positions: list, pointer: int, num_positions: int, positions: list) -> None:
+def change_position(
+        line_model: OrcFxAPI.OrcaFlexObject, 
+        new_positions: list, 
+        pointer: int, 
+        num_positions: int, 
+        positions: list
+        ) -> None:
     """
     Description
         Changes the buoy's set position apointed by the pointer
@@ -1101,7 +1168,12 @@ def changing_buoyancy(position: list, rl_config: list) -> list:
 
     return [position, total_buoyancy]
 
-def changing_buoys(selection: dict, buoy_set: list, new_rl_config: list, line_model: OrcFxAPI.OrcaFlexObject, vessel: str) -> dict:
+def changing_buoys(
+        selection: dict,
+        buoy_set: list, 
+        new_rl_config: list, 
+        line_model: OrcFxAPI.OrcaFlexObject, 
+        vessel: str) -> dict:
     """
     Description
         Resume the work of change buoys in the model from 'new_rl_config'
