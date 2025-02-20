@@ -1,0 +1,1400 @@
+
+RUNNING 1st AUTOMATION'S PART
+
+Trying static convergence
+
+Last error: 6.636
+Last error: 178.251
+Last error: 142.607
+Last error: 114.093
+Last error: 91.283
+Last error: 73.036
+Last error: 58.438
+Last error: 46.761
+Last error: 37.42
+
+Whole system statics converged with error: 0.0
+
+Time: 17.118s
+Simulation: 1_Static.sim
+
+          Normal force: 22.875kN;
+          Shear force: 15.104kN;
+          Bend moment: 7.927kN.m;
+          
+
+Flange's loads reprooved!
+
+
+Rotation: 26.295
+Clearance: -0.061
+
+INSTALLING SUGGESTED BUOY'S CONFIGURATION...
+
+Trying static convergence
+
+
+Whole system statics converged with error: 0.0
+
+Time: 9.11s
+Simulation: 2_Static.sim
+
+          Normal force: 20.577kN;
+          Shear force: 14.657kN;
+          Bend moment: 6.519kN.m;
+          
+
+Flange's loads reprooved!
+
+
+Rotation: 24.257
+Clearance: -0.062
+
+INSTALLING SUGGESTED BUOY'S CONFIGURATION...
+
+Trying static convergence
+
+
+Whole system statics converged with error: 0.0
+
+Time: 11.899s
+Simulation: 3_Static.sim
+
+          Normal force: 17.86kN;
+          Shear force: 14.047kN;
+          Bend moment: 4.587kN.m;
+          
+
+Flange's loads reprooved!
+
+
+Rotation: 21.519
+Clearance: -0.062
+
+INSTALLING SUGGESTED BUOY'S CONFIGURATION...
+
+Trying static convergence
+
+
+Whole system statics converged with error: 0.0
+
+Time: 13.969s
+Simulation: 4_Static.sim
+
+          Normal force: 14.316kN;
+          Shear force: 13.173kN;
+          Bend moment: 1.211kN.m;
+          
+
+Flange's loads reprooved!
+
+
+Rotation: 17.062
+Clearance: -0.064
+
+INSTALLING SUGGESTED BUOY'S CONFIGURATION...
+
+Trying static convergence
+
+
+Whole system statics converged with error: 0.0
+
+Time: 18.956s
+Simulation: 5_Static.sim
+
+          Normal force: 9.943kN;
+          Shear force: 11.916kN;
+          Bend moment: 4.985kN.m;
+          
+
+Flange's loads reprooved!
+
+
+Rotation: 9.493
+Clearance: -0.076
+
+INSTALLING SUGGESTED BUOY'S CONFIGURATION...
+
+Trying static convergence
+
+
+Whole system statics converged with error: 0.0
+
+Time: 10.343s
+Simulation: 6_Static.sim
+
+          Normal force: 6.514kN;
+          Shear force: 10.339kN;
+          Bend moment: 11.117kN.m;
+          
+
+Flange's loads aprooved!
+
+
+Rotation: 1.809
+Clearance: -0.086
+
+RUNNING 2ST AUTOMATION'S PART
+
+Retrieving out 0.5m of line,
+from 2311.001m to 2310.501m
+
+Trying static convergence
+
+
+Error code: 29
+Operation was cancelled
+
+ERROR
+Removing line x soil interation.
+
+Trying static convergence
+
+
+Error code: 29
+Operation was cancelled
+
+ERROR
+Removing VCM's rotational degrees of freedom
+
+Trying static convergence
+
+
+Error code: 29
+Operation was cancelled
+
+ERROR
+Increasing 5 times the Static Damping Range
+
+Trying static convergence
+
+
+Error code: 29
+Operation was cancelled
+
+ERROR
+Displacing VCM
+
+Trying static convergence
+
+
+Error code: 29
+Operation was cancelled
+
+ERROR
+Changing Line's Static policy to Catenary.
+
+Trying static convergence
+
+
+Whole system statics converged with error: 0.0
+
+Time: 7.265s
+Simulation: 6_Static.sim
+
+          Normal force: 7.638kN;
+          Shear force: 11.936kN;
+          Bend moment: 0.319kN.m;
+          
+
+Flange's loads reprooved!
+
+
+Rotation: 1.809
+Clearance: -2.672
+
+Retrieving out 0.5m of line,
+from 2310.501m to 2310.001m
+
+Trying static convergence
+
+
+Whole system statics converged with error: 0.0
+
+Time: 2.403s
+Simulation: 6_Static.sim
+
+          Normal force: 6.582kN;
+          Shear force: 10.344kN;
+          Bend moment: 10.968kN.m;
+          
+
+Flange's loads aprooved!
+
+
+Rotation: 1.961
+Clearance: -0.087
+
+Retrieving out 0.5m of line,
+from 2310.001m to 2309.501m
+
+Trying static convergence
+
+
+Whole system statics converged with error: 0.0
+
+Time: 2.575s
+Simulation: 6_Static.sim
+
+          Normal force: 6.635kN;
+          Shear force: 10.351kN;
+          Bend moment: 10.834kN.m;
+          
+
+Flange's loads aprooved!
+
+
+Rotation: 2.1
+Clearance: -0.086
+
+Retrieving out 0.5m of line,
+from 2309.501m to 2309.001m
+
+Trying static convergence
+
+
+Whole system statics converged with error: 0.0
+
+Time: 2.49s
+Simulation: 6_Static.sim
+
+          Normal force: 6.703kN;
+          Shear force: 10.362kN;
+          Bend moment: 10.658kN.m;
+          
+
+Flange's loads aprooved!
+
+
+Rotation: 2.285
+Clearance: -0.083
+
+Retrieving out 0.5m of line,
+from 2309.001m to 2308.501m
+
+Trying static convergence
+
+
+Whole system statics converged with error: 0.0
+
+Time: 2.657s
+Simulation: 6_Static.sim
+
+          Normal force: 6.788kN;
+          Shear force: 10.377kN;
+          Bend moment: 10.434kN.m;
+          
+
+Flange's loads aprooved!
+
+
+Rotation: 2.522
+Clearance: -0.079
+
+Retrieving out 0.5m of line,
+from 2308.501m to 2308.001m
+
+Trying static convergence
+
+
+Whole system statics converged with error: 0.0
+
+Time: 3.072s
+Simulation: 6_Static.sim
+
+          Normal force: 6.893kN;
+          Shear force: 10.399kN;
+          Bend moment: 10.158kN.m;
+          
+
+Flange's loads aprooved!
+
+
+Rotation: 2.815
+Clearance: -0.073
+
+Retrieving out 0.5m of line,
+from 2308.001m to 2307.501m
+
+Trying static convergence
+
+
+Whole system statics converged with error: 0.0
+
+Time: 2.672s
+Simulation: 6_Static.sim
+
+          Normal force: 7.018kN;
+          Shear force: 10.427kN;
+          Bend moment: 9.828kN.m;
+          
+
+Flange's loads reprooved!
+
+
+Rotation: 3.169
+Clearance: -0.066
+
+Retrieving out 0.5m of line,
+from 2307.501m to 2307.001m
+
+Trying static convergence
+
+
+Whole system statics converged with error: 0.0
+
+Time: 2.584s
+Simulation: 6_Static.sim
+
+          Normal force: 7.168kN;
+          Shear force: 10.463kN;
+          Bend moment: 9.438kN.m;
+          
+
+Flange's loads reprooved!
+
+
+Rotation: 3.59
+Clearance: -0.055
+
+Retrieving out 0.5m of line,
+from 2307.001m to 2306.501m
+
+Trying static convergence
+
+
+Whole system statics converged with error: 0.0
+
+Time: 2.618s
+Simulation: 6_Static.sim
+
+          Normal force: 7.342kN;
+          Shear force: 10.507kN;
+          Bend moment: 8.995kN.m;
+          
+
+Flange's loads reprooved!
+
+
+Rotation: 4.072
+Clearance: -0.041
+
+Retrieving out 0.5m of line,
+from 2306.501m to 2306.001m
+
+Trying static convergence
+
+
+Whole system statics converged with error: 0.0
+
+Time: 2.437s
+Simulation: 6_Static.sim
+
+          Normal force: 7.541kN;
+          Shear force: 10.561kN;
+          Bend moment: 8.506kN.m;
+          
+
+Flange's loads reprooved!
+
+
+Rotation: 4.609
+Clearance: -0.021
+
+Retrieving out 0.5m of line,
+from 2306.001m to 2305.501m
+
+Trying static convergence
+
+
+Whole system statics converged with error: 0.0
+
+Time: 2.433s
+Simulation: 6_Static.sim
+
+          Normal force: 7.58kN;
+          Shear force: 10.599kN;
+          Bend moment: 8.531kN.m;
+          
+
+Flange's loads reprooved!
+
+
+Rotation: 4.624
+Clearance: 0.136
+
+Retrieving out 0.2m of line,
+from 2305.501m to 2305.301m
+
+Trying static convergence
+
+
+Whole system statics converged with error: 0.0
+
+Time: 2.785s
+Simulation: 6_Static.sim
+
+          Normal force: 7.516kN;
+          Shear force: 10.604kN;
+          Bend moment: 8.785kN.m;
+          
+
+Flange's loads reprooved!
+
+
+Rotation: 4.379
+Clearance: 0.256
+
+Retrieving out 0.2m of line,
+from 2305.301m to 2305.101m
+
+Trying static convergence
+
+
+Whole system statics converged with error: 0.0
+
+Time: 2.659s
+Simulation: 6_Static.sim
+
+          Normal force: 7.453kN;
+          Shear force: 10.609kN;
+          Bend moment: 9.04kN.m;
+          
+
+Flange's loads reprooved!
+
+
+Rotation: 4.133
+Clearance: 0.374
+
+Retrieving out 0.2m of line,
+from 2305.101m to 2304.901m
+
+Trying static convergence
+
+
+Whole system statics converged with error: 0.0
+
+Time: 2.663s
+Simulation: 6_Static.sim
+
+          Normal force: 7.389kN;
+          Shear force: 10.613kN;
+          Bend moment: 9.297kN.m;
+          
+
+Flange's loads reprooved!
+
+
+Rotation: 3.885
+Clearance: 0.492
+
+Retrieving out 0.05m of line,
+from 2304.901m to 2304.851m
+
+Trying static convergence
+
+
+Whole system statics converged with error: 0.0
+
+Time: 2.17s
+Simulation: 6_Static.sim
+
+          Normal force: 7.373kN;
+          Shear force: 10.614kN;
+          Bend moment: 9.361kN.m;
+          
+
+Flange's loads reprooved!
+
+
+Rotation: 3.822
+Clearance: 0.522
+
+Changing 2st buoyancy reference: 1000kg, in 50kg
+
+Changing selection of buoys
+Old selection: ['973+828', '573+283'] = Total buoyancy: [1801, 856]
+
+New selection: ['973+828', '573+573'] = Total buoyancy: [1801, 1146]
+
+Trying static convergence
+
+
+Whole system statics converged with error: 0.0
+
+Time: 26.406s
+Simulation: 7_Static.sim
+
+          Normal force: 4.871kN;
+          Shear force: 9.74kN;
+          Bend moment: 16.774kN.m;
+          
+
+Flange's loads reprooved!
+
+Vert - Shear force: 10.694
+Vert - Bend moment: 2.393
+
+Vert's loads aprooved!
+
+Rotation: -4.379
+Clearance: 1.524
+
+Paying out 0.5m of line,
+from 2304.851m to 2305.351m
+
+Trying static convergence
+
+
+Whole system statics converged with error: 0.0
+
+Time: 1.574s
+Simulation: 7_Static.sim
+
+          Normal force: 5.001kN;
+          Shear force: 9.752kN;
+          Bend moment: 16.182kN.m;
+          
+
+Flange's loads reprooved!
+
+Vert - Shear force: 9.493
+Vert - Bend moment: 1.913
+
+Vert's loads aprooved!
+
+Rotation: -3.782
+Clearance: 1.21
+
+Paying out 0.5m of line,
+from 2305.351m to 2305.851m
+
+Trying static convergence
+
+
+Whole system statics converged with error: 0.0
+
+Time: 1.661s
+Simulation: 7_Static.sim
+
+          Normal force: 5.131kN;
+          Shear force: 9.762kN;
+          Bend moment: 15.598kN.m;
+          
+
+Flange's loads reprooved!
+
+Vert - Shear force: 7.132
+Vert - Bend moment: 1.439
+
+Vert's loads aprooved!
+
+Rotation: -3.194
+Clearance: 0.889
+
+Paying out 0.5m of line,
+from 2305.851m to 2306.351m
+
+Trying static convergence
+
+
+Whole system statics converged with error: 0.0
+
+Time: 1.61s
+Simulation: 7_Static.sim
+
+          Normal force: 5.262kN;
+          Shear force: 9.772kN;
+          Bend moment: 15.012kN.m;
+          
+
+Flange's loads reprooved!
+
+Vert - Shear force: 4.76
+Vert - Bend moment: 0.963
+
+Vert's loads aprooved!
+
+Rotation: -2.606
+Clearance: 0.564
+
+Changing 2st buoyancy reference: 1050kg, in -50kg
+
+Changing selection of buoys
+Old selection: ['973+828', '573+573'] = Total buoyancy: [1801, 1146]
+
+New selection: ['973+828', '573+283'] = Total buoyancy: [1801, 856]
+
+Trying static convergence
+
+
+Whole system statics converged with error: 0.0
+
+Time: 23.15s
+Simulation: 8_Static.sim
+
+          Normal force: 7.399kN;
+          Shear force: 10.522kN;
+          Bend moment: 8.853kN.m;
+          
+
+Flange's loads reprooved!
+
+
+Rotation: 4.227
+Clearance: -0.036
+
+Retrieving out 0.5m of line,
+from 2306.351m to 2305.851m
+
+Trying static convergence
+
+
+Whole system statics converged with error: 0.0
+
+Time: 2.317s
+Simulation: 8_Static.sim
+
+          Normal force: 7.604kN;
+          Shear force: 10.579kN;
+          Bend moment: 8.356kN.m;
+          
+
+Flange's loads reprooved!
+
+
+Rotation: 4.776
+Clearance: -0.012
+
+Retrieving out 0.5m of line,
+from 2305.851m to 2305.351m
+
+Trying static convergence
+
+
+Whole system statics converged with error: 0.0
+
+Time: 2.92s
+Simulation: 8_Static.sim
+
+          Normal force: 7.532kN;
+          Shear force: 10.603kN;
+          Bend moment: 8.721kN.m;
+          
+
+Flange's loads reprooved!
+
+
+Rotation: 4.441
+Clearance: 0.226
+
+Retrieving out 0.2m of line,
+from 2305.351m to 2305.151m
+
+Trying static convergence
+
+
+Whole system statics converged with error: 0.0
+
+Time: 2.956s
+Simulation: 8_Static.sim
+
+          Normal force: 7.469kN;
+          Shear force: 10.607kN;
+          Bend moment: 8.976kN.m;
+          
+
+Flange's loads reprooved!
+
+
+Rotation: 4.195
+Clearance: 0.345
+
+Retrieving out 0.2m of line,
+from 2305.151m to 2304.951m
+
+Trying static convergence
+
+
+Whole system statics converged with error: 0.0
+
+Time: 3.169s
+Simulation: 8_Static.sim
+
+          Normal force: 7.405kN;
+          Shear force: 10.612kN;
+          Bend moment: 9.233kN.m;
+          
+
+Flange's loads reprooved!
+
+
+Rotation: 3.947
+Clearance: 0.463
+
+Retrieving out 0.05m of line,
+from 2304.951m to 2304.901m
+
+Trying static convergence
+
+
+Whole system statics converged with error: 0.0
+
+Time: 2.296s
+Simulation: 8_Static.sim
+
+          Normal force: 7.389kN;
+          Shear force: 10.613kN;
+          Bend moment: 9.297kN.m;
+          
+
+Flange's loads reprooved!
+
+
+Rotation: 3.885
+Clearance: 0.492
+
+Retrieving out 0.05m of line,
+from 2304.901m to 2304.851m
+
+Trying static convergence
+
+
+Whole system statics converged with error: 0.0
+
+Time: 2.136s
+Simulation: 8_Static.sim
+
+          Normal force: 7.373kN;
+          Shear force: 10.614kN;
+          Bend moment: 9.361kN.m;
+          
+
+Flange's loads reprooved!
+
+
+Rotation: 3.822
+Clearance: 0.522
+
+Changing selection of buoys
+Old selection: ['973+828', '573+283'] = Total buoyancy: [1801, 856]
+
+New selection: ['973+828', '573+283+118'] = Total buoyancy: [1801, 974]
+
+Trying static convergence
+
+
+Whole system statics converged with error: 0.0
+
+Time: 14.95s
+Simulation: 9_Static.sim
+
+          Normal force: 6.347kN;
+          Shear force: 10.305kN;
+          Bend moment: 12.237kN.m;
+          
+
+Flange's loads aprooved!
+
+
+Rotation: 0.675
+Clearance: 0.913
+
+Paying out 0.5m of line,
+from 2304.851m to 2305.351m
+
+Trying static convergence
+
+
+Whole system statics converged with error: 0.0
+
+Time: 1.643s
+Simulation: 9_Static.sim
+
+          Normal force: 6.493kN;
+          Shear force: 10.302kN;
+          Bend moment: 11.619kN.m;
+          
+
+Flange's loads aprooved!
+
+
+Rotation: 1.28
+Clearance: 0.609
+
+Paying out 0.5m of line,
+from 2305.351m to 2305.851m
+
+Trying static convergence
+
+
+Whole system statics converged with error: 0.0
+
+Time: 1.681s
+Simulation: 9_Static.sim
+
+          Normal force: 6.639kN;
+          Shear force: 10.298kN;
+          Bend moment: 11.005kN.m;
+          
+
+Flange's loads aprooved!
+
+
+Rotation: 1.88
+Clearance: 0.298
+
+Retrieving out 0.2m of line,
+from 2305.851m to 2305.651m
+
+Trying static convergence
+
+
+Whole system statics converged with error: 0.0
+
+Time: 2.64s
+Simulation: 9_Static.sim
+
+          Normal force: 6.581kN;
+          Shear force: 10.3kN;
+          Bend moment: 11.25kN.m;
+          
+
+Flange's loads aprooved!
+
+
+Rotation: 1.64
+Clearance: 0.424
+
+Retrieving out 0.05m of line,
+from 2305.651m to 2305.601m
+
+Trying static convergence
+
+
+Whole system statics converged with error: 0.0
+
+Time: 2.142s
+Simulation: 9_Static.sim
+
+          Normal force: 6.566kN;
+          Shear force: 10.3kN;
+          Bend moment: 11.312kN.m;
+          
+
+Flange's loads aprooved!
+
+
+Rotation: 1.58
+Clearance: 0.454
+
+Retrieving out 0.05m of line,
+from 2305.601m to 2305.551m
+
+Trying static convergence
+
+
+Whole system statics converged with error: 0.0
+
+Time: 2.166s
+Simulation: 9_Static.sim
+
+          Normal force: 6.551kN;
+          Shear force: 10.301kN;
+          Bend moment: 11.374kN.m;
+          
+
+Flange's loads aprooved!
+
+
+Rotation: 1.52
+Clearance: 0.485
+
+Retrieving out 0.05m of line,
+from 2305.551m to 2305.501m
+
+Trying static convergence
+
+
+Whole system statics converged with error: 0.0
+
+Time: 2.257s
+Simulation: 9_Static.sim
+
+          Normal force: 6.537kN;
+          Shear force: 10.301kN;
+          Bend moment: 11.435kN.m;
+          
+
+Flange's loads aprooved!
+
+
+Rotation: 1.46
+Clearance: 0.516
+
+Changing 2st buoyancy reference: 1000kg, in 50kg
+
+Changing selection of buoys
+Old selection: ['973+828', '573+283+118'] = Total buoyancy: [1801, 974]
+
+New selection: ['973+828', '573+283+118'] = Total buoyancy: [1801, 974]
+
+Trying static convergence
+
+
+Whole system statics converged with error: 0.0
+
+Time: 0.116s
+Simulation: 9_Static.sim
+
+          Normal force: 6.537kN;
+          Shear force: 10.301kN;
+          Bend moment: 11.435kN.m;
+          
+
+Flange's loads aprooved!
+
+
+Rotation: 1.46
+Clearance: 0.516
+
+Changing 2st buoyancy reference: 1050kg, in 50kg
+
+Changing selection of buoys
+Old selection: ['973+828', '573+283+118'] = Total buoyancy: [1801, 974]
+
+New selection: ['973+828', '573+573'] = Total buoyancy: [1801, 1146]
+
+Trying static convergence
+
+
+Whole system statics converged with error: 0.0
+
+Time: 20.334s
+Simulation: 10_Static.sim
+
+          Normal force: 5.04kN;
+          Shear force: 9.755kN;
+          Bend moment: 16.007kN.m;
+          
+
+Flange's loads reprooved!
+
+Vert - Shear force: 8.786
+Vert - Bend moment: 1.771
+
+Vert's loads aprooved!
+
+Rotation: -3.605
+Clearance: 1.114
+
+Paying out 0.5m of line,
+from 2305.501m to 2306.001m
+
+Trying static convergence
+
+
+Whole system statics converged with error: 0.0
+
+Time: 1.594s
+Simulation: 10_Static.sim
+
+          Normal force: 5.17kN;
+          Shear force: 9.765kN;
+          Bend moment: 15.422kN.m;
+          
+
+Flange's loads reprooved!
+
+Vert - Shear force: 6.42
+Vert - Bend moment: 1.296
+
+Vert's loads aprooved!
+
+Rotation: -3.018
+Clearance: 0.793
+
+Paying out 0.5m of line,
+from 2306.001m to 2306.501m
+
+Trying static convergence
+
+
+Whole system statics converged with error: 0.0
+
+Time: 1.639s
+Simulation: 10_Static.sim
+
+          Normal force: 5.301kN;
+          Shear force: 9.774kN;
+          Bend moment: 14.836kN.m;
+          
+
+Flange's loads reprooved!
+
+Vert - Shear force: 4.048
+Vert - Bend moment: 0.821
+
+Vert's loads aprooved!
+
+Rotation: -2.43
+Clearance: 0.467
+
+Retrieving out 0.05m of line,
+from 2306.501m to 2306.451m
+
+Trying static convergence
+
+
+Whole system statics converged with error: 0.0
+
+Time: 2.156s
+Simulation: 10_Static.sim
+
+          Normal force: 5.288kN;
+          Shear force: 9.774kN;
+          Bend moment: 14.894kN.m;
+          
+
+Flange's loads reprooved!
+
+Vert - Shear force: 4.286
+Vert - Bend moment: 0.868
+
+Vert's loads aprooved!
+
+Rotation: -2.489
+Clearance: 0.499
+
+Retrieving out 0.05m of line,
+from 2306.451m to 2306.401m
+
+Trying static convergence
+
+
+Whole system statics converged with error: 0.0
+
+Time: 2.167s
+Simulation: 10_Static.sim
+
+          Normal force: 5.275kN;
+          Shear force: 9.773kN;
+          Bend moment: 14.953kN.m;
+          
+
+Flange's loads reprooved!
+
+Vert - Shear force: 4.523
+Vert - Bend moment: 0.916
+
+Vert's loads aprooved!
+
+Rotation: -2.548
+Clearance: 0.532
+
+Changing selection of buoys
+Old selection: ['973+828', '573+573'] = Total buoyancy: [1801, 1146]
+
+New selection: ['973+828', '573+573', '118'] = Total buoyancy: [1801, 1146, 118]
+
+Changing selection of buoys
+Old selection: ['973+828', '573+573', '118'] = Total buoyancy: [1801, 1146, 118]
+
+New selection: ['973+828', '573+573', '118'] = Total buoyancy: [1801, 1146, 118]
+
+Trying static convergence
+
+
+Whole system statics converged with error: 0.0
+
+Time: 3.594s
+Simulation: 11_Static.sim
+
+          Normal force: 4.455kN;
+          Shear force: 9.512kN;
+          Bend moment: 17.927kN.m;
+          
+
+Flange's loads reprooved!
+
+Vert - Shear force: 11.146
+Vert - Bend moment: 2.935
+
+Vert's loads aprooved!
+
+Rotation: -5.757
+Clearance: 1.141
+
+Paying out 0.5m of line,
+from 2306.401m to 2306.901m
+
+Trying static convergence
+
+
+Whole system statics converged with error: 0.0
+
+Time: 1.602s
+Simulation: 11_Static.sim
+
+          Normal force: 4.571kN;
+          Shear force: 9.526kN;
+          Bend moment: 17.384kN.m;
+          
+
+Flange's loads reprooved!
+
+Vert - Shear force: 11.046
+Vert - Bend moment: 2.497
+
+Vert's loads aprooved!
+
+Rotation: -5.205
+Clearance: 0.807
+
+Paying out 0.5m of line,
+from 2306.901m to 2307.401m
+
+Trying static convergence
+
+
+Whole system statics converged with error: 0.0
+
+Time: 1.616s
+Simulation: 11_Static.sim
+
+          Normal force: 4.688kN;
+          Shear force: 9.539kN;
+          Bend moment: 16.843kN.m;
+          
+
+Flange's loads reprooved!
+
+Vert - Shear force: 10.227
+Vert - Bend moment: 2.06
+
+Vert's loads aprooved!
+
+Rotation: -4.655
+Clearance: 0.469
+
+Retrieving out 0.05m of line,
+from 2307.401m to 2307.351m
+
+Trying static convergence
+
+
+Whole system statics converged with error: 0.0
+
+Time: 2.178s
+Simulation: 11_Static.sim
+
+          Normal force: 4.677kN;
+          Shear force: 9.538kN;
+          Bend moment: 16.896kN.m;
+          
+
+Flange's loads reprooved!
+
+Vert - Shear force: 10.441
+Vert - Bend moment: 2.103
+
+Vert's loads aprooved!
+
+Rotation: -4.709
+Clearance: 0.503
+
+Changing 2st buoyancy reference: 1100kg, in -50kg
+
+Changing selection of buoys
+Old selection: ['973+828', '573+573', '118'] = Total buoyancy: [1801, 1146, 118]
+
+New selection: ['973+828', '573+283+118', '118'] = Total buoyancy: [1801, 974, 118]
+
+Trying static convergence
+
+
+Whole system statics converged with error: 0.0
+
+Time: 4.772s
+Simulation: 12_Static.sim
+
+          Normal force: 6.145kN;
+          Shear force: 10.107kN;
+          Bend moment: 12.241kN.m;
+          
+
+Flange's loads aprooved!
+
+
+Rotation: 0.466
+Clearance: -0.014
+
+Retrieving out 0.5m of line,
+from 2307.351m to 2306.851m
+
+Trying static convergence
+
+
+Whole system statics converged with error: 0.0
+
+Time: 2.464s
+Simulation: 12_Static.sim
+
+          Normal force: 6.105kN;
+          Shear force: 10.123kN;
+          Bend moment: 12.49kN.m;
+          
+
+Flange's loads aprooved!
+
+
+Rotation: 0.239
+Clearance: 0.229
+
+Retrieving out 0.2m of line,
+from 2306.851m to 2306.651m
+
+Trying static convergence
+
+
+Whole system statics converged with error: 0.0
+Crazy convergence. Need to redefine
+
+Whole system statics converged with error: 0.0
+
+Time: 4.461s
+Simulation: 12_Static.sim
+
+          Normal force: 6.054kN;
+          Shear force: 10.124kN;
+          Bend moment: 12.712kN.m;
+          
+
+Flange's loads aprooved!
+
+
+Rotation: 0.022
+Clearance: 0.359
+
+Retrieving out 0.2m of line,
+from 2306.651m to 2306.451m
+
+Trying static convergence
+
+
+Whole system statics converged with error: 0.0
+Crazy convergence. Need to redefine
+
+Whole system statics converged with error: 0.0
+
+Time: 4.104s
+Simulation: 12_Static.sim
+
+          Normal force: 6.003kN;
+          Shear force: 10.125kN;
+          Bend moment: 12.932kN.m;
+          
+
+Flange's loads aprooved!
+
+
+Rotation: -0.195
+Clearance: 0.489
+
+Retrieving out 0.05m of line,
+from 2306.451m to 2306.401m
+
+Trying static convergence
+
+
+Whole system statics converged with error: 0.0
+Crazy convergence. Need to redefine
+
+Whole system statics converged with error: 0.0
+
+Time: 4.682s
+Simulation: 12_Static.sim
+
+          Normal force: 5.991kN;
+          Shear force: 10.125kN;
+          Bend moment: 12.988kN.m;
+          
+
+Flange's loads aprooved!
+
+
+Rotation: -0.25
+Clearance: 0.522
+
+Retrieving -0.012m from the winch,from 2296.69 to 2296.678.
+
+Trying static convergence
+
+
+Error code: 29
+Operation was cancelled
+
+ERROR
+Removing line x soil interation.
+
+Trying static convergence
+
+
+Error code: 29
+Operation was cancelled
+
+ERROR
+Removing VCM's rotational degrees of freedom
+
+Trying static convergence
+
+
+Error code: 29
+Operation was cancelled
+
+ERROR
+Increasing 5 times the Static Damping Range
+
+Trying static convergence
+
+
+Error code: 29
+Operation was cancelled
+
+ERROR
+Displacing VCM
+
+Trying static convergence
+
+
+Error code: 29
+Operation was cancelled
+
+ERROR
+Changing Line's Static policy to Catenary.
+
+Trying static convergence
+
+
+Whole system statics converged with error: 0.0
+Crazy convergence. Need to redefine
+
+Whole system statics converged with error: 0.0
+
+Time: 9.86s
+Simulation: 13_Static.sim
+
+          Normal force: 5.99kN;
+          Shear force: 10.123kN;
+          Bend moment: 13.003kN.m;
+          
+
+Flange's loads aprooved!
+
+
+Rotation: -0.25
+Clearance: 0.516
+
+AUTOMATION'S END.
+Total execution time: 306.73s
