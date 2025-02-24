@@ -1,0 +1,1528 @@
+
+RUNNING 1st AUTOMATION'S PART
+
+Trying static convergence
+Last error: 116.722
+Last error: 116.722
+Last error: 93.363
+Last error: 93.363
+Last error: 73.368
+Last error: 73.368
+Last error: 65.252
+Last error: 65.252
+Last error: 48.304
+Last error: 48.304
+Last error: 87.247
+Last error: 87.247
+Last error: 40.843
+Last error: 40.843
+Last error: 34.764
+Last error: 34.764
+Last error: 30.01
+Last error: 30.01
+
+Whole system statics converged with error: 0.0
+
+Time: 20.657s
+Simulation: 1_Static.sim
+
+Rotation: 21.477
+Clearance: 0.144
+
+INSTALLING SUGGESTED BUOY'S CONFIGURATION...
+
+Trying static convergence
+Last error: 0.002
+Last error: 0.002
+Last error: 0.002
+Last error: 0.002
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.0
+Last error: 0.0
+Last error: 0.0
+Last error: 0.0
+
+Whole system statics converged with error: 0.0
+
+Time: 2.848s
+Simulation: 2_Static.sim
+
+Rotation: 20.644
+Clearance: 0.251
+
+INSTALLING SUGGESTED BUOY'S CONFIGURATION...
+
+Trying static convergence
+Last error: 0.002
+Last error: 0.002
+Last error: 0.002
+Last error: 0.002
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.0
+Last error: 0.0
+Last error: 0.0
+Last error: 0.0
+
+Whole system statics converged with error: 0.0
+
+Time: 3.078s
+Simulation: 3_Static.sim
+
+Rotation: 18.913
+Clearance: 0.485
+
+INSTALLING SUGGESTED BUOY'S CONFIGURATION...
+
+Trying static convergence
+Last error: 0.002
+Last error: 0.002
+Last error: 0.002
+Last error: 0.002
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.0
+Last error: 0.0
+Last error: 0.0
+Last error: 0.0
+
+Whole system statics converged with error: 0.0
+
+Time: 9.5s
+Simulation: 4_Static.sim
+
+Rotation: 15.275
+Clearance: 0.727
+
+INSTALLING SUGGESTED BUOY'S CONFIGURATION...
+
+Trying static convergence
+Last error: 0.002
+Last error: 0.002
+Last error: 0.565
+Last error: 0.565
+Last error: 0.443
+Last error: 0.443
+Last error: 0.53
+Last error: 0.53
+Last error: 0.425
+Last error: 0.425
+Last error: 2.485
+Last error: 2.485
+Last error: 1.988
+Last error: 1.988
+Last error: 1.307
+Last error: 1.307
+Last error: 1.182
+Last error: 1.182
+
+Whole system statics converged with error: 0.0
+
+Time: 27.642s
+Simulation: 5_Static.sim
+
+Rotation: 5.283
+Clearance: 1.702
+
+INSTALLING SUGGESTED BUOY'S CONFIGURATION...
+
+Trying static convergence
+Last error: 0.002
+Last error: 0.002
+Last error: 0.002
+Last error: 0.002
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 1.076
+Last error: 1.076
+Last error: 0.861
+Last error: 0.861
+Last error: 0.689
+Last error: 0.689
+Last error: 0.551
+Last error: 0.551
+Last error: 1.58
+Last error: 1.58
+
+Whole system statics converged with error: 0.0
+
+Time: 34.567s
+Simulation: 6_Static.sim
+
+Rotation: -6.031
+Clearance: 2.826
+
+RUNNING 2ST AUTOMATION'S PART
+
+Paying out 0.5m of A/R cable,
+from 1400.0m to 1400.5m
+
+Trying static convergence
+Last error: 0.063
+Last error: 0.063
+Last error: 0.051
+Last error: 0.051
+Last error: 0.041
+Last error: 0.041
+Last error: 0.032
+Last error: 0.032
+Last error: 0.026
+Last error: 0.026
+Last error: 0.021
+Last error: 0.021
+Last error: 0.017
+Last error: 0.017
+Last error: 0.013
+Last error: 0.013
+Last error: 0.011
+Last error: 0.011
+
+Whole system statics converged with error: 0.0
+
+Time: 2.339s
+Simulation: 6_Static.sim
+
+Rotation: -5.046
+Clearance: 2.231
+
+Paying out 0.5m of A/R cable,
+from 1400.5m to 1401.0m
+
+Trying static convergence
+Last error: 0.063
+Last error: 0.063
+Last error: 0.051
+Last error: 0.051
+Last error: 0.041
+Last error: 0.041
+Last error: 0.032
+Last error: 0.032
+Last error: 0.026
+Last error: 0.026
+Last error: 0.021
+Last error: 0.021
+Last error: 0.017
+Last error: 0.017
+Last error: 0.013
+Last error: 0.013
+Last error: 0.011
+Last error: 0.011
+
+Whole system statics converged with error: 0.0
+
+Time: 1.903s
+Simulation: 6_Static.sim
+
+Rotation: -4.094
+Clearance: 2.082
+
+Paying out 0.5m of A/R cable,
+from 1401.0m to 1401.5m
+
+Trying static convergence
+Last error: 0.063
+Last error: 0.063
+Last error: 0.051
+Last error: 0.051
+Last error: 0.041
+Last error: 0.041
+Last error: 0.032
+Last error: 0.032
+Last error: 0.026
+Last error: 0.026
+Last error: 0.021
+Last error: 0.021
+Last error: 0.017
+Last error: 0.017
+Last error: 0.013
+Last error: 0.013
+Last error: 0.011
+Last error: 0.011
+
+Whole system statics converged with error: 0.0
+
+Time: 1.854s
+Simulation: 6_Static.sim
+
+Rotation: -3.187
+Clearance: 1.903
+
+Paying out 0.5m of A/R cable,
+from 1401.5m to 1402.0m
+
+Trying static convergence
+Last error: 0.063
+Last error: 0.063
+Last error: 0.051
+Last error: 0.051
+Last error: 0.041
+Last error: 0.041
+Last error: 0.032
+Last error: 0.032
+Last error: 0.026
+Last error: 0.026
+Last error: 0.021
+Last error: 0.021
+Last error: 0.017
+Last error: 0.017
+Last error: 0.013
+Last error: 0.013
+Last error: 0.011
+Last error: 0.011
+
+Whole system statics converged with error: 0.0
+
+Time: 1.739s
+Simulation: 6_Static.sim
+
+Rotation: -2.311
+Clearance: 1.717
+
+Paying out 0.5m of A/R cable,
+from 1402.0m to 1402.5m
+
+Trying static convergence
+Last error: 0.063
+Last error: 0.063
+Last error: 0.051
+Last error: 0.051
+Last error: 0.041
+Last error: 0.041
+Last error: 0.032
+Last error: 0.032
+Last error: 0.026
+Last error: 0.026
+Last error: 0.021
+Last error: 0.021
+Last error: 0.017
+Last error: 0.017
+Last error: 0.013
+Last error: 0.013
+Last error: 0.011
+Last error: 0.011
+
+Whole system statics converged with error: 0.0
+
+Time: 1.859s
+Simulation: 6_Static.sim
+
+Rotation: -1.455
+Clearance: 1.53
+
+Paying out 0.5m of A/R cable,
+from 1402.5m to 1403.0m
+
+Trying static convergence
+Last error: 0.063
+Last error: 0.063
+Last error: 0.051
+Last error: 0.051
+Last error: 0.04
+Last error: 0.04
+Last error: 0.032
+Last error: 0.032
+Last error: 0.026
+Last error: 0.026
+Last error: 0.021
+Last error: 0.021
+Last error: 0.017
+Last error: 0.017
+Last error: 0.013
+Last error: 0.013
+Last error: 0.011
+Last error: 0.011
+
+Whole system statics converged with error: 0.0
+
+Time: 1.693s
+Simulation: 6_Static.sim
+
+Rotation: -0.613
+Clearance: 1.347
+
+Paying out 0.5m of A/R cable,
+from 1403.0m to 1403.5m
+
+Trying static convergence
+Last error: 0.063
+Last error: 0.063
+Last error: 0.051
+Last error: 0.051
+Last error: 0.04
+Last error: 0.04
+Last error: 0.032
+Last error: 0.032
+Last error: 0.026
+Last error: 0.026
+Last error: 0.021
+Last error: 0.021
+Last error: 0.017
+Last error: 0.017
+Last error: 0.013
+Last error: 0.013
+Last error: 0.011
+Last error: 0.011
+
+Whole system statics converged with error: 0.0
+
+Time: 1.69s
+Simulation: 6_Static.sim
+
+Rotation: 0.21
+Clearance: 1.166
+
+Paying out 0.5m of A/R cable,
+from 1403.5m to 1404.0m
+
+Trying static convergence
+Last error: 0.063
+Last error: 0.063
+Last error: 0.051
+Last error: 0.051
+Last error: 0.04
+Last error: 0.04
+Last error: 0.032
+Last error: 0.032
+Last error: 0.026
+Last error: 0.026
+Last error: 0.021
+Last error: 0.021
+Last error: 0.017
+Last error: 0.017
+Last error: 0.013
+Last error: 0.013
+Last error: 0.011
+Last error: 0.011
+
+Whole system statics converged with error: 0.0
+
+Time: 1.759s
+Simulation: 6_Static.sim
+
+Rotation: 1.016
+Clearance: 0.979
+
+Paying out 0.5m of A/R cable,
+from 1404.0m to 1404.5m
+
+Trying static convergence
+Last error: 0.063
+Last error: 0.063
+Last error: 0.051
+Last error: 0.051
+Last error: 0.04
+Last error: 0.04
+Last error: 0.032
+Last error: 0.032
+Last error: 0.026
+Last error: 0.026
+Last error: 0.021
+Last error: 0.021
+Last error: 0.017
+Last error: 0.017
+Last error: 0.013
+Last error: 0.013
+Last error: 0.011
+Last error: 0.011
+
+Whole system statics converged with error: 0.0
+
+Time: 1.784s
+Simulation: 6_Static.sim
+
+Rotation: 1.819
+Clearance: 0.776
+
+Paying out 0.5m of A/R cable,
+from 1404.5m to 1405.0m
+
+Trying static convergence
+Last error: 0.063
+Last error: 0.063
+Last error: 0.051
+Last error: 0.051
+Last error: 0.04
+Last error: 0.04
+Last error: 0.032
+Last error: 0.032
+Last error: 0.026
+Last error: 0.026
+Last error: 0.021
+Last error: 0.021
+Last error: 0.017
+Last error: 0.017
+Last error: 0.013
+Last error: 0.013
+Last error: 0.011
+Last error: 0.011
+
+Whole system statics converged with error: 0.0
+
+Time: 1.765s
+Simulation: 6_Static.sim
+
+Rotation: 2.605
+Clearance: 0.557
+
+Changing 1st buoyancy reference: 1800kg, in +50kg
+
+Changing selection of buoys
+Old selection: ['1376+381', '660+647', '377+155'] = Total buoyancy: [1757, 1307, 532]
+New selection: ['985+871', '660+647', '381+377'] = Total buoyancy: [1856, 1307, 758]
+
+Trying static convergence
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+
+Whole system statics converged with error: 0.0
+
+Time: 22.214s
+Simulation: 7_Static.sim
+
+Rotation: -4.662
+Clearance: 1.462
+
+Paying out 0.5m of A/R cable,
+from 1405.0m to 1405.5m
+
+Trying static convergence
+Last error: 0.063
+Last error: 0.063
+Last error: 0.051
+Last error: 0.051
+Last error: 0.04
+Last error: 0.04
+Last error: 0.032
+Last error: 0.032
+Last error: 0.026
+Last error: 0.026
+Last error: 0.021
+Last error: 0.021
+Last error: 0.017
+Last error: 0.017
+Last error: 0.013
+Last error: 0.013
+Last error: 0.011
+Last error: 0.011
+
+Whole system statics converged with error: 0.0
+
+Time: 1.791s
+Simulation: 7_Static.sim
+
+Rotation: -3.908
+Clearance: 1.313
+
+Paying out 0.5m of A/R cable,
+from 1405.5m to 1406.0m
+
+Trying static convergence
+Last error: 0.063
+Last error: 0.063
+Last error: 0.051
+Last error: 0.051
+Last error: 0.04
+Last error: 0.04
+Last error: 0.032
+Last error: 0.032
+Last error: 0.026
+Last error: 0.026
+Last error: 0.021
+Last error: 0.021
+Last error: 0.017
+Last error: 0.017
+Last error: 0.013
+Last error: 0.013
+Last error: 0.011
+Last error: 0.011
+
+Whole system statics converged with error: 0.0
+
+Time: 1.77s
+Simulation: 7_Static.sim
+
+Rotation: -3.159
+Clearance: 0.984
+
+Paying out 0.5m of A/R cable,
+from 1406.0m to 1406.5m
+
+Trying static convergence
+Last error: 0.063
+Last error: 0.063
+Last error: 0.05
+Last error: 0.05
+Last error: 0.04
+Last error: 0.04
+Last error: 0.032
+Last error: 0.032
+Last error: 0.026
+Last error: 0.026
+Last error: 0.021
+Last error: 0.021
+Last error: 0.017
+Last error: 0.017
+Last error: 0.013
+Last error: 0.013
+Last error: 0.011
+Last error: 0.011
+
+Whole system statics converged with error: 0.0
+
+Time: 1.735s
+Simulation: 7_Static.sim
+
+Rotation: -2.407
+Clearance: 0.648
+
+Paying out 0.5m of A/R cable,
+from 1406.5m to 1407.0m
+
+Trying static convergence
+Last error: 0.063
+Last error: 0.063
+Last error: 0.05
+Last error: 0.05
+Last error: 0.04
+Last error: 0.04
+Last error: 0.032
+Last error: 0.032
+Last error: 0.026
+Last error: 0.026
+Last error: 0.021
+Last error: 0.021
+Last error: 0.017
+Last error: 0.017
+Last error: 0.013
+Last error: 0.013
+Last error: 0.011
+Last error: 0.011
+
+Whole system statics converged with error: 0.0
+
+Time: 1.676s
+Simulation: 7_Static.sim
+
+Rotation: -1.655
+Clearance: 0.308
+
+Retrieving out 0.2m of A/R cable,
+from 1407.0m to 1406.8m
+
+Trying static convergence
+Last error: 0.025
+Last error: 0.025
+Last error: 0.02
+Last error: 0.02
+Last error: 0.016
+Last error: 0.016
+Last error: 0.013
+Last error: 0.013
+Last error: 0.01
+Last error: 0.01
+Last error: 0.008
+Last error: 0.008
+Last error: 0.007
+Last error: 0.007
+Last error: 0.005
+Last error: 0.005
+Last error: 0.004
+Last error: 0.004
+
+Whole system statics converged with error: 0.0
+
+Time: 3.125s
+Simulation: 7_Static.sim
+
+Rotation: -1.955
+Clearance: 0.445
+
+Retrieving out 0.05m of A/R cable,
+from 1406.8m to 1406.75m
+
+Trying static convergence
+Last error: 0.006
+Last error: 0.006
+Last error: 0.005
+Last error: 0.005
+Last error: 0.004
+Last error: 0.004
+Last error: 0.003
+Last error: 0.003
+Last error: 0.003
+Last error: 0.003
+Last error: 0.002
+Last error: 0.002
+Last error: 0.002
+Last error: 0.002
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+
+Whole system statics converged with error: 0.0
+
+Time: 2.595s
+Simulation: 7_Static.sim
+
+Rotation: -2.03
+Clearance: 0.479
+
+Retrieving out 0.05m of A/R cable,
+from 1406.75m to 1406.7m
+
+Trying static convergence
+Last error: 0.006
+Last error: 0.006
+Last error: 0.005
+Last error: 0.005
+Last error: 0.004
+Last error: 0.004
+Last error: 0.003
+Last error: 0.003
+Last error: 0.003
+Last error: 0.003
+Last error: 0.002
+Last error: 0.002
+Last error: 0.002
+Last error: 0.002
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+
+Whole system statics converged with error: 0.0
+
+Time: 2.593s
+Simulation: 7_Static.sim
+
+Rotation: -2.106
+Clearance: 0.512
+
+Changin 3st buoyancy reference: 700kg, in +-50kg
+
+Changing selection of buoys
+Old selection: ['985+871', '660+647', '381+377'] = Total buoyancy: [1856, 1307, 758]
+New selection: ['985+871', '660+647', '381+377'] = Total buoyancy: [1856, 1307, 758]
+
+Trying static convergence
+Last error: 0.0
+Last error: 0.0
+Last error: 0.0
+
+Whole system statics converged with error: 0.0
+Last error: 0.0
+
+Time: 0.118s
+Simulation: 7_Static.sim
+
+Rotation: -2.106
+Clearance: 0.512
+
+Changing 2st buoyancy reference: 1300kg, in +-50kg
+
+Changing selection of buoys
+Old selection: ['985+871', '660+647', '381+377'] = Total buoyancy: [1856, 1307, 758]
+New selection: ['985+871', '660+647', '381+377'] = Total buoyancy: [1856, 1307, 758]
+
+Trying static convergence
+Last error: 0.0
+Last error: 0.0
+Last error: 0.0
+
+Whole system statics converged with error: 0.0
+Last error: 0.0
+
+Time: 0.121s
+Simulation: 7_Static.sim
+
+Rotation: -2.106
+Clearance: 0.512
+
+Changin 3st buoyancy reference: 650kg, in +-50kg
+
+Changing selection of buoys
+Old selection: ['985+871', '660+647', '381+377'] = Total buoyancy: [1856, 1307, 758]
+New selection: ['985+871', '660+647', '381+155'] = Total buoyancy: [1856, 1307, 536]
+
+Trying static convergence
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+
+Whole system statics converged with error: 0.0
+
+Time: 7.364s
+Simulation: 8_Static.sim
+
+Rotation: 2.013
+Clearance: -0.029
+
+Retrieving out 0.5m of A/R cable,
+from 1406.7m to 1406.2m
+
+Trying static convergence
+Last error: 0.063
+Last error: 0.063
+Last error: 0.05
+Last error: 0.05
+Last error: 0.04
+Last error: 0.04
+Last error: 0.032
+Last error: 0.032
+Last error: 0.026
+Last error: 0.026
+Last error: 0.021
+Last error: 0.021
+Last error: 0.017
+Last error: 0.017
+Last error: 0.013
+Last error: 0.013
+Last error: 0.011
+Last error: 0.011
+
+Whole system statics converged with error: 0.0
+
+Time: 2.887s
+Simulation: 8_Static.sim
+
+Rotation: 2.382
+Clearance: 0.07
+
+Retrieving out 0.2m of A/R cable,
+from 1406.2m to 1406.0m
+
+Trying static convergence
+Last error: 0.025
+Last error: 0.025
+Last error: 0.02
+Last error: 0.02
+Last error: 0.016
+Last error: 0.016
+Last error: 0.013
+Last error: 0.013
+Last error: 0.01
+Last error: 0.01
+Last error: 0.008
+Last error: 0.008
+Last error: 0.007
+Last error: 0.007
+Last error: 0.005
+Last error: 0.005
+Last error: 0.004
+Last error: 0.004
+
+Whole system statics converged with error: 0.0
+
+Time: 3.174s
+Simulation: 8_Static.sim
+
+Rotation: 2.067
+Clearance: 0.196
+
+Retrieving out 0.2m of A/R cable,
+from 1406.0m to 1405.8m
+
+Trying static convergence
+Last error: 0.025
+Last error: 0.025
+Last error: 0.02
+Last error: 0.02
+Last error: 0.016
+Last error: 0.016
+Last error: 0.013
+Last error: 0.013
+Last error: 0.01
+Last error: 0.01
+Last error: 0.008
+Last error: 0.008
+Last error: 0.007
+Last error: 0.007
+Last error: 0.005
+Last error: 0.005
+Last error: 0.004
+Last error: 0.004
+
+Whole system statics converged with error: 0.0
+
+Time: 3.07s
+Simulation: 8_Static.sim
+
+Rotation: 1.751
+Clearance: 0.323
+
+Retrieving out 0.2m of A/R cable,
+from 1405.8m to 1405.6m
+
+Trying static convergence
+Last error: 0.025
+Last error: 0.025
+Last error: 0.02
+Last error: 0.02
+Last error: 0.016
+Last error: 0.016
+Last error: 0.013
+Last error: 0.013
+Last error: 0.01
+Last error: 0.01
+Last error: 0.008
+Last error: 0.008
+Last error: 0.007
+Last error: 0.007
+Last error: 0.005
+Last error: 0.005
+Last error: 0.004
+Last error: 0.004
+
+Whole system statics converged with error: 0.0
+
+Time: 3.029s
+Simulation: 8_Static.sim
+
+Rotation: 1.434
+Clearance: 0.439
+
+Retrieving out 0.05m of A/R cable,
+from 1405.6m to 1405.55m
+
+Trying static convergence
+Last error: 0.006
+Last error: 0.006
+Last error: 0.005
+Last error: 0.005
+Last error: 0.004
+Last error: 0.004
+Last error: 0.003
+Last error: 0.003
+Last error: 0.003
+Last error: 0.003
+Last error: 0.002
+Last error: 0.002
+Last error: 0.002
+Last error: 0.002
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+
+Whole system statics converged with error: 0.0
+
+Time: 2.469s
+Simulation: 8_Static.sim
+
+Rotation: 1.356
+Clearance: 0.461
+
+Retrieving out 0.05m of A/R cable,
+from 1405.55m to 1405.5m
+
+Trying static convergence
+Last error: 0.006
+Last error: 0.006
+Last error: 0.005
+Last error: 0.005
+Last error: 0.004
+Last error: 0.004
+Last error: 0.003
+Last error: 0.003
+Last error: 0.003
+Last error: 0.003
+Last error: 0.002
+Last error: 0.002
+Last error: 0.002
+Last error: 0.002
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+
+Whole system statics converged with error: 0.0
+
+Time: 2.636s
+Simulation: 8_Static.sim
+
+Rotation: 1.277
+Clearance: 0.486
+
+Retrieving out 0.05m of A/R cable,
+from 1405.5m to 1405.45m
+
+Trying static convergence
+Last error: 0.006
+Last error: 0.006
+Last error: 0.005
+Last error: 0.005
+Last error: 0.004
+Last error: 0.004
+Last error: 0.003
+Last error: 0.003
+Last error: 0.003
+Last error: 0.003
+Last error: 0.002
+Last error: 0.002
+Last error: 0.002
+Last error: 0.002
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+
+Whole system statics converged with error: 0.0
+
+Time: 2.585s
+Simulation: 8_Static.sim
+
+Rotation: 1.198
+Clearance: 0.511
+
+Changing 1st buoyancy reference: 1850kg, in +50kg
+
+Changing selection of buoys
+Old selection: ['985+871', '660+647', '381+155'] = Total buoyancy: [1856, 1307, 536]
+New selection: ['985+871', '660+647', '381+155'] = Total buoyancy: [1856, 1307, 536]
+
+Trying static convergence
+Last error: 0.0
+Last error: 0.0
+Last error: 0.0
+
+Whole system statics converged with error: 0.0
+Last error: 0.0
+
+Time: 0.139s
+Simulation: 8_Static.sim
+
+Rotation: 1.198
+Clearance: 0.51
+
+Changing 3st buoyancy reference: 600kg, in +50kg
+
+Changing selection of buoys
+Old selection: ['985+871', '660+647', '381+155'] = Total buoyancy: [1856, 1307, 536]
+New selection: ['985+871', '660+647', '381+377'] = Total buoyancy: [1856, 1307, 758]
+
+Trying static convergence
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+
+Whole system statics converged with error: 0.0
+
+Time: 10.018s
+Simulation: 9_Static.sim
+
+Rotation: -3.983
+Clearance: 1.284
+
+Paying out 0.5m of A/R cable,
+from 1405.45m to 1405.95m
+
+Trying static convergence
+Last error: 0.063
+Last error: 0.063
+Last error: 0.051
+Last error: 0.051
+Last error: 0.04
+Last error: 0.04
+Last error: 0.032
+Last error: 0.032
+Last error: 0.026
+Last error: 0.026
+Last error: 0.021
+Last error: 0.021
+Last error: 0.017
+Last error: 0.017
+Last error: 0.013
+Last error: 0.013
+Last error: 0.011
+Last error: 0.011
+
+Whole system statics converged with error: 0.0
+
+Time: 1.707s
+Simulation: 9_Static.sim
+
+Rotation: -3.234
+Clearance: 1.017
+
+Paying out 0.5m of A/R cable,
+from 1405.95m to 1406.45m
+
+Trying static convergence
+Last error: 0.063
+Last error: 0.063
+Last error: 0.05
+Last error: 0.05
+Last error: 0.04
+Last error: 0.04
+Last error: 0.032
+Last error: 0.032
+Last error: 0.026
+Last error: 0.026
+Last error: 0.021
+Last error: 0.021
+Last error: 0.017
+Last error: 0.017
+Last error: 0.013
+Last error: 0.013
+Last error: 0.011
+Last error: 0.011
+
+Whole system statics converged with error: 0.0
+
+Time: 1.638s
+Simulation: 9_Static.sim
+
+Rotation: -2.482
+Clearance: 0.682
+
+Paying out 0.5m of A/R cable,
+from 1406.45m to 1406.95m
+
+Trying static convergence
+Last error: 0.063
+Last error: 0.063
+Last error: 0.05
+Last error: 0.05
+Last error: 0.04
+Last error: 0.04
+Last error: 0.032
+Last error: 0.032
+Last error: 0.026
+Last error: 0.026
+Last error: 0.021
+Last error: 0.021
+Last error: 0.017
+Last error: 0.017
+Last error: 0.013
+Last error: 0.013
+Last error: 0.011
+Last error: 0.011
+
+Whole system statics converged with error: 0.0
+
+Time: 1.746s
+Simulation: 9_Static.sim
+
+Rotation: -1.73
+Clearance: 0.342
+
+Retrieving out 0.2m of A/R cable,
+from 1406.95m to 1406.75m
+
+Trying static convergence
+Last error: 0.025
+Last error: 0.025
+Last error: 0.02
+Last error: 0.02
+Last error: 0.016
+Last error: 0.016
+Last error: 0.013
+Last error: 0.013
+Last error: 0.01
+Last error: 0.01
+Last error: 0.008
+Last error: 0.008
+Last error: 0.007
+Last error: 0.007
+Last error: 0.005
+Last error: 0.005
+Last error: 0.004
+Last error: 0.004
+
+Whole system statics converged with error: 0.0
+
+Time: 3.041s
+Simulation: 9_Static.sim
+
+Rotation: -2.03
+Clearance: 0.479
+
+Retrieving out 0.05m of A/R cable,
+from 1406.75m to 1406.7m
+
+Trying static convergence
+Last error: 0.006
+Last error: 0.006
+Last error: 0.005
+Last error: 0.005
+Last error: 0.004
+Last error: 0.004
+Last error: 0.003
+Last error: 0.003
+Last error: 0.003
+Last error: 0.003
+Last error: 0.002
+Last error: 0.002
+Last error: 0.002
+Last error: 0.002
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+
+Whole system statics converged with error: 0.0
+
+Time: 2.586s
+Simulation: 9_Static.sim
+
+Rotation: -2.106
+Clearance: 0.512
+
+Changing selection of buoys
+Old selection: ['985+871', '660+647', '381+377'] = Total buoyancy: [1856, 1307, 758]
+New selection: ['1376+381+104', '871+377', '647'] = Total buoyancy: [1861, 1248, 647]
+
+Trying static convergence
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+
+Whole system statics converged with error: 0.0
+
+Time: 19.228s
+Simulation: 10_Static.sim
+
+Rotation: 2.013
+Clearance: -0.004
+
+Retrieving out 0.5m of A/R cable,
+from 1406.7m to 1406.2m
+
+Trying static convergence
+Last error: 0.063
+Last error: 0.063
+Last error: 0.05
+Last error: 0.05
+Last error: 0.04
+Last error: 0.04
+Last error: 0.032
+Last error: 0.032
+Last error: 0.026
+Last error: 0.026
+Last error: 0.021
+Last error: 0.021
+Last error: 0.017
+Last error: 0.017
+Last error: 0.013
+Last error: 0.013
+Last error: 0.011
+Last error: 0.011
+
+Whole system statics converged with error: 0.0
+
+Time: 1.788s
+Simulation: 10_Static.sim
+
+Rotation: 1.32
+Clearance: 0.307
+
+Retrieving out 0.2m of A/R cable,
+from 1406.2m to 1406.0m
+
+Trying static convergence
+Last error: 0.025
+Last error: 0.025
+Last error: 0.02
+Last error: 0.02
+Last error: 0.016
+Last error: 0.016
+Last error: 0.013
+Last error: 0.013
+Last error: 0.01
+Last error: 0.01
+Last error: 0.008
+Last error: 0.008
+Last error: 0.007
+Last error: 0.007
+Last error: 0.005
+Last error: 0.005
+Last error: 0.004
+Last error: 0.004
+
+Whole system statics converged with error: 0.0
+
+Time: 3.138s
+Simulation: 10_Static.sim
+
+Rotation: 1.019
+Clearance: 0.435
+
+Retrieving out 0.05m of A/R cable,
+from 1406.0m to 1405.95m
+
+Trying static convergence
+Last error: 0.006
+Last error: 0.006
+Last error: 0.005
+Last error: 0.005
+Last error: 0.004
+Last error: 0.004
+Last error: 0.003
+Last error: 0.003
+Last error: 0.003
+Last error: 0.003
+Last error: 0.002
+Last error: 0.002
+Last error: 0.002
+Last error: 0.002
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+
+Whole system statics converged with error: 0.0
+
+Time: 2.554s
+Simulation: 10_Static.sim
+
+Rotation: 0.943
+Clearance: 0.467
+
+Retrieving out 0.05m of A/R cable,
+from 1405.95m to 1405.9m
+
+Trying static convergence
+Last error: 0.006
+Last error: 0.006
+Last error: 0.005
+Last error: 0.005
+Last error: 0.004
+Last error: 0.004
+Last error: 0.003
+Last error: 0.003
+Last error: 0.003
+Last error: 0.003
+Last error: 0.002
+Last error: 0.002
+Last error: 0.002
+Last error: 0.002
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+
+Whole system statics converged with error: 0.0
+
+Time: 2.657s
+Simulation: 10_Static.sim
+
+Rotation: 0.868
+Clearance: 0.499
+
+Retrieving out 0.05m of A/R cable,
+from 1405.9m to 1405.85m
+
+Trying static convergence
+Last error: 0.006
+Last error: 0.006
+Last error: 0.005
+Last error: 0.005
+Last error: 0.004
+Last error: 0.004
+Last error: 0.003
+Last error: 0.003
+Last error: 0.003
+Last error: 0.003
+Last error: 0.002
+Last error: 0.002
+Last error: 0.002
+Last error: 0.002
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+Last error: 0.001
+
+Whole system statics converged with error: 0.0
+
+Time: 2.572s
+Simulation: 10_Static.sim
+
+Rotation: 0.792
+Clearance: 0.531
+
+Changing 3st buoyancy reference: 650kg, in +50kg
+
+Changing selection of buoys
+Old selection: ['1376+381+104', '871+377', '647'] = Total buoyancy: [1861, 1248, 647]
+New selection: ['1376+381+104', '871+377', '660'] = Total buoyancy: [1861, 1248, 660]
+
+Trying static convergence
+Last error: 0.0
+Last error: 0.0
+Last error: 0.0
+Last error: 0.0
+Last error: 0.0
+Last error: 0.0
+Last error: 0.0
+Last error: 0.0
+Last error: 0.0
+Last error: 0.0
+Last error: 0.0
+Last error: 0.0
+Last error: 0.0
+Last error: 0.0
+Last error: 0.0
+Last error: 0.0
+Last error: 0.0
+Last error: 0.0
+
+Whole system statics converged with error: 0.0
+
+Time: 3.815s
+Simulation: 11_Static.sim
+
+Rotation: 0.491
+Clearance: 0.577
+
+Retrieving -0.001m from the winch,from 2235.69 to 2235.689.
+
+Trying static convergence
+Last error: 0.0
+Last error: 0.0
+Last error: 0.038
+Last error: 0.038
+Last error: 297100.0
+Last error: 297100.0
+Last error: 237600.0
+Last error: 237600.0
+Last error: 190100.0
+Last error: 190100.0
+Last error: 152100.0
+Last error: 152100.0
+Last error: 121700.0
+Last error: 121700.0
+Last error: 97340.0
+Last error: 97340.0
+Last error: 77870.0
+Last error: 77870.0
+
+Convergence failed.
+
+Error code: 29
+Operation was cancelled
+
+Trying static convergence
+
+Whole system statics converged with error: 0.0
+
+Time: 12.591s
+Simulation: 12_Static.sim
+
+Rotation: 0.489
+Clearance: 0.577
+
+Trying static convergence
+Last error: 0.0
+Last error: 0.0
+Last error: 0.0
+
+Whole system statics converged with error: 0.0
+Last error: 0.0
+
+          Normal force: 5.813kN;
+          Shear force: 9.506kN;
+          Bend moment: 11.589kN.m;
+          
+
+Flange's loads aprooved!
+
+
+Vert isn't locked
+
+Time: 0.12s
+Simulation: 12_Static.sim
+
+Rotation: 0.489
+Clearance: 0.577
+
+AUTOMATION'S END.
+Total execution time: 271.51s
